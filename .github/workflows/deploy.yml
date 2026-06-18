@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Deploy by FTPS dry run
+      - name: Deploy by FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -26,4 +26,3 @@ jobs:
           local-dir: ./site/
           server-dir: ${{ secrets.SERVER_DIR }}
           log-level: minimal
-          dry-run: true
