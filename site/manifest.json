@@ -1,0 +1,510 @@
+{
+  "generated_at_jst": "2026-05-20",
+  "package_type": "public integrated package v5.7 - bulletproof inline header",
+  "article_02_url": "/article/understanding-defense-action/",
+  "limitations": [
+    "Article 02 full body text is not fully embedded in this v1 structure package.",
+    "Chapter pages contain summary/key lines/source notes for design and navigation check.",
+    "Use Notion intermediate manuscript pages as source for full-text insertion in the next step."
+  ],
+  "source_pages": {
+    "0-2": "https://www.notion.so/361aef033142819698decf1213e3f7c5",
+    "3-5": "https://www.notion.so/361aef0331428169aa16ea4c6e7b613f",
+    "6-8": "https://www.notion.so/361aef033142817aa6c8c886627ab9b4",
+    "9-10": "https://www.notion.so/361aef033142811d9d67d1678fdbbf2d",
+    "11-12": "https://www.notion.so/362aef03314281fa803ae43142cbb62f",
+    "bibliography": "https://www.notion.so/365aef03314281f2ba5ee5f0cab3f439"
+  },
+  "files": [
+    "README.md",
+    "article/bibliography.html",
+    "article/chapter-01.html",
+    "article/chapter-02.html",
+    "article/chapter-03.html",
+    "article/chapter-04.html",
+    "article/chapter-05.html",
+    "article/chapter-06.html",
+    "article/chapter-07.html",
+    "article/chapter-08.html",
+    "article/chapter-09.html",
+    "article/chapter-10.html",
+    "article/chapter-11.html",
+    "article/chapter-12.html",
+    "article/chapter-13.html",
+    "article/chapter-14.html",
+    "article/chapter-15.html",
+    "article/chapter-16.html",
+    "article/index.html",
+    "article/state-change/bibliography.html",
+    "article/state-change/chapter-01.html",
+    "article/state-change/chapter-02.html",
+    "article/state-change/chapter-03.html",
+    "article/state-change/chapter-04.html",
+    "article/state-change/chapter-05.html",
+    "article/state-change/chapter-06.html",
+    "article/state-change/chapter-07.html",
+    "article/state-change/chapter-08.html",
+    "article/state-change/chapter-09.html",
+    "article/state-change/chapter-10.html",
+    "article/state-change/chapter-11.html",
+    "article/state-change/chapter-12.html",
+    "article/state-change/chapter-13.html",
+    "article/state-change/chapter-14.html",
+    "article/state-change/chapter-15.html",
+    "article/state-change/chapter-16.html",
+    "article/state-change/index.html",
+    "article/state-change.html",
+    "article/understanding-defense-action/bibliography.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/index.html",
+    "assets/favicon.svg",
+    "assets/og.svg",
+    "assets/style.css",
+    "assets/style.v5-6.css",
+    "assets/style_article1.css",
+    "assets/style_article1.v5-6.css",
+    "downloads/.gitkeep",
+    "downloads/genai-ron_01_state-change_2026-05-20.pdf",
+    "downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf",
+    "index.html",
+    "manifest.json",
+    "notes/themes.html",
+    "robots.txt",
+    "sitemap.xml"
+  ],
+  "changes_v1_1": [
+    "Top page button text unified to 読む: 論考①を読む / 論考②を読む.",
+    "Header navigation simplified to 論考一覧 only."
+  ],
+  "changes_v1_2": [
+    "Header brand display changed to the current site logo image.",
+    "Current logo image added as assets/site-logo.png.",
+    "Header navigation remains 論考一覧 only.",
+    "Top page buttons remain unified as 論考①を読む / 論考②を読む."
+  ],
+  "changes_v1_3": [
+    "Header brand display reverted to text logo, not image.",
+    "Removed assets/site-logo.png from the package.",
+    "Text logo styled as a two-line current-site-like brand display.",
+    "Header navigation remains 論考一覧 only.",
+    "Top page buttons remain unified as 論考①を読む / 論考②を読む."
+  ],
+  "changes_v1_4": [
+    "Global font stack changed from Gothic/sans-serif to Mincho/serif.",
+    "Header text logo remains text-based, not image-based.",
+    "Typography letter-spacing adjusted slightly for Mincho readability.",
+    "Header navigation remains 論考一覧 only.",
+    "Top page buttons remain unified as 論考①を読む / 論考②を読む."
+  ],
+  "changes_v1_5": [
+    "Top page hero GENAI-RON text size reduced.",
+    "Hero paragraph width and letter-spacing adjusted to avoid awkward wrapping.",
+    "Global Mincho typography retained but letter-spacing reduced slightly.",
+    "Header remains text logo, not image.",
+    "No image logo is used."
+  ],
+  "changes_v1_6": [
+    "Hero body text max-width restriction removed.",
+    "Hero paragraphs now use the card width naturally instead of appearing left-biased.",
+    "Mincho typography and smaller GENAI-RON hero title retained.",
+    "Header remains text logo, not image.",
+    "No image logo is used."
+  ],
+  "changes_v1_7": [
+    "Added a stronger CSS override for top-page hero GENAI-RON title size.",
+    "Hero GENAI-RON max size reduced to 2.25rem.",
+    "Hero Japanese subtitle inside h1 reduced to 0.82em.",
+    "Hero text width alignment fix from v1.6 retained.",
+    "Header remains text logo, not image."
+  ],
+  "changes_v1_8": [
+    "Footer aligned to the same max-width and horizontal padding as the main content area.",
+    "Footer no longer sticks to the far left edge of the viewport.",
+    "Footer package generation text updated to 2026-05-20 JST.",
+    "Hero title size reduction from v1.7 retained.",
+    "Header remains text logo, not image."
+  ],
+  "changes_v1_9": [
+    "Top page hero title split into hero-en and hero-ja spans.",
+    "Only GENAI-RON text is reduced in the hero.",
+    "Japanese hero title 🧠生成AI論🥦 restored to the larger original-like size.",
+    "Footer alignment fix from v1.8 retained.",
+    "Header remains text logo, not image."
+  ],
+  "article_02_pdf": "downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf",
+  "article_02_public_date": "2026-05-20",
+  "changes_v2": [
+    "Article 02 full text inserted into all chapter HTML pages.",
+    "Bibliography full text inserted.",
+    "Article 02 PDF generated and included in downloads/.",
+    "Article 02 PDF links enabled on home, article index, and article 02 top page.",
+    "Final UI adjustments from v1.9 retained."
+  ],
+  "package_root": "genai-ron_public_v2_2026-05-20",
+  "changes_v2_1": [
+    "Added left-side chapter table of contents to long article pages.",
+    "Article 02 pages include a sticky left sidebar with current chapter highlighting.",
+    "Article 01 pages in the package also receive the sidebar when present.",
+    "Mobile view uses a collapsible table of contents above the text.",
+    "PDF files unchanged from v2."
+  ],
+  "sidebar_applied_files": [
+    "article/understanding-defense-action/index.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/bibliography.html"
+  ],
+  "changes_v2_2": [
+    "Wrapped article page content in article-content container.",
+    "Sidebar and article content now occupy separate grid columns in the same row.",
+    "Fixed large blank space above article body caused by sidebar height affecting grid row height.",
+    "Left chapter menu retained.",
+    "PDF files unchanged from v2."
+  ],
+  "files_changed_v2_2": [
+    "article/understanding-defense-action/index.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/bibliography.html"
+  ],
+  "changes_v3": [
+    "Imported 論考① full HTML pages from genai_ron_production_v7_taku.zip.",
+    "Added left side chapter menu to 論考① pages.",
+    "Kept 論考② full pages and left side menu from v2.2.",
+    "Added 論考① top page as article/state-change.html to avoid conflicting with article/index.html list page.",
+    "Updated top page and article list links to 論考①.",
+    "Added article1-specific stylesheet assets/style_article1.css."
+  ],
+  "article1_files_changed": [
+    "article/state-change.html",
+    "article/chapter-01.html",
+    "article/chapter-02.html",
+    "article/chapter-03.html",
+    "article/chapter-04.html",
+    "article/chapter-05.html",
+    "article/chapter-06.html",
+    "article/chapter-07.html",
+    "article/chapter-08.html",
+    "article/chapter-09.html",
+    "article/chapter-10.html",
+    "article/chapter-11.html",
+    "article/chapter-12.html",
+    "article/chapter-13.html",
+    "article/chapter-14.html",
+    "article/chapter-15.html",
+    "article/chapter-16.html",
+    "article/bibliography.html"
+  ],
+  "changes_v3_1": [
+    "Removed internal scrollbar from 論考① left side menu.",
+    "Made 論考① side menu items slightly more compact.",
+    "論考② sidebar and PDFs unchanged."
+  ],
+  "changes_v4": [
+    "Unified top-page read button colors for 論考① and 論考②.",
+    "Narrowed web reader width for both 論考① and 論考②.",
+    "Added downloadable PDF for 論考①.",
+    "Rebuilt both PDFs in Mincho-style typography with Abstract and two-column body layout.",
+    "Updated PDF download links."
+  ],
+  "changes_v4_2": [
+    "Rebuilt 論考② PDF with a clearly redesigned layout.",
+    "Added dark vertical cover band, Abstract block, Contents page, running headers, and two-column body.",
+    "Used Japanese Mincho CID font.",
+    "Kept HTML package contents from v4.1 except replacing the article 02 PDF."
+  ],
+  "changes_v5": [
+    "Moved 論考① HTML pages into article/state-change/ folder.",
+    "Added redirect pages at old 論考① article/chapter-xx.html paths to avoid breaking old URLs.",
+    "Updated top page, article list, and sitemap links to article/state-change/.",
+    "Reviewed Notion design memo and aligned 論考② color handling with article-understanding-defense-action class.",
+    "Kept top page neutral and article 02 card in greige tone.",
+    "Kept Article 2 redesigned PDF from v4.2."
+  ],
+  "article1_moved": [
+    [
+      "state-change.html",
+      "state-change/index.html"
+    ],
+    [
+      "chapter-01.html",
+      "state-change/chapter-01.html"
+    ],
+    [
+      "chapter-02.html",
+      "state-change/chapter-02.html"
+    ],
+    [
+      "chapter-03.html",
+      "state-change/chapter-03.html"
+    ],
+    [
+      "chapter-04.html",
+      "state-change/chapter-04.html"
+    ],
+    [
+      "chapter-05.html",
+      "state-change/chapter-05.html"
+    ],
+    [
+      "chapter-06.html",
+      "state-change/chapter-06.html"
+    ],
+    [
+      "chapter-07.html",
+      "state-change/chapter-07.html"
+    ],
+    [
+      "chapter-08.html",
+      "state-change/chapter-08.html"
+    ],
+    [
+      "chapter-09.html",
+      "state-change/chapter-09.html"
+    ],
+    [
+      "chapter-10.html",
+      "state-change/chapter-10.html"
+    ],
+    [
+      "chapter-11.html",
+      "state-change/chapter-11.html"
+    ],
+    [
+      "chapter-12.html",
+      "state-change/chapter-12.html"
+    ],
+    [
+      "chapter-13.html",
+      "state-change/chapter-13.html"
+    ],
+    [
+      "chapter-14.html",
+      "state-change/chapter-14.html"
+    ],
+    [
+      "chapter-15.html",
+      "state-change/chapter-15.html"
+    ],
+    [
+      "chapter-16.html",
+      "state-change/chapter-16.html"
+    ],
+    [
+      "bibliography.html",
+      "state-change/bibliography.html"
+    ]
+  ],
+  "redirect_pages": [
+    "article/state-change.html",
+    "article/chapter-01.html",
+    "article/chapter-02.html",
+    "article/chapter-03.html",
+    "article/chapter-04.html",
+    "article/chapter-05.html",
+    "article/chapter-06.html",
+    "article/chapter-07.html",
+    "article/chapter-08.html",
+    "article/chapter-09.html",
+    "article/chapter-10.html",
+    "article/chapter-11.html",
+    "article/chapter-12.html",
+    "article/chapter-13.html",
+    "article/chapter-14.html",
+    "article/chapter-15.html",
+    "article/chapter-16.html",
+    "article/bibliography.html"
+  ],
+  "verification_v5": "OK",
+  "changes_v5_1": [
+    "Rebuilt 論考① and 論考② PDFs with an embedded TrueType Ming/Mincho-like CJK serif font (AR PL UMing).",
+    "Avoided CID fallback that appeared Gothic in some viewers.",
+    "Kept two-column layout, Abstract, Contents, cover band, running headers, and page numbers.",
+    "Kept article/state-change folder organization and color review from v5."
+  ],
+  "changes_v5_3": [
+    "Rebuilt 論考① and 論考② PDFs with a TrueType Mincho-style font instead of CID substitution.",
+    "Fixed tofu/square glyph issue visible in previous PDFs.",
+    "Preserved article/state-change/ folder organization and article color tone rules."
+  ],
+  "pdf_font": "AR PL UMing TrueType Collection (embedded/subset by ReportLab)",
+  "changes_v5_4": [
+    "Replaced v5.3 PDFs because they used UMingCN and produced tofu/square glyphs in Japanese text.",
+    "Restored PDFs generated by the earlier XeLaTeX/Noto Serif CJK JP pipeline that rendered Japanese without square glyphs.",
+    "Confirmed pdffonts shows embedded NotoSerifCJKjp-Regular and NotoSerifCJKjp-Bold subsets.",
+    "Kept article/state-change/ folder organization and site color review from v5."
+  ],
+  "pdf_font_check_v5_4": {
+    "article1": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nGQDVCW+NotoSansCJKjp-Regular-Identity-H CID Type 0C       Identity-H       yes yes yes      5  0\nZXWSZN+NotoSerifCJKjp-Bold-Identity-H CID Type 0C       Identity-H       yes yes yes      7  0\nKPURQY+NotoSerifCJKjp-Regular-Identity-H CID Type 0C       Identity-H       yes yes yes      9  0",
+    "article2": "name                                 type              encoding         emb sub uni object ID\n------------------------------------ ----------------- ---------------- --- --- --- ---------\nLJCBWC+NotoSansCJKjp-Regular-Identity-H CID Type 0C       Identity-H       yes yes yes      5  0\nRQJWUA+NotoSerifCJKjp-Bold-Identity-H CID Type 0C       Identity-H       yes yes yes      7  0\nBDSRYO+NotoSerifCJKjp-Regular-Identity-H CID Type 0C       Identity-H       yes yes yes      9  0"
+  },
+  "changes_v5_5": [
+    "Updated top/article-list/article02 headers to production-compatible header-inner / nav structure.",
+    "Added CSS override for production-compatible header layout.",
+    "Fixed top page greige article-card-defense class so it applies to article 02, not article 01.",
+    "Kept article/state-change/ folder organization.",
+    "Kept no-tofu PDFs from v5.4."
+  ],
+  "header_updated_files": [
+    "index.html",
+    "article/index.html",
+    "notes/themes.html",
+    "article/understanding-defense-action/index.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/bibliography.html",
+    "article/state-change/index.html",
+    "article/state-change/chapter-01.html",
+    "article/state-change/chapter-02.html",
+    "article/state-change/chapter-03.html",
+    "article/state-change/chapter-04.html",
+    "article/state-change/chapter-05.html",
+    "article/state-change/chapter-06.html",
+    "article/state-change/chapter-07.html",
+    "article/state-change/chapter-08.html",
+    "article/state-change/chapter-09.html",
+    "article/state-change/chapter-10.html",
+    "article/state-change/chapter-11.html",
+    "article/state-change/chapter-12.html",
+    "article/state-change/chapter-13.html",
+    "article/state-change/chapter-14.html",
+    "article/state-change/chapter-15.html",
+    "article/state-change/chapter-16.html",
+    "article/state-change/bibliography.html"
+  ],
+  "changes_v5_6": [
+    "Created cache-busted CSS files assets/style.v5-6.css and assets/style_article1.v5-6.css.",
+    "Updated HTML stylesheet links to the v5.6 CSS filenames.",
+    "Added inline critical header CSS to prevent header collapse even if old CSS is cached.",
+    "Reapplied production-compatible header structure.",
+    "Kept article/state-change/ folder organization and v5.4 no-tofu PDFs."
+  ],
+  "html_updated_v5_6": [
+    "index.html",
+    "article/index.html",
+    "notes/themes.html",
+    "article/understanding-defense-action/index.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/bibliography.html",
+    "article/state-change/index.html",
+    "article/state-change/chapter-01.html",
+    "article/state-change/chapter-02.html",
+    "article/state-change/chapter-03.html",
+    "article/state-change/chapter-04.html",
+    "article/state-change/chapter-05.html",
+    "article/state-change/chapter-06.html",
+    "article/state-change/chapter-07.html",
+    "article/state-change/chapter-08.html",
+    "article/state-change/chapter-09.html",
+    "article/state-change/chapter-10.html",
+    "article/state-change/chapter-11.html",
+    "article/state-change/chapter-12.html",
+    "article/state-change/chapter-13.html",
+    "article/state-change/chapter-14.html",
+    "article/state-change/chapter-15.html",
+    "article/state-change/chapter-16.html",
+    "article/state-change/bibliography.html"
+  ],
+  "headers_rewritten_v5_6": [],
+  "changes_v5_7": [
+    "Replaced all visible site headers with inline-styled production-compatible headers.",
+    "Header layout no longer depends on external CSS or browser cache.",
+    "Kept cache-busted CSS files from v5.6.",
+    "Kept article/state-change folder organization, article-specific colors, and no-tofu PDFs."
+  ],
+  "headers_inline_styled_v5_7": [
+    "index.html",
+    "article/index.html",
+    "notes/themes.html",
+    "article/understanding-defense-action/index.html",
+    "article/understanding-defense-action/chapter-00.html",
+    "article/understanding-defense-action/chapter-01.html",
+    "article/understanding-defense-action/chapter-02.html",
+    "article/understanding-defense-action/chapter-03.html",
+    "article/understanding-defense-action/chapter-04.html",
+    "article/understanding-defense-action/chapter-05.html",
+    "article/understanding-defense-action/chapter-06.html",
+    "article/understanding-defense-action/chapter-07.html",
+    "article/understanding-defense-action/chapter-08.html",
+    "article/understanding-defense-action/chapter-09.html",
+    "article/understanding-defense-action/chapter-10.html",
+    "article/understanding-defense-action/chapter-11.html",
+    "article/understanding-defense-action/chapter-12.html",
+    "article/understanding-defense-action/bibliography.html",
+    "article/state-change/index.html",
+    "article/state-change/chapter-01.html",
+    "article/state-change/chapter-02.html",
+    "article/state-change/chapter-03.html",
+    "article/state-change/chapter-04.html",
+    "article/state-change/chapter-05.html",
+    "article/state-change/chapter-06.html",
+    "article/state-change/chapter-07.html",
+    "article/state-change/chapter-08.html",
+    "article/state-change/chapter-09.html",
+    "article/state-change/chapter-10.html",
+    "article/state-change/chapter-11.html",
+    "article/state-change/chapter-12.html",
+    "article/state-change/chapter-13.html",
+    "article/state-change/chapter-14.html",
+    "article/state-change/chapter-15.html",
+    "article/state-change/chapter-16.html",
+    "article/state-change/bibliography.html"
+  ]
+}
