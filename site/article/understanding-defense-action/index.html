@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>理解・防御壁・行動｜GENAI-RON</title>
+  <meta name="description" content="生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/style.v5-6.css">
+  <meta property="og:title" content="理解・防御壁・行動｜GENAI-RON">
+  <meta property="og:site_name" content="GENAI-RON">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="../../assets/og.svg">
+<style>
+
+/* v5.6: hard header fix and cache-bust */
+body > .site-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:100 !important;
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:rgba(247,244,238,.94) !important;
+  border-bottom:1px solid var(--line, #d7cfc1) !important;
+  backdrop-filter:blur(10px);
+}
+body > .site-header > .header-inner{
+  max-width:980px !important;
+  margin:0 auto !important;
+  padding:16px 22px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-end !important;
+  gap:20px !important;
+  box-sizing:border-box !important;
+}
+body > .site-header .brand{
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  line-height:1.15 !important;
+}
+body > .site-header .brand .mark{
+  display:block !important;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif !important;
+  font-size:13px !important;
+  letter-spacing:.16em !important;
+  color:var(--muted, #6f6a61) !important;
+  margin:0 0 2px 0 !important;
+}
+body > .site-header .brand .name{
+  display:flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  font-size:20px !important;
+  letter-spacing:.04em !important;
+  color:inherit !important;
+}
+body > .site-header .brand .emoji{
+  font-size:.9em !important;
+  line-height:1 !important;
+}
+body > .site-header .nav{
+  display:flex !important;
+  gap:18px !important;
+  font-size:.92rem !important;
+  color:var(--muted, #6f6a61) !important;
+  align-items:center !important;
+  margin:0 !important;
+}
+body > .site-header .nav a{
+  color:inherit !important;
+  text-decoration:none !important;
+}
+body > .site-header .nav a:hover{
+  text-decoration:underline !important;
+}
+@media(max-width:720px){
+  body > .site-header > .header-inner{
+    display:block !important;
+    padding:14px 18px !important;
+  }
+  body > .site-header .nav{
+    margin-top:10px !important;
+  }
+}
+
+</style>
+</head>
+<body class="theme-article-02 article-understanding-defense-action">
+  <header class="site-header" style="position:sticky;top:0;z-index:100;width:100%;display:block;margin:0;padding:0;background:rgba(247,244,238,.96);border-bottom:1px solid #d7cfc1;box-sizing:border-box;">
+  <div class="header-inner" style="max-width:980px;margin:0 auto;padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;box-sizing:border-box;">
+    <a class="brand" href="../../index.html" style="display:block;text-decoration:none;color:#1e1c18;line-height:1.15;margin:0;padding:0;">
+      <span class="mark" style="display:block;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.16em;color:#6f6a61;margin:0 0 2px 0;padding:0;">GENAI-RON</span>
+      <span class="name" style="display:flex;align-items:center;gap:5px;font-size:20px;letter-spacing:.04em;color:#1e1c18;margin:0;padding:0;">
+        <span class="emoji" style="font-size:.9em;line-height:1;">🧠</span><span class="title-text">生成AI論</span><span class="emoji" style="font-size:.9em;line-height:1;">🥦</span>
+      </span>
+    </a>
+    <nav class="nav" style="display:flex;gap:18px;font-size:.92rem;color:#6f6a61;align-items:center;margin:0;padding:0;">
+      <a href="../../article/index.html" style="color:inherit;text-decoration:none;">論考一覧</a>
+    </nav>
+  </div>
+</header>
+  <main class="site-main with-side-toc">
+
+<aside class="side-toc" aria-label="論考② 目次 目次">
+  <div class="side-toc-inner">
+    <p class="side-toc-label">論考② 目次</p>
+    <nav class="side-toc-nav">
+      <a class="side-toc-link current" href="index.html"><span class="side-toc-num">Top</span><span>論考②トップ</span></a><a class="side-toc-link" href="chapter-00.html"><span class="side-toc-num">0</span><span>序論</span></a><a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究レビュー</span></a><a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>速い理解</span></a><a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>遅い理解</span></a><a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>状態変化は、行動変化ではない</span></a><a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>言葉は行為である</span></a><a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>防御壁とは何か</span></a><a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>通過阻害と方向転換</span></a><a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>作用Aの更新</span></a><a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>作用Bの更新</span></a><a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>言葉が事実になるまで</span></a><a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>AIは防御壁を越えられるのか</span></a><a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>結論</span></a><a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+    </nav>
+  </div>
+</aside>
+<details class="mobile-toc">
+  <summary>論考② 目次｜目次</summary>
+  <nav>
+    <a class="side-toc-link current" href="index.html"><span class="side-toc-num">Top</span><span>論考②トップ</span></a><a class="side-toc-link" href="chapter-00.html"><span class="side-toc-num">0</span><span>序論</span></a><a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究レビュー</span></a><a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>速い理解</span></a><a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>遅い理解</span></a><a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>状態変化は、行動変化ではない</span></a><a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>言葉は行為である</span></a><a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>防御壁とは何か</span></a><a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>通過阻害と方向転換</span></a><a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>作用Aの更新</span></a><a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>作用Bの更新</span></a><a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>言葉が事実になるまで</span></a><a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>AIは防御壁を越えられるのか</span></a><a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>結論</span></a><a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+  </nav>
+</details>
+
+
+
+<div class="article-content">
+<section class="article-head">
+  <p class="tag">論考②</p>
+  <h1>理解・防御壁・行動</h1>
+  <p class="subtitle">AIとの対話で生じた理解は、どのように行動へ更新されるのか</p>
+  <p class="meta">著者：Taku｜生成AI論<br>初版公開日：2026-05-20 / 最終更新日：2026-05-20</p>
+  <div class="button-row">
+    <a class="button" href="chapter-00.html">本文を読む</a>
+    <a class="button secondary" href="../../downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf">PDFをダウンロード</a>
+  </div>
+</section>
+<section class="prose">
+  <h2>要旨</h2>
+  <p>生成AIとの対話は、人に速い理解をもたらす。曖昧だった違和感が言葉になり、混乱した状況が構造化され、反復していた問題が見えるようになる。</p>
+  <p>しかし、理解が速く発生することと、その理解が行動として定着することは同じではない。状態変化は、行動変化ではない。</p>
+  <p>本稿では、理解と行動のあいだに作動するものを「防御壁」と呼び、それを破壊ではなく更新の対象として捉える。さらに、防御壁には、理解が行動へ通らない「作用A：通過阻害」と、理解の使い道が自分を守る方向へ反転する「作用B：方向転換」があると整理する。</p>
+  <p>生成AIは防御壁を自動的には越えない。しかし、防御壁がどこで作動しているのかを見える形にし、その更新を補助することはできる。</p>
+  <h2>目次</h2>
+  <ol class="toc">
+    <li><a href="chapter-00.html">第0章　序論｜AIで分かった。でも変われない。</a></li>
+<li><a href="chapter-01.html">第1章　先行研究レビュー｜理解・行動・防御壁をどう見るか</a></li>
+<li><a href="chapter-02.html">第2章　速い理解｜AIが短縮するもの</a></li>
+<li><a href="chapter-03.html">第3章　遅い理解｜経験に沈むまでの時間</a></li>
+<li><a href="chapter-04.html">第4章　状態変化は、行動変化ではない</a></li>
+<li><a href="chapter-05.html">第5章　言葉は行為である。しかし、言葉だけが行為ではない。</a></li>
+<li><a href="chapter-06.html">第6章　防御壁とは何か</a></li>
+<li><a href="chapter-07.html">第7章　防御壁の二つの作用｜通過阻害と方向転換</a></li>
+<li><a href="chapter-08.html">第8章　作用Aの更新｜理解を行動へ通す</a></li>
+<li><a href="chapter-09.html">第9章　作用Bの更新｜理解の使い道を反転させない</a></li>
+<li><a href="chapter-10.html">第10章　言葉が事実になるまで</a></li>
+<li><a href="chapter-11.html">第11章　AIは防御壁を越えられるのか</a></li>
+<li><a href="chapter-12.html">第12章　結論｜理解を行動へ沈めるために</a></li>
+    <li><a href="bibliography.html">ビブリオグラフィー</a></li>
+  </ol>
+</section>
+
+
+</div>
+  </main>
+  <footer class="site-footer">
+    <p>© Taku｜生成AI論</p>
+    <p class="muted">This static package was generated on 2026-05-20 JST.</p>
+  </footer>
+</body>
+</html>
