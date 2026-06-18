@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>第1章｜先行研究の予備的配置｜生成AI論</title>
+  <meta name="description" content="先行研究の予備的配置">
+  <link rel="stylesheet" href="../../assets/style_article1.v5-6.css">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="第1章｜先行研究の予備的配置｜生成AI論">
+  <meta property="og:description" content="先行研究の予備的配置">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../../assets/og.svg">
+<style>
+
+/* v5.6: hard header fix and cache-bust */
+body > .site-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:100 !important;
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:rgba(247,244,238,.94) !important;
+  border-bottom:1px solid var(--line, #d7cfc1) !important;
+  backdrop-filter:blur(10px);
+}
+body > .site-header > .header-inner{
+  max-width:980px !important;
+  margin:0 auto !important;
+  padding:16px 22px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-end !important;
+  gap:20px !important;
+  box-sizing:border-box !important;
+}
+body > .site-header .brand{
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  line-height:1.15 !important;
+}
+body > .site-header .brand .mark{
+  display:block !important;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif !important;
+  font-size:13px !important;
+  letter-spacing:.16em !important;
+  color:var(--muted, #6f6a61) !important;
+  margin:0 0 2px 0 !important;
+}
+body > .site-header .brand .name{
+  display:flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  font-size:20px !important;
+  letter-spacing:.04em !important;
+  color:inherit !important;
+}
+body > .site-header .brand .emoji{
+  font-size:.9em !important;
+  line-height:1 !important;
+}
+body > .site-header .nav{
+  display:flex !important;
+  gap:18px !important;
+  font-size:.92rem !important;
+  color:var(--muted, #6f6a61) !important;
+  align-items:center !important;
+  margin:0 !important;
+}
+body > .site-header .nav a{
+  color:inherit !important;
+  text-decoration:none !important;
+}
+body > .site-header .nav a:hover{
+  text-decoration:underline !important;
+}
+@media(max-width:720px){
+  body > .site-header > .header-inner{
+    display:block !important;
+    padding:14px 18px !important;
+  }
+  body > .site-header .nav{
+    margin-top:10px !important;
+  }
+}
+
+</style>
+</head>
+<body><header class="site-header" style="position:sticky;top:0;z-index:100;width:100%;display:block;margin:0;padding:0;background:rgba(247,244,238,.96);border-bottom:1px solid #d7cfc1;box-sizing:border-box;">
+  <div class="header-inner" style="max-width:980px;margin:0 auto;padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;box-sizing:border-box;">
+    <a class="brand" href="../../index.html" style="display:block;text-decoration:none;color:#1e1c18;line-height:1.15;margin:0;padding:0;">
+      <span class="mark" style="display:block;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.16em;color:#6f6a61;margin:0 0 2px 0;padding:0;">GENAI-RON</span>
+      <span class="name" style="display:flex;align-items:center;gap:5px;font-size:20px;letter-spacing:.04em;color:#1e1c18;margin:0;padding:0;">
+        <span class="emoji" style="font-size:.9em;line-height:1;">🧠</span><span class="title-text">生成AI論</span><span class="emoji" style="font-size:.9em;line-height:1;">🥦</span>
+      </span>
+    </a>
+    <nav class="nav" style="display:flex;gap:18px;font-size:.92rem;color:#6f6a61;align-items:center;margin:0;padding:0;">
+      <a href="../../article/index.html" style="color:inherit;text-decoration:none;">論考一覧</a>
+    </nav>
+  </div>
+</header>
+<main class="article-wrap with-side-toc">
+
+<aside class="side-toc" aria-label="論考① 目次 目次">
+  <div class="side-toc-inner">
+    <p class="side-toc-label">論考① 目次</p>
+    <nav class="side-toc-nav">
+      <a class="side-toc-link" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link current" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
+      <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
+      <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
+      <a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>プロンプト理解の限界</span></a>
+      <a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>対話は状態変化である</span></a>
+      <a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>一回性</span></a>
+      <a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>不可逆性</span></a>
+      <a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>状態変化の記録</span></a>
+      <a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>ケースA</span></a>
+      <a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>ケースB</span></a>
+      <a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>ケースC</span></a>
+      <a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>ケースD</span></a>
+      <a class="side-toc-link" href="chapter-13.html"><span class="side-toc-num">13</span><span>AI側モード</span></a>
+      <a class="side-toc-link" href="chapter-14.html"><span class="side-toc-num">14</span><span>状態変化ログ</span></a>
+      <a class="side-toc-link" href="chapter-15.html"><span class="side-toc-num">15</span><span>依存性と倫理</span></a>
+      <a class="side-toc-link" href="chapter-16.html"><span class="side-toc-num">16</span><span>結論</span></a>
+      <a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+    </nav>
+  </div>
+</aside>
+<details class="mobile-toc">
+  <summary>論考① 目次｜目次</summary>
+  <nav>
+      <a class="side-toc-link" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link current" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
+      <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
+      <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
+      <a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>プロンプト理解の限界</span></a>
+      <a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>対話は状態変化である</span></a>
+      <a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>一回性</span></a>
+      <a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>不可逆性</span></a>
+      <a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>状態変化の記録</span></a>
+      <a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>ケースA</span></a>
+      <a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>ケースB</span></a>
+      <a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>ケースC</span></a>
+      <a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>ケースD</span></a>
+      <a class="side-toc-link" href="chapter-13.html"><span class="side-toc-num">13</span><span>AI側モード</span></a>
+      <a class="side-toc-link" href="chapter-14.html"><span class="side-toc-num">14</span><span>状態変化ログ</span></a>
+      <a class="side-toc-link" href="chapter-15.html"><span class="side-toc-num">15</span><span>依存性と倫理</span></a>
+      <a class="side-toc-link" href="chapter-16.html"><span class="side-toc-num">16</span><span>結論</span></a>
+      <a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+  </nav>
+</details>
+
+<div class="article-content">
+  <header class="article-header">
+    <div class="eyebrow">CHAPTER 1</div>
+    <h1>第1章　先行研究の予備的配置</h1>
+    <p class="small-note">生成AIとの対話における状態変化とその一回性・不可逆性について</p>
+  </header>
+  <div class="article-body">
+    <h2>0. この章の位置づけ</h2>
+<p>本章は、論考①「AIとの対話における一回性と不可逆性」の第1章にあたる。ただし、ここで行うのは完成された先行研究レビューではない。本稿は、筆者自身の生成AIとの継続対話から生じた問題設定を出発点としている。そのため本章の役割は、すでに確立された研究領域を網羅的に整理することではなく、本稿の問いを既存研究のどこに置けるのかを予備的に確認することにある。</p>
+<p>本稿の最上位概念は <strong>状態変化</strong> である。本稿でいう状態変化とは、単に新しい情報を得ることではなく、対話者が何を問題と見なし、どの立場から問い、何を基準に判断し、次に何を問えるかが変わることである。</p>
+<p>この状態変化を説明するために、本稿では <strong>問題化</strong>、<strong>履歴生成</strong>、<strong>一回性</strong>、<strong>不可逆性</strong> という概念を用いる。なかでも問題化とは、まだ明確な問題名を持たない違和感・停滞・未処理・不安が、対話を通じて「問題と呼ぶしかないもの」として輪郭を持つ過程を指す。また履歴生成とは、対話を通じて問い・認識・自己像・評価軸・次に問えることが変化し、その変化が次の対話条件になる過程を指す。</p>
+<p>本章では、この問題設定に関係する先行研究を、以下の領域に分けて配置する。第一に、LLMをどのように語るべきかをめぐる哲学的・批判的研究。第二に、人間と機械の相互行為を扱うHCI・STS・状況的行為論。第三に、会話、共同行為、相互行為の研究。第四に、ELIZA以降の、人間が機械に語りかけ、相談し、自己開示する系譜。第五に、外部化、身体性、対話性を考えるための補助線である。</p>
+<p>なお、本章では文献名を具体的に挙げるが、それらをすべて精読済みであるとは扱わない。現時点では、精読済み、要旨・概要確認段階、今後精読すべき候補、理論的補助線を区別する。この区別は、本稿を誠実な研究ノートとして保つために重要である。</p>
+<h2>1. LLMをどう語るべきか</h2>
+<p>生成AIとの対話を論じる前に、まずLLMをどのようなものとして語るべきかを確認する必要がある。ここで重要なのは、LLMを人間のような理解主体として過剰に擬人化しないこと、同時に、単なる道具として片づけすぎないことである。</p>
+<p>この領域の代表的な文献として、Murray Shanahan の “Talking About Large Language Models” がある。この論文は、LLMについて語る際に、あたかもモデルが信念や意図や理解を持っているかのような語り方に注意を促す。本稿にとって重要なのは、LLMの内部に人間的な主体を仮定するのではなく、LLMとの相互行為においてユーザー側に何が起きるのかを見ることである。</p>
+<p>また、Emily M. Bender らの “On the Dangers of Stochastic Parrots” は、大規模言語モデルをめぐる批判的研究として重要である。この論文は、LLMをめぐるデータ、権力、言語、環境負荷、意味理解の問題を提起している。本稿はLLMの社会的リスク全体を扱うものではないが、AIの出力をそのまま「理解」と同一視しないための警戒線として、この議論は重要である。</p>
+<p>これらの文献は、本稿が生成AIを人間的主体として論じるのではなく、生成AIとの対話が対話者側にどのような状態変化を生むのかを考えるための前提になる。</p>
+<h2>2. 人間-機械コミュニケーション、HCI、STS</h2>
+<p>生成AIとの対話は、人間と機械の相互行為の一形態である。そのため、HCI、STS、状況的行為論は重要な補助線になる。</p>
+<p>Lucy Suchman の <em>Plans and Situated Actions</em> は、人間の行為を、あらかじめ決められた計画の単純な実行ではなく、状況の中で構成されるものとして捉えた古典的研究である。また、<em>Human-Machine Reconfigurations</em> では、人間と機械の関係が固定的なものではなく、相互行為の中で組み替えられることが扱われる。本稿の文脈では、生成AIとの対話も、あらかじめ決まった入力と出力の単純な対応ではなく、状況的に組織される行為として見る必要がある。</p>
+<p>Paul Dourish の <em>Where the Action Is</em> は、身体性、状況性、相互行為をHCIの中心に置く議論として重要である。生成AIとの対話は画面上の文字のやり取りに見えるが、それでもユーザーの実務、生活、判断、記録、行動と切り離されているわけではない。したがって、本稿がいう状態変化も、単なる内面的変化ではなく、行為や状況への接続を含むものとして考える必要がある。</p>
+<p>Harry Collins と Martin Kusch の <em>The Shape of Actions</em> も、人間の行為、機械の行為、社会的意味を区別して考えるための補助線になる。本稿は、AIが本当に理解しているかどうかよりも、AIとの対話が人間側の行為や判断をどのように変えるかを問題にしている。そのため、人間と機械の行為を区別して扱う視点は重要である。</p>
+<h2>3. 対話、共同行為、会話分析</h2>
+<p>本稿の中心には、対話を情報交換ではなく状態変化として捉える視点がある。そのため、対話や会話を、単なる情報伝達ではなく共同行為として扱う研究が重要になる。</p>
+<p>Herbert H. Clark の <em>Using Language</em> は、言語使用を個人の内的処理ではなく共同的な行為として捉えるうえで重要な文献である。話すこと、聞くこと、理解することは、孤立した個人の中だけで完結するのではなく、相互行為の中で成立する。生成AIとの対話においても、ユーザーの問いは、AIの応答を受けて変わっていく。問いは、最初から固定されたものではなく、対話の中で作られる。</p>
+<p>また、Clark と Brennan の “Grounding in Communication” は、対話における共通基盤の形成を考えるうえで重要である。生成AIとの対話では、人間同士と同じ意味での共通基盤が成立しているとは言えないかもしれない。しかし、少なくともユーザー側では、これまでのやり取りを背景として次の問いが生成される。その意味で、本稿がいう履歴生成は、共通基盤や会話の逐次性と接続して考えることができる。</p>
+<p>Conversation Analysis の系譜、特に Sacks, Schegloff, Jefferson によるターンテイキングの研究も重要である。会話は、あらかじめ完成した意味の受け渡しではなく、順番、応答、修復、前後関係の中で組織される。生成AIとの対話でも、同じ発話は、それがどの順番で出たか、何への応答として出たかによって意味が変わる。この視点は、本稿の一回性の議論に直接関係する。</p>
+<h2>4. ELIZA系譜とAIへの自己開示</h2>
+<p>人が機械に語りかけ、相談し、自己開示する問題は、生成AI以前から存在している。Joseph Weizenbaum の “ELIZA—A Computer Program For the Study of Natural Language Communication Between Man and Machine” は、その古典的な出発点である。ELIZAは、単純なパターン応答にもかかわらず、ユーザーがそこに理解や応答性を感じてしまう現象を示した。</p>
+<p>Weizenbaum の <em>Computer Power and Human Reason</em> は、コンピュータを人間の判断や倫理とどのように関係づけるべきかを考えるうえで重要である。本稿は、AIが人間の相談相手になれるかを単純に肯定するものではない。むしろ、AIとの対話が状態変化を生みうるからこそ、その危うさも同時に扱う必要がある。</p>
+<p>さらに、ELIZA effect や、チャットボットへの自己開示、AIを相談相手や心理的支援の相手として用いる研究群は、本稿にとって重要な背景になる。人はAIに対して、人間相手には言いづらいことを話すことがある。この事実は、本稿の問題設定に直接関係する。ただし、本稿が問うのは、単に「人はAIに何を話すのか」ではない。AIに話せることによって、話す主体の状態がどのように変わるのかである。</p>
+<p>この領域では、現代の対話AIや伴侶型AI、メンタルヘルス・チャットボット、自己開示研究も今後精読対象となる。現時点では、関連研究群として位置づけ、今後の文献レビューで精査する。</p>
+<h2>5. 外部化、書くこと、身体性、対話性</h2>
+<p>AIとの対話は、単なる会話ではなく、書くことでもある。ユーザーは、頭の中にある曖昧な感覚や問題を、まず文字として外に出す。その意味で、AIとの対話は、外部化された筆記に近い。</p>
+<p>表現的筆記の研究や、ナラティヴ・セラピーにおける外在化の考え方は、この点を考えるための補助線になる。書くことは、内面にあるものを外に置く行為である。外に置かれたものは、読み返せる。扱える。別の言葉で言い換えられる。問題を本人そのものから切り離し、対象として見ることも可能になる。</p>
+<p>また、Mikhail Bakhtin の <em>The Dialogic Imagination</em> は、言葉や自己を対話性の中で捉えるための補助線になる。Francisco Varela, Evan Thompson, Eleanor Rosch の <em>The Embodied Mind</em> は、認識を身体性や行為との関係から考えるための重要な文献である。本稿でいう状態変化は、単に頭の中に新しい情報が入ることではなく、問い方、判断、行為可能性が変わることを含む。その意味で、身体性や行為との接続は今後重要になる。</p>
+<p>ただし、これらの文献は本稿では補助線として置く。直接の主要分析対象ではなく、生成AIとの対話を、外部化、対話性、身体化、行為への接続という観点から深めるための理論的背景である。</p>
+<h2>6. 先行研究から得られる補助線</h2>
+<p>以上の文献群から、本稿が予備的に確認できる補助線は以下である。</p>
+<p>第一に、LLMについて語る際には、モデルを人間的主体として過剰に擬人化しない注意が必要である。第二に、人間と機械の関係は、単なる入力と出力の対応ではなく、状況的相互行為として考える必要がある。第三に、会話や言語使用は、情報の受け渡しではなく、逐次的・共同的な行為として成立する。第四に、人はAIやチャットボットに対して自己開示しうる。第五に、書くことや外部化は、それ自体が認識や自己理解を変える可能性を持つ。第六に、認識や理解は、身体性や行為への接続と切り離せない。</p>
+<p>これらは、本稿の中心命題に対して重要な補助線を与える。しかし、これらをそのまま並べても、本稿の問題設定にはまだ届かない。本稿が扱いたいのは、単に「AIに自己開示できる」ということではない。また、「LLMが自己省察を支援できる」ということだけでもない。</p>
+<p>本稿が置く問いは、生成AIとの継続対話を、対話者の <strong>状態変化</strong> として読めるか、そしてその状態変化がどのように一回性・不可逆性・履歴生成を生むのか、ということである。</p>
+<h2>7. 本稿が置く未整理の論点</h2>
+<p>本稿が扱う未整理の論点は、次のように定式化できる。</p>
+<blockquote>生成AIとの継続対話は、どのようにして対話者の状態を変化させ、その変化によって同じ会話には戻れないものになるのか。</blockquote>
+<p>この問いは、次の過程を一つの連続した出来事として捉える必要がある。AIに何かを言えるようになる。その言葉がAIによって返される。対話者の問題の見え方が変わる。主語・評価軸・自己像が変わる。次に発せられる問いが変わる。その結果、同じ会話には戻れなくなる。</p>
+<p>この過程では、AIの出力だけが変わっているのではない。問いを発する主体自身が変わっている。したがって、生成AIとの対話は、技術的には反復可能に見えても、経験的には一回的であり、不可逆である。</p>
+<h2>8. 本章の暫定結論</h2>
+<p>本章で確認した先行研究は、LLMの語り方、人間-機械相互行為、会話・共同行為、AIへの自己開示、外部化、身体性、対話性をそれぞれ扱っている。しかし、本稿が問題にするのは、それらを通じて対話者の状態がどう変わるのか、そしてその変化によってなぜ同じ会話には戻れなくなるのかである。</p>
+<p>したがって、本稿は、既存研究の上に次の問いを置く。</p>
+<blockquote>AIとの対話は、どのようにして対話者の <strong>状態変化</strong> を生み、その結果として一回的かつ不可逆な <strong>履歴生成</strong> になるのか。</blockquote>
+<p>次章では、この問題設定を扱うために、本稿がどのような方法を採るのかを明確化する。</p>
+    <div class="article-nav"><a href="index.html">← 論考トップ</a><a href="chapter-02.html">第2章 →</a></div>
+  </div>
+</div>
+</main>
+<footer class="site-footer">© 生成AI論</footer>
+</body></html>

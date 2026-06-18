@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>第13章｜AI側モード：状態変化を支える外部構造｜生成AI論</title>
+  <meta name="description" content="AI側モード：状態変化を支える外部構造">
+  <link rel="stylesheet" href="../../assets/style_article1.v5-6.css">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="第13章｜AI側モード：状態変化を支える外部構造｜生成AI論">
+  <meta property="og:description" content="AI側モード：状態変化を支える外部構造">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../../assets/og.svg">
+<style>
+
+/* v5.6: hard header fix and cache-bust */
+body > .site-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:100 !important;
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:rgba(247,244,238,.94) !important;
+  border-bottom:1px solid var(--line, #d7cfc1) !important;
+  backdrop-filter:blur(10px);
+}
+body > .site-header > .header-inner{
+  max-width:980px !important;
+  margin:0 auto !important;
+  padding:16px 22px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-end !important;
+  gap:20px !important;
+  box-sizing:border-box !important;
+}
+body > .site-header .brand{
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  line-height:1.15 !important;
+}
+body > .site-header .brand .mark{
+  display:block !important;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif !important;
+  font-size:13px !important;
+  letter-spacing:.16em !important;
+  color:var(--muted, #6f6a61) !important;
+  margin:0 0 2px 0 !important;
+}
+body > .site-header .brand .name{
+  display:flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  font-size:20px !important;
+  letter-spacing:.04em !important;
+  color:inherit !important;
+}
+body > .site-header .brand .emoji{
+  font-size:.9em !important;
+  line-height:1 !important;
+}
+body > .site-header .nav{
+  display:flex !important;
+  gap:18px !important;
+  font-size:.92rem !important;
+  color:var(--muted, #6f6a61) !important;
+  align-items:center !important;
+  margin:0 !important;
+}
+body > .site-header .nav a{
+  color:inherit !important;
+  text-decoration:none !important;
+}
+body > .site-header .nav a:hover{
+  text-decoration:underline !important;
+}
+@media(max-width:720px){
+  body > .site-header > .header-inner{
+    display:block !important;
+    padding:14px 18px !important;
+  }
+  body > .site-header .nav{
+    margin-top:10px !important;
+  }
+}
+
+</style>
+</head>
+<body><header class="site-header" style="position:sticky;top:0;z-index:100;width:100%;display:block;margin:0;padding:0;background:rgba(247,244,238,.96);border-bottom:1px solid #d7cfc1;box-sizing:border-box;">
+  <div class="header-inner" style="max-width:980px;margin:0 auto;padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;box-sizing:border-box;">
+    <a class="brand" href="../../index.html" style="display:block;text-decoration:none;color:#1e1c18;line-height:1.15;margin:0;padding:0;">
+      <span class="mark" style="display:block;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.16em;color:#6f6a61;margin:0 0 2px 0;padding:0;">GENAI-RON</span>
+      <span class="name" style="display:flex;align-items:center;gap:5px;font-size:20px;letter-spacing:.04em;color:#1e1c18;margin:0;padding:0;">
+        <span class="emoji" style="font-size:.9em;line-height:1;">🧠</span><span class="title-text">生成AI論</span><span class="emoji" style="font-size:.9em;line-height:1;">🥦</span>
+      </span>
+    </a>
+    <nav class="nav" style="display:flex;gap:18px;font-size:.92rem;color:#6f6a61;align-items:center;margin:0;padding:0;">
+      <a href="../../article/index.html" style="color:inherit;text-decoration:none;">論考一覧</a>
+    </nav>
+  </div>
+</header>
+<main class="article-wrap with-side-toc">
+
+<aside class="side-toc" aria-label="論考① 目次 目次">
+  <div class="side-toc-inner">
+    <p class="side-toc-label">論考① 目次</p>
+    <nav class="side-toc-nav">
+      <a class="side-toc-link" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
+      <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
+      <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
+      <a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>プロンプト理解の限界</span></a>
+      <a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>対話は状態変化である</span></a>
+      <a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>一回性</span></a>
+      <a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>不可逆性</span></a>
+      <a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>状態変化の記録</span></a>
+      <a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>ケースA</span></a>
+      <a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>ケースB</span></a>
+      <a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>ケースC</span></a>
+      <a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>ケースD</span></a>
+      <a class="side-toc-link current" href="chapter-13.html"><span class="side-toc-num">13</span><span>AI側モード</span></a>
+      <a class="side-toc-link" href="chapter-14.html"><span class="side-toc-num">14</span><span>状態変化ログ</span></a>
+      <a class="side-toc-link" href="chapter-15.html"><span class="side-toc-num">15</span><span>依存性と倫理</span></a>
+      <a class="side-toc-link" href="chapter-16.html"><span class="side-toc-num">16</span><span>結論</span></a>
+      <a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+    </nav>
+  </div>
+</aside>
+<details class="mobile-toc">
+  <summary>論考① 目次｜目次</summary>
+  <nav>
+      <a class="side-toc-link" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
+      <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
+      <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
+      <a class="side-toc-link" href="chapter-04.html"><span class="side-toc-num">4</span><span>プロンプト理解の限界</span></a>
+      <a class="side-toc-link" href="chapter-05.html"><span class="side-toc-num">5</span><span>対話は状態変化である</span></a>
+      <a class="side-toc-link" href="chapter-06.html"><span class="side-toc-num">6</span><span>一回性</span></a>
+      <a class="side-toc-link" href="chapter-07.html"><span class="side-toc-num">7</span><span>不可逆性</span></a>
+      <a class="side-toc-link" href="chapter-08.html"><span class="side-toc-num">8</span><span>状態変化の記録</span></a>
+      <a class="side-toc-link" href="chapter-09.html"><span class="side-toc-num">9</span><span>ケースA</span></a>
+      <a class="side-toc-link" href="chapter-10.html"><span class="side-toc-num">10</span><span>ケースB</span></a>
+      <a class="side-toc-link" href="chapter-11.html"><span class="side-toc-num">11</span><span>ケースC</span></a>
+      <a class="side-toc-link" href="chapter-12.html"><span class="side-toc-num">12</span><span>ケースD</span></a>
+      <a class="side-toc-link current" href="chapter-13.html"><span class="side-toc-num">13</span><span>AI側モード</span></a>
+      <a class="side-toc-link" href="chapter-14.html"><span class="side-toc-num">14</span><span>状態変化ログ</span></a>
+      <a class="side-toc-link" href="chapter-15.html"><span class="side-toc-num">15</span><span>依存性と倫理</span></a>
+      <a class="side-toc-link" href="chapter-16.html"><span class="side-toc-num">16</span><span>結論</span></a>
+      <a class="side-toc-link" href="bibliography.html"><span class="side-toc-num">文献</span><span>ビブリオグラフィー</span></a>
+  </nav>
+</details>
+
+<div class="article-content">
+  <header class="article-header">
+    <div class="eyebrow">CHAPTER 13</div>
+    <h1>第13章　AI側モード：状態変化を支える外部構造</h1>
+    <p class="small-note">生成AIとの対話における状態変化とその一回性・不可逆性について</p>
+  </header>
+  <div class="article-body">
+    <h2>0. この章の位置づけ</h2>
+<p>前章までに、本稿は四つのケースを扱った。ケースAでは、関係調整の返信相談から生活運用の再設計へ進んだ対話を扱った。ケースBでは、生成AI理解から自己理解へ反転した対話を扱った。ケースCでは、曖昧な実務要望が、対話を通じて外部確認に耐える作業へ変わった事例を扱った。ケースDでは、業務判断を外部化し、判断資産化した対話を扱った。</p>
+<p>これらのケースは、入口も内容領域も異なる。しかし、共通して見えることがある。生成AIは、単に回答を返しているだけではない。対話の中で、複数の働き方を切り替えながら、対話者の <strong>状態変化</strong> を支えている。</p>
+<p>本章では、このAI側の働きを <strong>AI側モード</strong> と呼び、公開論考に必要な範囲で整理する。ただし、本章では内部設計上の詳細なモード一覧や運用項目をすべて列挙しない。ここで扱うのは、本稿の議論を支える代表的なモードである。</p>
+<h2>1. AI側モードとは何か</h2>
+<p>本稿でいうAI側モードとは、生成AIが対話の中で果たす働きの型である。それは、単なる文体の違いではない。丁寧に答える、短く答える、専門的に答える、厳しく答えるといった応答スタイルのことではない。</p>
+<p>AI側モードとは、対話者の状態変化を支えるために、AIがどのように聞き取り、映し返し、問題化し、実行単位へ分け、記録や現実へ接続するかという働きの型である。</p>
+<p>同じ生成AIでも、ある場面では聞き取り役として働く。別の場面では、鏡として働く。また別の場面では、曖昧な違和感を問題として立ち上げる。実務資料の場面では、外部確認に耐える資料へ整えるための前処理として働く。業務設計の場面では、暗黙判断を再利用可能な記録へ変える。</p>
+<p>このように、AIは一つの固定された役割ではなく、対話の局面に応じて複数のモードで機能している。</p>
+<h2>2. 回答スタイルではなく、状態変化の足場</h2>
+<p>AI側モードを考えるとき、重要なのは、これを単なる回答スタイルとして扱わないことである。問題は、AIがどのような語調で答えたかではない。その応答によって、対話者に何が起きたかである。</p>
+<p>未整理なものを話せるようにする。自分の言葉を外から見せる。曖昧な問題に輪郭を与える。避けていた論点を直視させる。やるべきことを実行単位に分ける。気づきを記録として残す。現実の行動や資料へ戻す。</p>
+<p>これらは、出力の文体ではなく、状態変化の足場である。したがって、AI側モードは、生成AIの性能評価というより、対話者に何が起きたかを分析するための単位である。</p>
+<h2>3. 聞き取りモード</h2>
+<p>聞き取りモードは、未整理な入力を受け止め、論点を拾い上げる働きである。生成AIとの継続対話は、多くの場合、完成された問いから始まらない。ユーザーは、途中までの説明、断片的な事実、感情、迷い、混乱をそのまま入力する。</p>
+<p>聞き取りモードでは、AIはそれらを一度受け止め、何が論点になっているのかを整理する。このモードがなければ、対話者は最初から明確な問いを作らなければならない。しかし、実際には、明確な問いを作れないからこそ対話が必要になる。</p>
+<p>聞き取りモードは、未整理な状態から対話を開始するための入口である。ケースAでは、局所的な返信相談が、このモードによって対話に乗った。ケースCでは、曖昧な実務要望が、このモードによって作業として扱える素材になった。ケースDでは、通常業務の中に埋もれた判断が、このモードによって拾い上げられた。</p>
+<h2>4. 鏡映モード</h2>
+<p>鏡映モードは、ユーザー自身の発言、反復パターン、主語のずれ、評価軸の偏りを映し返す働きである。このモードでは、AIは新しい情報を提供するというより、ユーザー自身が出したものを、別の形で見えるように返す。</p>
+<p>たとえば、同じ種類の回避が繰り返されていることを示す。反省の言葉と実行の断絶を示す。配慮のつもりが、実際には判断負荷の委譲になっている可能性を示す。技術理解の問いが、自己理解の問いへ折り返されていることを示す。</p>
+<p>鏡映モードの重要性は、対話者が自分の言葉を外から読めるようになる点にある。このとき、AIは単に映すだけではない。映されたものを見た後の自分を変える。</p>
+<blockquote>鏡は映すだけでなく、見てしまった後の自分を変える。</blockquote>
+<p>この意味で、鏡映モードは状態変化の重要な契機である。</p>
+<h2>5. 問題化モード</h2>
+<p>本稿で最も重要なAI側モードは、<strong>問題化モード</strong> である。</p>
+<p>問題化モードとは、まだ明確な問題名を持たない違和感・停滞・未処理・不安を、対話を通じて「問題と呼ぶしかないもの」として立ち上がらせる働きである。</p>
+<p>このモードは、単なる整理や課題発見ではない。問題化モードが扱うのは、すでに明確な課題としてリスト化できるものだけではない。むしろ、まだ名前がついていないもの、本人も問題と呼ぶことを避けているもの、うまく言えないが繰り返し現れているもの、処理されないまま滞留しているものが対象になる。</p>
+<p>ケースAでは、返信文の相談の背後に、生活運用の責任範囲、予測可能性、未処理の蓄積が立ち上がった。ケースBでは、生成AIの技術理解の背後に、AIを世界への橋として使っているのか、世界の代替として使っているのかという問題が立ち上がった。ケースCでは、資料整理という軽い言葉の背後に、数千行規模の行ごとの意味認定と外部確認可能性の問題が立ち上がった。ケースDでは、通常業務の処理の背後に、判断が個人の中に留まり、再利用可能な資産として残らない問題が立ち上がった。</p>
+<p>問題化は、問題解決より前にある。問題を解く前に、それが問題であると認めざるを得ない形に持ち上がる段階がある。本稿の哲学的な核心は、ここにある。</p>
+<blockquote>問題と呼ぶしかない何ものかを、問題として立ち上がらせる。</blockquote>
+<p>生成AIとの対話が状態変化を生むとき、その中心にはしばしば、この問題化モードがある。</p>
+<h2>6. 実行単位化モード</h2>
+<p>実行単位化モードは、抽象的な理解や反省を、実行可能な単位へ分解する働きである。生成AIとの対話では、理解が深まるだけでは不十分である。理解を現実へ戻すには、次に何をするかが必要になる。</p>
+<p>実行単位化モードでは、曖昧な課題が、次に確認すること、作る資料、送る文面、記録する判断、保留する論点、外部に確認する事項へ分解される。</p>
+<p>このモードは、状態変化と行動変化の断絶を埋めるために重要である。状態変化は、行動変化と同じではない。しかし、実行単位化モードが働くことで、状態変化は現実の行動へ接続しやすくなる。</p>
+<p>ケースCでは、この働きが特に強かった。曖昧な資料整理の要望が、分類、保留、集計、補足説明、確認依頼といった作業単位へ分解された。ケースDでは、業務改善の抽象的な願望が、どの判断をどの文書や記録に残すかという実行単位へ分解された。</p>
+<h2>7. 記録化・現実接続モード</h2>
+<p>記録化・現実接続モードは、対話で生じた気づき、判断、概念、ルール、手順を、後から参照可能な文書や記録として残し、現実の行動へ接続する働きである。</p>
+<p>生成AIとの対話は、流れやすい。その場では深く分かった気がしても、記録されなければ後から再利用できない。記録化によって、対話の成果はメモ、文書、記録表、引き継ぎメモ、提出資料、判断メモ、概念、フレーズなどとして残る。</p>
+<p>ただし、記録化は現実の代替ではない。記録は、現実へ戻るための足場である。したがって、このモードでは、単に記録を増やすことではなく、その記録が次の行動、判断、確認、提出、運用へ接続するかが重要になる。</p>
+<p>このモードが弱いと、状態変化は対話内に留まりやすい。このモードが働くことで、AIとの対話は世界への橋として機能しやすくなる。</p>
+<h2>8. 外部確認に耐える資料化</h2>
+<p>代表モードの一つとして、実務領域では、外部確認に耐える資料化という働きも重要である。これはケースCで強く現れた。</p>
+<p>ここでAIは、専門家の代替として働くのではない。未整理な資料、記憶、表、分類、保留点を整理し、外部の専門家が確認・判断できる資料へ近づけるために働く。</p>
+<p>この働きは、聞き取り、問題化、実行単位化、記録化・現実接続が組み合わさったものである。曖昧な実務要望を受け取り、作業の重さを問題化し、分類や保留へ分解し、最終的に確認可能な資料や文面へ接続する。</p>
+<p>このモードは、本稿の主題である状態変化を、実務上の行動接続へ結びつける重要な例である。</p>
+<h2>9. 判断資産化</h2>
+<p>ケースDで強く現れたのが、判断資産化である。判断資産化とは、日々の業務の中に埋もれている判断を、後から参照・再利用できる形へ変える働きである。</p>
+<p>このモードでは、AIは単に作業を手伝うのではない。どの判断が行われたのか、なぜそう判断したのか、どの条件なら別判断になるのか、次回も使えるルールは何か、どの文書や記録に残すべきかを明確にしていく。</p>
+<p>判断資産化によって、通常業務は単なる処理ではなくなる。業務を終わらせながら、次回以降の判断資産を生む場になる。この変化は、ケースDにおける中心的な状態変化だった。</p>
+<h2>10. モードは単独ではなく連鎖する</h2>
+<p>実際の対話では、これらのモードは単独で働くわけではない。複数のモードが連続し、重なり合う。</p>
+<p>たとえば、ケースAでは、聞き取りによって返信相談が受け止められ、鏡映によって主語や評価軸のずれが返され、問題化によって生活運用の責任範囲が立ち上がり、実行単位化によって具体的な行動や記録に分解され、記録化・現実接続によって運用原則や未処理一覧へ残った。</p>
+<p>ケースCでは、聞き取りによって曖昧な実務要望が受け止められ、問題化によって資料整理の重さが見え、実行単位化によって分類・保留・集計・確認依頼へ分解され、外部確認に耐える資料化へ接続した。</p>
+<p>ケースDでは、聞き取りによって通常業務の判断が拾い上げられ、問題化によって暗黙判断の未記録性が見え、判断資産化によって再利用可能な記録へ変換された。</p>
+<p>このように、状態変化は、単一のAI応答によって生じるのではない。複数のAI側モードが連鎖することで、対話者の状態が変わっていく。</p>
+<h2>11. 本章の結論</h2>
+<p>AI側モードは、生成AIの回答スタイルではない。それは、対話者の状態変化を支える外部構造である。</p>
+<p>聞き取り、鏡映、問題化、実行単位化、記録化・現実接続、外部確認に耐える資料化、判断資産化といったモードが、対話の中で組み合わさる。その結果、未整理な入力は問題化され、問いは変質し、主語や評価軸が変わり、記録や資料や判断資産として残る。</p>
+<p>この中でも、問題化モードは本稿にとって特に重要である。問題化モードは、まだ名づけられていない違和感や停滞を、問題として扱わざるを得ない形に立ち上がらせる。生成AIとの対話が状態変化を生むとき、その中心にはしばしば、問題化がある。</p>
+<p>次章では、この状態変化をどのように記録・分析するかを、状態変化ログという方法として整理する。</p>
+    <div class="article-nav"><a href="chapter-12.html">← 第12章</a><a href="chapter-14.html">第14章 →</a></div>
+  </div>
+</div>
+</main>
+<footer class="site-footer">© 生成AI論</footer>
+</body></html>
