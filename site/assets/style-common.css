@@ -1,0 +1,107 @@
+/* Shared common styles for GENAI-RON */
+:root{
+  --header-max-width:1120px;
+  --header-x-padding:32px;
+}
+
+/* Shared header patterns */
+.site-header,
+.series-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  display:block;
+  width:100%;
+  border-bottom:1px solid var(--line, #e4ded2);
+  background:rgba(250,247,240,.94);
+  backdrop-filter:blur(10px);
+  box-sizing:border-box;
+}
+
+.site-header .header-inner,
+.site-header-inner,
+.series-header-inner{
+  width:min(var(--header-max-width), calc(100% - var(--header-x-padding)));
+  max-width:var(--header-max-width);
+  margin:0 auto;
+  padding:18px 0 14px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  box-sizing:border-box;
+}
+
+.site-header .brand,
+.site-brand,
+.series-brand{
+  display:grid;
+  gap:2px;
+  color:inherit;
+  text-decoration:none;
+  line-height:1.15;
+}
+
+.site-header .brand .mark,
+.site-brand-main,
+.series-brand-main{
+  display:block;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:13px;
+  letter-spacing:.18em;
+  color:var(--muted, #666);
+  margin:0;
+}
+
+.site-header .brand .name,
+.site-brand-sub,
+.series-brand-sub{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:.04em;
+  color:var(--ink, var(--text, #242424));
+}
+
+.site-header .brand .emoji{
+  font-size:.9em;
+  line-height:1;
+}
+
+.site-header .nav,
+.site-nav,
+.series-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  align-items:center;
+  color:var(--muted, #666);
+  font-size:14px;
+  margin:0;
+  padding:0;
+}
+
+.site-header .nav a,
+.site-nav a,
+.series-nav a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.site-header .nav a:hover,
+.site-nav a:hover,
+.series-nav a:hover{
+  text-decoration:underline;
+}
+
+@media(max-width:720px){
+  .site-header .header-inner,
+  .site-header-inner,
+  .series-header-inner{
+    align-items:flex-start;
+    flex-direction:column;
+    padding:14px 0;
+  }
+}
