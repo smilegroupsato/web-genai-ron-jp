@@ -70,7 +70,7 @@ genai-ron_public_v5_7_inline_header_fix_2026-05-20.zip
 
 `.github/workflows/deploy.yml` により、`main` ブランチへのpush時に `site/` 以下を公開サーバへFTPSアップロードします。
 
-初回は安全確認のため、`dry-run: true` 付きで設定します。dry-runが成功した後、本番反映時に `dry-run: true` を削除します。
+現行の `deploy.yml` は本番反映用です。初回安全確認時に使っていた `dry-run: true` は含めません。
 
 ## 5. GitHub Secrets
 
