@@ -267,7 +267,8 @@ body .hero h1.hero-title .hero-ja{
 .site-header{background:rgba(250,247,240,.94);border-bottom:1px solid var(--line)}
 .site-header .brand .emoji{display:none}
 .site-header .brand .mark{font-family:Georgia,"Times New Roman",serif;font-size:14px;letter-spacing:.14em;font-weight:700;color:var(--text)}
-.site-header .brand .name{font-size:12px;letter-spacing:.22em;font-weight:400;color:var(--muted)}
+.site-header .brand .name{font-size:0;letter-spacing:.22em;font-weight:400;color:var(--muted)}
+.site-header .brand .name::before{content:"生成AI論";font-size:12px;letter-spacing:.24em}
 .site-header .nav{font-size:14px;color:var(--muted)}
 .hero,.article-head,.card,.notice,.prose{
   border-radius:0;
@@ -286,18 +287,19 @@ body .hero h1.hero-title .hero-ja{
 .chapter-nav a{border-radius:0;background:transparent}.chapter-nav a.current{background:var(--accent)}
 .site-footer{border-top:1px solid var(--line);padding-top:22px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 @media(max-width:720px){
-  body{font-size:18px;line-height:1.9}
+  body{font-size:19px;line-height:1.9}
   .site-header .brand .mark{font-size:18px}
-  .site-header .brand .name{font-size:14px}
-  .site-header .nav{font-size:16px;line-height:1.55}
+  .site-header .brand .name{font-size:0}
+  .site-header .brand .name::before{font-size:14px}
+  .site-header .nav{font-size:17px;line-height:1.55}
   .site-main{padding:18px 18px 64px}
-  .article-head h1{font-size:2.15rem}
-  .subtitle,.hero .lead{font-size:1.18rem;line-height:1.72}
-  .card h2{font-size:1.48rem}
-  .card p,.prose p,.prose li{font-size:1.08rem;line-height:1.88}
-  .meta,.muted{font-size:1rem}
-  .tag{font-size:.95rem}
-  .button{font-size:1rem}
-  .prose.full-text h2{font-size:1.5rem}
-  .prose.full-text h3{font-size:1.22rem}
+  .article-head h1{font-size:2.25rem}
+  .subtitle,.hero .lead{font-size:1.28rem;line-height:1.72}
+  .card h2{font-size:1.62rem}
+  .card p,.prose p,.prose li{font-size:1.18rem;line-height:1.9}
+  .meta,.muted{font-size:1.08rem}
+  .tag{font-size:1rem}
+  .button{font-size:1.08rem}
+  .prose.full-text h2{font-size:1.62rem}
+  .prose.full-text h3{font-size:1.34rem}
 }
