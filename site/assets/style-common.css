@@ -99,6 +99,20 @@
   text-decoration:underline;
 }
 
+/* Academic journal brand refinement */
+.site-brand-sub,
+.series-brand-sub{
+  font-size:0;
+}
+.site-brand-sub::before,
+.series-brand-sub::before{
+  content:"生成AI論";
+  font-size:12px;
+  letter-spacing:.24em;
+  font-weight:400;
+  color:var(--muted, #66625a);
+}
+
 @media(max-width:720px){
   .site-header .header-inner,
   .site-header-inner,
@@ -115,6 +129,10 @@
   .site-header .brand .name,
   .site-brand-sub,
   .series-brand-sub{
+    font-size:0;
+  }
+  .site-brand-sub::before,
+  .series-brand-sub::before{
     font-size:14px;
   }
   .site-header .nav,
