@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>詳解版｜生成AIのしくみ 04｜コンテキストウィンドウと検索｜GENAI-RON</title>
+  <meta name="description" content="コンテキストを、context window、会話状態、圧縮、検索、RAG、埋め込み、ファイル検索の観点から整理する詳解版。">
+  <meta property="og:title" content="詳解版｜生成AIのしくみ 04｜コンテキストウィンドウと検索">
+  <meta property="og:description" content="コンテキストとは、モデルがその時点で読める現在の作業空間である。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+</head>
+<body class="series-page">
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-technical/">詳解版トップ</a><a href="/series/genai-shikumi/">一般向け版</a><a href="/article/">論考一覧</a></nav>
+    </div>
+  </header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 詳解版 04</p>
+      <h1>コンテキストウィンドウと検索</h1>
+      <p class="series-subtitle">context window、conversation state、retrieval、RAG、embeddings、vector search。AIにとっての現在を、作業空間として整理する。</p>
+      <p class="series-copy">コンテキストとは、モデルがその時点で読める現在の作業空間である。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-06-25 22:40 JST<br>最終更新日時：2026-06-25 22:40 JST</p>
+        <h2>はじめに</h2>
+        <p>平易版では、コンテキストを「生成AIにとっての現在」として説明した。人間にとっての現在は、身体のある場所、目の前の人、作業の流れ、過去の記憶、気分、環境音などを含んでいる。一方、生成AIにとっての現在は、応答生成時に入力として渡された文脈の束である。</p>
+        <p>詳解版では、この「現在」を、<strong>コンテキストウィンドウ（context window）</strong>、<strong>会話状態（conversation state）</strong>、<strong>検索（retrieval）</strong>、<strong>検索拡張生成（RAG）</strong>、<strong>埋め込み（embeddings）</strong>という観点から整理する。</p>
+        <p>中心にある問いは、単純である。AIは、いま何を読めているのか。何を読めていないのか。読めているはずの情報が、なぜ使われないことがあるのか。そして、必要な情報をどうやって現在の文脈へ再投入できるのか。</p>
+        <h2>1. コンテキストとは、現在の作業空間である</h2>
+        <p><strong>コンテキスト（context）</strong>とは、モデルが応答を作るときに参照できる入力のまとまりである。ユーザーの最新発言だけでなく、会話履歴、システム側の指示、開発者指示、保存メモリ、ツール結果、ファイル内容、検索結果などが、応答生成時の文脈に含まれうる。</p>
+        <p>ここで重要なのは、コンテキストが「記憶」と同じではないという点である。モデルの重みに刻まれた反応傾向は、学習によって形成された長期的な地形である。一方、コンテキストは、いま作業台の上に置かれている資料に近い。作業台に置かれていれば読める。置かれていなければ読めない。置かれていても、量が多すぎれば埋もれる。</p>
+        <p>したがって、生成AIにとっての現在とは、固定された世界そのものではなく、入力として構成された作業空間である。ユーザーが「前に言ったよね」と感じても、その前提が現在のコンテキストに十分入っていなければ、モデルはそれを使えない。入っていても、他の強い指示や目立つ情報に押されれば、応答に反映されないことがある。</p>
+        <h2>2. コンテキストウィンドウとは何か</h2>
+        <p><strong>コンテキストウィンドウ（context window）</strong>とは、一回のリクエストでモデルが扱えるトークンの上限である。ここでいうトークンには、入力トークン、出力トークン、 reasoning token のような内部推論に使われるトークンが含まれる場合がある。つまり、長い入力を入れれば入れるほど、応答や推論に使える余白は減っていく。</p>
+        <p>この制約は、生成AIの「忘却」を考える上で重要である。ユーザーから見ると、会話はずっと続いているように見える。しかし、モデルが一度に読める範囲には限界がある。長い会話、長大なファイル、多数のツール説明、検索結果、保存メモリ、指示文が同時に入ると、コンテキストウィンドウは圧迫される。</p>
+        <p>コンテキストウィンドウは、単なる文字数制限ではない。どの情報が現在の判断材料として残るかを決める枠である。枠の中に入らなかった情報は、少なくともその応答では使えない。枠の中に入っていても、モデルが強く参照するとは限らない。ここに、技術的な制約と文脈上の目立ち方が重なる。</p>
+        <h2>3. 会話状態は、自動で残る場合と手動で渡す場合がある</h2>
+        <p>AIとの会話では、前の発言が次の応答に反映される。このため、人間には「AIが会話を覚えている」と見える。しかし、実装上は、会話状態の管理にはいくつかの方式がある。</p>
+        <p>APIでは、前の会話を毎回 <code>messages</code> や <code>input</code> に含めて手動で渡す方法がある。また、Responses API では、会話状態を自動的に扱う仕組みや、<code>previous_response_id</code> を使って前の応答とつなげる方法が用意されている。さらに Conversations API のように、長く続く会話オブジェクトとして状態を保持する仕組みもある。</p>
+        <p>つまり、「前の会話を覚えているように見える」ことの背後には、前の情報がどのように現在のリクエストへ戻されているかという実装の問題がある。ChatGPTの画面ではこの部分は見えにくい。しかし、APIやアプリケーションを設計する側から見ると、どこまでの履歴を渡すか、どの履歴を要約するか、どの状態を外部に保存するかは、明示的な設計課題になる。</p>
+        <h2>4. 長い会話では、圧縮と要約が起きる</h2>
+        <p>会話が長くなると、すべての過去発言をそのまま現在のコンテキストに入れ続けることは難しくなる。そこで、過去の会話を要約したり、重要な状態だけを残したり、古い部分を圧縮したりする処理が必要になることがある。</p>
+        <p>これを広い意味で<strong>圧縮（compaction）</strong>と呼べる。圧縮は便利である。長い会話の要点を残し、コンテキストウィンドウの消費を抑えられる。しかし、圧縮には危険もある。何を重要とみなすかによって、後の応答が変わるからである。</p>
+        <p>たとえば、あるプロジェクトで「Notionには作成日時と最終更新日時を必ず入れる」という運用ルールがあるとする。このルールが圧縮後の文脈に残っていれば、AIはそれを反映しやすい。残っていなければ、忘れたように見える。逆に、古い方針が圧縮メモに残り続けると、新しい方針の邪魔をすることもある。</p>
+        <p>圧縮とは、単に短くすることではない。現在へ持ち越す前提を選び直すことである。</p>
+        <h2>5. 検索は、外部から現在を補う仕組みである</h2>
+        <p>モデル本体の知識と、現在のコンテキストだけでは足りない場合、外部から情報を取りに行く必要がある。ここで使われるのが<strong>検索（retrieval）</strong>である。</p>
+        <p>検索には、単純なキーワード検索もあれば、意味的な近さで探す<strong>意味検索（semantic search）</strong>もある。OpenAIのRetrieval APIは、データの中から意味的に類似した情報を探す方法として説明されている。これは、キーワードが完全に一致しなくても、意味が近い文書を見つけるための仕組みである。</p>
+        <p>検索は、AIの記憶そのものではない。検索は、必要な情報を現在のコンテキストへ持ち込むための入口である。モデル本体が知らない情報、最新の情報、個別組織の情報、ユーザー固有の資料を扱うには、検索によって外部情報を取得し、それを応答生成時の材料として再投入する必要がある。</p>
+        <h2>6. 検索拡張生成とは何か</h2>
+        <p><strong>検索拡張生成（RAG）</strong>とは、外部文書を検索し、関連する部分をコンテキストに加えたうえで、モデルに応答を生成させる方法である。</p>
+        <p>RAGでは、モデルが自分の重みに含まれる一般的な知識だけで答えるのではなく、外部の資料を参照しながら答える。たとえば、社内規程、契約書、研究ノート、Notionページ、GitHubのIssue、過去の議事録などを検索し、関連箇所を応答の材料にする。</p>
+        <p>この仕組みの利点は、モデル本体を再訓練しなくても、外部知識を使えることである。欠点は、検索の質に応答が左右されることである。関連する文書が検索されなければ、モデルは使えない。不要な文書が混ざれば、応答がそちらに引っ張られる。古い資料が上位に出れば、古い前提で答えてしまう。</p>
+        <p>だから、RAGを使うとは、単に「外部文書を読ませる」ことではない。何を検索対象にするか、どの検索結果を何件入れるか、古い情報をどう扱うか、検索結果をどのように引用させるかを設計することである。</p>
+        <h2>7. 埋め込みとベクトル検索</h2>
+        <p>検索拡張生成の背後には、<strong>埋め込み（embeddings）</strong>や<strong>ベクトル検索（vector search）</strong>が使われることが多い。埋め込みとは、テキストを数値ベクトルに変換する技術である。意味が近いテキストは、ベクトル空間上でも近い位置に置かれやすい。</p>
+        <p>たとえば、「経費精算の締切」と「領収書の提出期限」は、同じ単語を多く含んでいなくても、意味としては近い。ベクトル検索では、このような意味の近さを使って、関連文書を探すことができる。</p>
+        <p>ただし、ベクトル検索は万能ではない。意味的に近いが、実務上は違う文書を拾うことがある。似た言葉だが、文脈が違うものを混ぜることもある。検索結果が「それらしい」だけで、現在の問いに対する根拠として十分とは限らない。</p>
+        <p>そのため、ベクトル検索を使う場合でも、検索範囲、メタデータ、更新日、文書種別、信頼度、引用箇所を管理する必要がある。検索は、AIの目を広げる。しかし、何を見るべきかを設計しなければ、かえって迷いを増やす。</p>
+        <h2>8. ファイル検索とベクトルストア</h2>
+        <p>OpenAIのFile searchでは、あらかじめアップロードしたファイルをベクトルストアに登録し、モデルが必要に応じて関連情報を検索できるようにする。これは、モデルの内部知識を増やすというより、外部に置いた知識ベースへアクセスする道を与える仕組みである。</p>
+        <p>このとき、ファイル検索はホストされたツールとして提供され、モデルが必要だと判断したときに検索を呼び出し、ファイルから情報を取得し、応答に戻すことができる。つまり、ファイル検索もまたツール呼び出しであり、取得結果はコンテキストの一部になる。</p>
+        <p>ここで重要なのは、検索結果の件数を調整できるという点である。検索結果を多く入れれば情報は増えるが、トークン消費も増える。少なくすれば文脈は軽くなるが、必要な根拠が落ちる可能性がある。文脈負荷と回答品質は、しばしばトレードオフになる。</p>
+        <h2>9. 「忘れた」のではなく「参照されなかった」</h2>
+        <p>平易版05で述べたように、AIの忘却とは、消失ではなく、参照されなさであることが多い。詳解版04では、これをコンテキストウィンドウと検索の観点から言い換えられる。</p>
+        <p>AIがある情報を使わなかったとき、原因はいくつもありうる。その情報が現在のコンテキストに入っていなかった。入っていたが、コンテキストウィンドウの中で弱かった。古い会話として圧縮され、細部が落ちた。検索対象に含まれていなかった。検索されたが、上位結果に出なかった。検索結果として入ったが、他の指示や文脈に押された。</p>
+        <p>これらはすべて、ユーザーからは「忘れた」に見える。しかし、技術的には別の問題である。保存されていないのか。入力されていないのか。検索されていないのか。検索されたが参照されていないのか。参照されたが優先されなかったのか。この区別が重要である。</p>
+        <p>AIを安定して使うには、「覚えさせる」だけでは足りない。必要な情報が必要なタイミングで現在の文脈へ入るように設計する必要がある。</p>
+        <h2>10. コンテキスト設計とは何か</h2>
+        <p>コンテキスト設計とは、モデルが応答時に何を読める状態にするかを設計することである。これは、プロンプトを書くことより広い。</p>
+        <p>たとえば、長期プロジェクトでは、すべての会話をそのまま持ち続けるのではなく、現在の目的、決定済み事項、未決事項、参照すべきページ、使ってよいツール、使ってはいけないツールを整理しておく必要がある。毎回の依頼では、今回の作業対象、参照資料、出力形式、判断基準を明示する必要がある。</p>
+        <p>また、検索を使う場合には、検索対象の範囲、最新性、信頼度、引用の必要性を指定する必要がある。保存メモリを使う場合には、それが今回の作業に関係あるかを確認する必要がある。ツール結果を使う場合には、それが資料なのか、実行指示なのかを分ける必要がある。</p>
+        <p>コンテキスト設計とは、AIが「いま何を読むべきか」を整える作業である。これは、生成AIを使う技術のかなり中心にある。</p>
+        <h2>11. 平易版の結論を詳解版として言い換える</h2>
+        <p>平易版では、こう言った。生成AIにとっての現在とは、いま入力された文脈の束である。</p>
+        <p>詳解版では、これを次のように言い換えたい。コンテキストとは、モデルがその時点で読める現在の作業空間であり、コンテキストウィンドウ、会話状態、検索、外部資料、保存メモリ、ツール結果によって構成される。</p>
+        <p>この見方を持つと、AIの忘却、混線、参照漏れを構造として見られるようになる。AIは、世界全体を読んでいるのではない。AIは、その時点で渡された現在を読んでいる。そして、その現在は設計できる。</p>
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">コンテキストとは、モデルがその時点で読める現在の作業空間である。</p>
+        <h2>用語メモ</h2>
+        <h3>コンテキスト（context）</h3>
+        <p>モデルが応答を作るときに参照できる入力のまとまり。</p>
+        <h3>コンテキストウィンドウ（context window）</h3>
+        <p>一回のリクエストでモデルが扱えるトークンの上限。</p>
+        <h3>会話状態（conversation state）</h3>
+        <p>会話の履歴や応答の連鎖を、次の応答に利用できる形で保持する仕組み。</p>
+        <h3>圧縮（compaction）</h3>
+        <p>長い文脈を要約・短縮し、重要な情報だけを現在の文脈へ持ち越すこと。</p>
+        <h3>検索（retrieval）</h3>
+        <p>外部データから関連情報を探し出し、応答生成の材料にすること。</p>
+        <h3>検索拡張生成（RAG）</h3>
+        <p>外部文書を検索し、関連部分を文脈に加えたうえで、モデルに応答を生成させる方法。</p>
+        <h3>埋め込み（embeddings）</h3>
+        <p>テキストを数値ベクトルとして表す技術。</p>
+        <h3>ベクトル検索（vector search）</h3>
+        <p>数値ベクトル間の近さを使って、意味的に近い文書を探す方法。</p>
+        <h3>ベクトルストア（vector store）</h3>
+        <p>埋め込み化された文書を保存し、検索できるようにするデータベース。</p>
+        <h2>参考リンク</h2>
+        <ul>
+          <li>OpenAI Platform｜Conversation state：<a href="https://developers.openai.com/api/docs/guides/conversation-state">https://developers.openai.com/api/docs/guides/conversation-state</a></li>
+          <li>OpenAI Platform｜Counting tokens：<a href="https://developers.openai.com/api/docs/guides/token-counting">https://developers.openai.com/api/docs/guides/token-counting</a></li>
+          <li>OpenAI Platform｜Compaction：<a href="https://developers.openai.com/api/docs/guides/compaction">https://developers.openai.com/api/docs/guides/compaction</a></li>
+          <li>OpenAI Platform｜File search：<a href="https://developers.openai.com/api/docs/guides/tools-file-search">https://developers.openai.com/api/docs/guides/tools-file-search</a></li>
+          <li>OpenAI Platform｜Retrieval：<a href="https://developers.openai.com/api/docs/guides/retrieval">https://developers.openai.com/api/docs/guides/retrieval</a></li>
+          <li>OpenAI Platform｜Embeddings：<a href="https://developers.openai.com/api/docs/guides/embeddings">https://developers.openai.com/api/docs/guides/embeddings</a></li>
+        </ul>
+      </article>
+      <section class="series-section note-box"><h2>シリーズ内ナビ</h2><div class="series-actions"><a class="series-button secondary" href="/series/genai-shikumi-technical/03-tool-calling/">前へ：03｜ツール呼び出しとツール発見レイヤー</a><a class="series-button secondary" href="/series/genai-shikumi-technical/">詳解版トップへ</a><a class="series-button" href="/series/genai-shikumi-technical/05-grounding-hallucination/">次へ：05｜理解・接地・ハルシネーション</a></div></section>
+      <section class="series-section note-box"><h2>一般向け版との対応</h2><p>この詳解版04は、一般向け版04「コンテキストとは何か」に対応しています。</p><div class="series-actions"><a class="series-button secondary" href="/series/genai-shikumi/04-context/">一般向け版へ</a></div></section>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+</body>
+</html>
