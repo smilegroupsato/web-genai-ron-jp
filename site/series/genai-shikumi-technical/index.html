@@ -12,7 +12,7 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
 </head>
-<body class="series-page">
+<body class="series-page series-page-compact">
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/">
@@ -20,7 +20,7 @@
         <span class="series-brand-sub">🧠生成AI論🥦</span>
       </a>
       <nav class="series-nav" aria-label="サイト内ナビゲーション">
-        <a href="/series/genai-shikumi/">生成AIのしくみ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
         <a href="/article/">論考一覧</a>
         <a href="/notes/">研究ノート</a>
       </nav>
@@ -31,37 +31,26 @@
     <section class="series-hero">
       <p class="series-kicker">Technical Series</p>
       <h1>生成AIのしくみ 詳解版</h1>
-      <p class="series-subtitle">モデル・文脈・ツールの内部構造。平易版で得た感覚的理解を、技術語・理論語彙へ接続するための詳解版シリーズ。</p>
-      <p class="series-copy">AIの挙動を理解するとは、答えだけではなく、入力・指示・文脈・ツール・検索・検証がどう束ねられているかを見ることである。</p>
-      <div class="series-actions">
-        <a class="series-button" href="#articles">01から読む</a>
-        <a class="series-button secondary" href="/series/genai-shikumi/">一般向け版へ戻る</a>
-      </div>
+      <p class="series-subtitle">モデル・文脈・ツールの内部構造。一般向け版の見取り図を、技術語・理論語彙へ接続する。</p>
     </section>
 
     <div class="series-main">
-      <section class="series-section">
-        <h2>この詳解版の位置づけ</h2>
-        <p>一般向け版「生成AIのしくみ」は、ChatGPTを使っていて生じる違和感を、記憶・プロンプト・ツール・コンテキスト・忘却・理解・共同作業・文脈設計として整理した。</p>
-        <p>この詳解版では、その見取り図を一段深く掘り、モデル重み、指示階層、tool calling、context window、retrieval、grounding、hallucination、workflow design などの語彙に接続する。</p>
-      </section>
-
       <section id="articles" class="series-section">
-        <h2>6本の記事</h2>
+        <h2>目次</h2>
         <div class="article-grid">
-          <article class="article-card"><span class="article-number">01</span><h3><a href="/series/genai-shikumi-technical/01-memory/">LLMの「記憶」はどこにあるのか</a></h3><p>モデル重み、会話履歴、保存メモリ、外部知識を分け、AIが「覚えている」ように見える仕組みを詳しく見る。</p><p class="article-phrase">記憶とは、保存場所ではなく、生成時に参照される条件の構造である。</p><a class="article-link" href="/series/genai-shikumi-technical/01-memory/">読む</a></article>
-          <article class="article-card"><span class="article-number">02</span><h3><a href="/series/genai-shikumi-technical/02-instruction-hierarchy/">指示階層とプロンプト層</a></h3><p>system / developer / user、カスタム指示、プロジェクト指示、会話内指示がどのような層として働くのかを見る。</p><p class="article-phrase">プロンプトは一枚の命令ではなく、複数の指示層が重なった実行環境である。</p><a class="article-link" href="/series/genai-shikumi-technical/02-instruction-hierarchy/">読む</a></article>
-          <article class="article-card"><span class="article-number">03</span><h3><a href="/series/genai-shikumi-technical/03-tool-calling/">ツール呼び出しとツール発見レイヤー</a></h3><p>外部ツールはどのように候補化され、呼び出され、応答文脈へ戻ってくるのかを整理する。</p><p class="article-phrase">ツールは、モデルの外側にある行動空間である。</p><a class="article-link" href="/series/genai-shikumi-technical/03-tool-calling/">読む</a></article>
-          <article class="article-card"><span class="article-number">04</span><h3><a href="/series/genai-shikumi-technical/04-context-window-retrieval/">コンテキストウィンドウと検索</a></h3><p>context window、retrieval、RAG、長文文脈の圧縮と再投入を扱う。</p><p class="article-phrase">AIにとっての現在は、入力された文脈と検索で戻された文脈の合成である。</p><a class="article-link" href="/series/genai-shikumi-technical/04-context-window-retrieval/">読む</a></article>
-          <article class="article-card"><span class="article-number">05</span><h3><a href="/series/genai-shikumi-technical/05-grounding-hallucination/">理解・接地・ハルシネーション</a></h3><p>AIの理解を、意味、接地、事実確認、ハルシネーション、検証可能性の観点から読み直す。</p><p class="article-phrase">生成AIの理解は、文脈応答能力と現実への接地のあいだで評価される。</p><a class="article-link" href="/series/genai-shikumi-technical/05-grounding-hallucination/">読む</a></article>
-          <article class="article-card"><span class="article-number">06</span><h3><a href="/series/genai-shikumi-technical/06-workflow-design/">人間とAIのワークフロー設計</a></h3><p>AIとの共同作業を、役割分担、確認ゲート、状態管理、記録、停止条件として設計する。</p><p class="article-phrase">AIとの共同作業は、能力の問題ではなく、ワークフロー設計の問題として扱う必要がある。</p><a class="article-link" href="/series/genai-shikumi-technical/06-workflow-design/">読む</a></article>
+          <article class="article-card"><span class="article-number">01</span><h3><a href="/series/genai-shikumi-technical/01-memory/">LLMの「記憶」はどこにあるのか</a></h3><p>モデル重み、会話履歴、保存メモリ、外部知識を分け、AIが「覚えている」ように見える仕組みを詳しく見る。</p><p class="article-phrase">記憶とは、保存場所ではなく、生成時に参照される条件の構造である。</p></article>
+          <article class="article-card"><span class="article-number">02</span><h3><a href="/series/genai-shikumi-technical/02-instruction-hierarchy/">指示階層とプロンプト層</a></h3><p>system / developer / user、カスタム指示、プロジェクト指示、会話内指示がどのような層として働くのかを見る。</p><p class="article-phrase">プロンプトは一枚の命令ではなく、複数の指示層が重なった実行環境である。</p></article>
+          <article class="article-card"><span class="article-number">03</span><h3><a href="/series/genai-shikumi-technical/03-tool-calling/">ツール呼び出しとツール発見レイヤー</a></h3><p>外部ツールはどのように候補化され、呼び出され、応答文脈へ戻ってくるのかを整理する。</p><p class="article-phrase">ツールは、モデルの外側にある行動空間である。</p></article>
+          <article class="article-card"><span class="article-number">04</span><h3><a href="/series/genai-shikumi-technical/04-context-window-retrieval/">コンテキストウィンドウと検索</a></h3><p>context window、retrieval、RAG、長文文脈の圧縮と再投入を扱う。</p><p class="article-phrase">AIにとっての現在は、入力された文脈と検索で戻された文脈の合成である。</p></article>
+          <article class="article-card"><span class="article-number">05</span><h3><a href="/series/genai-shikumi-technical/05-grounding-hallucination/">理解・接地・ハルシネーション</a></h3><p>AIの理解を、意味、接地、事実確認、ハルシネーション、検証可能性の観点から読み直す。</p><p class="article-phrase">生成AIの理解は、文脈応答能力と現実への接地のあいだで評価される。</p></article>
+          <article class="article-card"><span class="article-number">06</span><h3><a href="/series/genai-shikumi-technical/06-workflow-design/">人間とAIのワークフロー設計</a></h3><p>AIとの共同作業を、役割分担、確認ゲート、状態管理、記録、停止条件として設計する。</p><p class="article-phrase">AIとの共同作業は、能力の問題ではなく、ワークフロー設計の問題として扱う必要がある。</p></article>
         </div>
       </section>
 
-      <section class="series-section note-box">
-        <h2>一般向け版との関係</h2>
-        <p>まず一般向け版で、生成AIの記憶・文脈・忘却・理解を直感的につかむ。その後、この詳解版で、同じ問題を技術語・理論語彙・実装上の区別へ接続する。</p>
-        <div class="series-actions"><a class="series-button secondary" href="/series/genai-shikumi/">一般向け版を見る</a><a class="series-button" href="/series/genai-shikumi-technical/01-memory/">詳解版01へ</a></div>
+      <section class="series-section note-box series-afterword">
+        <h2>一般向け版について</h2>
+        <p>日常の違和感から入りたい場合は、一般向け版「生成AIのしくみ」から読むと全体像をつかみやすいです。</p>
+        <p><a href="/series/genai-shikumi/">生成AIのしくみ 一般向け版へ</a></p>
       </section>
     </div>
   </main>
