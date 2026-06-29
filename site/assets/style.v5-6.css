@@ -251,3 +251,53 @@ body .hero h1.hero-title .hero-ja{
 @media(max-width:720px){.feature-series{padding:22px}}
 
 /* GitHub Desktop test */
+
+/* academic journal style: shared lower pages */
+:root{
+  --bg:#faf7f0;
+  --paper:#fffdf8;
+  --text:#242424;
+  --muted:#66625a;
+  --line:rgba(151,139,119,.36);
+  --accent:#245c63;
+  --accent-soft:#f1e8d8;
+  --link:#245c63;
+  --shadow:none;
+}
+.site-header{background:rgba(250,247,240,.94);border-bottom:1px solid var(--line)}
+.site-header .brand .emoji{display:none}
+.site-header .brand .mark{font-family:Georgia,"Times New Roman",serif;font-size:14px;letter-spacing:.14em;font-weight:700;color:var(--text)}
+.site-header .brand .name{font-size:12px;letter-spacing:.22em;font-weight:400;color:var(--muted)}
+.site-header .nav{font-size:14px;color:var(--muted)}
+.hero,.article-head,.card,.notice,.prose{
+  border-radius:0;
+  background:rgba(255,253,248,.62);
+  box-shadow:none;
+}
+.article-head{border-left:0;border-right:0;background:transparent;padding-left:0;padding-right:0}
+.article-head h1{letter-spacing:-.02em;font-weight:600}
+.card{padding:26px 0;border-left:0;border-right:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent}
+.articles{display:block;margin:24px 0}
+.articles .card{margin:0 0 18px}
+.tag{border:0;border-radius:0;padding:0;color:var(--muted);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.button{border-radius:0;background:transparent!important;color:var(--accent)!important;border-color:var(--accent);padding:.55em .9em}.button:hover{background:rgba(36,92,99,.08)!important;text-decoration:none}
+.prose{border-radius:0;background:rgba(255,253,248,.70)}
+.prose blockquote{border-left:3px solid var(--accent);background:transparent;border-radius:0}
+.chapter-nav a{border-radius:0;background:transparent}.chapter-nav a.current{background:var(--accent)}
+.site-footer{border-top:1px solid var(--line);padding-top:22px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:720px){
+  body{font-size:18px;line-height:1.9}
+  .site-header .brand .mark{font-size:18px}
+  .site-header .brand .name{font-size:14px}
+  .site-header .nav{font-size:16px;line-height:1.55}
+  .site-main{padding:18px 18px 64px}
+  .article-head h1{font-size:2.15rem}
+  .subtitle,.hero .lead{font-size:1.18rem;line-height:1.72}
+  .card h2{font-size:1.48rem}
+  .card p,.prose p,.prose li{font-size:1.08rem;line-height:1.88}
+  .meta,.muted{font-size:1rem}
+  .tag{font-size:.95rem}
+  .button{font-size:1rem}
+  .prose.full-text h2{font-size:1.5rem}
+  .prose.full-text h3{font-size:1.22rem}
+}
