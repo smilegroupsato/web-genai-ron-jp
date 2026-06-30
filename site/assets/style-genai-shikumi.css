@@ -62,8 +62,70 @@ body.codex-volume{--accent:var(--codex-001);--line:rgba(31,78,69,.34)}
 .codex-volume .article-phrase{border-top-color:rgba(31,78,69,.28);font-size:15px;color:var(--codex-001-deep)!important}
 .codex-note{border-top:1px solid rgba(31,78,69,.32);padding-top:22px}.codex-note h2{color:var(--codex-001-deep)}
 
+/* 平易版各章：HTMLを個別改稿せず、叢書001の帯として見せる */
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])){
+  --accent:var(--codex-001);
+  --line:rgba(31,78,69,.34);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-header{
+  border-bottom:3px solid var(--codex-001);
+  background:rgba(250,247,240,.96);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-brand-main,
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-nav a{
+  color:var(--codex-001-deep);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero{
+  position:relative;
+  padding-top:52px;
+  border-bottom:4px solid var(--codex-001);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:8px;
+  height:100%;
+  background:var(--codex-001);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker{
+  display:inline-block;
+  margin-left:26px;
+  padding:6px 10px;
+  border:1px solid var(--codex-001);
+  background:rgba(230,238,233,.55);
+  color:var(--codex-001-deep);
+  font-size:0;
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::before{
+  content:"GENAI-RON叢書 001｜";
+  font-size:13px;
+  letter-spacing:.18em;
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::after{
+  content:"生成AIのしくみ";
+  font-size:13px;
+  letter-spacing:.18em;
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1{
+  margin-left:26px;
+  color:var(--codex-001-deep);
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{
+  margin-left:26px;
+}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .note-box h2{
+  color:var(--codex-001-deep);
+}
+
 @media(max-width:900px){.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.series-two-col{grid-template-columns:1fr}}
 @media(max-width:560px){
   body.series-page{font-size:18px;line-height:1.9}.series-hero{padding:44px 0 32px}.series-kicker{font-size:16px}.series-hero h1{font-size:clamp(42px,13vw,64px)}.series-subtitle{font-size:22px;line-height:1.72}.series-copy{font-size:20px;line-height:1.72}.topic-grid{grid-template-columns:1fr}.article-card,.topic-card,.note-box{border-radius:0;padding:18px 0}.topic-card p,.article-card p,.note-box p,.note-box li{font-size:18px;line-height:1.78}.article-grid{grid-template-columns:1fr}.article-card{grid-template-columns:3.2em minmax(0,1fr);column-gap:12px}.article-card h3{font-size:26px}.article-number{font-size:17px}.article-phrase,.article-link{font-size:17px}.series-section h2{font-size:30px}.series-actions{display:grid}.series-button{width:100%;font-size:18px;padding:11px 14px}
   .codex-cover{padding:48px 0 38px}.codex-cover::before{width:6px}.codex-cover .series-kicker,.codex-cover h1,.codex-subtitle,.codex-cover .series-subtitle,.codex-credit{margin-left:18px}.codex-cover .series-kicker{font-size:14px}.codex-cover h1{font-size:clamp(50px,15vw,76px)}.codex-subtitle{font-size:22px}.codex-volume .article-card{grid-template-columns:3.6em minmax(0,1fr)}.codex-volume .article-number{font-size:22px}
+  body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker,
+  body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1,
+  body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
+  body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{margin-left:18px}
 }
