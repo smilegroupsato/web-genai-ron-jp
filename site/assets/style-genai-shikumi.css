@@ -67,58 +67,18 @@ body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.ser
   --accent:var(--codex-001);
   --line:rgba(31,78,69,.34);
 }
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-header{
-  border-bottom:3px solid var(--codex-001);
-  background:rgba(250,247,240,.96);
-}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-header{border-bottom:3px solid var(--codex-001);background:rgba(250,247,240,.96)}
 body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-brand-main,
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-nav a{
-  color:var(--codex-001-deep);
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero{
-  position:relative;
-  padding-top:52px;
-  border-bottom:4px solid var(--codex-001);
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:8px;
-  height:100%;
-  background:var(--codex-001);
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker{
-  display:inline-block;
-  margin-left:26px;
-  padding:6px 10px;
-  border:1px solid var(--codex-001);
-  background:rgba(230,238,233,.55);
-  color:var(--codex-001-deep);
-  font-size:0;
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::before{
-  content:"GENAI-RON叢書 001｜";
-  font-size:13px;
-  letter-spacing:.18em;
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::after{
-  content:"生成AIのしくみ";
-  font-size:13px;
-  letter-spacing:.18em;
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1{
-  margin-left:26px;
-  color:var(--codex-001-deep);
-}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-nav a{color:var(--codex-001-deep)}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero{position:relative;padding-top:52px;border-bottom:4px solid var(--codex-001)}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero::before{content:"";position:absolute;left:0;top:0;width:8px;height:100%;background:var(--codex-001)}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker{display:inline-block;margin-left:26px;padding:6px 10px;border:1px solid var(--codex-001);background:rgba(230,238,233,.55);color:var(--codex-001-deep);font-size:0}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::before{content:"GENAI-RON叢書 001｜";font-size:13px;letter-spacing:.18em}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker::after{content:"生成AIのしくみ";font-size:13px;letter-spacing:.18em}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1{margin-left:26px;color:var(--codex-001-deep)}
 body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{
-  margin-left:26px;
-}
-body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .note-box h2{
-  color:var(--codex-001-deep);
-}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{margin-left:26px}
+body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .note-box h2{color:var(--codex-001-deep)}
 
 @media(max-width:900px){.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.series-two-col{grid-template-columns:1fr}}
 @media(max-width:560px){
@@ -128,4 +88,24 @@ body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.ser
   body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1,
   body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
   body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{margin-left:18px}
+}
+
+@media print{
+  @page{size:A4;margin:14mm 16mm 16mm}
+  html,body{background:#fff!important;color:#111!important}
+  body.series-page{font-size:10.2pt;line-height:1.55;letter-spacing:0}
+  .series-header,.series-footer{display:none!important}
+  .series-hero{width:100%;padding:0 0 7mm;margin:0 0 6mm;border-bottom:1.5pt solid #173a34;break-after:auto}
+  .series-hero::before{display:none!important}
+  .series-kicker{margin:0 0 5mm!important;padding:0!important;border:0!important;background:transparent!important;color:#173a34!important;font-size:8.5pt!important;letter-spacing:.12em!important}
+  .series-hero h1{margin:0!important;font-size:30pt!important;line-height:1.08!important;letter-spacing:-.03em!important;color:#173a34!important}
+  .series-subtitle{margin:4mm 0 0!important;max-width:none!important;font-size:11pt!important;line-height:1.5!important;color:#333!important}
+  .series-copy{margin:4mm 0 0!important;padding:3mm 0 0!important;font-size:10.5pt!important;line-height:1.5!important;color:#333!important;border-top:.5pt solid #bbb!important}
+  .series-main{width:100%;margin:0}.note-box{padding:0!important;border-top:0!important;background:transparent!important}
+  .note-box h2{font-size:15pt!important;line-height:1.25!important;margin:6mm 0 2.5mm!important;color:#173a34!important;break-after:avoid}
+  .note-box p{font-size:10.2pt!important;line-height:1.56!important;margin:0 0 3.2mm!important;color:#111!important}
+  .article-phrase{font-size:10pt!important;line-height:1.45!important;margin:3mm 0!important;padding:2mm 0 0!important;border-top:.5pt solid #bbb!important;color:#173a34!important}
+  a{text-decoration:none;color:#111!important}
+  h2,h3{break-after:avoid}p{orphans:2;widows:2}
+  .series-section,.article-card{break-inside:avoid}
 }
