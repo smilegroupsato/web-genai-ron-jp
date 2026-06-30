@@ -3,44 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ｜AIと付き合うための8つの視点｜GENAI-RON</title>
-  <meta name="description" content="ChatGPTが「覚える」「忘れる」「勝手に動く」ように見える理由を、記憶・プロンプト・ツール・文脈・理解から整理する一般向けシリーズ。">
-  <meta property="og:title" content="生成AIのしくみ｜AIと付き合うための8つの視点">
-  <meta property="og:description" content="ChatGPTが「覚える」「忘れる」「勝手に動く」ように見える理由を、記憶・プロンプト・ツール・文脈・理解から整理する一般向けシリーズ。">
+  <title>GENAI-RON叢書001｜生成AIのしくみ｜AIと付き合うための8つの視点</title>
+  <meta name="description" content="GENAI-RON叢書001。ChatGPTが「覚える」「忘れる」「勝手に動く」ように見える理由を、記憶・プロンプト・ツール・文脈・理解から整理する一般向け叢書。">
+  <meta property="og:title" content="GENAI-RON叢書001｜生成AIのしくみ">
+  <meta property="og:description" content="生成AIを使うとは、答えを命令することではなく、答えが生まれる条件を整えることである。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
 </head>
-<body class="series-page series-page-compact">
+<body class="series-page series-page-compact codex-volume codex-001">
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/">
         <span class="series-brand-main">GENAI-RON</span>
-        <span class="series-brand-sub">🧠生成AI論🥦</span>
+        <span class="series-brand-sub">生成AI論</span>
       </a>
       <nav class="series-nav" aria-label="サイト内ナビゲーション">
-        <a href="/article/">論考一覧</a>
+        <a href="/">目録</a>
+        <a href="/article/">論考</a>
         <a href="/notes/">研究ノート</a>
-        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/series/genai-shikumi-technical/">叢書002</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="series-hero">
-      <p class="series-kicker">Series</p>
+    <section class="series-hero codex-cover">
+      <p class="series-kicker">GENAI-RON叢書 001</p>
       <h1>生成AIのしくみ</h1>
-      <p class="series-subtitle">AIと付き合うための8つの視点。生成AIを「賢い相手」としてだけでなく、「文脈に反応するシステム」として読み直す。</p>
+      <p class="codex-subtitle">AIと付き合うための8つの視点</p>
+      <p class="series-subtitle">生成AIを「賢い相手」としてだけでなく、「文脈に反応するシステム」として読み直す。</p>
+      <p class="codex-credit">文・編集責任：Taku<br><span>Author / Editor: Taku</span></p>
     </section>
 
-    <div class="series-main">
-      <section class="series-section note-box">
-        <h2>対象範囲</h2>
-        <p>本シリーズは、主にChatGPT / OpenAIの実際の挙動を観察対象にしながら、生成AI一般にも通じる構造を説明する。Claude、Gemini、その他のAIサービスでは、メモリ、指示階層、ツール接続、コンテキスト管理の実装が異なる場合がある。</p>
-      </section>
-
-      <section id="articles" class="series-section">
+    <div class="series-main codex-main">
+      <section id="articles" class="series-section codex-contents">
         <h2>目次</h2>
         <div class="article-grid">
           <article class="article-card"><span class="article-number">01</span><h3><a href="/series/genai-shikumi/01-memory/">記憶はどこにあるのか</a></h3><p>生成AIの記憶は、人間の記憶やPCの保存とは違う。モデル本体、会話文脈、保存メモリ、外部ツールを分けて考える。</p><p class="article-phrase">生成AIの記憶とは、保存された過去ではなく、現在に再投入される条件である。</p></article>
@@ -54,13 +52,18 @@
         </div>
       </section>
 
-      <section class="series-section note-box series-afterword">
-        <h2>詳解版について</h2>
-        <p>この一般向け版を、モデル重み・指示階層・ツール呼び出し・コンテキストウィンドウ・検索・接地・ワークフロー設計へ接続した詳解版もあります。</p>
-        <p><a href="/series/genai-shikumi-technical/">生成AIのしくみ 詳解版へ</a></p>
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>対象範囲</h2>
+        <p>本叢書は、主にChatGPT / OpenAIの実際の挙動を観察対象にしながら、生成AI一般にも通じる構造を説明する。Claude、Gemini、その他のAIサービスでは、メモリ、指示階層、ツール接続、コンテキスト管理の実装が異なる場合がある。</p>
+      </section>
+
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>叢書002について</h2>
+        <p>この平易版を、モデル重み・指示階層・ツール呼び出し・コンテキストウィンドウ・検索・接地・ワークフロー設計へ接続した詳解版もあります。</p>
+        <p><a href="/series/genai-shikumi-technical/">GENAI-RON叢書002｜生成AIのしくみ 詳解版へ</a></p>
       </section>
     </div>
   </main>
-  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <footer class="series-footer"><p>GENAI-RON｜Research Archive of Generative AI</p></footer>
 </body>
 </html>
