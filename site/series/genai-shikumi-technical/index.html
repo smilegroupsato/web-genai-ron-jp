@@ -35,13 +35,18 @@
     </section>
 
     <div class="series-main">
+      <section class="series-section note-box">
+        <h2>対象範囲</h2>
+        <p>本シリーズは、主にChatGPT / OpenAIの実際の挙動を観察対象にしながら、生成AI一般にも通じる構造を説明する。Claude、Gemini、その他のAIサービスでは、メモリ、指示階層、ツール接続、コンテキスト管理の実装が異なる場合がある。詳解版では、OpenAIの用語やAPI仕様を参照しながらも、それを生成AI一般の構造と混同しないように読む必要がある。</p>
+      </section>
+
       <section id="articles" class="series-section">
         <h2>目次</h2>
         <div class="article-grid">
           <article class="article-card"><span class="article-number">01</span><h3><a href="/series/genai-shikumi-technical/01-memory/">LLMの「記憶」はどこにあるのか</a></h3><p>モデル重み、会話履歴、保存メモリ、外部知識を分け、AIが「覚えている」ように見える仕組みを詳しく見る。</p><p class="article-phrase">記憶とは、保存場所ではなく、生成時に参照される条件の構造である。</p></article>
           <article class="article-card"><span class="article-number">02</span><h3><a href="/series/genai-shikumi-technical/02-instruction-hierarchy/">指示階層とプロンプト層</a></h3><p>system / developer / user、カスタム指示、プロジェクト指示、会話内指示がどのような層として働くのかを見る。</p><p class="article-phrase">プロンプトは一枚の命令ではなく、複数の指示層が重なった実行環境である。</p></article>
-          <article class="article-card"><span class="article-number">03</span><h3><a href="/series/genai-shikumi-technical/03-tool-calling/">ツール呼び出しとツール発見レイヤー</a></h3><p>外部ツールはどのように候補化され、呼び出され、応答文脈へ戻ってくるのかを整理する。</p><p class="article-phrase">ツールは、モデルの外側にある行動空間である。</p></article>
-          <article class="article-card"><span class="article-number">04</span><h3><a href="/series/genai-shikumi-technical/04-context-window-retrieval/">コンテキストウィンドウと検索</a></h3><p>context window、retrieval、RAG、長文文脈の圧縮と再投入を扱う。</p><p class="article-phrase">AIにとっての現在は、入力された文脈と検索で戻された文脈の合成である。</p></article>
+          <article class="article-card"><span class="article-number">03</span><h3><a href="/series/genai-shikumi-technical/03-tool-calling/">ツール呼び出しとツール発見レイヤー</a></h3><p>外部ツールはどのように候補化され、呼び出され、応答文脈へ戻ってくるのかを整理する。MCPはOpenAI固有仕様ではなく、Anthropicが提唱したオープンな接続標準として扱う。</p><p class="article-phrase">ツールは、モデルの外側にある行動空間である。</p></article>
+          <article class="article-card"><span class="article-number">04</span><h3><a href="/series/genai-shikumi-technical/04-context-window-retrieval/">コンテキストウィンドウと検索</a></h3><p>context window、retrieval、RAG、長文文脈の圧縮と再投入、注意機構による文脈の効き方を扱う。</p><p class="article-phrase">AIにとっての現在は、入力された文脈と検索で戻された文脈の合成である。</p></article>
           <article class="article-card"><span class="article-number">05</span><h3><a href="/series/genai-shikumi-technical/05-grounding-hallucination/">理解・接地・ハルシネーション</a></h3><p>AIの理解を、意味、接地、事実確認、ハルシネーション、検証可能性の観点から読み直す。</p><p class="article-phrase">生成AIの理解は、文脈応答能力と現実への接地のあいだで評価される。</p></article>
           <article class="article-card"><span class="article-number">06</span><h3><a href="/series/genai-shikumi-technical/06-workflow-design/">人間とAIのワークフロー設計</a></h3><p>AIとの共同作業を、役割分担、確認ゲート、状態管理、記録、停止条件として設計する。</p><p class="article-phrase">AIとの共同作業は、能力の問題ではなく、ワークフロー設計の問題として扱う必要がある。</p></article>
         </div>
