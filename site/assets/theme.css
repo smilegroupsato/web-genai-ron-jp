@@ -80,14 +80,15 @@ html[data-appearance="archive"] .home-site-header{
 
 .appearance-switcher{
   position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:999;
+  right:0;
+  top:0;
+  z-index:9999;
   display:flex;
   gap:2px;
   padding:4px;
-  border:1px solid var(--line, rgba(151,139,119,.36));
-  background:color-mix(in srgb, var(--paper, #faf7f0) 88%, transparent);
+  border-left:1px solid var(--line, rgba(151,139,119,.36));
+  border-bottom:1px solid var(--line, rgba(151,139,119,.36));
+  background:color-mix(in srgb, var(--paper, #faf7f0) 92%, transparent);
   backdrop-filter:blur(12px);
   box-shadow:0 8px 28px rgba(0,0,0,.08);
 }
@@ -115,8 +116,8 @@ html[data-appearance="archive"] .home-site-header{
 }
 
 @media(max-width:720px){
-  .appearance-switcher{right:12px;bottom:12px}
-  .appearance-switcher button{padding:8px 9px;font-size:10px}
+  .appearance-switcher{right:0;top:0}
+  .appearance-switcher button{padding:7px 8px;font-size:10px}
 }
 
 @media print{
