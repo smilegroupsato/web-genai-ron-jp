@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>詳解版｜生成AIのしくみ 06｜人間とAIのワークフロー設計｜GENAI-RON</title>
+  <meta name="description" content="AIとの共同作業を、ワークフロー設計、状態管理、ソース・オブ・トゥルース、人間参加型、停止条件、監査可能性、検証ループの観点から整理する詳解版。">
+  <meta property="og:title" content="詳解版｜生成AIのしくみ 06｜人間とAIのワークフロー設計">
+  <meta property="og:description" content="AIとの共同作業を設計するとは、誰が何を記憶し、何を確認し、どこで止めるかを決めることである。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+</head>
+<body class="series-page">
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-technical/">詳解版トップ</a><a href="/series/genai-shikumi/">一般向け版</a><a href="/article/">論考一覧</a></nav>
+    </div>
+  </header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 詳解版 06</p>
+      <h1>人間とAIのワークフロー設計</h1>
+      <p class="series-subtitle">workflow design、state management、human-in-the-loop、auditability、verification loop。AIとの共同作業を、会話ではなく作業系として設計する。</p>
+      <p class="series-copy">AIとの共同作業を設計するとは、誰が何を記憶し、何を確認し、どこで止めるかを決めることである。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-06-25 22:40 JST<br>最終更新日時：2026-06-25 22:40 JST</p>
+        <h2>はじめに</h2>
+        <p>平易版では、AIとの共同作業の失敗を、単なる能力不足ではなく、作業環境の設計ミスとして捉えた。詳解版では、この見方を、<strong>ワークフロー設計（workflow design）</strong>、<strong>状態管理（state management）</strong>、<strong>人間参加型（human-in-the-loop）</strong>、<strong>監査可能性（auditability）</strong>、<strong>検証ループ（verification loop）</strong>の観点から整理する。</p>
+        <p>生成AIを使うとき、私たちはしばしば「どう聞けばよいか」だけを考える。しかし、長い作業、外部ツール、Notion整理、GitHub更新、メール文面作成、会計データ確認、記事公開のような作業では、プロンプト一発の問題ではなくなる。重要なのは、AIに何を任せ、人間が何を決め、どこに状態を保存し、どの段階で検証し、どの条件で止めるかである。</p>
+        <p>AIとの共同作業は、会話ではなくワークフローとして設計する必要がある。</p>
+        <h2>1. AIとの共同作業は、会話ではなく作業系である</h2>
+        <p>ChatGPTの画面は会話の形をしている。そのため、私たちはAIとのやりとりを、人間同士の会話の延長として見やすい。しかし、実際にAIを仕事に使うと、そこには複数の作業段階がある。</p>
+        <p>資料を読む。要点を抽出する。構成を作る。文体を整える。Notionに転記する。GitHubに反映する。メール文面を作る。送信前に確認する。結果を記録する。次回の作業に引き継ぐ。これは、単なる会話ではない。作業の流れである。</p>
+        <p>したがって、AIとの共同作業を安定させるには、会話のうまさだけでなく、作業系の設計が必要になる。問いは、「どう聞けばよいか」だけではない。「どこから始めるか」「どこまで任せるか」「何を根拠にするか」「どこで確認するか」「失敗したらどう止めるか」である。</p>
+        <h2>2. 作業を分解する</h2>
+        <p>生成AIとの作業で失敗しやすい原因の一つは、一つの依頼に複数の作業を詰め込みすぎることである。</p>
+        <p>たとえば、「この資料を読んで、重要点を整理して、Notionに転記して、Web記事用に整えて、GitHubにも反映して」と頼むとする。人間には自然に見える。しかし、AIの実行環境から見ると、読解、抽出、編集、Notion作成、Web向け整形、GitHub操作という別々の作業が混ざっている。</p>
+        <p>これを一度に行うと、途中で前提が混線しやすい。出力形式が崩れる。ツールの実行順序が曖昧になる。人間の確認が必要なところを飛ばす。作業途中の失敗を回収できなくなる。</p>
+        <p>だから、AIとの共同作業では、タスクを分解する必要がある。読解、判断、編集、書き込み、検証、記録を分ける。AIに任せる段階と、人間が確認する段階を分ける。読み取り系のツールと書き込み系のツールを分ける。</p>
+        <p>作業分解とは、AIのためだけではなく、人間が責任を持つための設計でもある。</p>
+        <h2>3. 状態管理が必要になる</h2>
+        <p>長い作業では、状態が重要になる。ここでいう<strong>状態（state）</strong>とは、作業がどこまで進んでいるか、何が決まっているか、何が未決か、どの資料を正とするか、どのページが作成済みか、どの変更が反映済みか、といった情報である。</p>
+        <p>AIとのやりとりだけに状態を閉じ込めると、長期作業は不安定になる。会話が長くなると、古い前提が埋もれる。途中で別の話題が入る。別チャットに移る。ツール実行が失敗する。作業の現在地が分からなくなる。</p>
+        <p>そのため、状態は外部に明示的に置いた方がよい。Notionの進行管理ページ、GitHub Issue、README、<a href="http://AGENTS.md">AGENTS.md</a>、作業ログ、更新履歴などがその役割を持つ。AIの会話文脈だけに頼らず、外部の作業台に状態を残す。</p>
+        <p>OpenAIのAPIでも、会話状態を自動で管理する方法や、過去の応答とつなげる方法が用意されている。しかし、実務上は、どの状態を会話内に残し、どの状態を外部のソース・オブ・トゥルースとして管理するかを設計する必要がある。</p>
+        <h2>4. ソース・オブ・トゥルースを決める</h2>
+        <p>AIとの作業では、何を正とするかを決めなければならない。これを<strong>ソース・オブ・トゥルース（source of truth）</strong>と呼ぶ。</p>
+        <p>たとえば、記事の最新版はNotionなのか、GitHubのHTMLなのか、ローカルファイルなのか。会計データの正本は税理士作成資料なのか、freeeなのか、取引所CSVなのか。業務メール文面の正本は前回送信メールなのか、社内テンプレートなのか、ユーザーの最新指示なのか。</p>
+        <p>ソース・オブ・トゥルースが曖昧だと、AIはもっとも目立つ情報を正として扱いやすい。直近で貼ったメモ、古い下書き、検索結果、前回の応答、ツールから返ってきた断片が、知らないうちに基準になってしまう。</p>
+        <p>だから、実務では明示する必要がある。「この作業では、NotionページAを正とする」「GitHub側は公開反映先であり、本文判断の正本ではない」「取引所CSVを原本とし、freee入力済み仕訳は照合対象とする」。このように、どの情報を根拠にするかを明示すれば、AIの判断は安定しやすくなる。</p>
+        <h2>5. 人間参加型の確認点を置く</h2>
+        <p>AIにすべてを自動で任せるほど、作業は速くなる。しかし、誤った方向へ速く進む危険も増える。そこで重要になるのが、<strong>人間参加型（human-in-the-loop）</strong>の確認点である。</p>
+        <p>人間が確認すべきポイントは、作業によって違う。文章なら、意味の変更、公開可否、文体、固有名詞、引用、タイトル。会計なら、期首残高、分類、計算方法、異常値、提出前の確認事項。メールなら、宛先、件名、敬称、送信可否。NotionやGitHubなら、既存ページの上書き、公開反映、リンク構造。</p>
+        <p>AIに「必要なら確認して」とだけ言うと、確認点が曖昧になる。むしろ、どの操作は確認なしで進めてよいか、どの操作は必ず止めるかを先に決める必要がある。読み取り、要約、下書き作成は進めてよい。しかし、送信、既存ページ上書き、公開反映、確定処理は確認が必要。このように境界を引くことで、AIは行動しやすくなり、人間も責任を持ちやすくなる。</p>
+        <h2>6. 書き込み系ツールには停止条件が必要である</h2>
+        <p>外部ツールを使うAIでは、停止条件が重要になる。特に、書き込み系ツールを使う場合は、止まる条件を書いておく必要がある。</p>
+        <p>たとえば、対象ページが一意に特定できない。既存ページを上書きする可能性がある。ユーザーが禁止したツールを使わないと実行できない。送信先が不明である。ファイル名が似ていて取り違える可能性がある。ツール実行が途中で失敗した。こうした場合は、作業を進めるより止まる方が安全である。</p>
+        <p>停止条件がないAIは、曖昧さを推測で埋めようとする。これは、文章生成では便利なこともある。しかし、外部世界を書き換える作業では危険である。</p>
+        <p>したがって、<a href="http://AGENTS.md">AGENTS.md</a>、<a href="http://CHATGPT.md">CHATGPT.md</a>、プロジェクト指示、ツール利用ポリシーには、何をするかだけでなく、何をしないか、どこで止まるかを書く必要がある。</p>
+        <h2>7. 監査可能性を残す</h2>
+        <p>AIとの作業では、あとから何が行われたかを確認できることが重要である。これを<strong>監査可能性（auditability）</strong>と呼ぶ。</p>
+        <p>監査可能性がないと、作業は不安になる。どの資料を読んだのか。どのページを更新したのか。どのファイルを作ったのか。どの判断をAIが行い、どこを人間が確認したのか。ツール実行が失敗したとき、どこまで進んでいたのか。</p>
+        <p>Notionの更新履歴、GitHubのコミットログ、メール下書き、作業メモ、実行ログ、引用リンク、検算表などは、AIとの共同作業における監査可能性を支える。</p>
+        <p>特に、長期プロジェクトでは、更新履歴が重要である。ページ作成日時、最終更新日時、何を変更したか、なぜ変更したか。これらが残っていれば、AIとの作業は再開しやすい。残っていなければ、AIも人間も現在地を失いやすい。</p>
+        <h2>8. 検証ループを作る</h2>
+        <p>AIとの作業を安定させるには、最初から完璧な指示を書くより、検証ループを作る方がよい。検証ループとは、出力し、確認し、修正し、再確認する流れである。</p>
+        <p>たとえば、記事作成なら、構成、本文、タイトル、要約、公開用HTML、リンク確認のように段階を分ける。会計データなら、原データ標準化、分類、計算、残高照合、異常値抽出、確認事項、提出用Excelのように段階を分ける。ソフトウェアなら、編集、テスト、差分確認、レビュー、デプロイのように段階を分ける。</p>
+        <p>OpenAIのエージェント評価では、トレースや評価基準を使って、エージェントが正しいツールを選んだか、指示に反していないか、変更によって改善したかを確認する考え方が示されている。通常のChatGPT運用でも、これは応用できる。</p>
+        <p>つまり、AIとの共同作業では、「良い答えを一回で出す」より、「悪い答えを検出して修正できる流れ」を作る方が重要である。</p>
+        <h2>9. AIの役割を段階ごとに切り替える</h2>
+        <p>ワークフロー設計では、AIの役割を固定しすぎないことも大事である。AIは、執筆者にもなる。編集者にもなる。検索者にもなる。検算者にもなる。秘書にもなる。コード修正者にもなる。議論相手にもなる。</p>
+        <p>しかし、一つの作業の中で役割が頻繁に変わると、文脈が混線する。たとえば、AIに「批判的に読んで」と言った直後に「このままNotionに転記して」と言うと、批評者としての姿勢と作業者としての姿勢が混ざることがある。</p>
+        <p>そのため、フェーズごとに役割を切り替えるとよい。今は読者として読む。次に編集者として直す。次に作業者として転記する。最後に検査者として確認する。このように役割を段階化すると、AIの応答は安定しやすい。</p>
+        <p>AIに人格を与えるより、作業上の役割を与える。これが実務では効く。</p>
+        <h2>10. 外部記憶を設計する</h2>
+        <p>AIとの長期作業では、外部記憶を設計する必要がある。ここでいう外部記憶とは、Notion、GitHub、Google Drive、スプレッドシート、README、<a href="http://AGENTS.md">AGENTS.md</a>、作業ログ、更新履歴など、人間とAIが共同で参照できる記録である。</p>
+        <p>AIの会話文脈は流れる。長くなれば圧縮される。別チャットに移れば引き継ぎが必要になる。だから、重要な状態は会話の中だけに置かない方がよい。</p>
+        <p>外部記憶には、役割がある。事実の保存。決定事項の保存。未決事項の保存。作業手順の保存。失敗例の保存。次回の再開条件の保存。これらが整っていると、AIとの作業は継続しやすくなる。</p>
+        <p>ただし、外部記憶も増えすぎると混乱する。どこが正本なのか、どれが古いのか、どれを参照すべきなのかが分からなくなる。だから、外部記憶には階層が必要である。正本、作業メモ、ログ、参考資料を分ける。最新ページと過去ログを分ける。</p>
+        <p>外部記憶を設計することは、AIのためだけではない。人間が現実の作業に戻るための足場でもある。</p>
+        <h2>11. 平易版の結論を詳解版として言い換える</h2>
+        <p>平易版では、こう言った。AIとの失敗は、能力不足だけでなく、作業環境の設計ミスとして起きる。</p>
+        <p>詳解版では、これを次のように言い換えたい。AIとの共同作業を設計するとは、目的、状態、権限、確認点、停止条件、外部記憶、検証ループを設計することである。</p>
+        <p>この見方を持つと、AIとの失敗を単なる「プロンプトが悪かった」「モデルが弱かった」だけで片づけなくなる。もちろん、モデルの限界はある。しかし、作業の失敗の多くは、目的が曖昧だった、状態が外部化されていなかった、正本が決まっていなかった、確認点がなかった、停止条件がなかった、検証ループがなかった、という形でも起きる。</p>
+        <p>生成AIを使う力とは、単にうまい指示文を書く力ではない。AIが応答し、ツールを使い、人間が確認し、記録が残り、必要なところで止まれる作業環境を作る力である。</p>
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">AIとの共同作業を設計するとは、誰が何を記憶し、何を確認し、どこで止めるかを決めることである。</p>
+        <h2>用語メモ</h2>
+        <h3>ワークフロー設計（workflow design）</h3>
+        <p>作業を複数の段階に分け、順序、役割、確認点、成果物を設計すること。</p>
+        <h3>状態（state）</h3>
+        <p>作業がどこまで進んでいるか、何が決まっているか、何が未決かといった現在地の情報。</p>
+        <h3>状態管理（state management）</h3>
+        <p>作業状態を会話内外で保持し、次の作業に使えるようにすること。</p>
+        <h3>ソース・オブ・トゥルース（source of truth）</h3>
+        <p>その作業で正本として扱う情報源。</p>
+        <h3>人間参加型（human-in-the-loop）</h3>
+        <p>AIの作業過程に人間の確認や判断を組み込む設計。</p>
+        <h3>停止条件（stop conditions）</h3>
+        <p>不明点、危険な操作、権限不足、ツール失敗などが発生したとき、作業を続行せず止める条件。</p>
+        <h3>監査可能性（auditability）</h3>
+        <p>あとから、何を根拠に、どの操作が行われたかを確認できること。</p>
+        <h3>検証ループ（verification loop）</h3>
+        <p>出力、確認、修正、再確認を繰り返して品質を上げる流れ。</p>
+        <h3>外部記憶</h3>
+        <p>Notion、GitHub、Google Drive、作業ログ、README、<a href="http://AGENTS.md">AGENTS.md</a>など、人間とAIが共同で参照できる記録。</p>
+        <h2>参考リンク</h2>
+        <ul>
+          <li>OpenAI Platform｜Conversation state：<a href="https://developers.openai.com/api/docs/guides/conversation-state">https://developers.openai.com/api/docs/guides/conversation-state</a></li>
+          <li>OpenAI Platform｜Agents SDK：<a href="https://developers.openai.com/api/docs/guides/agents">https://developers.openai.com/api/docs/guides/agents</a></li>
+          <li>OpenAI Platform｜Evaluate agent workflows：<a href="https://developers.openai.com/api/docs/guides/agent-evals">https://developers.openai.com/api/docs/guides/agent-evals</a></li>
+          <li>OpenAI Platform｜Using tools：<a href="https://developers.openai.com/api/docs/guides/tools">https://developers.openai.com/api/docs/guides/tools</a></li>
+        </ul>
+      </article>
+      <section class="series-section note-box"><h2>シリーズ内ナビ</h2><div class="series-actions"><a class="series-button secondary" href="/series/genai-shikumi-technical/05-grounding-hallucination/">前へ：05｜理解・接地・ハルシネーション</a><a class="series-button secondary" href="/series/genai-shikumi-technical/">詳解版トップへ</a></div></section>
+      <section class="series-section note-box"><h2>一般向け版との対応</h2><p>この詳解版06は、一般向け版07「AIとの共同作業はなぜ失敗するのか」に対応しています。</p><div class="series-actions"><a class="series-button secondary" href="/series/genai-shikumi/07-workflow/">一般向け版へ</a></div></section>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+</body>
+</html>

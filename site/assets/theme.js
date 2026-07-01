@@ -1,59 +1,47 @@
-(function(){
-  var storageKey = 'genaiRonAppearance';
-  var modes = [
-    { id: 'paper', label: 'Paper' },
-    { id: 'reading', label: 'Reading' },
-    { id: 'archive', label: 'Archive' }
-  ];
+(() => {
+  const KEY = 'genai-ron-appearance';
+  const THEMES = ['paper', 'reading', 'archive'];
+  const LABELS = { paper: 'Paper', reading: 'Reading', archive: 'Archive' };
 
-  function getStoredMode(){
+  function getStoredTheme() {
     try {
-      var saved = window.localStorage.getItem(storageKey);
-      return modes.some(function(mode){ return mode.id === saved; }) ? saved : 'paper';
-    } catch (error) {
+      const value = localStorage.getItem(KEY);
+      return THEMES.includes(value) ? value : 'paper';
+    } catch (_) {
       return 'paper';
     }
   }
 
-  function setMode(modeId){
-    var nextMode = modes.some(function(mode){ return mode.id === modeId; }) ? modeId : 'paper';
-    document.documentElement.setAttribute('data-appearance', nextMode);
-    try { window.localStorage.setItem(storageKey, nextMode); } catch (error) {}
-    var buttons = document.querySelectorAll('[data-appearance-mode]');
-    buttons.forEach(function(button){
-      var active = button.getAttribute('data-appearance-mode') === nextMode;
-      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  function setTheme(theme) {
+    const next = THEMES.includes(theme) ? theme : 'paper';
+    document.documentElement.dataset.appearance = next;
+    try { localStorage.setItem(KEY, next); } catch (_) {}
+    document.querySelectorAll('[data-appearance-choice]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.appearanceChoice === next));
     });
   }
 
-  function mountSwitcher(){
-    if (document.querySelector('.appearance-switcher')) {
-      setMode(getStoredMode());
-      return;
-    }
-
-    var switcher = document.createElement('div');
+  function mountSwitcher() {
+    if (document.querySelector('.appearance-switcher')) return;
+    const switcher = document.createElement('div');
     switcher.className = 'appearance-switcher';
     switcher.setAttribute('role', 'group');
-    switcher.setAttribute('aria-label', 'Appearance');
+    switcher.setAttribute('aria-label', '表示テーマ');
 
-    modes.forEach(function(mode){
-      var button = document.createElement('button');
+    THEMES.forEach((theme) => {
+      const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'appearance-switcher__button';
-      button.setAttribute('data-appearance-mode', mode.id);
-      button.setAttribute('aria-pressed', 'false');
-      button.textContent = mode.label;
-      button.addEventListener('click', function(){ setMode(mode.id); });
+      button.textContent = LABELS[theme];
+      button.dataset.appearanceChoice = theme;
+      button.addEventListener('click', () => setTheme(theme));
       switcher.appendChild(button);
     });
 
     document.body.appendChild(switcher);
-    setMode(getStoredMode());
+    setTheme(getStoredTheme());
   }
 
-  setMode(getStoredMode());
-
+  setTheme(getStoredTheme());
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', mountSwitcher);
   } else {

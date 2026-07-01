@@ -1,5 +1,5 @@
 - ページ作成日時：2026-06-02 17:07 JST
-- 最終更新日時：2026-06-02 17:07 JST
+- 最終更新日時：2026-06-28 21:49 JST
 
 # web-genai-ron-jp
 
@@ -35,6 +35,9 @@ Web公開
   site/
     index.html
     article/
+    essay/
+    notes/
+    series/
     assets/
     downloads/
     sitemap.xml
@@ -58,6 +61,7 @@ genai-ron_public_v5_7_inline_header_fix_2026-05-20.zip
 
 - 論考①：`article/state-change/` 配下に整理
 - 論考②：`article/understanding-defense-action/` 配下に追加
+- エッセイ：`essay/` 配下に追加
 - 論考別の色調整理済み
 - ヘッダー修正版
 - PDF同梱版
@@ -66,7 +70,7 @@ genai-ron_public_v5_7_inline_header_fix_2026-05-20.zip
 
 `.github/workflows/deploy.yml` により、`main` ブランチへのpush時に `site/` 以下を公開サーバへFTPSアップロードします。
 
-初回は安全確認のため、`dry-run: true` 付きで設定します。dry-runが成功した後、本番反映時に `dry-run: true` を削除します。
+現行の `deploy.yml` は本番反映用です。初回安全確認時に使っていた `dry-run: true` は含めません。
 
 ## 5. GitHub Secrets
 
@@ -85,10 +89,11 @@ SERVER_DIR
 
 - FTPで直接アップロードしない。
 - `site/` 以下を更新し、GitHub Actionsで自動反映する。
-- トップページ・論考一覧・ナビゲーション・sitemapも必要に応じて更新する。
+- トップページ・論考一覧・エッセイ一覧・ナビゲーション・sitemapも必要に応じて更新する。
 - PDFや画像などのバイナリも公開対象として `site/` 以下に置く。
 - 公開に向かない内部事情、未確定情報、個人情報、秘密情報は入れない。
 
 ## 7. 更新履歴
 
+- 2026-06-28 21:49 JST：エッセイ「AIしか使わない世代は現れるか」を追加し、トップ・論考一覧・サイトマップへ反映。
 - 2026-06-02 17:07 JST：GitHub Actionsによる公開運用前提のREADMEへ更新。

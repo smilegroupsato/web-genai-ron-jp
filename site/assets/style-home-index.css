@@ -1,0 +1,314 @@
+:root {
+  --index-text: #242424;
+  --index-muted: #66625a;
+  --index-subtle: #8a857c;
+  --index-line: rgba(151, 139, 119, 0.36);
+  --index-paper: #faf7f0;
+  --index-accent: #245c63;
+}
+
+body.home-index {
+  background: var(--index-paper);
+  color: var(--index-text);
+}
+
+.home-site-header .brand .emoji {
+  display: none;
+}
+
+.home-brand .mark {
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.home-brand .name {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--index-subtle);
+}
+
+.index-main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+.index-hero {
+  padding: 50px 0 34px;
+  border-bottom: 0;
+}
+
+.index-kicker {
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--index-subtle);
+}
+
+.index-hero h1 {
+  margin: 0 0 1rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.journal-title {
+  display: block;
+  font-size: clamp(2.45rem, 7vw, 5.8rem);
+  letter-spacing: -0.055em;
+  font-weight: 650;
+}
+
+.journal-subtitle {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  letter-spacing: 0.34em;
+  font-weight: 400;
+  color: var(--index-muted);
+}
+
+.index-lead {
+  max-width: 760px;
+  margin: 1.35rem 0 0;
+  font-size: clamp(1.02rem, 1.9vw, 1.28rem);
+  line-height: 1.78;
+}
+
+.index-note {
+  max-width: 760px;
+  margin: 0.8rem 0 0;
+  color: var(--index-muted);
+  line-height: 1.72;
+}
+
+.genre-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  margin-top: 1.35rem;
+  font-size: 0.84rem;
+}
+
+.genre-nav a {
+  color: var(--index-accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.index-section {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.26fr) minmax(0, 1fr);
+  gap: 1.75rem;
+  border-top: 1px solid var(--index-line);
+  padding: 2.15rem 0;
+}
+
+.index-hero + .index-section {
+  border-top: 1px solid var(--index-line);
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.index-item {
+  border-bottom: 1px solid var(--index-line);
+  padding: 0 0 1.1rem;
+  margin: 0 0 1.1rem;
+}
+
+.index-item:last-child {
+  margin-bottom: 0;
+}
+
+.index-title {
+  display: inline-block;
+  color: var(--index-text);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  font-weight: 600;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.index-title:hover {
+  color: var(--index-accent);
+}
+
+.index-caption {
+  margin: 0.35rem 0 0;
+  color: var(--index-muted);
+  font-size: 0.92rem;
+  line-height: 1.68;
+}
+
+.index-meta,
+.index-links {
+  margin: 0.48rem 0 0;
+  color: var(--index-subtle);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  letter-spacing: 0.035em;
+}
+
+.index-links a {
+  color: var(--index-accent);
+}
+
+.series-children {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.22rem 1rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.86rem;
+  line-height: 1.42;
+}
+
+.series-children a {
+  color: var(--index-text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(36, 36, 36, 0.22);
+}
+
+.series-children a:hover {
+  color: var(--index-accent);
+  border-bottom-color: var(--index-accent);
+}
+
+.index-content {
+  color: var(--index-muted);
+  line-height: 1.78;
+}
+
+.index-content p:first-child {
+  margin-top: 0;
+}
+
+.index-content p:last-child {
+  margin-bottom: 0;
+}
+
+.index-reading-path {
+  color: var(--index-muted);
+}
+
+.site-footer.home-footer {
+  border-top: 1px solid var(--index-line);
+  padding: 1.35rem 24px 1.75rem;
+  color: var(--index-subtle);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.site-footer.home-footer p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .home-site-header .nav {
+    font-size: 1.08rem;
+    line-height: 1.5;
+  }
+
+  .home-brand .mark {
+    font-size: 1.08rem;
+  }
+
+  .home-brand .name {
+    font-size: 0.98rem;
+  }
+
+  .index-main {
+    padding: 0 18px 52px;
+  }
+
+  .index-hero {
+    padding: 38px 0 28px;
+  }
+
+  .index-kicker {
+    font-size: 0.94rem;
+  }
+
+  .journal-title {
+    font-size: clamp(2.25rem, 15vw, 3.8rem);
+  }
+
+  .journal-subtitle {
+    letter-spacing: 0.24em;
+  }
+
+  .index-lead {
+    font-size: 1.34rem;
+    line-height: 1.74;
+  }
+
+  .index-note {
+    font-size: 1.18rem;
+    line-height: 1.72;
+  }
+
+  .genre-nav {
+    font-size: 1.1rem;
+    gap: 0.6rem 1rem;
+  }
+
+  .index-section {
+    display: block;
+    padding: 1.8rem 0;
+  }
+
+  .section-heading {
+    margin-bottom: 1.05rem;
+  }
+
+  .section-heading h2 {
+    font-size: 1.4rem;
+  }
+
+  .index-title {
+    font-size: 1.28rem;
+    line-height: 1.48;
+  }
+
+  .index-caption {
+    font-size: 1.18rem;
+    line-height: 1.7;
+  }
+
+  .index-meta,
+  .index-links {
+    font-size: 0.98rem;
+    line-height: 1.58;
+  }
+
+  .series-children {
+    grid-template-columns: 1fr;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    gap: 0.34rem;
+  }
+
+  .index-content {
+    font-size: 1.18rem;
+    line-height: 1.72;
+  }
+
+  .site-footer.home-footer {
+    font-size: 0.92rem;
+  }
+}
