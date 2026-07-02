@@ -22,17 +22,22 @@
   }
 
   function mountSwitcher() {
-    if (document.querySelector('.appearance-switcher')) return;
+    if (document.querySelector('.appearance-switcher')) {
+      setTheme(getStoredTheme());
+      return;
+    }
+
     const switcher = document.createElement('div');
     switcher.className = 'appearance-switcher';
     switcher.setAttribute('role', 'group');
-    switcher.setAttribute('aria-label', '表示テーマ');
+    switcher.setAttribute('aria-label', 'Appearance');
 
     THEMES.forEach((theme) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = LABELS[theme];
       button.dataset.appearanceChoice = theme;
+      button.setAttribute('aria-pressed', 'false');
       button.addEventListener('click', () => setTheme(theme));
       switcher.appendChild(button);
     });
