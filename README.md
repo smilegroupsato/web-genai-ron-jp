@@ -1,37 +1,63 @@
-- ページ作成日時：2026-06-02 17:07 JST
-- 最終更新日時：2026-06-28 21:49 JST
+# GENAI-RON / 生成AI論
 
-# web-genai-ron-jp
+Repository: `web-genai-ron-jp`
 
-Web管理｜生成AI論｜genai-ron.jp
+Public Site: <https://genai-ron.jp/>
 
-## 0. このリポジトリの位置づけ
+Last Updated: 2026-07-03 12:04 JST
 
-このリポジトリは、`genai-ron.jp` のWeb公開用ファイルを管理する正本リポジトリです。
+## Overview
 
-Notionは内部ノート・研究原本・素材整理の場所として扱い、GitHubはWeb公開用ファイルの正本・履歴管理・自動公開の起点として扱います。
+このRepositoryは、公開サイト `genai-ron.jp` のWeb公開用ファイルと、サイトを継続的に保守するための文書群を管理する正本Repositoryです。
 
-## 1. 公開フロー
+対象は、HTML / CSS / JavaScript / 画像 / PDF / sitemap などの公開ファイルと、AI・人間が共有する設計思想、運用方針、判断履歴です。
+
+README.md は作業ログではありません。初めてこのRepositoryを読む人間・AIが、現在の運用と主要文書の位置づけを理解するための入口です。
+
+## Public Site
+
+公開サイトは `genai-ron.jp` です。
+
+公開対象は原則として `site/` 以下の管理ファイルです。`main` ブランチへのpushを起点に、GitHub Actions が `site/` 以下を公開サーバへアップロードします。
+
+現在の原本はGitHub repositoryです。過去には、ChatGPTでzipパッケージを作成し、Google Driveに原本として保存し、公開候補最新版として扱う運用がありました。現在の標準運用では、zipファイルを公開候補最新版として扱いません。
+
+公開・保守の基準は、GitHub上の管理ファイル、commit履歴、GitHub Actionsの実行結果です。
+
+## Repository Role
+
+このRepositoryは、単なるコード置き場ではありません。
+
+`genai-ron.jp` の公開サイト、設計思想、文書体系、運用知識を保持するRepository Contextです。
+
+ChatGPT、Codex、人間が同じ前提で協働するため、設計判断や文化的記録はチャット履歴だけに置かず、Markdown文書としてRepository内に保存します。
+
+## Current Workflow
+
+標準運用フローは次のとおりです。
 
 ```text
-ChatGPTで文章作成・編集
+ChatGPT / Codex
 ↓
-必要に応じてNotionに内部ノート化
+GitHub repository
 ↓
-Web公開用HTML / CSS / 画像 / 静的ファイルを作成
+GitHub Actions
 ↓
-このGitHubリポジトリに保存・更新
-↓
-GitHub Actionsでロリポップ等へ自動アップロード
-↓
-Web公開
+Public site: genai-ron.jp
 ```
 
-## 2. ディレクトリ構成
+Notionは内部ノート、研究原本、素材整理の場所として扱います。GitHubはWeb公開用ファイルの正本、履歴管理、自動公開の起点として扱います。
+
+FTPで直接アップロードする運用は標準経路ではありません。
+
+## Repository Structure
 
 ```text
 /
   README.md
+  CODEX.md
+  CHAT_HISTORY.md
+  AFTERHOURS.md
   site/
     index.html
     article/
@@ -47,34 +73,31 @@ Web公開
       deploy.yml
 ```
 
-## 3. 公開対象
+## Documents
 
-`site/` 以下が公開サーバへアップロードされます。
+主要文書の役割は次のとおりです。存在しない文書は、今後整備予定として扱います。
 
-現在の公開候補最新版：
+| Document | Status | Role |
+| --- | --- | --- |
+| `README.md` | Active | Repositoryの入口。現在の運用と文書案内。 |
+| `CODEX.md` | Active | Engineering Charter。Codexを含む実装者の文化、価値観、行動規範。 |
+| `CHAT_HISTORY.md` | Active | 設計判断の履歴。会話ログではなくArchitecture Decision History。 |
+| `AFTERHOURS.md` | Active | 作業後の余韻、未整理の気付き、文化的記録。 |
+| `CHANGELOG.md` | Planned | Repositoryおよび公開サイトの主要変更履歴。 |
+| `PROJECT.md` | Planned | 現在位置、ロードマップ、優先順位。 |
+| `DESIGN.md` | Planned | デザイン思想。 |
+| `STYLEGUIDE.md` | Planned | 文体、UI、HTML、CSS、命名規則。 |
+| `ARCHITECTURE.md` | Planned | ディレクトリ構造、共通部品、サイト構造。 |
+| `CONTENT_POLICY.md` | Planned | 公開方針、著者表記、コンテンツ判断。 |
+| `EXPERIMENTS.md` | Planned | 仮説、検証、観察、考察。 |
 
-```text
-genai-ron_public_v5_7_inline_header_fix_2026-05-20.zip
-```
+サイトやコンテンツの変更履歴は、将来的に `CHANGELOG.md` へ分離します。README.md には、サイト更新履歴ではなく、README自身の責務変更や主要文書追加の履歴だけを残します。
 
-位置づけ：
-
-- 論考①：`article/state-change/` 配下に整理
-- 論考②：`article/understanding-defense-action/` 配下に追加
-- エッセイ：`essay/` 配下に追加
-- 論考別の色調整理済み
-- ヘッダー修正版
-- PDF同梱版
-
-## 4. GitHub Actions
+## Deployment
 
 `.github/workflows/deploy.yml` により、`main` ブランチへのpush時に `site/` 以下を公開サーバへFTPSアップロードします。
 
-現行の `deploy.yml` は本番反映用です。初回安全確認時に使っていた `dry-run: true` は含めません。
-
-## 5. GitHub Secrets
-
-以下のRepository Secretsを使用します。
+GitHub Actionsでは、次のRepository Secretsを使用します。
 
 ```text
 FTP_SERVER
@@ -85,15 +108,19 @@ SERVER_DIR
 
 秘密情報はREADME、チャット本文、リポジトリ内ファイルには記載しません。
 
-## 6. 更新ルール
+## Maintenance Notes
 
-- FTPで直接アップロードしない。
-- `site/` 以下を更新し、GitHub Actionsで自動反映する。
-- トップページ・論考一覧・エッセイ一覧・ナビゲーション・sitemapも必要に応じて更新する。
-- PDFや画像などのバイナリも公開対象として `site/` 以下に置く。
-- 公開に向かない内部事情、未確定情報、個人情報、秘密情報は入れない。
+作業開始前には、目的に応じてRepository内の文書を読んでください。Codexが作業する場合は、まず `CODEX.md` を確認します。
 
-## 7. 更新履歴
+通常作業では、最新 `main` をpullし、未コミット変更がないことを確認してから編集します。未コミット変更がある場合は作業を停止して報告します。
 
-- 2026-06-28 21:49 JST：エッセイ「AIしか使わない世代は現れるか」を追加し、トップ・論考一覧・サイトマップへ反映。
-- 2026-06-02 17:07 JST：GitHub Actionsによる公開運用前提のREADMEへ更新。
+通常の commit / push を使用します。force push は使用しません。
+
+公開対象は `site/` 以下です。トップページ、一覧ページ、ナビゲーション、sitemap、PDFや画像などの公開ファイルも必要に応じて整合させます。
+
+公開に向かない内部事情、未確定情報、個人情報、秘密情報はRepositoryへ入れません。
+
+## README History
+
+- 2026-07-03 12:04 JST: README.md をRepository Contextへの入口として再定義。古いzip原本管理の記述を現在のGitHub中心運用へ整理し、サイト更新履歴をREADMEの責務から外した。
+- 2026-06-02 17:07 JST: GitHub Actionsによる公開運用前提のREADMEへ更新。
