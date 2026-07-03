@@ -8,7 +8,7 @@ Status: Draft
 
 Created: 2026-07-03 13:11 JST
 
-Last Updated: 2026-07-03 13:11 JST
+Last Updated: 2026-07-03 17:33 JST
 
 Repository: web-genai-ron-jp
 
@@ -73,12 +73,15 @@ CHANGELOG.md には、次のものを原則として記録しない。
 - CODEX.md を追加。Engineering Charter Version 1.0 として、AI協働開発における価値観、役割、作業手順、Git運用、報告様式を定義した。
 - AFTERHOURS.md を追加。作業後の余韻、未整理の気付き、文化的記録を残す場所として定義した。
 - EXPERIMENTS.md を追加。Repository Context に関する仮説・観察・検証を記録する研究ノートとして定義した。
+- PROJECT.md を追加。GENAI-RON / 生成AI論プロジェクト全体の方向性、思想、Project Stance、Project Layers、Current Focus、Roadmapを定義した。
 
 ### Changed
 
 - README.md をRepositoryの入口として再定義した。
 - README.md から古いzip原本管理の記述を整理し、現在の原本はGitHub repositoryであることを明記した。
 - README.md からサイト更新履歴を外し、今後はCHANGELOG.mdへ分離する方針とした。
+- CHAT_HISTORY.mdに、PROJECT.mdの詳細構成に関する未解決の問いへのResolutionを追記した。
+- Open Questionを削除して解決済みに見せるのではなく、後続のResolutionとして処理する運用の初例を記録した。
 
 ### Notes
 
@@ -86,12 +89,19 @@ CHANGELOG.md には、次のものを原則として記録しない。
 
 この日以降、Codex作業はCODEX.mdを参照し、Repository内の文書群をRepository Contextとして扱う。
 
+PROJECT.md追加時、CHANGELOG.mdへの追記は明示指示しなかったため、CodexはCHANGELOG.mdを自律的には変更しなかった。
+
+これは、Codexが作業範囲を勝手に広げないというCODEX.mdの方針を守った観察例である。
+
+ただし、主要変更をCHANGELOG.mdへ記録する必要性を提案するところまでは行かなかった。
+
 関連commit：
 
 - CODEX.md: 24b77cf94ec52cd46f4ba46f4a84edd885f161d8
 - AFTERHOURS.md: 2ea34e6deb7497fc9483b3f8b3ca974646c030c3
 - README.md: deabc6f39b82e4145c1f376addc3181bbfd0eb73
 - EXPERIMENTS.md: d1b2d458422c1c9de227203502b30cfe3a58eb50
+- PROJECT.md and CHAT_HISTORY.md Resolution: f4eb7ba60441c68d1eba682733c5f6b37109d31a
 
 ---
 
