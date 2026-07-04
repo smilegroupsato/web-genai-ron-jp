@@ -11,7 +11,7 @@ Adopted:
 2026-07-03 11:19 JST
 
 Last Updated:
-2026-07-03 11:19 JST
+2026-07-04 15:40 JST
 
 Repository:
 web-genai-ron-jp
@@ -370,6 +370,43 @@ Repository 全体を読む。
 文化は、最初に書かれるものではない。
 
 まず実践され、その後に文書となる。
+
+---
+
+## Article 11 — Repository Context Impact Check
+
+Before completing a task, Codex must check whether the work affects Repository Context.
+
+The check includes the following areas.
+
+- project direction
+- document responsibilities
+- AI / Human / agent workflow
+- naming conventions
+- source of truth
+- Open Questions
+- Resolutions
+- template or cross-project methodology
+- CHANGELOG relevance
+- EXPERIMENTS relevance
+
+If the work affects any of these areas, Codex must either update the relevant document when explicitly instructed and within scope, or explicitly report that an update is recommended.
+
+Completion reports should include the following fields when the task touches Repository Context.
+
+- Repository Context impact: yes / no
+- CHAT_HISTORY.md update: done / not needed / recommended
+- EXPERIMENTS.md update: done / not needed / recommended
+- CHANGELOG.md update: done / not needed / recommended
+- Open Question added: yes / no
+- Resolution added: yes / no
+- Force push used: no
+
+This repository currently uses CODEX.md as its Engineering Charter.
+
+For future multi-agent templates, AGENTS.md may become the practical agent entry point, and CHARTER.md may hold longer cultural and philosophical principles.
+
+Do not retroactively rewrite this repository's history. Record this as an evolving practice.
 
 ---
 

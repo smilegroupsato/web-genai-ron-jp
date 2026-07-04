@@ -8,7 +8,7 @@ Status: Draft
 
 Created: 2026-07-03 12:47 JST
 
-Last Updated: 2026-07-03 17:33 JST
+Last Updated: 2026-07-04 15:40 JST
 
 Repository: web-genai-ron-jp
 
@@ -239,6 +239,10 @@ PROJECT.md作成後、CHAT_HISTORY.mdにあったPROJECT.mdの詳細構成に関
 
 この運用は、今後のQuestion Closure Ruleの候補となる。
 
+2026-07-04の議論で、Repository Context は、Webサイト保守パターンから、Repository Context Starter Kit / Repository Context Method へ抽象化され始めた。
+
+これは、Repository Context が公開サイトだけでなく、業務システム、研究サイト、社内運用、データ処理、複数AIエージェントを含む将来プロジェクトにも適用される可能性を示している。
+
 ### Open Questions
 
 - Codexは、明示的に「CODEX.mdを読め」と言われなくても読むようになるか。
@@ -312,6 +316,10 @@ PROJECT.md追加作業において、CodexはPROJECT.mdを追加し、CHAT_HISTO
 一方で、CHANGELOG.mdへの追記が必要になりうる主要変更であることを、自律的に提案するところまでは行かなかった。
 
 この観察は、CodexがScope Controlには成功したが、Cross-document Maintenanceの自律性にはまだ課題があることを示す可能性がある。
+
+2026-07-04の議論では、CODEX.md はこのRepositoryでは有効に機能したが、汎用テンプレートでは AGENTS.md と README.md、必要に応じて CHARTER.md を組み合わせる方がよい可能性が観察された。
+
+また、Cross-document Maintenance は暗黙の期待ではなく、明示的な実験対象として扱う必要があることが確認された。
 
 ### Evaluation Criteria
 
@@ -397,6 +405,65 @@ README.mdから、次のものを整理する。
 - README.mdからPROJECT.mdへの導線は必要か。
 - README.mdが長くなりすぎた場合、どこで切り分けるべきか。
 - AIに読ませるREADMEと、人間に読ませるREADMEは同一でよいか。
+
+---
+
+## Experiment 003 — CHAT_HISTORY Auto-Maintenance Trigger
+
+Status: Active
+
+Started: 2026-07-04
+
+### Question
+
+Repository Context は、人間が毎回思い出さなくても、CHAT_HISTORY.md / decision-log の更新必要性を検出し、保守できるか。
+
+### Background
+
+2026-07-04の議論で、CHAT_HISTORY.md が July 4 の Repository Context Starter Kit、multi-agent document structure、Charter positioning、decision-log maintenance automation の議論をまだ反映していないことが分かった。
+
+これは、Repository Context が有効に働き始めている一方で、decision-log 自体の保守ルーチンが未定義であることを示している。
+
+### Hypothesis
+
+AGENTS.md / CODEX.md の完了プロトコルに Repository Context impact check を含め、さらに PR / CI warning によって主要文書変更と decision-log / CHANGELOG / EXPERIMENTS 更新の不一致を検出できれば、CHAT_HISTORY.md / decision-log の陳腐化は減る。
+
+ただし、最初は failure ではなく warning として扱うべきである。
+
+### Method
+
+1. CODEX.md に completion-report requirement と Repository Context impact check を追加する。
+2. CHAT_HISTORY.md に July 4 の Decision / Resolution / Open Question を追記する。
+3. Codex に、主要な文書作業の完了時に CHAT_HISTORY.md、EXPERIMENTS.md、CHANGELOG.md、PROJECT.md の更新要否を報告させる。
+4. 将来的には、README.md、AGENTS.md、PROJECT.md、CHARTER.md、CODEX.md、docs/、主要Repository Context文書が変更されたとき、CHAT_HISTORY.md / decision-log / CHANGELOG.md / EXPERIMENTS.md の更新がない場合に warning を出す script または CI を検討する。
+5. その検出は、まず warning-only とし、commit failure にはしない。
+
+### Observation Points
+
+- Codex は Repository Context impact を識別できるか。
+- Codex は正しい文書を更新できるか。
+- Codex は不要なファイル変更を避けられるか。
+- Codex は Decision、Experiment、Changelog の責務を区別できるか。
+- Human のレビュー負担は減るか、増えるか。
+
+### Initial Observations
+
+この実験は、CHAT_HISTORY.md がすでに July 4 の議論に対して遅れ始めていたという観察から始まった。
+
+今回の更新では、CHAT_HISTORY.md、EXPERIMENTS.md、CHANGELOG.md、CODEX.md を明示的に対象化し、Repository Context impact check そのものを記録対象にした。
+
+### Open Questions
+
+- Repository Context impact check は、prompt、PR template、CI warning のどこに置くのが最も自然か。
+- warning-only のまま十分に機能するか。
+- 自動検出が過剰になると、Human / ChatGPT / Codex の負担を増やさないか。
+- 小規模プロジェクトでも同じ仕組みが必要か。
+
+### Notes
+
+このExperiment 003は、CHAT_HISTORY.mdを完全自動更新することを直ちに目指すものではない。
+
+まずは、人間が忘れがちなRepository Context影響確認を、Codexの完了プロトコルに組み込めるかを観察する。
 
 ---
 

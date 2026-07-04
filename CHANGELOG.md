@@ -8,7 +8,7 @@ Status: Draft
 
 Created: 2026-07-03 13:11 JST
 
-Last Updated: 2026-07-03 17:33 JST
+Last Updated: 2026-07-04 15:40 JST
 
 Repository: web-genai-ron-jp
 
@@ -63,6 +63,33 @@ CHANGELOG.md には、次のものを原則として記録しない。
 ---
 
 # Changes
+
+---
+
+## 2026-07-04 — Repository Context Starter Kit
+
+### Added
+
+- Notionに「Repository Context Starter Kit｜AI協働開発のためのリポジトリ文書テンプレート構想」を作成した。
+  <https://app.notion.com/p/393aef0331428153888de4bce37f2271>
+- Notionに「CHAT_HISTORY・decision-log 自動更新方法｜Repository Context保守ルーチン」を作成した。
+  <https://app.notion.com/p/393aef0331428179b701e13da3a2517b>
+
+### Changed
+
+- Repository Context の方向性を、`web-project-template` から `repository-context-template` / Repository Context Starter Kit へ広げた。
+- 汎用的なAI-agent entry strategy を、標準ファイル名としての CODEX.md ではなく、AGENTS.md、README.md、必要に応じた CHARTER.md を中心に再整理した。
+- CHAT_HISTORY.md / decision-log の保守を、非公式な習慣から明示的な routine として扱う方針にした。
+
+### Notes
+
+CODEX.md は、web-genai-ron-jp の Engineering Charter として引き続き有効である。
+
+一方、汎用的な Repository Context Starter Kit は Codex 固有であってはならない。
+
+将来的には、AGENTS.md の導入や、PR / CI warning による decision-log / CHANGELOG / EXPERIMENTS 更新確認を検討する。
+
+Notion上の構想については、Repository commit ID を付与しない。実際のRepository変更に対応するcommit IDは、commit後の報告で扱う。
 
 ---
 
