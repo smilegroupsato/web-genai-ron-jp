@@ -90,6 +90,163 @@ body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.ser
   body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{margin-left:18px}
 }
 
+html[data-article-text-size="small"]{
+  --article-reader-scale:.92;
+  --article-reader-size:15.6px;
+  --article-reader-h2-size:1.43rem;
+  --article-reader-h3-size:1.06rem;
+}
+
+html[data-article-text-size="normal"],
+html:not([data-article-text-size]){
+  --article-reader-scale:1;
+  --article-reader-size:17px;
+  --article-reader-h2-size:1.55rem;
+  --article-reader-h3-size:1.15rem;
+}
+
+html[data-article-text-size="large"]{
+  --article-reader-scale:1.12;
+  --article-reader-size:19px;
+  --article-reader-h2-size:1.74rem;
+  --article-reader-h3-size:1.29rem;
+}
+
+html[data-article-text-size="x-large"]{
+  --article-reader-scale:1.25;
+  --article-reader-size:21.25px;
+  --article-reader-h2-size:1.94rem;
+  --article-reader-h3-size:1.44rem;
+}
+
+.article-text-size-control{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  margin:0 0 12px;
+  padding:18px 0 0;
+  color:var(--muted);
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+}
+
+.article-text-size-label{
+  font-size:13px;
+  line-height:1.4;
+  letter-spacing:.06em;
+}
+
+.article-text-size-options{
+  display:inline-flex;
+  border:1px solid var(--line);
+  background:color-mix(in srgb, var(--paper) 76%, transparent);
+}
+
+.article-text-size-button{
+  appearance:none;
+  border:0;
+  border-left:1px solid var(--line);
+  background:transparent;
+  color:var(--accent);
+  min-width:3.6em;
+  padding:7px 10px;
+  font:600 13px/1.2 -apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;
+  cursor:pointer;
+}
+
+.article-text-size-button:first-child{
+  border-left:0;
+}
+
+.article-text-size-button[aria-pressed="true"]{
+  background:var(--accent);
+  color:var(--theme-button-text, #fffdf8);
+}
+
+.article-text-size-button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+
+.series-main > article.note-box{
+  font-size:var(--article-reader-size);
+  line-height:1.95;
+}
+
+.series-main > article.note-box p,
+.series-main > article.note-box li{
+  font-size:var(--article-reader-size);
+  line-height:1.95;
+}
+
+.series-main > article.note-box h2{
+  font-size:var(--article-reader-h2-size);
+  line-height:1.45;
+}
+
+.series-main > article.note-box h3{
+  font-size:var(--article-reader-h3-size);
+  line-height:1.55;
+}
+
+.series-main > article.note-box blockquote,
+.series-main > article.note-box .article-phrase{
+  font-size:var(--article-reader-size);
+  line-height:1.9;
+}
+
+@media(max-width:560px){
+  html[data-article-text-size="small"]{
+    --article-reader-size:16.5px;
+    --article-reader-h2-size:1.45rem;
+    --article-reader-h3-size:1.08rem;
+  }
+
+  html[data-article-text-size="normal"],
+  html:not([data-article-text-size]){
+    --article-reader-size:18px;
+    --article-reader-h2-size:1.58rem;
+    --article-reader-h3-size:1.18rem;
+  }
+
+  html[data-article-text-size="large"]{
+    --article-reader-size:20.2px;
+    --article-reader-h2-size:1.77rem;
+    --article-reader-h3-size:1.32rem;
+  }
+
+  html[data-article-text-size="x-large"]{
+    --article-reader-size:22.5px;
+    --article-reader-h2-size:1.98rem;
+    --article-reader-h3-size:1.48rem;
+  }
+
+  .article-text-size-control{
+    align-items:stretch;
+    justify-content:flex-start;
+    gap:8px;
+    margin:0 0 16px;
+    padding-top:16px;
+  }
+
+  .article-text-size-options{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    width:100%;
+  }
+
+  .article-text-size-button{
+    min-width:0;
+    padding:10px 6px;
+    font-size:14px;
+  }
+
+  .series-main > article.note-box p,
+  .series-main > article.note-box li{
+    line-height:1.9;
+  }
+}
+
 @media print{
   @page{size:A4;margin:14mm 16mm 16mm}
   html,body{background:#fff!important;color:#111!important}

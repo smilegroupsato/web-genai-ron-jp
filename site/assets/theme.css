@@ -258,7 +258,7 @@ html[data-appearance] blockquote{
 
 html[data-appearance] .button,
 html[data-appearance] .series-button,
-html[data-appearance] button:not(.appearance-switcher button){
+html[data-appearance] button:not(.appearance-switcher button):not(.article-text-size-button){
   border-color:var(--theme-accent)!important;
   background:var(--theme-accent)!important;
   color:var(--theme-button-text)!important;
@@ -479,6 +479,36 @@ html[data-appearance="archive"] .article-sidebar{
 
 .appearance-switcher button:focus-visible{
   outline:2px solid var(--theme-accent, #245c63);
+  outline-offset:2px;
+}
+
+html[data-appearance] .article-text-size-control{
+  color:var(--theme-muted)!important;
+}
+
+html[data-appearance] .article-text-size-options{
+  border-color:var(--theme-line)!important;
+  background:color-mix(in srgb, var(--theme-card) 72%, transparent)!important;
+}
+
+html[data-appearance] .article-text-size-button{
+  border-color:var(--theme-line)!important;
+  background:transparent!important;
+  color:var(--theme-link)!important;
+}
+
+html[data-appearance] .article-text-size-button:hover{
+  background:var(--theme-soft)!important;
+  color:var(--theme-text)!important;
+}
+
+html[data-appearance] .article-text-size-button[aria-pressed="true"]{
+  background:var(--theme-accent)!important;
+  color:var(--theme-button-text)!important;
+}
+
+html[data-appearance] .article-text-size-button:focus-visible{
+  outline:2px solid var(--theme-accent)!important;
   outline-offset:2px;
 }
 
