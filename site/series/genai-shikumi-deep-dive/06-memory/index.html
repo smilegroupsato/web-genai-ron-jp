@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 06｜memoryとは何か｜GENAI-RON</title>
+  <meta name="description" content="memoryとはモデル内部に人間の記憶のような体験が蓄積されることではない。保存、参照、context injection、personalization、監査として読む。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 06｜memoryとは何か">
+  <meta property="og:description" content="memoryは、保存情報を選別しcontextへ再注入する仕組みである。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 06</p>
+      <h1>memoryとは何か</h1>
+      <p class="series-subtitle">保存、参照、personalization、監査。AIが「覚えている」ように見える現象を分解する。</p>
+      <p class="series-copy">memoryとは、モデル内部に体験が蓄積されることではなく、保存情報が選別され、contextとして再注入される仕組みである。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. 「覚えている」は一つの処理ではない</h2>
+        <p>生成AIを使い続けていると、ある瞬間から「覚えている」という感覚が生まれる。前に話した好みを踏まえてくれる。家族構成や仕事上の役割を前提にする。進行中のプロジェクトを続きから扱う。</p>
+        <p>しかし、この現象をそのまま「AIの中に人間のような記憶がある」と理解すると、仕組みを見誤る。</p>
+        <pre class="article-phrase">stored
+  ↓ maybe
+retrieved
+  ↓ maybe
+selected
+  ↓ maybe
+injected
+  ↓ maybe
+used in generation</pre>
+        <p>情報がどこかに保存されていることと、今回検索されたことは違う。検索候補に上がったことと、実際にcontextへ入ったことも違う。contextへ入ったことと、最終応答で採用されたことも違う。</p>
+
+        <h2>2. model weightsとruntime context</h2>
+        <table><tr><th>層</th><th>意味</th></tr><tr><td>model weights</td><td>学習済みモデルの重み。通常の会話ごとに個人向けに書き換わるものではない。</td></tr><tr><td>runtime context</td><td>今回の応答時にモデルへ渡される入力集合。</td></tr><tr><td>saved memory</td><td>ユーザーや会話について保存された情報。</td></tr><tr><td>memory injection</td><td>保存情報を今回のcontextへ入れる処理。</td></tr></table>
+        <p>通常の会話でmemoryが効くことは、モデルそのものがその場で再学習されたことを意味しない。memoryは、モデル内部の体験ではなく、再注入可能なcontext sourceである。</p>
+
+        <h2>3. saved memory、reference chat history、custom instructions</h2>
+        <p>長期的なpersonalizationを支えるsourceは一つではない。saved memoryは継続的に使う価値があると判断された情報であり、reference chat historyは過去の会話から関連情報を参照する仕組みであり、custom instructionsはユーザーが明示的に設定した恒常的な指示である。</p>
+        <p>これらをすべて「記憶」と呼ぶと、権限と更新方法が見えなくなる。</p>
+
+        <h2>4. personalizationとはcontext selectionである</h2>
+        <p>personalizationは、ユーザー専用モデルを作ることではない。現在のrequestに対して、どの記憶、履歴、設定、ファイル、プロジェクト文脈を選び、どの強さでcontextへ入れるかを決めることである。</p>
+        <pre class="article-phrase">more personalization ≠ better answer
+relevant personalization ≈ better answer</pre>
+
+        <h2>5. memory injectionの判断</h2>
+        <p>保存されているmemoryが、毎回すべてcontextへ入るわけではない。memory injectionでは、関連性、scope、freshness、conflict、sensitivity、context budget、placementを確認する必要がある。</p>
+        <pre class="article-phrase">candidate memory
+  ↓ relevance check
+  ↓ scope check
+  ↓ freshness check
+  ↓ conflict check
+  ↓ sensitivity check
+  ↓ context budget check
+  ↓ placement decision
+  ↓ injected context</pre>
+
+        <h2>6. memoryはinstruction hierarchyを上書きしない</h2>
+        <p>過去のmemoryに「ユーザーは短い回答を好む」とあっても、現在のuser messageが「今回は詳しく長めに説明して」であれば、現在の指示を優先する。memoryは重要なcontextであっても、現在の明示的依頼を自動的に上書きする命令ではない。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">memoryとは、人間の記憶のような体験ではなく、保存情報の参照・選別・注入・監査の仕組みである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/05-structured-output/">前へ：05 構造化出力とは何か</a> / <a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">次へ：07 停止条件と検証ループ</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
