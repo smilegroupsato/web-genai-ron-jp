@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 08｜全体アーキテクチャ｜GENAI-RON</title>
+  <meta name="description" content="生成AIシステムはmodelだけでは成立しない。model、application、runtime、tool、memory、human、auditの責任境界を読む。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 08｜全体アーキテクチャ">
+  <meta property="og:description" content="AI system ≠ model alone. 生成AIを複数層の協働として理解する。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 08</p>
+      <h1>全体アーキテクチャ</h1>
+      <p class="series-subtitle">model / application / runtime / human の分担。01〜07を一枚の責任境界へ戻す。</p>
+      <p class="series-copy">生成AIシステムとは、model、application、runtime、humanの責任境界を持つ複合システムである。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. 生成AIシステムはmodelだけではない</h2>
+        <p>日常的には、私たちは「AIが答えた」「AIが検索した」「AIがファイルを読んだ」「AIがNotionにページを作った」と言う。日常語としてはそれでよい。しかし、しくみとして見るなら、この言い方はかなり粗い。</p>
+        <p>モデルが直接Webを検索しているとは限らない。モデルが直接ファイルシステムを読んでいるとは限らない。モデルが直接メールを送っているとは限らない。多くの場合、モデルがしているのは、自然文、構造化出力、tool call候補、拒否、確認依頼、handoff提案などを生成することである。</p>
+        <pre class="article-phrase">"AI did it"
+  = model generated something
+  + application interpreted it
+  + runtime executed something
+  + tool returned a result
+  + application verified or displayed it
+  + human accepted, corrected, or approved it</pre>
+
+        <h2>2. 四つの大きな層</h2>
+        <table><tr><th>層</th><th>主な責務</th><th>混同してはいけないこと</th></tr><tr><td>model</td><td>contextをもとに、自然文、構造化出力、tool call候補などを生成する。</td><td>外部世界を直接操作していると思い込む。</td></tr><tr><td>application</td><td>request、instruction、context、memory、tool、validation、loopを編成する。</td><td>modelの自然文応答をそのまま真実や完了扱いする。</td></tr><tr><td>runtime</td><td>tool、API、connector、file system、database、sandboxなどを実行する。</td><td>実行成功をtask成功と同一視する。</td></tr><tr><td>human</td><td>目的、判断、承認、責任、評価、意味づけを担う。</td><td>すべてを自動化できるとみなす。</td></tr></table>
+        <pre class="article-phrase">AI system ≠ model alone
+
+AI system =
+  model
+  + application orchestration
+  + context assembly
+  + tool runtime
+  + memory / retrieval
+  + validation / verification
+  + guardrails
+  + human judgment
+  + audit trail</pre>
+
+        <h2>3. requestからresponseまでのpipeline</h2>
+        <pre class="article-phrase">1. user intent
+2. request assembly
+3. instruction hierarchy placement
+4. context selection
+5. memory / retrieval injection
+6. tool schema exposure
+7. model invocation
+8. output parsing
+9. validation / refusal handling
+10. tool execution or direct response
+11. result observation
+12. verification
+13. loop decision
+14. final response / artifact / handoff / stop
+15. trace / audit / evaluation</pre>
+        <p>これは単なる実装手順ではない。責任境界の一覧である。どの段階で何を確認するのか、どの段階で人間へ返すのか、どの段階でtoolを許可するのか、どの段階で止めるのか、どの段階を記録するのかを分けるための地図である。</p>
+
+        <h2>4. model layerの責務と限界</h2>
+        <p>model layerの責務は、与えられたcontextから次の出力を生成することである。answer text、structured output、tool call candidate、classification、plan、refusal、clarification request、handoff proposalなどを生成する。</p>
+        <pre class="article-phrase">model output ≠ external fact
+model output ≠ tool execution
+model output ≠ permission
+model output ≠ user approval
+model output ≠ completed task</pre>
+        <p>modelはsource of truthではない。memory storeでもない。外部世界を直接操作する主体でもない。責任主体でもない。だから、model outputとapplication actionを分ける必要がある。</p>
+
+        <h2>5. applicationとruntimeの責務</h2>
+        <p>application layerは、modelを呼び出すだけの薄い殻ではない。何をcontextへ入れ、どのtoolを見せ、model出力をどうparseし、何をvalid outputとみなし、どこで人間へ戻すかを決める編成層である。</p>
+        <p>runtime / tool layerは、外部世界への実行境界である。toolは単なる能力追加ではなく、permission boundary、side effect boundary、audit boundaryを含む。</p>
+
+        <h2>6. humanは外側ではなく構成要素である</h2>
+        <p>human layerは、目的、判断、承認、責任、評価、意味づけを担う。生成AIシステムから人間を外すのではなく、どこで人間に戻すのか、どこまで委任するのか、どの判断は保持するのかを設計する必要がある。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">生成AIシステムとは、model、application、runtime、humanの責任境界を持つ複合システムである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">前へ：07 停止条件と検証ループ</a> / <a href="/series/genai-shikumi-deep-dive/concept-map/">次へ：主要概念マップ</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
