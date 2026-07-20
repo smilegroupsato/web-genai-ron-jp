@@ -280,246 +280,27 @@ html[data-appearance] .chapter-nav a:hover{
   text-decoration:none;
 }
 
-html[data-appearance] .chapter-nav a.current,
-html[data-appearance] .side-toc-link.current{
-  background:var(--theme-accent)!important;
-  border-color:var(--theme-accent)!important;
-  color:var(--theme-button-text)!important;
+/* Deep dive export artifact guards */
+body.series-page-compact article.note-box blockquote:not(:has(*)),
+body.series-page-compact article.note-box blockquote:has(> p:empty):not(:has(p:not(:empty))){
+  display:none!important;
 }
 
-html[data-appearance] table,
-html[data-appearance] th,
-html[data-appearance] td{
-  background:var(--theme-card)!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance] th{
-  background:var(--theme-soft)!important;
-}
-
-html[data-appearance] .site-footer,
-html[data-appearance] .series-footer,
-html[data-appearance] .note-footer,
-html[data-appearance] .site-footer.home-footer{
-  background:transparent!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-muted)!important;
-}
-
-
-/* Article reading surfaces */
-html[data-appearance] .article-wrap,
-html[data-appearance] .article-layout,
-html[data-appearance] .article-content,
-html[data-appearance] .article-body,
-html[data-appearance] .site-main.with-side-toc{
-  background:transparent!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance] .article-sidebar,
-html[data-appearance] .side-toc,
-html[data-appearance] .mobile-toc,
-html[data-appearance] .toc,
-html[data-appearance] .chapter-nav,
-html[data-appearance] .prev-next{
-  border-color:var(--theme-line)!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance] .article-sidebar,
-html[data-appearance] .side-toc-inner,
-html[data-appearance] .mobile-toc{
-  background:color-mix(in srgb, var(--theme-card) 82%, var(--theme-bg))!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-text)!important;
-  box-shadow:none!important;
-}
-
-html[data-appearance] .article-sidebar a,
-html[data-appearance] .side-toc-link,
-html[data-appearance] .mobile-toc .side-toc-link,
-html[data-appearance] .toc a{
-  background:transparent!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-muted)!important;
-  text-decoration:none;
-}
-
-html[data-appearance] .article-sidebar a:hover,
-html[data-appearance] .side-toc-link:hover,
-html[data-appearance] .mobile-toc .side-toc-link:hover,
-html[data-appearance] .toc a:hover{
-  background:var(--theme-soft)!important;
-  color:var(--theme-text)!important;
-  text-decoration:none;
-}
-
-html[data-appearance] .article-sidebar .active,
-html[data-appearance] .article-sidebar a.active,
-html[data-appearance] .chapter-nav .active,
-html[data-appearance] .chapter-nav a.active,
-html[data-appearance] .chapter-nav a.current,
-html[data-appearance] .side-toc-link.current,
-html[data-appearance] .toc a.active,
-html[data-appearance] .toc a.current{
-  background:var(--theme-accent)!important;
-  border-color:var(--theme-accent)!important;
-  color:var(--theme-button-text)!important;
-}
-
-html[data-appearance] .side-toc-link.current .side-toc-num,
-html[data-appearance] .side-toc-link.current span,
-html[data-appearance] .article-sidebar .active *,
-html[data-appearance] .chapter-nav .active *,
-html[data-appearance] .chapter-nav .current *{
+body.series-page-compact article.note-box a[href^="http://AGENTS.md"],
+body.series-page-compact article.note-box a[href^="http://CHATGPT.md"],
+body.series-page-compact article.note-box a[href^="http://Codex"],
+body.series-page-compact article.note-box a[href^="http://%"]{
   color:inherit!important;
+  text-decoration:none!important;
+  pointer-events:none!important;
+  cursor:text!important;
 }
 
-html[data-appearance] .side-toc-label,
-html[data-appearance] .side-toc-num,
-html[data-appearance] .mobile-toc summary,
-html[data-appearance] .toc .no{
-  color:var(--theme-subtle)!important;
-}
-
-html[data-appearance] .chapter-nav{
-  background:transparent!important;
-  border-top-color:var(--theme-line)!important;
-  border-bottom-color:var(--theme-line)!important;
-}
-
-html[data-appearance] .chapter-nav a{
-  background:color-mix(in srgb, var(--theme-card) 34%, transparent)!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-link)!important;
-}
-
-html[data-appearance] .prose,
-html[data-appearance] .full-text,
-html[data-appearance] .article-body,
-html[data-appearance] .article-header,
-html[data-appearance] .article-head{
-  border-color:var(--theme-line)!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance] .article-header,
-html[data-appearance] .article-head{
-  background:transparent!important;
-}
-
-html[data-appearance] .prose,
-html[data-appearance] .prose.full-text,
-html[data-appearance] article.prose,
-html[data-appearance] section.prose{
-  background:var(--theme-card)!important;
-  border-color:var(--theme-line)!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance="reading"] .side-toc-inner,
-html[data-appearance="reading"] .mobile-toc,
-html[data-appearance="reading"] .article-sidebar{
-  background:#181c19!important;
-}
-
-html[data-appearance="reading"] .side-toc-link,
-html[data-appearance="reading"] .mobile-toc .side-toc-link,
-html[data-appearance="reading"] .article-sidebar a,
-html[data-appearance="reading"] .toc a{
-  color:#d7d0c3!important;
-}
-
-html[data-appearance="reading"] .side-toc-label,
-html[data-appearance="reading"] .side-toc-num,
-html[data-appearance="reading"] .mobile-toc summary,
-html[data-appearance="reading"] .toc .no{
-  color:#aaa295!important;
-}
-
-html[data-appearance="archive"] .side-toc-inner,
-html[data-appearance="archive"] .mobile-toc,
-html[data-appearance="archive"] .article-sidebar{
-  background:#efe3c8!important;
-}
-.appearance-switcher{
-  position:fixed;
-  right:0;
-  top:0;
-  z-index:9999;
-  display:flex;
-  gap:2px;
-  padding:4px;
-  border-left:1px solid var(--theme-line, rgba(151,139,119,.36));
-  border-bottom:1px solid var(--theme-line, rgba(151,139,119,.36));
-  background:color-mix(in srgb, var(--theme-surface, #fffdf8) 92%, transparent);
-  backdrop-filter:blur(12px);
-  box-shadow:0 8px 28px rgba(0,0,0,.08);
-}
-
-.appearance-switcher button{
-  appearance:none;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  color:var(--theme-muted, #66625a);
-  padding:7px 9px;
-  font:600 11px/1.2 Georgia,"Times New Roman",serif;
-  letter-spacing:.08em;
-  cursor:pointer;
-}
-
-.appearance-switcher button[aria-pressed="true"]{
-  background:var(--theme-accent, #245c63);
-  color:var(--theme-button-text, #fffdf8);
-}
-
-.appearance-switcher button:focus-visible{
-  outline:2px solid var(--theme-accent, #245c63);
-  outline-offset:2px;
-}
-
-html[data-appearance] .article-text-size-control{
-  color:var(--theme-muted)!important;
-}
-
-html[data-appearance] .article-text-size-options{
-  border-color:var(--theme-line)!important;
-  background:color-mix(in srgb, var(--theme-card) 72%, transparent)!important;
-}
-
-html[data-appearance] .article-text-size-button{
-  border-color:var(--theme-line)!important;
-  background:transparent!important;
-  color:var(--theme-link)!important;
-}
-
-html[data-appearance] .article-text-size-button:hover{
-  background:var(--theme-soft)!important;
-  color:var(--theme-text)!important;
-}
-
-html[data-appearance] .article-text-size-button[aria-pressed="true"]{
-  background:var(--theme-accent)!important;
-  color:var(--theme-button-text)!important;
-}
-
-html[data-appearance] .article-text-size-button:focus-visible{
-  outline:2px solid var(--theme-accent)!important;
-  outline-offset:2px;
-}
-
-@media(max-width:720px){
-
-.appearance-switcher{right:0;top:0;max-width:100vw;overflow:auto}
-  .appearance-switcher button{padding:7px 8px;font-size:10px}
-}
-
-@media print{
-
-.appearance-switcher{display:none!important}
-  html{color-scheme:light!important}
+body.series-page-compact article.note-box a[href^="http://AGENTS.md"],
+body.series-page-compact article.note-box a[href^="http://CHATGPT.md"]{
+  font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace!important;
+  background:rgba(214,62,62,.08)!important;
+  color:#c43e3e!important;
+  padding:.08em .24em!important;
+  border-radius:.24em!important;
 }
