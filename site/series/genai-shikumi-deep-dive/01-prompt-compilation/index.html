@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 01｜プロンプトは実行時にどうコンパイルされるのか｜GENAI-RON</title>
+  <meta name="description" content="ユーザーが書いた文章だけがプロンプトではない。指示、履歴、memory、ファイル、検索結果、tool定義などが実行時に入力環境として組み立てられることを読む。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 01｜プロンプトは実行時にどうコンパイルされるのか">
+  <meta property="og:description" content="プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 01</p>
+      <h1>プロンプトは実行時にどうコンパイルされるのか</h1>
+      <p class="series-subtitle">ユーザーの一文は、そのままモデルへ流れ込むのではない。指示、文脈、ツール、制約が組み合わされて入力環境が作られる。</p>
+      <p class="series-copy">プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <p><strong>注記：</strong>このページの説明は、公開仕様、一般的なLLM実装、API設計上の概念、および理解のためのモデルを組み合わせたものです。特定サービスの非公開内部実装を、そのまま断定するものではありません。</p>
+
+        <h2>1. ユーザーの文章だけがプロンプトではない</h2>
+        <p>ユーザーの画面には、一つの入力欄がある。そこに文章を書き、送信する。だから、表面上は「チャット欄に書いた文章」がプロンプトに見える。</p>
+        <p>しかし、実行構造として見ると、ユーザーの文章は単独でモデルに渡されるとは限らない。その背後には、システム側の指示、アプリケーション側の指示、プロジェクト指示、カスタム指示、会話履歴、保存メモリ、添付ファイル、検索結果、ツール定義、現在利用できる機能、出力形式の制約などがある。</p>
+        <pre class="article-phrase">ユーザーが見ているもの
+  ↓
+チャット欄の文章
+  ↓
+実行環境
+  ├─ 指示 system / developer / project
+  ├─ 文脈 history / memory / files / search
+  └─ 行動空間 tools / tool_choice
+  ↓
+モデルに渡される入力構造</pre>
+        <p>同じ「この文章を要約してください」という依頼でも、直前の会話履歴が入っている場合、プロジェクト指示が入っている場合、添付ファイルの内容が入っている場合、Web検索結果が入っている場合、利用可能なツールが違う場合で、モデルが受け取る入力環境は変わる。</p>
+
+        <h2>2. instructions / input / tools は分けて考える</h2>
+        <p>自然な日本語では、一つの依頼文の中に、役割指定、処理対象、操作希望が混ざっている。</p>
+        <p>たとえば「あなたは編集者です。以下の文章をWeb掲載用に整えて、GitHubに書いてください。」という一文は、人間には自然に読める。しかし実行構造としては、少なくとも三つに分けて考える必要がある。</p>
+        <table><tr><th>部分</th><th>実装上の読み方</th></tr><tr><td>あなたは編集者です</td><td>instructionsに近い。モデルの振る舞いを決める指示。</td></tr><tr><td>文章をWeb掲載用に整える</td><td>inputに対するタスク指示。</td></tr><tr><td>GitHubに書く</td><td>toolsと実行権限が関わる外部操作。</td></tr></table>
+        <p>「文章を整える」だけならモデルの出力で完結する。しかし「GitHubに書く」は、外部システムへの書き込みである。どのリポジトリのどのファイルに書くのか、既存内容を読むのか、差分確認を行うのか、失敗時にどこで止まるのかも関係する。</p>
+
+        <h2>3. UI上の擬似階層と実行環境上の実階層</h2>
+        <p>ユーザーは本文中に <code>system:</code> や <code>developer:</code> と書くことができる。しかし、それは実行環境上の本物のsystem messageやdeveloper messageになったわけではない。見た目のラベルと、入力経路上のroleは違う。</p>
+        <p>強い言葉で書かれたuser messageが、上位指示へ昇格するわけではない。逆に短い一文でも、実行環境がdeveloper instructionとして置いたものは、user messageより強い制約として扱われることがある。</p>
+
+        <h2>4. prompt compilationという理解モデル</h2>
+        <p>ここでいう <code>prompt compilation</code> は、非公開内部実装の固有名ではない。ユーザー入力、上位指示、履歴、memory、検索結果、ファイル、tool定義、出力制約などが、実行時に入力構造として組み立てられる過程を理解するためのモデルである。</p>
+        <pre class="article-phrase">user message
+  + instructions
+  + history
+  + memory
+  + files / retrieval
+  + tool definitions
+  + output constraints
+  = runtime input environment</pre>
+
+        <h2>5. 中心フレーズ</h2>
+        <p class="article-phrase">プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。</p>
+
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/">シリーズトップへ</a> / <a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">次へ：02 指示階層とは何か</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
