@@ -267,6 +267,52 @@
     });
   }
 
+  function normalizeOfficialReferenceLists() {
+    const article = document.querySelector('body.series-page-compact article.note-box');
+    if (!article) return;
+    Array.from(article.querySelectorAll('h2')).forEach((heading) => {
+      if (!/公式参照/.test(heading.textContent || '')) return;
+      const list = heading.nextElementSibling;
+      if (!list || list.tagName !== 'UL') return;
+
+      Array.from(list.children).forEach((item) => {
+        if (item.tagName !== 'LI') return;
+        const nestedLink = item.querySelector('ul a[href]');
+        if (!nestedLink) return;
+        const titleParts = Array.from(item.childNodes)
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent.trim())
+          .filter(Boolean);
+        const title = titleParts.join(' ').trim() || nestedLink.textContent.trim();
+        item.textContent = '';
+        const link = document.createElement('a');
+        link.href = nestedLink.href;
+        link.textContent = title;
+        item.appendChild(link);
+      });
+    });
+  }
+
+  function removePublicUpdateHistorySections() {
+    const article = document.querySelector('body.series-page-compact article.note-box');
+    if (!article) return;
+    Array.from(article.querySelectorAll('h2')).forEach((heading) => {
+      if (!/更新履歴/.test(heading.textContent || '')) return;
+      let node = heading.nextSibling;
+      heading.remove();
+      while (node) {
+        const current = node;
+        node = node.nextSibling;
+        if (current.nodeType === Node.ELEMENT_NODE && current.matches('nav.article-link')) break;
+        if (current.nodeType === Node.TEXT_NODE && !current.textContent.trim()) {
+          current.remove();
+          continue;
+        }
+        current.remove();
+      }
+    });
+  }
+
   function injectDeepDiveStyle() {
     if (document.getElementById('deep-dive-runtime-style')) return;
     const style = document.createElement('style');
@@ -380,6 +426,8 @@ body.series-page-compact .article-link{
     collapseNotionToggleListItems();
     convertMarkdownTables();
     collapseAnnotationBlockquotes();
+    normalizeOfficialReferenceLists();
+    removePublicUpdateHistorySections();
     enhanceCodeBlocks();
   }
 
