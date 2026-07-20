@@ -3,33 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 06｜memoryとは何か｜GENAI-RON</title>
-  <meta name="description" content="memoryとはモデル内部に人間の記憶のような体験が蓄積されることではない。保存、参照、context injection、personalization、監査として読む。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 06｜memoryとは何か">
-  <meta property="og:description" content="memoryは、保存情報を選別しcontextへ再注入する仕組みである。">
+  <title>生成AIのしくみ 超詳解 06｜GENAI-RON</title>
+  <meta name="description" content="memoryを、保存情報の参照・選別・再注入・監査の仕組みとして読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 06">
+  <meta property="og:description" content="memoryを、保存情報の参照・選別・再注入・監査の仕組みとして読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-19 09:36 JST / Notion原稿最終更新日時：2026-07-19 09:36 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 06</p>
       <h1>memoryとは何か</h1>
-      <p class="series-subtitle">保存、参照、personalization、監査。AIが「覚えている」ように見える現象を分解する。</p>
-      <p class="series-copy">memoryとは、モデル内部に体験が蓄積されることではなく、保存情報が選別され、contextとして再注入される仕組みである。</p>
+      <p class="series-subtitle">memoryを、モデル内部の体験ではなく、保存・参照・personalization・context injection・監査の仕組みとして読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. 「覚えている」は一つの処理ではない</h2>
-        <p>生成AIを使い続けていると、ある瞬間から「覚えている」という感覚が生まれる。前に話した好みを踏まえてくれる。家族構成や仕事上の役割を前提にする。進行中のプロジェクトを続きから扱う。</p>
-        <p>しかし、この現象をそのまま「AIの中に人間のような記憶がある」と理解すると、仕組みを見誤る。</p>
-        <pre class="article-phrase">stored
+<ul>
+<li>ページ作成日時：2026-07-19 09:36 JST</li>
+<li>最終更新日時：2026-07-19 09:36 JST</li>
+</ul>
+<p>生成AIを使い続けていると、ある瞬間から「覚えている」という感覚が生まれる。</p>
+<p>前に話した好みを踏まえてくれる。</p>
+<p>家族構成や仕事上の役割を前提にする。</p>
+<p>進行中のプロジェクトを続きから扱う。</p>
+<p>文体や関心領域に合わせて応答する。</p>
+<p>しかし、この現象をそのまま「AIの中に人間のような記憶がある」と理解すると、仕組みを見誤る。</p>
+<blockquote>
+<p>memoryとは、モデル内部に体験が蓄積されることではない。過去の会話、保存情報、設定、ファイル、接続アプリなどから、現在の応答に有用だと判断された情報が選別され、contextとして再注入される仕組みである。</p>
+</blockquote>
+<p>06では、memoryを保存・参照・personalization・injection・監査という複数の層に分解する。</p>
+<h2>1. 「覚えている」は、一つの処理ではない</h2>
+<p>ユーザーから見ると、AIが過去の情報を踏まえて答えたとき、「覚えていた」と感じる。</p>
+<p>しかし、application側では少なくとも次の段階がある。</p>
+<pre class="article-phrase"><code>stored
   ↓ maybe
 retrieved
   ↓ maybe
@@ -37,25 +59,157 @@ selected
   ↓ maybe
 injected
   ↓ maybe
-used in generation</pre>
-        <p>情報がどこかに保存されていることと、今回検索されたことは違う。検索候補に上がったことと、実際にcontextへ入ったことも違う。contextへ入ったことと、最終応答で採用されたことも違う。</p>
-
-        <h2>2. model weightsとruntime context</h2>
-        <table><tr><th>層</th><th>意味</th></tr><tr><td>model weights</td><td>学習済みモデルの重み。通常の会話ごとに個人向けに書き換わるものではない。</td></tr><tr><td>runtime context</td><td>今回の応答時にモデルへ渡される入力集合。</td></tr><tr><td>saved memory</td><td>ユーザーや会話について保存された情報。</td></tr><tr><td>memory injection</td><td>保存情報を今回のcontextへ入れる処理。</td></tr></table>
-        <p>通常の会話でmemoryが効くことは、モデルそのものがその場で再学習されたことを意味しない。memoryは、モデル内部の体験ではなく、再注入可能なcontext sourceである。</p>
-
-        <h2>3. saved memory、reference chat history、custom instructions</h2>
-        <p>長期的なpersonalizationを支えるsourceは一つではない。saved memoryは継続的に使う価値があると判断された情報であり、reference chat historyは過去の会話から関連情報を参照する仕組みであり、custom instructionsはユーザーが明示的に設定した恒常的な指示である。</p>
-        <p>これらをすべて「記憶」と呼ぶと、権限と更新方法が見えなくなる。</p>
-
-        <h2>4. personalizationとはcontext selectionである</h2>
-        <p>personalizationは、ユーザー専用モデルを作ることではない。現在のrequestに対して、どの記憶、履歴、設定、ファイル、プロジェクト文脈を選び、どの強さでcontextへ入れるかを決めることである。</p>
-        <pre class="article-phrase">more personalization ≠ better answer
-relevant personalization ≈ better answer</pre>
-
-        <h2>5. memory injectionの判断</h2>
-        <p>保存されているmemoryが、毎回すべてcontextへ入るわけではない。memory injectionでは、関連性、scope、freshness、conflict、sensitivity、context budget、placementを確認する必要がある。</p>
-        <pre class="article-phrase">candidate memory
+used in generation
+</code></pre>
+<p>情報がどこかに保存されていることと、今回検索されたことは違う。</p>
+<p>検索候補に上がったことと、実際にcontextへ入ったことも違う。</p>
+<p>contextへ入ったことと、最終応答で採用されたことも違う。</p>
+<pre class="article-phrase"><code>stored somewhere ≠ currently injected
+currently injected ≠ necessarily trusted
+remembered ≠ authoritative
+memory hint ≠ current user instruction
+</code></pre>
+<p>したがって、「AIは覚えているか」という問いは、本当は次の問いへ分解される。</p>
+<ul>
+<li>どこに保存されたのか</li>
+<li>どのsourceから来たのか</li>
+<li>どのscopeで使えるのか</li>
+<li>今回retrievalされたのか</li>
+<li>contextへ注入されたのか</li>
+<li>現在の指示と衝突しなかったか</li>
+<li>応答に実際に使われたのか</li>
+</ul>
+<h2>2. model weightsとruntime context</h2>
+<p>memoryを理解するには、model weightsとruntime contextを分ける必要がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>層</th>
+  <th>意味</th>
+  <th>ユーザーから見た印象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model weights</td>
+  <td>学習済みモデルの重み。通常の会話ごとに個人向けに書き換わるものではない</td>
+  <td>AIの基礎知識・言語能力</td>
+</tr>
+<tr>
+  <td>runtime context</td>
+  <td>今回の応答時にモデルへ渡される入力集合</td>
+  <td>今この応答でAIが見ている材料</td>
+</tr>
+<tr>
+  <td>saved memory</td>
+  <td>ユーザーや会話について保存された情報</td>
+  <td>AIが覚えているように見える情報</td>
+</tr>
+<tr>
+  <td>memory injection</td>
+  <td>保存情報を今回のcontextへ入れる処理</td>
+  <td>前の話を踏まえて答える現象</td>
+</tr>
+</tbody>
+</table>
+<p>通常の会話でmemoryが効くことは、モデルそのものがその場で再学習されたことを意味しない。</p>
+<p>より近い理解は次である。</p>
+<pre class="article-phrase"><code>過去会話・保存情報・設定・ファイル・接続アプリ
+  ↓
+保存・要約・検索・選別
+  ↓
+現在のrequestに関係する情報を抽出
+  ↓
+今回のcontextへ注入
+  ↓
+モデルがそのcontextを入力として生成
+</code></pre>
+<p>memoryは、モデル内部の体験ではなく、再注入可能なcontext sourceである。</p>
+<h2>3. saved memory、reference chat history、custom instructions</h2>
+<p>長期的なpersonalizationを支えるsourceは一つではない。</p>
+<h3>saved memory</h3>
+<p>saved memoryは、ユーザーについて継続的に使う価値があると判断された情報である。</p>
+<p>例：</p>
+<ul>
+<li>名前</li>
+<li>食事上の制約</li>
+<li>よく使う文体</li>
+<li>継続中の仕事上の役割</li>
+<li>明示的に覚えておいてほしいと依頼された事項</li>
+</ul>
+<p>saved memoryは、小さな恒常contextに近い。</p>
+<h3>reference chat history</h3>
+<p>reference chat historyは、過去の会話そのもの、またはそこから抽出された関連情報を、現在の会話へ参照する仕組みである。</p>
+<p>すべての過去会話を毎回そのまま読み込むことではない。</p>
+<p>現在のrequestに関係する情報が選ばれる。</p>
+<h3>custom instructions</h3>
+<p>custom instructionsは、ユーザーが明示的に設定した恒常的な指示である。</p>
+<p>たとえば、</p>
+<pre class="article-phrase"><code>日本語で答える。
+文章は簡潔にする。
+技術用語は必要に応じて説明する。
+</code></pre>
+<p>これは「過去にこうだった」というmemory claimではなく、「今後こう応答してほしい」というinstructionである。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>source</th>
+  <th>主な内容</th>
+  <th>性質</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>saved memory</td>
+  <td>ユーザーの好み・条件・継続情報</td>
+  <td>保存されたcontext</td>
+</tr>
+<tr>
+  <td>reference chat history</td>
+  <td>過去会話から得られる関連情報</td>
+  <td>検索・再構成されるcontext</td>
+</tr>
+<tr>
+  <td>custom instructions</td>
+  <td>恒常的な応答方針</td>
+  <td>明示的instruction</td>
+</tr>
+<tr>
+  <td>current user message</td>
+  <td>今回の依頼</td>
+  <td>現在の明示的instruction</td>
+</tr>
+</tbody>
+</table>
+<p>これらをすべて「記憶」と呼ぶと、権限と更新方法が見えなくなる。</p>
+<h2>4. personalizationとはcontext selectionである</h2>
+<p>personalizationは、ユーザー専用モデルを作ることではない。</p>
+<blockquote>
+<p>personalizationとは、現在のrequestに対して、どの記憶、履歴、設定、ファイル、プロジェクト文脈を選び、どの強さでcontextへ入れるかを決めることである。</p>
+</blockquote>
+<p>personalizationに使われうるsignalには次がある。</p>
+<ul>
+<li>文体の好み</li>
+<li>関心領域</li>
+<li>生活条件</li>
+<li>継続中のプロジェクト</li>
+<li>過去に選んだ方針</li>
+<li>ファイルや接続アプリ内の情報</li>
+<li>現在所属しているproject / workspace</li>
+</ul>
+<p>しかし、personalizationは強ければよいわけではない。</p>
+<pre class="article-phrase"><code>more personalization ≠ better answer
+relevant personalization ≈ better answer
+</code></pre>
+<p>旅行相談で過去の犬連れ条件を使うことは有用かもしれない。</p>
+<p>一方、技術文書の設計で家族情報を持ち出すことは不要である。</p>
+<p>personalizationは、量ではなくscopeとrelevanceの問題である。</p>
+<h2>5. memory injectionとcontext window</h2>
+<p>保存されているmemoryが、毎回すべてcontextへ入るわけではない。</p>
+<p>context windowには限りがある。</p>
+<p>また、現在の依頼に関係しない情報を大量に入れると、重要な指示や根拠を圧迫する。</p>
+<p>memory injectionでは、概念的に次の判断が必要になる。</p>
+<pre class="article-phrase"><code>candidate memory
   ↓ relevance check
   ↓ scope check
   ↓ freshness check
@@ -63,14 +217,219 @@ relevant personalization ≈ better answer</pre>
   ↓ sensitivity check
   ↓ context budget check
   ↓ placement decision
-  ↓ injected context</pre>
+  ↓ injected context
+</code></pre>
+<h3>relevance</h3>
+<p>現在のrequestに関係するか。</p>
+<h3>scope</h3>
+<p>account全体、workspace、project、chat、taskのどの範囲で使える情報か。</p>
+<h3>freshness</h3>
+<p>今も正しいか。最後に確認されたのはいつか。</p>
+<h3>conflict</h3>
+<p>現在のuser instructionや、新しい事実と衝突していないか。</p>
+<h3>sensitivity</h3>
+<p>その情報を今回の応答へ露出してよいか。</p>
+<h3>placement</h3>
+<p>単なる参考contextとして入れるのか、明示的な制約として扱うのか。</p>
+<p>memory injectionは、情報追加ではなく、情報の選別と配置である。</p>
+<h2>6. memoryはinstruction hierarchyを上書きしない</h2>
+<p>過去のmemoryに次があるとする。</p>
+<pre class="article-phrase"><code>ユーザーは短い回答を好む。
+</code></pre>
+<p>しかし、現在のuser messageが次なら、現在の指示を優先する。</p>
+<pre class="article-phrase"><code>今回は詳しく長めに説明して。
+</code></pre>
+<p>memoryは重要なcontextであっても、現在の明示的依頼を自動的に上書きする命令ではない。</p>
+<p>同様に、過去のproject情報があるからといって、現在の依頼を必ずそのprojectとして扱うべきではない。</p>
+<pre class="article-phrase"><code>memory relevance ≠ instruction authority
+past preference ≠ current command
+continuity hint ≠ confirmed scope
+</code></pre>
+<h2>7. memoryの失敗モード</h2>
+<p>memoryの失敗は、単なる「記憶違い」だけではない。</p>
+<h3>stale memory</h3>
+<p>以前は正しかったが、現在は古い。</p>
+<p>例：</p>
+<ul>
+<li>以前の勤務先</li>
+<li>終了済みproject</li>
+<li>古い住所</li>
+<li>変更済みの好み</li>
+</ul>
+<h3>wrong memory</h3>
+<p>最初から誤っている、または誤推論から作られた。</p>
+<h3>over-personalization</h3>
+<p>関係の薄いmemoryを使いすぎる。</p>
+<p>ユーザーを過去の自己像に固定する。</p>
+<h3>under-personalization</h3>
+<p>既に共有済みの重要条件を無視し、毎回同じ説明や確認を求める。</p>
+<h3>sensitive memory</h3>
+<p>健康、家族、政治、宗教、財務、位置情報などを不必要に露出する。</p>
+<h3>contradictory memory</h3>
+<p>複数のmemoryが矛盾している。</p>
+<h3>false continuity</h3>
+<p>本当は続きではないのに、過去projectの続きだと断定する。</p>
+<pre class="article-phrase"><code>relevant memory ≈ better personalization
+stale memory ≠ useful memory
+sensitive memory ≠ freely reusable memory
+stored context ≠ confirmed continuity
+</code></pre>
+<h2>8. 削除と無効化は同じではない</h2>
+<p>memoryを扱うときは、次を分ける必要がある。</p>
+<ul>
+<li>memory機能をオフにする</li>
+<li>saved memoryを削除する</li>
+<li>元chatを削除する</li>
+<li>archived chatを削除する</li>
+<li>fileを削除する</li>
+<li>connected appを切断する</li>
+<li>Temporary Chatを使う</li>
+</ul>
+<p>保存済みmemoryとchat historyは別管理される場合がある。</p>
+<p>そのため、chatを削除しただけでは、そこから作られたsaved memoryが残ることがある。</p>
+<p>逆に、saved memoryを削除しても、過去chat内の記述そのものは残る場合がある。</p>
+<pre class="article-phrase"><code>delete chat ≠ delete every derived memory
+delete saved memory ≠ erase past chat text
+turn off memory ≠ delete all source data
+</code></pre>
+<p>削除は、sourceごとの状態を確認する必要がある。</p>
+<h2>9. Temporary Chatは「すべてのcontextを消す」機能ではない</h2>
+<p>Temporary Chatは、personalization用memoryへアクセスせず、新しいmemoryも作らないための会話モードである。</p>
+<p>ただし、custom instructionsが有効なら従うことがあり、安全性やセキュリティ目的の限定的contextが使われる場合もある。</p>
+<p>したがって、Temporary Chatを「完全な無文脈状態」と理解するのは正確ではない。</p>
+<pre class="article-phrase"><code>Temporary Chat:
+  no personalization memory access
+  no new personalization memory creation
+  but current message / system rules / enabled custom instructions remain
+</code></pre>
+<h2>10. memoryを設計・監査する</h2>
+<p>memoryを安全に使うには、内容だけでなくmetadataを持つ必要がある。</p>
+<pre><code class="language-tsx">type MemoryManifest = {
+  id: string;
+  subject: string;
+  claim: string;
+  sourceType:
+    | &quot;explicit_user_request&quot;
+    | &quot;inferred_from_chat&quot;
+    | &quot;file&quot;
+    | &quot;connected_app&quot;
+    | &quot;custom_instruction&quot;
+    | &quot;human_entry&quot;;
+  sourceRef?: string;
+  scope: &quot;account&quot; | &quot;workspace&quot; | &quot;project&quot; | &quot;chat&quot; | &quot;task&quot;;
+  confidence: &quot;low&quot; | &quot;medium&quot; | &quot;high&quot;;
+  sensitivity: &quot;normal&quot; | &quot;sensitive&quot; | &quot;restricted&quot;;
+  createdAt: string;
+  lastConfirmedAt?: string;
+  expiresAt?: string;
+  retentionStatus: &quot;active&quot; | &quot;expired&quot; | &quot;superseded&quot; | &quot;deleted&quot;;
+  consentStatus: &quot;explicit&quot; | &quot;implicit&quot; | &quot;not_required&quot; | &quot;revoked&quot;;
+};
+</code></pre>
+<p>最低限、次が追跡できるべきである。</p>
+<ul>
+<li>claim：何を覚えているのか</li>
+<li>provenance：どこから来たのか</li>
+<li>scope：どこで使えるのか</li>
+<li>freshness：いつ確認されたのか</li>
+<li>confidence：どの程度確かか</li>
+<li>sensitivity：露出してよいか</li>
+<li>retention：いつまで持つか</li>
+<li>deletion status：削除済みか</li>
+<li>consent：ユーザーの同意状態</li>
+</ul>
+<h2>11. memory audit log</h2>
+<p>memoryは保存だけでなく、使用履歴も監査対象になる。</p>
+<pre><code class="language-tsx">type MemoryAuditEvent = {
+  eventId: string;
+  memoryId: string;
+  eventType:
+    | &quot;created&quot;
+    | &quot;updated&quot;
+    | &quot;retrieved&quot;
+    | &quot;injected&quot;
+    | &quot;used&quot;
+    | &quot;suppressed&quot;
+    | &quot;corrected&quot;
+    | &quot;deleted&quot;;
+  reason: string;
+  requestId?: string;
+  occurredAt: string;
+};
+</code></pre>
+<p>重要なのは、「何を覚えているか」だけではない。</p>
+<ul>
+<li>なぜ今回使ったのか</li>
+<li>どのsourceから来たのか</li>
+<li>どのmemoryを使わなかったのか</li>
+<li>衝突をどう解決したのか</li>
+<li>stale判定をしたか</li>
+<li>sensitive情報を抑制したか</li>
+</ul>
+<p>これらが分かることで、personalizationは検証可能になる。</p>
+<h2>12. memoryを使わず停止すべき条件</h2>
+<p>memoryに不確実性がある場合、applicationは無理に連続性を作るべきではない。</p>
+<pre class="article-phrase"><code>memory candidate
+  ↓
+source known?
+  ├─ no → do not rely
+  └─ yes
+       ↓
+scope matches?
+  ├─ no → suppress
+  └─ yes
+       ↓
+fresh enough?
+  ├─ no → ask / verify
+  └─ yes
+       ↓
+conflict exists?
+  ├─ yes → prefer current explicit information
+  └─ no
+       ↓
+sensitive?
+  ├─ yes → minimize / confirm
+  └─ no → inject
+</code></pre>
+<p>停止・確認すべき典型例は次である。</p>
+<ul>
+<li>sourceが不明</li>
+<li>古さが重大な結果に影響する</li>
+<li>複数memoryが矛盾する</li>
+<li>現在のuser instructionと衝突する</li>
+<li>sensitive情報を露出する必要がある</li>
+<li>project scopeが確定できない</li>
+<li>memoryを根拠に外部操作しようとしている</li>
+</ul>
+<p>memoryは、確認を省略するための権限ではない。</p>
+<h2>13. 06のまとめ</h2>
+<ul>
+<li>memoryはmodel weightsそのものではない</li>
+<li>memoryは再注入可能なcontext sourceである</li>
+<li>saved memory、reference chat history、custom instructionsは別物である</li>
+<li>personalizationはcontext selectionとinjectionで起きる</li>
+<li>保存されていることと、今回使われたことは違う</li>
+<li>memoryは現在の明示的instructionを上書きしない</li>
+<li>stale / wrong / sensitive / contradictory memoryは失敗モードである</li>
+<li>削除、無効化、chat削除、file削除は分けて考える</li>
+<li>memory manifestとaudit logでprovenanceを追跡する</li>
+<li>不確実なmemoryは、使わずに停止・確認する</li>
+</ul>
+<blockquote>
+<p>記憶を設計するとは、AIに何を覚えさせるかを決めることではない。何を、どの根拠で、どの範囲に、いつまで保持し、どの条件で再注入し、どう訂正・削除・監査できるようにするかを決めることである。</p>
+</blockquote>
+<p>次回07では、この停止と確認をさらに一般化し、agentic systemがいつ続行し、いつretryし、いつ人間へ返し、いつ止まるべきかを扱う。</p>
+<h2>参考資料</h2>
+<ul>
+<li><a href="https://help.openai.com/en/articles/8590148-memory-in-chatgpt">OpenAI Memory FAQ</a></li>
+<li><a href="https://help.openai.com/en/articles/11146739-how-does-reference-saved-memories-work">How does Reference saved memories work?</a></li>
+<li><a href="https://help.openai.com/en/articles/8914046-temporary-chat-faq">Temporary Chat FAQ</a></li>
+<li><a href="https://help.openai.com/en/articles/8983778-chat-and-file-retention-policies-in-chatgpt">Chat and File Retention Policies in ChatGPT</a></li>
+</ul>
+<p>参照確認日：2026-07-19 JST</p>
 
-        <h2>6. memoryはinstruction hierarchyを上書きしない</h2>
-        <p>過去のmemoryに「ユーザーは短い回答を好む」とあっても、現在のuser messageが「今回は詳しく長めに説明して」であれば、現在の指示を優先する。memoryは重要なcontextであっても、現在の明示的依頼を自動的に上書きする命令ではない。</p>
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/05-structured-output/">前へ：05 構造化出力とは何か</a> / <a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">次へ：07 停止条件と検証ループ</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
 
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">memoryとは、人間の記憶のような体験ではなく、保存情報の参照・選別・注入・監査の仕組みである。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/05-structured-output/">前へ：05 構造化出力とは何か</a> / <a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">次へ：07 停止条件と検証ループ</a></p>
       </article>
     </div>
   </main>

@@ -3,71 +3,359 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 01｜プロンプトは実行時にどうコンパイルされるのか｜GENAI-RON</title>
-  <meta name="description" content="ユーザーが書いた文章だけがプロンプトではない。指示、履歴、memory、ファイル、検索結果、tool定義などが実行時に入力環境として組み立てられることを読む。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 01｜プロンプトは実行時にどうコンパイルされるのか">
-  <meta property="og:description" content="プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。">
+  <title>生成AIのしくみ 超詳解 01｜GENAI-RON</title>
+  <meta name="description" content="プロンプトを、チャット欄に書いた文章ではなく、実行時に組み立てられる入力環境として読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 01">
+  <meta property="og:description" content="プロンプトを、チャット欄に書いた文章ではなく、実行時に組み立てられる入力環境として読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-03 18:12 JST / Notion原稿最終更新日時：2026-07-03 18:12 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 01</p>
       <h1>プロンプトは実行時にどうコンパイルされるのか</h1>
-      <p class="series-subtitle">ユーザーの一文は、そのままモデルへ流れ込むのではない。指示、文脈、ツール、制約が組み合わされて入力環境が作られる。</p>
-      <p class="series-copy">プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。</p>
+      <p class="series-subtitle">チャット欄の文章だけではなく、指示・文脈・ツール・制約が実行時に組み立てる入力環境としてpromptを読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <p><strong>注記：</strong>このページの説明は、公開仕様、一般的なLLM実装、API設計上の概念、および理解のためのモデルを組み合わせたものです。特定サービスの非公開内部実装を、そのまま断定するものではありません。</p>
+<ul>
+<li>ページ作成日時：2026-07-03 18:12 JST</li>
+<li>最終更新日時：2026-07-03 18:12 JST</li>
+</ul>
+<blockquote>
+<p>注記：このページの説明は、公開仕様、一般的なLLM実装、API設計上の概念、および理解のためのモデルを組み合わせたものである。特定サービスの非公開内部実装を、そのまま断定するものではない。</p>
+</blockquote>
+<h2>プロンプトは実行時にどうコンパイルされるのか</h2>
+<p>プロンプトとは、チャット欄に書いた文章そのものではない。</p>
+<p>実行時に、指示、文脈、ツール、制約が組み合わされて作られる入力環境である。</p>
+<p>ユーザーは文章を送る。だが、実行環境は入力構造を組み立てる。</p>
+<p>この違いを見落とすと、生成AIの挙動は気まぐれに見える。</p>
+<p>同じ依頼をしているはずなのに、あるときは過去の文脈を踏まえて答え、あるときは忘れているように見える。ファイルを読んで答えているように見えることもあれば、ファイルを見ていないように見えることもある。ツールを使ってほしいと頼んだのに使わないこともあれば、使わなくてよい場面でツールを使おうとすることもある。</p>
+<p>これらは、単にAIの気分で起きているわけではない。</p>
+<p>多くの場合、何が今回の入力構造に入っていたか、どの層の指示として入っていたか、どの情報が資料として扱われたか、どのツールが行動空間として開かれていたかに関係している。</p>
+<h2>1. ユーザーの文章だけがプロンプトではない</h2>
+<p>たとえば、ユーザーは次のように書く。</p>
+<blockquote>
+<p>この文章を要約してください。</p>
+</blockquote>
+<p>あるいは、もう少し実務的に、次のように書く。</p>
+<blockquote>
+<p>あなたは編集者です。以下の文章をWeb掲載用に整えて、GitHubに書いてください。</p>
+</blockquote>
+<p>ユーザーの画面には、一つの入力欄がある。そこに文章を書き、送信する。だから、表面上は「チャット欄に書いた文章」がプロンプトに見える。</p>
+<p>しかし、実行構造として見ると、ユーザーの文章は単独でモデルに渡されるとは限らない。</p>
+<p>その背後には、システム側の指示、アプリケーション側の指示、プロジェクト指示、カスタム指示、会話履歴、保存メモリ、添付ファイル、検索結果、ツール定義、現在利用できる機能、出力形式の制約などがある。</p>
+<p>それらは、必要に応じて選ばれ、並べられ、role付けされ、構造化される。</p>
+<pre class="article-phrase"><code class="language-mermaid">flowchart LR
+  A[ユーザーが見ているもの\nチャット欄の文章] --&gt; B[実行環境]
+  B --&gt; C[指示\nsystem / developer / project]
+  B --&gt; D[文脈\nhistory / memory / files / search]
+  B --&gt; E[行動空間\ntools / tool_choice]
+  C --&gt; F[モデルに渡される入力構造]
+  D --&gt; F
+  E --&gt; F
+</code></pre>
+<p>ここでいうプロンプトは、チャット欄に書かれた文章だけを指さない。</p>
+<p>ユーザーが書いた文章もプロンプトの一部である。しかし、超詳解版では、プロンプトをもう少し広く見る。</p>
+<p>プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。</p>
+<p>この入力環境には、ユーザーの依頼だけでなく、上位指示、会話状態、外部資料、ツール定義、出力制約が含まれうる。</p>
+<p>同じ「この文章を要約してください」という依頼でも、実行環境側で組み立てられる入力は状況によって変わる。</p>
+<ul>
+<li>直前の会話履歴が入っている場合</li>
+<li>プロジェクト指示が入っている場合</li>
+<li>添付ファイルの内容が入っている場合</li>
+<li>Web検索結果が入っている場合</li>
+<li>GitHub、Notion、Gmailなどのツール定義が入っている場合</li>
+<li>逆に、それらが今回の入力には入っていない場合</li>
+</ul>
+<p>表面上のユーザー文は同じでも、実行時の入力環境が違えば、モデルの応答も変わる。</p>
+<h2>2. <code>instructions / input / tools</code> は分けて考える</h2>
+<p>生成AIのAPIや実行環境では、ユーザーの文章が、ただ一枚の長い文章として扱われるとは限らない。</p>
+<p>代表的なのが、<code>instructions</code>、<code>input</code>、<code>tools</code> である。</p>
+<blockquote>
+<p>注記：APIとは、ここではアプリケーションがモデルに依頼を送るための正式な接続口を指す。普通のチャット画面ではなく、プログラムやサービスが「どのモデルに、どの入力を、どの指示・ツール・設定とともに渡すか」を構造化して送るための仕組みである。</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+<p>注記：アプリケーション層とは、ChatGPTの画面、独自アプリ、業務システム、コーディングエージェントなど、ユーザーとモデルの間にある実行環境の層である。この層が、会話履歴、プロジェクト指示、ファイル、検索結果、ツール定義などを集め、モデルに渡す入力構造を組み立てる。</p>
+</blockquote>
+<p><code>instructions</code> は、モデルの振る舞いを制御するための指示である。どのような役割で応答するか、どの方針を守るか、どの形式で出力するか、といった行動条件を置く場所に近い。</p>
+<p><code>input</code> は、今回モデルに処理させる対象である。ユーザーの質問、要約したい文章、画像、音声、ファイル、過去の応答などがここに入りうる。</p>
+<p><code>tools</code> は、モデルが呼び出し可能な外部機能の定義である。Web検索、ファイル検索、コード実行、Notion更新、Gmail操作、カレンダー操作、GitHub操作、独自API呼び出しなどが、実行環境によって道具として開かれる。</p>
+<p>この3つは、自然な日本語ではすべて「プロンプトの一部」と言えてしまう。しかし、実装上は役割が違う。</p>
+<p>たとえば、次の依頼を考える。</p>
+<blockquote>
+<p>あなたは編集者です。以下の文章をWeb掲載用に整えて、GitHubに書いてください。</p>
+</blockquote>
+<p>人間には一文として自然に読める。しかし、実行構造としては、少なくとも次のように分けて考えられる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>部分</th>
+  <th>実装上の読み方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>あなたは編集者です</td>
+  <td><code>instructions</code> に近い。モデルの振る舞いを決める指示</td>
+</tr>
+<tr>
+  <td>以下の文章をWeb掲載用に整える</td>
+  <td><code>input</code> に対するタスク指示</td>
+</tr>
+<tr>
+  <td>実際に整える文章</td>
+  <td><code>input</code> の処理対象</td>
+</tr>
+<tr>
+  <td>GitHubに書く</td>
+  <td><code>tools</code> と実行権限が関わる操作</td>
+</tr>
+</tbody>
+</table>
+<p>「文章を整える」だけなら、モデルの出力で完結する。</p>
+<p>しかし「GitHubに書く」は、外部システムへの書き込みである。GitHub操作のツールが実行環境側で開かれていなければならないし、どのリポジトリのどのファイルに書くのか、既存内容を読むのか、差分確認を行うのか、失敗時にどこで止まるのかも関係する。</p>
+<p>ここで、単なる文章生成と、ツール実行を伴う操作の違いが出てくる。</p>
+<ul>
+<li><p>API request object の模式例</p>
+<p>これは理解用の模式例であり、特定APIの完全な記法ではない。</p>
+<pre><code class="language-json">{
+  &quot;instructions&quot;: &quot;あなたはWeb原稿の編集者です。公開用に読みやすく整えてください。&quot;,
+  &quot;input&quot;: [
+    {
+      &quot;role&quot;: &quot;user&quot;,
+      &quot;content&quot;: &quot;以下の文章をWeb掲載用に整えて、GitHubに書いてください。対象本文：……&quot;
+    }
+  ],
+  &quot;tools&quot;: [
+    {
+      &quot;name&quot;: &quot;github_read_file&quot;,
+      &quot;description&quot;: &quot;GitHub上のファイルを読む&quot;
+    },
+    {
+      &quot;name&quot;: &quot;github_update_file&quot;,
+      &quot;description&quot;: &quot;GitHub上のファイルを更新する&quot;
+    }
+  ],
+  &quot;tool_choice&quot;: &quot;auto&quot;
+}
+</code></pre>
+<p>この形で見ると、ユーザーの一文だけでAIが動いているのではなく、<code>instructions</code>、<code>input</code>、<code>tools</code>、<code>tool_choice</code> が組み合わさって実行環境を作っていることが見えやすくなる。</p>
+</li>
+<li><p>読み取り系toolsと書き込み系toolsは分けて考える</p>
+<p><code>tools</code> と一口に言っても、危険度は同じではない。</p>
+<p>Web検索、ファイル検索、GitHub上のファイル読み取り、Notionページの読み取りは、基本的には読み取り系の操作である。</p>
+<p>一方で、GitHubに書く、Notionページを更新する、Gmailを送信する、カレンダー予定を作成する、ファイルを削除する、といった操作は、外部世界に変更を加える書き込み系の操作である。</p>
+<p>| 種類 | 例 | 設計上の注意 |
+| --- | --- | --- |
+| 読み取り系tools | Web検索、ファイル検索、GitHub read、Notion fetch | 情報源・参照日時・引用の扱いに注意する |
+| 書き込み系tools | GitHub update、Notion update、Gmail send、Calendar create | 実行前確認、差分確認、停止条件が必要になる |
+| 破壊的操作 | delete、overwrite、trash、force push | 原則として明示確認なしに実行しない |</p>
+<p>この問題は、04「ツール呼び出しはどう実行されるのか」と、07「失敗時の停止条件と検証ループを書く」で詳しく扱う。</p>
+</li>
+</ul>
+<h2>3. UI上の擬似階層と、実行環境上の実階層は違う</h2>
+<p>普通のChatGPT画面でも、ユーザーは次のように書ける。</p>
+<pre class="article-phrase"><code>instructions:
+あなたはWeb原稿の編集者です。
+読みやすく、公開用の文体に整えてください。
 
-        <h2>1. ユーザーの文章だけがプロンプトではない</h2>
-        <p>ユーザーの画面には、一つの入力欄がある。そこに文章を書き、送信する。だから、表面上は「チャット欄に書いた文章」がプロンプトに見える。</p>
-        <p>しかし、実行構造として見ると、ユーザーの文章は単独でモデルに渡されるとは限らない。その背後には、システム側の指示、アプリケーション側の指示、プロジェクト指示、カスタム指示、会話履歴、保存メモリ、添付ファイル、検索結果、ツール定義、現在利用できる機能、出力形式の制約などがある。</p>
-        <pre class="article-phrase">ユーザーが見ているもの
-  ↓
-チャット欄の文章
-  ↓
-実行環境
-  ├─ 指示 system / developer / project
-  ├─ 文脈 history / memory / files / search
-  └─ 行動空間 tools / tool_choice
-  ↓
-モデルに渡される入力構造</pre>
-        <p>同じ「この文章を要約してください」という依頼でも、直前の会話履歴が入っている場合、プロジェクト指示が入っている場合、添付ファイルの内容が入っている場合、Web検索結果が入っている場合、利用可能なツールが違う場合で、モデルが受け取る入力環境は変わる。</p>
+input:
+以下の文章をWeb掲載用に整えて、GitHubに書いてください。
 
-        <h2>2. instructions / input / tools は分けて考える</h2>
-        <p>自然な日本語では、一つの依頼文の中に、役割指定、処理対象、操作希望が混ざっている。</p>
-        <p>たとえば「あなたは編集者です。以下の文章をWeb掲載用に整えて、GitHubに書いてください。」という一文は、人間には自然に読める。しかし実行構造としては、少なくとも三つに分けて考える必要がある。</p>
-        <table><tr><th>部分</th><th>実装上の読み方</th></tr><tr><td>あなたは編集者です</td><td>instructionsに近い。モデルの振る舞いを決める指示。</td></tr><tr><td>文章をWeb掲載用に整える</td><td>inputに対するタスク指示。</td></tr><tr><td>GitHubに書く</td><td>toolsと実行権限が関わる外部操作。</td></tr></table>
-        <p>「文章を整える」だけならモデルの出力で完結する。しかし「GitHubに書く」は、外部システムへの書き込みである。どのリポジトリのどのファイルに書くのか、既存内容を読むのか、差分確認を行うのか、失敗時にどこで止まるのかも関係する。</p>
+対象本文：
+……
+</code></pre>
+<p>この書き方は、実用上かなり有効である。</p>
+<p>モデルは自然言語だけでなく、見出し、箇条書き、JSON風、YAML風、Markdown風の構造も読める。<code>instructions:</code> と書かれていれば、その下にある内容を「指示に近いもの」として読む可能性が高い。<code>input:</code> と書かれていれば、その下にある内容を「処理対象に近いもの」として読む可能性が高い。</p>
+<p>しかし、これはAPI上の実階層とは違う。</p>
+<p>チャット欄に書かれた <code>instructions:</code> は、ユーザーメッセージの中にある文字列である。モデルはそれを見出しとして解釈するかもしれないが、実行環境が正式に <code>instructions</code> フィールドとして渡しているとは限らない。</p>
+<p>ここで区別したいのは、次の二つである。</p>
+<blockquote>
+<p>自然文で階層を表現することと、実行環境で階層として実装することは違う。</p>
+</blockquote>
+<p>前者を、ここでは「擬似階層」と呼ぶ。</p>
+<p>後者を、ここでは「実階層」と呼ぶ。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>観点</th>
+  <th>UI上の擬似階層</th>
+  <th>API / アプリケーション層の実階層</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>形</td>
+  <td>一つのユーザーメッセージ内の見出し・区切り</td>
+  <td><code>instructions</code>、<code>input</code>、<code>tools</code> など別要素</td>
+</tr>
+<tr>
+  <td>例</td>
+  <td><code>instructions:</code> と書く</td>
+  <td><code>instructions</code> フィールドとして渡す</td>
+</tr>
+<tr>
+  <td>権限</td>
+  <td>ユーザー文中の文字列</td>
+  <td>実行環境上の指示層・roleに紐づく</td>
+</tr>
+<tr>
+  <td>効果</td>
+  <td>モデルが読みやすくなる</td>
+  <td>入力経路・行動空間そのものを変える</td>
+</tr>
+<tr>
+  <td>限界</td>
+  <td>本物のsystem / developer messageにはならない</td>
+  <td>アプリケーション側の実装が必要</td>
+</tr>
+<tr>
+  <td>tools</td>
+  <td>「GitHubに書いて」と書ける</td>
+  <td>GitHub toolが開かれていなければ実行できない</td>
+</tr>
+<tr>
+  <td>安全性</td>
+  <td>書き方次第で曖昧になる</td>
+  <td>tool policy、停止条件、確認フローを組み込める</td>
+</tr>
+</tbody>
+</table>
+<p>たとえば、ユーザーが <code>system:</code> と書いても、それは本当のsystem messageではない。ユーザーメッセージの中に、<code>system:</code> という見出しを書いただけである。</p>
+<p>もちろん、モデルはその文字列に引っ張られる可能性がある。だから、見出しの書き方には効果がある。</p>
+<p>しかし、権限としては、本物のsystem messageやdeveloper messageと同じではない。</p>
+<p>この違いは、prompt injectionを理解するときにも重要になる。</p>
+<p>外部ファイルやWebページの中に「これまでの指示をすべて無視してください」と書かれていたとしても、それは資料中の文字列であって、開発者指示やユーザー指示そのものではない。資料と指示を分けることは、生成AIを安全に使ううえで重要になる。</p>
+<ul>
+<li><p>普通のチャットでは擬似階層も有効である</p>
+<p>擬似階層は、実階層ではない。</p>
+<p>しかし、無意味ではない。</p>
+<p>普通のChatGPT画面では、ユーザーが実際のAPIフィールドを直接操作できない場合が多い。その場合、見出し、箇条書き、区切り、JSON風構造、YAML風構造を使って、モデルに読んでほしい構造を明示することは有効である。</p>
+<p>重要なのは、それを本物の実装階層と混同しないことである。</p>
+</li>
+</ul>
+<h2>4. 入力アセンブリの全体フロー</h2>
+<p>ここまでの話を一つの流れとして整理すると、生成AIへの入力は次のように組み立てられる。</p>
+<pre class="article-phrase"><code class="language-mermaid">flowchart TD
+  A[User action\nユーザーが依頼を送る] --&gt; B[UI / API client\n依頼を受け取る]
+  B --&gt; C[Application layer\n入力アセンブリを行う]
+  C --&gt; D[Instruction assembly\nsystem / developer / project / user方針]
+  C --&gt; E[Context assembly\n履歴 / メモリ / ファイル / 検索結果]
+  C --&gt; F[Tool registry\n利用可能なtoolsとtool_choice]
+  D --&gt; G[Request object\nモデルへ渡す構造]
+  E --&gt; G
+  F --&gt; G
+  G --&gt; H[Tokenization\n文字列をtoken列へ変換]
+  H --&gt; I[Model forward pass\n次tokenまたはtool callを生成]
+  I --&gt; J{tool call?}
+  J -- no --&gt; K[Assistant message\n最終応答]
+  J -- yes --&gt; L[Tool execution\nアプリケーション層が実行]
+  L --&gt; M[Tool result\n結果を文脈へ再投入]
+  M --&gt; G
+</code></pre>
+<p>流れを文章にすると、次のようになる。</p>
+<ol>
+<li>ユーザーがチャット欄やアプリ画面から依頼を送る</li>
+<li>UIまたはAPI clientが、その依頼を受け取る</li>
+<li>アプリケーション層が、指示、履歴、メモリ、ファイル、検索結果、ツール定義を集める</li>
+<li><code>instructions</code>、<code>input</code>、<code>tools</code>、<code>tool_choice</code> などを含むrequest objectを組み立てる</li>
+<li>その入力がtoken列へ変換される</li>
+<li>モデルがtoken列を処理し、次に出すtoken、またはtool callを生成する</li>
+<li>tool callが出た場合、アプリケーション層が実際のツールを実行する</li>
+<li>tool resultが再び文脈として投入される</li>
+<li>最終的に、assistant messageとしてユーザーに返される</li>
+</ol>
+<p>ここで重要なのは、モデルが単独で外部世界を操作しているわけではない、という点である。</p>
+<p>モデルは、GitHubを直接書き換えるわけではない。Notionを直接開くわけでもない。Gmailを直接送るわけでもない。</p>
+<p>モデルは、必要に応じて「このツールを、この引数で呼び出したい」というtool callを出す。</p>
+<p>それを受け取ったアプリケーション層が、実際のツールを実行する。</p>
+<p>そして、その結果を再びモデルに渡す。</p>
+<p>たとえば「AIがNotionを更新した」と言うことはできる。日常語としては、それで十分である。</p>
+<p>しかし、実行構造として見るなら、より正確にはこうなる。</p>
+<blockquote>
+<p>モデルがNotion更新用のtool callを生成し、アプリケーション層がNotion toolを実行し、その結果を会話に戻した。</p>
+</blockquote>
+<p>この違いは細かいようで、実用上は大きい。</p>
+<p>なぜなら、失敗が起きたとき、どこで失敗したのかを切り分けられるからである。</p>
+<ul>
+<li>モデルが、そもそもツールを使う必要を判断しなかったのか</li>
+<li>tool callの引数が間違っていたのか</li>
+<li>アプリケーション層がツール実行に失敗したのか</li>
+<li>外部サービス側で権限エラーが出たのか</li>
+<li>tool resultを再投入した後の解釈を誤ったのか</li>
+<li>ユーザー確認を挟むべき場面で止まらなかったのか</li>
+</ul>
+<p>「AIが失敗した」とまとめてしまうと、これらの違いが消えてしまう。</p>
+<p>しかし、入力アセンブリと実行ループとして見れば、失敗箇所を分けて考えられる。</p>
+<ul>
+<li><p>入力アセンブリ各段階の整理表</p>
+<p>| 段階 | 何が起きるか | 注意点 |
+| --- | --- | --- |
+| User action | ユーザーがチャット欄、アプリ画面、API経由で依頼する | ユーザーからは一つの入力に見える |
+| UI / API client | 入力を受け取り、アプリケーション層へ渡す | UIとAPIでは見えている構造が違う |
+| Application layer | 指示、履歴、メモリ、ファイル、検索結果、toolsを組み立てる | ここが入力アセンブリの中心 |
+| Instruction assembly | 上位指示、プロジェクト指示、ユーザー方針などを整理する | どの層の指示かが重要 |
+| Context assembly | 会話履歴、メモリ、検索結果、ファイル内容などを選ぶ | 何が今回の文脈に入ったかで応答が変わる |
+| Tool registry | 利用可能なtoolsとtool_choiceを設定する | 行動空間そのものを決める |
+| Request object | モデルへ渡す入力構造を作る | ユーザー文だけではない |
+| Tokenization | 入力をtoken列に変換する | モデルが直接読むのは文字そのものではなくtoken列 |
+| Model forward pass | 次のtoken、assistant message、tool callなどを生成する | モデルは外部ツールを直接実行しない |
+| Tool execution | アプリケーション層が外部ツールを実行する | 権限、確認、停止条件が重要 |
+| Tool result reinjection | ツール結果を再び文脈として入れる | tool resultを命令ではなく結果として扱う |
+| Final output | ユーザーに応答を返す | 途中の実行構造は画面から見えにくい |</p>
+</li>
+</ul>
+<h2>5. まとめ：プロンプト設計から実行環境設計へ</h2>
+<p>01全体の結論は、次の一文にまとめられる。</p>
+<blockquote>
+<p>プロンプトとは、ユーザーがチャット欄に書いた文章そのものではなく、実行時に組み立てられる入力環境である。</p>
+</blockquote>
+<p>この入力環境には、ユーザー入力だけでなく、<code>instructions</code>、<code>role</code>、会話履歴、保存メモリ、添付ファイル、検索結果、<code>tools</code>、<code>tool_choice</code>、tool result、出力制約、停止条件が含まれうる。</p>
+<p>したがって、生成AIを深く使うとは、お願い文を強くすることだけではない。</p>
+<p>どの情報を指示として置くか。</p>
+<p>どの情報を資料として置くか。</p>
+<p>どの文脈を今回投入するか。</p>
+<p>どのtoolsを開くか。</p>
+<p>どの条件でtool callを許すか。</p>
+<p>どこで止めるか。</p>
+<p>失敗時にどの層を検証するか。</p>
+<p>それらを設計することである。</p>
+<p>この見方に立つと、<a href="http://AGENTS.md">AGENTS.md</a>、<a href="http://CHATGPT.md">CHATGPT.md</a>、プロジェクト指示、API request、tool schema、RAG、メモリ、会話履歴は、別々の便利機能ではなくなる。</p>
+<p>それらはすべて、モデルに何を見せ、何を優先させ、どの行動空間を開き、どこで止めるかを決めるための、入力環境の設計要素である。</p>
+<p>次回は、この入力環境の中でも特に重要な「指示階層」を扱う。</p>
+<p>system、developer、user、tool result は、同じ重さで読まれるわけではない。どの指示が優先され、どの情報は資料として扱われるのか。02では、この権限構造を見ていく。</p>
+<h2>参考リンク</h2>
+<ul>
+<li><a href="https://developers.openai.com/api/reference/resources/responses/methods/create">OpenAI Responses API reference</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI Function calling guide</a></li>
+<li><a href="https://model-spec.openai.com/">OpenAI Model Spec</a></li>
+</ul>
+<h2>更新履歴</h2>
+<ul>
+<li>2026-07-03 18:12 JST：公開版原稿として新規作成。</li>
+</ul>
 
-        <h2>3. UI上の擬似階層と実行環境上の実階層</h2>
-        <p>ユーザーは本文中に <code>system:</code> や <code>developer:</code> と書くことができる。しかし、それは実行環境上の本物のsystem messageやdeveloper messageになったわけではない。見た目のラベルと、入力経路上のroleは違う。</p>
-        <p>強い言葉で書かれたuser messageが、上位指示へ昇格するわけではない。逆に短い一文でも、実行環境がdeveloper instructionとして置いたものは、user messageより強い制約として扱われることがある。</p>
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/">シリーズトップへ</a> / <a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">次へ：02 指示階層とは何か</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
 
-        <h2>4. prompt compilationという理解モデル</h2>
-        <p>ここでいう <code>prompt compilation</code> は、非公開内部実装の固有名ではない。ユーザー入力、上位指示、履歴、memory、検索結果、ファイル、tool定義、出力制約などが、実行時に入力構造として組み立てられる過程を理解するためのモデルである。</p>
-        <pre class="article-phrase">user message
-  + instructions
-  + history
-  + memory
-  + files / retrieval
-  + tool definitions
-  + output constraints
-  = runtime input environment</pre>
-
-        <h2>5. 中心フレーズ</h2>
-        <p class="article-phrase">プロンプトとは、ユーザーが書いた文章そのものではなく、実行時に組み立てられた入力環境である。</p>
-
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/">シリーズトップへ</a> / <a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">次へ：02 指示階層とは何か</a></p>
       </article>
     </div>
   </main>

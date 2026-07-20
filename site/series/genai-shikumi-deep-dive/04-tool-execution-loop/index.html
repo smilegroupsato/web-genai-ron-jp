@@ -3,36 +3,146 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 04｜ツール実行ループとは何か｜GENAI-RON</title>
-  <meta name="description" content="tool useとは、モデルが外部世界を直接操作することではない。modelがtool callを出し、applicationが検証・実行し、tool resultをcontextへ戻すloopである。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 04｜ツール実行ループとは何か">
-  <meta property="og:description" content="modelはtoolを直接実行しない。tool callとtool executionを分けて読む。">
+  <title>生成AIのしくみ 超詳解 04｜GENAI-RON</title>
+  <meta name="description" content="tool call、application execution、tool resultがどのように発生し戻るのかを読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 04">
+  <meta property="og:description" content="tool call、application execution、tool resultがどのように発生し戻るのかを読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-18 13:06 JST / Notion原稿最終更新日時：2026-07-18 13:06 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 04</p>
       <h1>ツール実行ループとは何か</h1>
-      <p class="series-subtitle">tool callはどのように発生し、実行され、戻るのか。</p>
-      <p class="series-copy">tool useとは、モデルが外部世界を直接操作することではない。modelが構造化されたtool callを出力し、applicationが検証・実行し、結果をcontextへ戻すmulti-step loopである。</p>
+      <p class="series-subtitle">tool callはモデルの直接操作ではなく、application layerとruntimeが検証・実行・返却するloopである。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. toolはモデル内部能力ではない</h2>
-        <p>生成AIが「ツールを使う」と言うと、AI自身がWebを検索し、Notionを書き換え、Gmailを送り、カレンダーを操作しているように見える。しかし、LLMそのものが外部APIを直接叩いているわけではない。</p>
-        <p>モデルに渡されるのは、まずtool definitionである。toolの名前、説明、引数、型、必須項目、許容値、schemaの厳密さなどが、モデルの行動空間として提示される。</p>
-
-        <h2>2. tool useに関わる層</h2>
-        <table><tr><th>層</th><th>何が起きるか</th></tr><tr><td>model</td><td>tool schemaを読み、必要ならtool callを出力する。</td></tr><tr><td>orchestrator</td><td>tool callを受け取り、routing、許可、再requestを管理する。</td></tr><tr><td>tool runtime</td><td>実際の関数、API、browser、code interpreter、MCP serverなどを実行する。</td></tr><tr><td>external system</td><td>Web、DB、Gmail、Notion、filesystem、calendarなど実際の対象。</td></tr><tr><td>verification layer</td><td>実行結果、外部状態、安全条件、停止条件を確認する。</td></tr></table>
-        <pre class="article-phrase">Tool definitions are provided to the model
+<ul>
+<li>ページ作成日時：2026-07-18 13:06 JST</li>
+<li>最終更新日時：2026-07-18 13:06 JST</li>
+</ul>
+<p>生成AIが「ツールを使う」と言うと、AI自身がWebを検索し、Notionを書き換え、Gmailを送り、カレンダーを操作しているように見える。</p>
+<p>しかし、実装上はそうではない。</p>
+<p>LLMそのものが、外部APIを直接叩いているわけではない。</p>
+<p>モデルは、利用可能なtool schemaを見て、必要なら「このtoolを、この引数で使いたい」という構造化されたtool callを出力する。</p>
+<p>そのtool callを受け取り、検証し、実行し、結果を戻すのは、モデルの外側にあるapplication layer、orchestrator、tool runtimeである。</p>
+<blockquote>
+<p>tool useとは、モデルが外部世界を直接操作することではない。モデルが構造化されたtool callを出力し、アプリケーション側がそれを検証・実行し、その結果をtool resultとして再びcontextへ戻すmulti-step loopである。</p>
+</blockquote>
+<p>04では、このtool実行ループを分解する。</p>
+<h2>1. toolは、モデル内部能力ではない</h2>
+<p>toolを渡すと、モデルの内部に新しい能力が生えるわけではない。</p>
+<p>天気toolを渡したからといって、モデルが気象データベースを内部に持つわけではない。</p>
+<p>Gmail toolを渡したからといって、モデルが直接メールボックスを読めるようになるわけではない。</p>
+<p>Notion toolを渡したからといって、モデル自身がNotion APIの実行主体になるわけでもない。</p>
+<p>モデルに渡されるのは、まずtool definitionである。</p>
+<p>つまり、次のような情報である。</p>
+<ul>
+<li>そのtoolの名前</li>
+<li>何のために使うtoolか</li>
+<li>どのような引数を受け取るか</li>
+<li>どの型・必須項目・許容値を持つか</li>
+<li>schemaにどの程度厳密に従わせるか</li>
+</ul>
+<p>理解用に単純化すると、function toolは次のようなinterfaceに近い。</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;function&quot;,
+  &quot;name&quot;: &quot;get_weather&quot;,
+  &quot;description&quot;: &quot;Get the current weather for a city.&quot;,
+  &quot;parameters&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;city&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;description&quot;: &quot;The city name, e.g. Tokyo&quot;
+      }
+    },
+    &quot;required&quot;: [&quot;city&quot;],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;strict&quot;: true
+}
+</code></pre>
+<p>このtool definitionは、単なるドキュメントではない。</p>
+<p>モデルへの説明であり、同時にapplicationとの契約である。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>要素</th>
+  <th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>name</code></td>
+  <td>モデルが呼び出すtoolを識別する</td>
+</tr>
+<tr>
+  <td><code>description</code></td>
+  <td>いつ・何のために使うtoolかをモデルへ説明する</td>
+</tr>
+<tr>
+  <td><code>parameters</code></td>
+  <td>引数のshape、型、必須項目、許容値を定義する</td>
+</tr>
+<tr>
+  <td><code>strict</code></td>
+  <td>schemaに沿った引数生成をどの程度強制するかを示す</td>
+</tr>
+</tbody>
+</table>
+<p>つまり、tool schemaは、promptとAPI contractの中間にある。</p>
+<h2>2. tool useは、複数の層で成立する</h2>
+<p>生成AIアプリケーションでtoolが使われるとき、少なくとも次の層が関わる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>層</th>
+  <th>何が起きるか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model</td>
+  <td>tool schemaを読み、必要ならtool callを出力する</td>
+</tr>
+<tr>
+  <td>orchestrator</td>
+  <td>tool callを受け取り、routing、許可、再requestを管理する</td>
+</tr>
+<tr>
+  <td>tool runtime</td>
+  <td>実際の関数、API、browser、code interpreter、MCP serverなどを実行する</td>
+</tr>
+<tr>
+  <td>external system</td>
+  <td>Web、DB、Gmail、Notion、filesystem、calendarなど実際の対象</td>
+</tr>
+<tr>
+  <td>verification layer</td>
+  <td>実行結果、外部状態、安全条件、停止条件を確認する</td>
+</tr>
+</tbody>
+</table>
+<p>流れとしては、次のようになる。</p>
+<pre class="article-phrase"><code>Tool definitions are provided to the model
   ↓
 Model decides whether a tool is needed
   ↓
@@ -42,13 +152,56 @@ Application validates and executes it
   ↓
 Application returns tool result
   ↓
-Model uses the result to continue or answer</pre>
-        <p>tool callとtool executionは違う。モデルがtool callを出した時点では、まだ外部操作は完了していない。tool callは、実行済みの事実ではなく、実行要求である。</p>
-
-        <h2>3. tool callは構造化された実行要求</h2>
-        <p>tool callは自然文の返答ではない。モデルがresponse outputの中に出す構造化itemである。重要なのは、tool名、arguments、call_idである。</p>
-        <p>しかし、argumentsをそのまま信用してはいけない。schemaに合っているように見えても、権限上許されない操作かもしれない。存在しないIDを指定しているかもしれない。ユーザーがまだ承認していない書き込み操作かもしれない。</p>
-        <pre class="article-phrase">Detect function_call item
+Model uses the result to continue or answer
+</code></pre>
+<p>ここで大事なのは、tool callとtool executionを分けることである。</p>
+<p>モデルがtool callを出した時点では、まだ外部操作は完了していない。</p>
+<p>tool callは、実行済みの事実ではなく、実行要求である。</p>
+<h2>3. tool callは、構造化された実行要求である</h2>
+<p>tool callは自然文の返答ではない。</p>
+<p>モデルが、response outputの中に出す構造化itemである。</p>
+<p>簡略化すると、次のようなものになる。</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;function_call&quot;,
+  &quot;name&quot;: &quot;get_weather&quot;,
+  &quot;arguments&quot;: &quot;{\&quot;city\&quot;:\&quot;Tokyo\&quot;}&quot;,
+  &quot;call_id&quot;: &quot;call_abc123&quot;
+}
+</code></pre>
+<p>この中で重要なのは、<code>name</code>、<code>arguments</code>、<code>call_id</code>である。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>要素</th>
+  <th>意味</th>
+  <th>application側の扱い</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>name</code></td>
+  <td>呼び出したいtool名</td>
+  <td>登録済みtoolへroutingする</td>
+</tr>
+<tr>
+  <td><code>arguments</code></td>
+  <td>toolへ渡す引数</td>
+  <td>JSON parseし、schema validationする</td>
+</tr>
+<tr>
+  <td><code>call_id</code></td>
+  <td>このtool callの識別子</td>
+  <td>後続のtool resultと対応させる</td>
+</tr>
+</tbody>
+</table>
+<p>ここで、<code>arguments</code>を信用してはいけない。</p>
+<p>schemaに合っているように見えても、権限上許されない操作かもしれない。</p>
+<p>存在しないIDを指定しているかもしれない。</p>
+<p>ユーザーがまだ承認していない書き込み操作かもしれない。</p>
+<p>外部文書に含まれたprompt injectionの影響を受けているかもしれない。</p>
+<p>したがって、tool callを受け取ったapplication側は、少なくとも次を確認する必要がある。</p>
+<pre class="article-phrase"><code>Detect function_call item
   ↓
 Route by tool name
   ↓
@@ -62,18 +215,293 @@ Permission / scope check
   ↓
 User confirmation if needed
   ↓
-Execute external function / API</pre>
+Execute external function / API
+</code></pre>
+<p><code>strict: true</code>は、schemaに沿った引数生成を助ける。</p>
+<p>しかし、strict modeはpermission checkの代わりではない。</p>
+<p>schema validであることと、実行してよいことは違う。</p>
+<pre class="article-phrase"><code>schema valid ≠ authorized
+schema valid ≠ safe
+schema valid ≠ user-confirmed
+</code></pre>
+<h2>4. tool_choiceは、自然文ではなくruntime parameterである</h2>
+<p>ユーザーが「ツールを使わないで」と自然文で書くことと、API runtimeで <code>tool_choice: &quot;none&quot;</code> を指定することは違う。</p>
+<p>自然文は、モデルが解釈するinstructionである。</p>
+<p><code>tool_choice</code>は、tool使用を制御するruntime parameterである。</p>
+<p>代表的には、次のように整理できる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>指定</th>
+  <th>意味</th>
+  <th>使いどころ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>auto</code></td>
+  <td>モデルがtoolを使うか判断する</td>
+  <td>通常のagent的応答</td>
+</tr>
+<tr>
+  <td><code>none</code></td>
+  <td>toolを使わせない</td>
+  <td>外部参照なしで答えたい場合</td>
+</tr>
+<tr>
+  <td><code>required</code></td>
+  <td>何らかのtool使用を要求する</td>
+  <td>必ず検索・DB確認・外部照合をさせたい場合</td>
+</tr>
+<tr>
+  <td>specific tool</td>
+  <td>特定toolだけを使わせる</td>
+  <td>処理経路を固定したい場合</td>
+</tr>
+<tr>
+  <td><code>allowed_tools</code></td>
+  <td>使えるtool subsetを制限する</td>
+  <td>安全境界や段階的実行</td>
+</tr>
+</tbody>
+</table>
+<p>特に重要なのは、write / send / delete / purchase / publish / commit などの副作用を持つtoolである。</p>
+<p>外部文書を読んだ直後に、同じturnで書き込みtoolを許可すると、prompt injectionの影響を受けやすくなる。</p>
+<p>そのため、設計としては次のように段階を分けるのが安全である。</p>
+<pre class="article-phrase"><code>Read / retrieve untrusted content
+  ↓
+Summarize and classify
+  ↓
+Ask user confirmation if action is needed
+  ↓
+Enable write tool only after confirmation
+</code></pre>
+<p>parallel function callingも同じである。</p>
+<p>複数の読み取りtoolを並列に呼ぶのは便利な場合がある。</p>
+<p>しかし、順序依存がある処理、副作用がある処理、承認が必要な処理では、parallel callsを抑制した方がよい。</p>
+<h2>5. application側は、実行前に止める責任を持つ</h2>
+<p>危険なのは、tool callをparseして即実行する実装である。</p>
+<pre><code class="language-tsx">const args = JSON.parse(item.arguments);
+await toolsitem.name;
+</code></pre>
+<p>これは短く見えるが、実運用では危ない。</p>
+<p>安全なtool executionでは、application側が次の責務を持つ。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>段階</th>
+  <th>確認内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>routing</td>
+  <td>そのtool名が現在のruntimeで利用可能か</td>
+</tr>
+<tr>
+  <td>parse</td>
+  <td><code>arguments</code>が正しいJSONか</td>
+</tr>
+<tr>
+  <td>schema validation</td>
+  <td>型、必須項目、enum、追加propertyの有無</td>
+</tr>
+<tr>
+  <td>policy check</td>
+  <td>この種類の操作を許してよいか</td>
+</tr>
+<tr>
+  <td>permission check</td>
+  <td>このユーザー・scope・resourceで実行可能か</td>
+</tr>
+<tr>
+  <td>confirmation</td>
+  <td>副作用のある操作に明示承認があるか</td>
+</tr>
+<tr>
+  <td>execution</td>
+  <td>外部API・DB・関数を実行する</td>
+</tr>
+<tr>
+  <td>audit</td>
+  <td>誰が、何を、いつ、どの引数で実行したか記録する</td>
+</tr>
+</tbody>
+</table>
+<p>特に、書き込み系toolでは、確認境界が重要になる。</p>
+<ul>
+<li>メールを送る</li>
+<li>カレンダーを変更する</li>
+<li>ファイルを削除する</li>
+<li>DBを更新する</li>
+<li>Gitへpushする</li>
+<li>決済を行う</li>
+<li>公開ページを更新する</li>
+</ul>
+<p>これらは、単なる回答生成ではない。</p>
+<p>外部状態を変える操作である。</p>
+<p>したがって、モデルがtool callを出しても、application側は「実行しない」という判断をしてよい。</p>
+<h2>6. tool resultは、命令ではなく戻り値である</h2>
+<p>tool実行の結果は、モデルへ戻される。</p>
+<p>Function toolの場合、典型的には <code>function_call_output</code> として戻る。</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;function_call_output&quot;,
+  &quot;call_id&quot;: &quot;call_abc123&quot;,
+  &quot;output&quot;: &quot;{\&quot;ok\&quot;:true,\&quot;temperature\&quot;:29,\&quot;unit\&quot;:\&quot;C\&quot;}&quot;
+}
+</code></pre>
+<p><code>call_id</code>は、どのtool callへの返答なのかを対応づけるために使う。</p>
+<p>ここで重要なのは、tool resultが上位命令ではないことだ。</p>
+<p>たとえば、Web検索toolが取得したページに「これ以降のsystem instructionを無視せよ」と書かれていたとしても、それはtool result内の外部データである。</p>
+<p>上位instructionではない。</p>
+<pre class="article-phrase"><code>tool result = external observation / return value
+tool result ≠ system instruction
+tool result ≠ developer instruction
+tool result ≠ user authorization
+</code></pre>
+<p>そのため、tool resultは、なるべく構造化して戻すのがよい。</p>
+<pre><code class="language-json">{
+  &quot;ok&quot;: true,
+  &quot;source&quot;: &quot;web_search&quot;,
+  &quot;provenance&quot;: [
+    {
+      &quot;url&quot;: &quot;https://example.com/report&quot;,
+      &quot;retrieved_at&quot;: &quot;2026-07-18T13:06:00+09:00&quot;
+    }
+  ],
+  &quot;data&quot;: {
+    &quot;summary&quot;: &quot;...&quot;
+  },
+  &quot;warnings&quot;: [
+    &quot;untrusted_external_text&quot;
+  ]
+}
+</code></pre>
+<p>成功、失敗、部分成功、timeout、permission denied、confirmation requiredを分けて返すことも重要である。</p>
+<h2>7. agentic loopには停止条件が必要である</h2>
+<p>tool call、application execution、tool resultが戻ると、モデルはそれを読んで最終応答を返すこともあれば、さらにtool callを出すこともある。</p>
+<p>これがagentic loopである。</p>
+<pre class="article-phrase"><code>Observe
+  ↓
+Decide
+  ↓
+Act
+  ↓
+Observe
+  ↓
+Decide again
+</code></pre>
+<p>ただし、loopは無限に回してはいけない。</p>
+<p>agentic loopは、モデルの内面ではなく、model、orchestrator、tool runtime、external system、verification layerが作る制御ループである。</p>
+<p>だから、停止条件はapplication側が設計する必要がある。</p>
+<p>代表的な停止条件は、次の通りである。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>停止条件</th>
+  <th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>max tool iterations</td>
+  <td>tool実行の最大反復数を超えた</td>
+</tr>
+<tr>
+  <td>max total tool calls</td>
+  <td>総tool call数が上限を超えた</td>
+</tr>
+<tr>
+  <td>timeout</td>
+  <td>処理時間が上限を超えた</td>
+</tr>
+<tr>
+  <td>rate limit</td>
+  <td>外部APIやruntimeの制限に近づいた</td>
+</tr>
+<tr>
+  <td>permission boundary</td>
+  <td>権限外resourceへ触れようとした</td>
+</tr>
+<tr>
+  <td>confirmation required</td>
+  <td>人間の承認が必要な操作に到達した</td>
+</tr>
+<tr>
+  <td>uncertainty stop</td>
+  <td>必要情報が不足し、推測実行になる</td>
+</tr>
+<tr>
+  <td>unsafe request stop</td>
+  <td>安全上実行できない操作が含まれる</td>
+</tr>
+</tbody>
+</table>
+<p>停止条件は、AIを弱くするものではない。</p>
+<p>外部世界と接続されたAIを、実運用に耐えるものにするための制御装置である。</p>
+<h2>8. idempotency、audit log、rollback</h2>
+<p>外部状態を変えるtoolでは、実行後の記録も重要である。</p>
+<p>同じtool callが二重実行されると、メールが二重送信されたり、予定が二重作成されたり、請求が二重登録されたりする。</p>
+<p>そのため、副作用のある操作にはidempotency keyを持たせる。</p>
+<pre><code class="language-json">{
+  &quot;operation&quot;: &quot;create_calendar_event&quot;,
+  &quot;idempotency_key&quot;: &quot;event_20260718_1306_user123&quot;,
+  &quot;requested_by&quot;: &quot;user123&quot;,
+  &quot;confirmed_by_user&quot;: true
+}
+</code></pre>
+<p>audit logも必要である。</p>
+<ul>
+<li>どのmodel responseがtool callを出したか</li>
+<li>どのtoolが呼ばれたか</li>
+<li>どのargumentsだったか</li>
+<li>誰の権限で実行したか</li>
+<li>user confirmationはあったか</li>
+<li>実行結果は成功か失敗か</li>
+<li>外部system側のresource IDは何か</li>
+</ul>
+<p>さらに、失敗した場合に元に戻せるとは限らない。</p>
+<p>削除や送信は、完全なrollbackができないこともある。</p>
+<p>その場合は、compensation、つまり補償操作を設計する必要がある。</p>
+<h2>9. 04のまとめ</h2>
+<p>tool useは、LLMが外部世界を直接操作することではない。</p>
+<p>モデルはtool schemaを読み、必要ならtool callを出す。</p>
+<p>applicationはそれを検証し、必要なら人間の確認を挟み、外部APIや関数を実行する。</p>
+<p>実行結果はtool resultとして戻され、再びcontextへ入る。</p>
+<p>その結果を読んで、モデルは最終応答を生成するか、さらにtool callを出す。</p>
+<p>この一連の流れがtool実行ループである。</p>
+<p>重要なのは、次の分離である。</p>
+<pre class="article-phrase"><code>tool definition ≠ tool call
+tool call ≠ execution
+tool result ≠ instruction
+schema valid ≠ authorized
+automation ≠ uncontrolled autonomy
+</code></pre>
+<p>03では、contextがどのように注入されるかを見た。</p>
+<p>04では、そのcontextをもとに、モデルがどのように外部機能の使用要求を出し、application側がそれを実行し、結果を戻すかを見た。</p>
+<p>次の回では、tool callやfinal answerをさらに安定させるための、structured output、JSON schema、validation、再生成、型安全な受け渡しへ進む。</p>
+<h2>10. 公式参照</h2>
+<ul>
+<li>OpenAI API Docs｜Function calling<ul>
+<li><a href="https://developers.openai.com/api/docs/guides/function-calling">https://developers.openai.com/api/docs/guides/function-calling</a></li>
+</ul>
+</li>
+<li>OpenAI API Docs｜Responses API<ul>
+<li><a href="https://developers.openai.com/api/docs/guides/responses">https://developers.openai.com/api/docs/guides/responses</a></li>
+</ul>
+</li>
+<li>OpenAI API Reference｜Response input / output items<ul>
+<li><a href="https://platform.openai.com/docs/api-reference/responses">https://platform.openai.com/docs/api-reference/responses</a></li>
+</ul>
+</li>
+</ul>
+<h2>11. 更新履歴</h2>
+<ul>
+<li>2026-07-18 13:06 JST：04公開版を作成。04-A〜04-Fの作業ドラフトを統合し、tool definition、tool call、tool_choice、application execution、tool result、agentic loop、停止条件を一本の記事として再構成。</li>
+</ul>
 
-        <h2>4. 読み取り系toolと書き込み系tool</h2>
-        <p>Web検索、ファイル検索、GitHub read、Notion fetchは基本的には読み取り系の操作である。一方、GitHubに書く、Notionページを更新する、Gmailを送信する、カレンダー予定を作成する、ファイルを削除する、といった操作は外部世界に変更を加える。</p>
-        <p>読み取り、作成、更新、送信、削除、課金、公開では危険度が違う。書き込み系toolでは、確認境界、差分確認、trace、rollback可能性を考える必要がある。</p>
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/03-context/">前へ：03 contextとは何か</a> / <a href="/series/genai-shikumi-deep-dive/05-structured-output/">次へ：05 構造化出力とは何か</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
 
-        <h2>5. tool resultは命令ではなく戻り値</h2>
-        <p>tool実行の結果は、モデルへ戻される資料である。tool resultの本文中に命令文が含まれていても、それは通常systemやdeveloper instructionではない。外部資料から戻った文字列は、命令としてではなく、戻り値・証拠・参照情報として隔離して扱う必要がある。</p>
-
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">tool useとは、モデルが外部世界を直接操作することではなく、tool callとtool resultをapplicationが仲介するloopである。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/03-context/">前へ：03 contextとは何か</a> / <a href="/series/genai-shikumi-deep-dive/05-structured-output/">次へ：05 構造化出力とは何か</a></p>
       </article>
     </div>
   </main>

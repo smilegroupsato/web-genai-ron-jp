@@ -4,47 +4,435 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>生成AIのしくみ 超詳解｜用語集｜GENAI-RON</title>
-  <meta name="description" content="生成AIのしくみ超詳解で使うrequest、prompt、instruction、context、tool、schema、memory、agentic loop、architectureなどの用語集。">
+  <meta name="description" content="生成AIのしくみ超詳解で使うrequest、prompt、context、tool、memory、agentなどの用語集。">
   <meta property="og:title" content="生成AIのしくみ 超詳解｜用語集">
-  <meta property="og:description" content="超詳解シリーズ内で使う主要用語の作業定義。">
+  <meta property="og:description" content="生成AIのしくみ超詳解で使うrequest、prompt、context、tool、memory、agentなどの用語集。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 11:42 JST / Notion原稿最終更新日時：2026-07-20 11:42 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
-      <p class="series-kicker">Deep Dive Reference</p>
+      <p class="series-kicker">Deep Dive Supplement</p>
       <h1>用語集</h1>
-      <p class="series-subtitle">生成AIのしくみ超詳解で使う主要用語を整理する。</p>
-      <p class="series-copy">定義は厳密な標準仕様ではなく、このシリーズ内での使い方を明確にするための作業定義です。</p>
+      <p class="series-subtitle">このシリーズ内で使う主要用語の作業定義。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>request / prompt 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>prompt</td><td>狭義にはユーザーが入力する文。広義には、実行時にmodelへ渡される入力環境全体。</td><td>01</td></tr><tr><td>prompt compilation</td><td>ユーザー入力、指示、履歴、memory、ファイル、tool定義などが、実行時に入力構造へ組み立てられる過程。理解モデルとして扱う。</td><td>01</td></tr><tr><td>request object</td><td>applicationがmodelへ送る構造化された依頼。instructions、input、tools、settingsなどを含みうる。</td><td>01</td></tr><tr><td>input</td><td>今回modelに処理させる対象。ユーザー文、添付、画像、ファイル内容、会話履歴などを含みうる。</td><td>01</td></tr></table>
+<ul>
+<li>ページ作成日時：2026-07-20 11:42 JST</li>
+<li>最終更新日時：2026-07-20 11:42 JST</li>
+</ul>
+<p>このページは、<code>生成AIのしくみ 超詳解</code> 01〜08で使う主要用語を整理した用語集である。</p>
+<p>定義は、厳密な標準仕様というより、このシリーズ内での使い方を明確にするための作業定義である。</p>
+<h2>1. request / prompt 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>prompt</td>
+  <td>狭義にはユーザーが入力する文。広義には、実行時にmodelへ渡される入力環境全体。</td>
+  <td>01</td>
+</tr>
+<tr>
+  <td>prompt compilation</td>
+  <td>ユーザー入力、指示、履歴、memory、ファイル、tool定義などが、実行時に入力構造へ組み立てられる過程。</td>
+  <td>01</td>
+</tr>
+<tr>
+  <td>request object</td>
+  <td>applicationがmodelへ送る構造化された依頼。instructions、input、tools、settingsなどを含みうる。</td>
+  <td>01</td>
+</tr>
+<tr>
+  <td>input</td>
+  <td>今回modelに処理させる対象。ユーザー文、添付、画像、ファイル内容、会話履歴などを含みうる。</td>
+  <td>01</td>
+</tr>
+<tr>
+  <td>instructions</td>
+  <td>modelの振る舞いを制御するために置かれる指示。system、developer、userなど層によって効力が異なる。</td>
+  <td>01, 02</td>
+</tr>
+</tbody>
+</table>
+<h2>2. instruction hierarchy 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>instruction hierarchy</td>
+  <td>指示の優先順位構造。system、developer、user、tool resultなどの層を区別する考え方。</td>
+  <td>02</td>
+</tr>
+<tr>
+  <td>system instruction</td>
+  <td>最上位に近いシステム側の指示。モデルの基本的な振る舞い、禁止事項、安全条件などを定める。</td>
+  <td>02</td>
+</tr>
+<tr>
+  <td>developer instruction</td>
+  <td>アプリケーションや開発者が設定する動作方針。ユーザー指示より上位に置かれることがある。</td>
+  <td>02</td>
+</tr>
+<tr>
+  <td>user instruction</td>
+  <td>ユーザーが与える依頼や希望。重要だが、system / developer instructionを上書きできるとは限らない。</td>
+  <td>02</td>
+</tr>
+<tr>
+  <td>tool result</td>
+  <td>tool実行後にapplicationからmodelへ返される結果。資料・戻り値であり、通常は命令ではない。</td>
+  <td>02, 04</td>
+</tr>
+<tr>
+  <td>prompt injection</td>
+  <td>外部資料や検索結果の中の命令文が、本来の資料ではなく指示として扱われてしまう境界事故。</td>
+  <td>02, 03</td>
+</tr>
+</tbody>
+</table>
+<h2>3. context / memory / retrieval 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>context</td>
+  <td>今回の生成に注入された入力集合。履歴、memory、検索結果、ファイル、tool resultなどを含みうる。</td>
+  <td>03</td>
+</tr>
+<tr>
+  <td>context window</td>
+  <td>modelが一度の生成で参照できる入力量の枠。大きくても無限ではない。</td>
+  <td>03</td>
+</tr>
+<tr>
+  <td>conversation history</td>
+  <td>過去の会話内容。すべてが常にcontextへ入るとは限らない。</td>
+  <td>03</td>
+</tr>
+<tr>
+  <td>memory</td>
+  <td>保存されたユーザー情報や設定など。必要に応じて参照され、contextへ注入される。</td>
+  <td>03, 06</td>
+</tr>
+<tr>
+  <td>personalization</td>
+  <td>ユーザーの好み、過去の作業、制約などを反映して応答を調整すること。</td>
+  <td>06</td>
+</tr>
+<tr>
+  <td>retrieval</td>
+  <td>外部情報や文書から、今回のtaskに関連する情報を探して取り出すこと。</td>
+  <td>03, 06</td>
+</tr>
+<tr>
+  <td>RAG</td>
+  <td>Retrieval-Augmented Generation。検索・取得した情報をcontextへ入れて生成する構成。</td>
+  <td>03</td>
+</tr>
+<tr>
+  <td>file input</td>
+  <td>ユーザーが添付したファイルや、接続先から取得されたファイル内容。</td>
+  <td>03</td>
+</tr>
+<tr>
+  <td>source of truth</td>
+  <td>正本・信頼できる原本。model出力やtool resultは、それだけではsource of truthとは限らない。</td>
+  <td>03, 08</td>
+</tr>
+</tbody>
+</table>
+<h2>4. tool / runtime 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>tool</td>
+  <td>modelが呼び出し候補として使える外部機能。検索、コード実行、Notion更新、Gmail操作など。</td>
+  <td>04, 08</td>
+</tr>
+<tr>
+  <td>tool call</td>
+  <td>modelが出力する、特定toolを呼ぶための構造化された要求。実行そのものではない。</td>
+  <td>04</td>
+</tr>
+<tr>
+  <td>tool schema</td>
+  <td>toolに渡せる引数や形式を定義したもの。modelに対する行動空間の定義でもある。</td>
+  <td>04, 05</td>
+</tr>
+<tr>
+  <td>application execution</td>
+  <td>application側がtool callを検証し、実際にtoolやAPIを実行すること。</td>
+  <td>04</td>
+</tr>
+<tr>
+  <td>runtime</td>
+  <td>tool、API、file system、database、sandboxなどが実際に動く実行環境。</td>
+  <td>04, 08</td>
+</tr>
+<tr>
+  <td>connector</td>
+  <td>Notion、Gmail、Google Drive、GitHubなど外部サービスと接続する機能。</td>
+  <td>04, 08</td>
+</tr>
+<tr>
+  <td>side effect</td>
+  <td>外部世界に変更を加える作用。ファイル更新、メール送信、予定作成、削除など。</td>
+  <td>07, 08</td>
+</tr>
+<tr>
+  <td>credential</td>
+  <td>外部サービスやAPIへアクセスするための認証情報。tool権限と密接に関係する。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>sandbox</td>
+  <td>実行を隔離する環境。コード実行やファイル操作の影響範囲を制限する。</td>
+  <td>08</td>
+</tr>
+</tbody>
+</table>
+<h2>5. structured output 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>structured output</td>
+  <td>自然文ではなく、JSONなどapplicationが解釈できる形式で出されるmodel output。</td>
+  <td>05</td>
+</tr>
+<tr>
+  <td>JSON Schema</td>
+  <td>JSON出力の構造、型、必須項目、制約などを定義するschema。</td>
+  <td>05</td>
+</tr>
+<tr>
+  <td>schema</td>
+  <td>出力やtool引数の構造的な契約。modelとapplicationの境界に置かれる。</td>
+  <td>05</td>
+</tr>
+<tr>
+  <td>parse</td>
+  <td>model outputをapplicationが読める構造へ変換すること。</td>
+  <td>05</td>
+</tr>
+<tr>
+  <td>validation</td>
+  <td>出力がschemaや業務条件を満たしているか検査すること。</td>
+  <td>05, 07</td>
+</tr>
+<tr>
+  <td>retry</td>
+  <td>失敗時に同じtaskを再試行すること。無制限に行うべきではない。</td>
+  <td>05, 07</td>
+</tr>
+<tr>
+  <td>repair</td>
+  <td>不完全または不正な出力を、schemaや条件に合わせて修復すること。</td>
+  <td>05</td>
+</tr>
+<tr>
+  <td>refusal</td>
+  <td>安全・権限・方針上、modelまたはsystemが依頼を拒否すること。</td>
+  <td>05, 07</td>
+</tr>
+<tr>
+  <td>output contract</td>
+  <td>出力が満たすべき構造・意味・検証条件の契約。</td>
+  <td>05, 08</td>
+</tr>
+</tbody>
+</table>
+<h2>6. agentic loop / control 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>agent</td>
+  <td>goalに向けて、model、tools、context、loop controlを組み合わせて進行するsystem構成。</td>
+  <td>07, 08</td>
+</tr>
+<tr>
+  <td>agentic loop</td>
+  <td>observe、decide、act、verifyを繰り返し、続行・停止・handoffなどを選ぶ制御ループ。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>loop state</td>
+  <td>agent runの現在状態。試行回数、tool結果、未解決事項、検証状態などを含む。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>budget</td>
+  <td>turn数、tool call数、時間、cost、token、retry、risk、side effectなどの上限。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>stop condition</td>
+  <td>agentが止まるべき条件。完了、失敗、確認待ち、権限不足、安全停止など。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>verification</td>
+  <td>taskが成功条件を満たしたか確認すること。modelの自己申告だけでは不十分。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>guardrail</td>
+  <td>危険、権限、形式、安全、privacyなどの境界を検出・制御する仕組み。</td>
+  <td>07, 08</td>
+</tr>
+<tr>
+  <td>stop gate</td>
+  <td>続行、修復、再試行、確認、manual review、handoff、abortを選ぶ判断点。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>handoff</td>
+  <td>別agent、別workflow、人間、別systemへ状態付きで処理を渡すこと。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>manual review</td>
+  <td>人間による確認・承認へ回すこと。送信、公開、削除、契約などで重要になる。</td>
+  <td>07</td>
+</tr>
+<tr>
+  <td>trace</td>
+  <td>agentic loopの実行記録。何を見て、何を判断し、何を実行し、なぜ止まったかを残す。</td>
+  <td>07, 08</td>
+</tr>
+<tr>
+  <td>audit</td>
+  <td>traceをもとに、実行が妥当だったか後から検証すること。</td>
+  <td>07, 08</td>
+</tr>
+<tr>
+  <td>evaluation</td>
+  <td>agentやworkflowの品質を継続的に測ること。最終回答だけでなくloop全体を見る。</td>
+  <td>07, 08</td>
+</tr>
+</tbody>
+</table>
+<h2>7. architecture / responsibility 系</h2>
+<table class="content-table">
+<thead>
+<tr>
+  <th>用語</th>
+  <th>定義</th>
+  <th>関連回</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model layer</td>
+  <td>contextをもとに自然文、構造化出力、tool call候補などを生成する層。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>application layer</td>
+  <td>request、instruction、context、tool、validation、loop、UIを編成する層。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>runtime / tool layer</td>
+  <td>外部API、file system、database、sandbox、connectorなどを実行する層。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>human layer</td>
+  <td>目的、判断、承認、責任、評価、委任境界を担う層。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>accountability</td>
+  <td>結果に対して責任を引き受けること。modelではなく人間・組織・運用主体が持つ。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>delegation boundary</td>
+  <td>どこまでをAIに任せ、どこから人間や別systemへ渡すかの境界。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>failure boundary</td>
+  <td>失敗がどの層で起きたかを切り分ける境界。model、context、tool、runtime、humanなど。</td>
+  <td>08</td>
+</tr>
+<tr>
+  <td>manifest</td>
+  <td>context、tool、memory、loop、auditなどの状態や構成を明示する記録。</td>
+  <td>07, 08</td>
+</tr>
+</tbody>
+</table>
+<h2>8. この用語集の使い方</h2>
+<p>この用語集は、以下の用途で使う。</p>
+<ul>
+<li>01〜08本文中の概念の再確認</li>
+<li>公開版の注釈・脚注の素材</li>
+<li>図解版のラベル</li>
+<li>よくある誤解集の整理</li>
+<li>実務設計チェックリストの語彙統一</li>
+<li>09以降を作る場合の前提語彙</li>
+</ul>
+<p>用語は今後、本文の改稿や公開後の反応に応じて更新してよい。</p>
 
-        <h2>instruction hierarchy 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>instruction hierarchy</td><td>指示の優先順位構造。system、developer、user、tool resultなどの層を区別する考え方。</td><td>02</td></tr><tr><td>system instruction</td><td>実行環境側の上位制約。モデルの基本的な振る舞いや安全条件などを定める。</td><td>02</td></tr><tr><td>developer instruction</td><td>アプリケーションや開発者が設定する動作方針。ユーザー指示より上位に置かれることがある。</td><td>02</td></tr><tr><td>user instruction</td><td>ユーザーが与える依頼や希望。重要だが、system / developer instructionを上書きできるとは限らない。</td><td>02</td></tr><tr><td>tool result</td><td>tool実行後にapplicationからmodelへ返される結果。資料・戻り値であり、通常は命令ではない。</td><td>02, 04</td></tr><tr><td>prompt injection</td><td>外部資料や検索結果の中の命令文が、本来の資料ではなく指示として扱われてしまう境界事故。</td><td>02, 03</td></tr></table>
+<nav class="article-link" aria-label="補助資料リンク"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a> / <a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">01から読む</a></nav>
 
-        <h2>context / memory / retrieval 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>context</td><td>今回の生成に注入された入力集合。履歴、memory、検索結果、ファイル、tool resultなどを含みうる。</td><td>03</td></tr><tr><td>context window</td><td>modelが一度の生成で参照できる入力量の枠。大きくても無限ではない。</td><td>03</td></tr><tr><td>memory</td><td>保存されたユーザー情報や設定など。必要に応じて参照され、contextへ注入される。</td><td>03, 06</td></tr><tr><td>personalization</td><td>ユーザーの好み、過去の作業、制約などを反映して応答を調整すること。</td><td>06</td></tr><tr><td>retrieval</td><td>外部情報や文書から、今回のtaskに関連する情報を探して取り出すこと。</td><td>03, 06</td></tr><tr><td>RAG</td><td>Retrieval-Augmented Generation。検索・取得した情報をcontextへ入れて生成する構成。</td><td>03</td></tr></table>
-
-        <h2>tool / runtime 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>tool</td><td>modelが呼び出し候補として使える外部機能。検索、コード実行、Notion更新、Gmail操作など。</td><td>04, 08</td></tr><tr><td>tool call</td><td>modelが出力する、特定toolを呼ぶための構造化された要求。実行そのものではない。</td><td>04</td></tr><tr><td>tool schema</td><td>toolに渡せる引数や形式を定義したもの。modelに対する行動空間の定義でもある。</td><td>04, 05</td></tr><tr><td>application execution</td><td>application側がtool callを検証し、実際にtoolやAPIを実行すること。</td><td>04</td></tr><tr><td>runtime</td><td>tool、API、file system、database、sandboxなどが実際に動く実行環境。</td><td>04, 08</td></tr><tr><td>side effect</td><td>外部世界に変更を加える作用。ファイル更新、メール送信、予定作成、削除など。</td><td>07, 08</td></tr></table>
-
-        <h2>structured output 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>structured output</td><td>自然文ではなく、JSONなどapplicationが解釈できる形式で出されるmodel output。</td><td>05</td></tr><tr><td>JSON Schema</td><td>JSON出力の構造、型、必須項目、制約などを定義するschema。</td><td>05</td></tr><tr><td>parse</td><td>model outputをapplicationが読める構造へ変換すること。</td><td>05</td></tr><tr><td>validation</td><td>出力がschemaや業務条件を満たしているか検査すること。</td><td>05, 07</td></tr><tr><td>retry / repair</td><td>失敗時に再試行したり、不完全な出力を条件に合わせて修復したりすること。</td><td>05, 07</td></tr></table>
-
-        <h2>agentic loop / architecture 系</h2>
-        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>agentic loop</td><td>observe、decide、act、verifyを繰り返し、続行・停止・handoffなどを選ぶ制御ループ。</td><td>07</td></tr><tr><td>budget</td><td>turn数、tool call数、時間、cost、token、retry、risk、side effectなどの上限。</td><td>07</td></tr><tr><td>stop condition</td><td>agentが止まるべき条件。完了、確認待ち、権限不足、handoffなど。</td><td>07</td></tr><tr><td>verification</td><td>taskが成功条件を満たしたか確認すること。modelの自己申告だけでは不十分。</td><td>07</td></tr><tr><td>architecture</td><td>model、application、runtime、humanの責任境界を設計すること。</td><td>08</td></tr><tr><td>audit / trace</td><td>何を見て、何を判断し、何を実行し、なぜ止まったかを後から検証できる記録。</td><td>07, 08</td></tr></table>
-
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/concept-map/">前へ：主要概念マップ</a> / <a href="/series/genai-shikumi-deep-dive/misconceptions/">次へ：よくある誤解集</a></p>
       </article>
     </div>
   </main>

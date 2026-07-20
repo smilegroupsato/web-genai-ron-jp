@@ -3,43 +3,139 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 08｜全体アーキテクチャ｜GENAI-RON</title>
-  <meta name="description" content="生成AIシステムはmodelだけでは成立しない。model、application、runtime、tool、memory、human、auditの責任境界を読む。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 08｜全体アーキテクチャ">
-  <meta property="og:description" content="AI system ≠ model alone. 生成AIを複数層の協働として理解する。">
+  <title>生成AIのしくみ 超詳解 08｜GENAI-RON</title>
+  <meta name="description" content="生成AIシステムを、model、application、runtime、memory、tools、guardrails、human、auditの責任境界として読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 08">
+  <meta property="og:description" content="生成AIシステムを、model、application、runtime、memory、tools、guardrails、human、auditの責任境界として読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 11:22 JST / Notion原稿最終更新日時：2026-07-20 11:22 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 08</p>
       <h1>全体アーキテクチャ</h1>
-      <p class="series-subtitle">model / application / runtime / human の分担。01〜07を一枚の責任境界へ戻す。</p>
-      <p class="series-copy">生成AIシステムとは、model、application、runtime、humanの責任境界を持つ複合システムである。</p>
+      <p class="series-subtitle">model / application / runtime / human の責任境界を組み直し、生成AIシステム全体を読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. 生成AIシステムはmodelだけではない</h2>
-        <p>日常的には、私たちは「AIが答えた」「AIが検索した」「AIがファイルを読んだ」「AIがNotionにページを作った」と言う。日常語としてはそれでよい。しかし、しくみとして見るなら、この言い方はかなり粗い。</p>
-        <p>モデルが直接Webを検索しているとは限らない。モデルが直接ファイルシステムを読んでいるとは限らない。モデルが直接メールを送っているとは限らない。多くの場合、モデルがしているのは、自然文、構造化出力、tool call候補、拒否、確認依頼、handoff提案などを生成することである。</p>
-        <pre class="article-phrase">"AI did it"
+<ul>
+<li>ページ作成日時：2026-07-20 11:22 JST</li>
+<li>最終更新日時：2026-07-20 11:22 JST</li>
+</ul>
+<p>ここまで、生成AIのしくみをいくつかの部品に分けて見てきた。</p>
+<p>01では、ユーザー入力がそのままモデルへ流れ込むのではなく、request objectとして組み立てられることを見た。</p>
+<p>02では、system / developer / user / tool result などの指示階層を見た。</p>
+<p>03では、context、memory、RAG、file input、context windowを扱った。</p>
+<p>04では、tool callとapplication execution、そしてtool resultが再びcontextへ戻るloopを扱った。</p>
+<p>05では、JSON Schema、Structured Outputs、parse、validate、repair、handoffを扱った。</p>
+<p>06では、memoryを、保存・参照・注入・監査の仕組みとして見た。</p>
+<p>07では、agentic loopを、停止条件、budget、verification、guardrails、handoff、traceとして扱った。</p>
+<p>08では、これらを一枚の全体図に戻す。</p>
+<p>中心にある問いは、これである。</p>
+<blockquote>
+<p>生成AIシステムにおいて、model、application、runtime、tool、memory、humanは、それぞれ何を担当し、どこで責任境界が切られているのか。</p>
+</blockquote>
+<h2>1. 生成AIシステムはmodelだけではない</h2>
+<p>日常的には、私たちはこう言う。</p>
+<pre class="article-phrase"><code>AIが答えた
+AIが検索した
+AIがファイルを読んだ
+AIがメールを書いた
+AIがNotionにページを作った
+AIがコードを直した
+</code></pre>
+<p>もちろん、日常語としてはこれでよい。</p>
+<p>しかし、しくみとして見るなら、この言い方はかなり粗い。</p>
+<p>モデルが直接Webを検索しているとは限らない。</p>
+<p>モデルが直接ファイルシステムを読んでいるとは限らない。</p>
+<p>モデルが直接メールを送っているとは限らない。</p>
+<p>モデルが直接NotionやGoogle Driveを書き換えているとは限らない。</p>
+<p>モデルが直接データベースや外部APIを操作しているとは限らない。</p>
+<p>多くの場合、モデルがしているのは、次のような出力を生成することである。</p>
+<pre class="article-phrase"><code>natural language answer
+structured output
+tool call request
+reasoned next-step proposal
+refusal
+clarification request
+handoff proposal
+</code></pre>
+<p>それを受け取ったapplicationが、構造を確認し、権限を確認し、toolを呼び、runtimeが実行し、結果を受け取り、必要なら再びmodelへ戻す。</p>
+<p>つまり、外からは「AIがやった」ように見えることの多くは、実際には複数の層の協働である。</p>
+<pre class="article-phrase"><code>&quot;AI did it&quot;
   = model generated something
   + application interpreted it
   + runtime executed something
   + tool returned a result
   + application verified or displayed it
-  + human accepted, corrected, or approved it</pre>
-
-        <h2>2. 四つの大きな層</h2>
-        <table><tr><th>層</th><th>主な責務</th><th>混同してはいけないこと</th></tr><tr><td>model</td><td>contextをもとに、自然文、構造化出力、tool call候補などを生成する。</td><td>外部世界を直接操作していると思い込む。</td></tr><tr><td>application</td><td>request、instruction、context、memory、tool、validation、loopを編成する。</td><td>modelの自然文応答をそのまま真実や完了扱いする。</td></tr><tr><td>runtime</td><td>tool、API、connector、file system、database、sandboxなどを実行する。</td><td>実行成功をtask成功と同一視する。</td></tr><tr><td>human</td><td>目的、判断、承認、責任、評価、意味づけを担う。</td><td>すべてを自動化できるとみなす。</td></tr></table>
-        <pre class="article-phrase">AI system ≠ model alone
+  + human accepted, corrected, or approved it
+</code></pre>
+<p>「AIがやった」を分解しなければ、どこで失敗したのか分からない。</p>
+<p>モデルが誤ったのか。</p>
+<p>contextが足りなかったのか。</p>
+<p>instruction placementが悪かったのか。</p>
+<p>tool schemaが曖昧だったのか。</p>
+<p>runtime executionが失敗したのか。</p>
+<p>validationが弱かったのか。</p>
+<p>human approvalが必要だったのか。</p>
+<p>そもそも委任してはいけない判断だったのか。</p>
+<p>全体アーキテクチャとは、この責任境界を見えるようにすることである。</p>
+<h2>2. 四つの大きな層</h2>
+<p>生成AIシステムは、まず大きく四つの層に分けられる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>層</th>
+  <th>主な責務</th>
+  <th>混同してはいけないこと</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model</td>
+  <td>contextをもとに、自然文、構造化出力、tool call候補などを生成する</td>
+  <td>外部世界を直接操作していると思い込む</td>
+</tr>
+<tr>
+  <td>application</td>
+  <td>request、instruction、context、memory、tool、validation、loopを編成する</td>
+  <td>modelの自然文応答をそのまま真実や完了扱いする</td>
+</tr>
+<tr>
+  <td>runtime</td>
+  <td>tool、API、connector、file system、database、sandboxなどを実行する</td>
+  <td>実行成功をtask成功と同一視する</td>
+</tr>
+<tr>
+  <td>human</td>
+  <td>目的、判断、承認、責任、評価、意味づけを担う</td>
+  <td>すべてを自動化できるとみなす</td>
+</tr>
+</tbody>
+</table>
+<p>この四層は、単純な上下関係ではない。</p>
+<p>責務の違いである。</p>
+<p>modelは、入力されたcontextから次の出力を生成する。</p>
+<p>applicationは、何をcontextへ入れ、何をtoolとして許し、出力をどう扱うかを決める。</p>
+<p>runtimeは、外部世界への接続を実行する。</p>
+<p>humanは、目的、意味、責任、承認、評価を持つ。</p>
+<pre class="article-phrase"><code>AI system ≠ model alone
 
 AI system =
   model
@@ -50,10 +146,16 @@ AI system =
   + validation / verification
   + guardrails
   + human judgment
-  + audit trail</pre>
-
-        <h2>3. requestからresponseまでのpipeline</h2>
-        <pre class="article-phrase">1. user intent
+  + audit trail
+</code></pre>
+<p>この分担が曖昧になると、生成AIシステムは一気に危険になる。</p>
+<p>モデルの限界をapplicationの設計で補うべきところを、モデルの賢さに丸投げしてしまう。</p>
+<p>runtimeの副作用をhuman approvalで制御すべきところを、「AIが判断したから」で通してしまう。</p>
+<p>検証すべきtool resultを、自然文の完了報告で置き換えてしまう。</p>
+<p>全体設計の第一原則は、modelを神格化しないことではなく、modelを正しい場所に置くことである。</p>
+<h2>3. requestからresponseまでのpipeline</h2>
+<p>生成AIシステムをpipelineとして見ると、次のようになる。</p>
+<pre class="article-phrase"><code>1. user intent
 2. request assembly
 3. instruction hierarchy placement
 4. context selection
@@ -67,28 +169,466 @@ AI system =
 12. verification
 13. loop decision
 14. final response / artifact / handoff / stop
-15. trace / audit / evaluation</pre>
-        <p>これは単なる実装手順ではない。責任境界の一覧である。どの段階で何を確認するのか、どの段階で人間へ返すのか、どの段階でtoolを許可するのか、どの段階で止めるのか、どの段階を記録するのかを分けるための地図である。</p>
-
-        <h2>4. model layerの責務と限界</h2>
-        <p>model layerの責務は、与えられたcontextから次の出力を生成することである。answer text、structured output、tool call candidate、classification、plan、refusal、clarification request、handoff proposalなどを生成する。</p>
-        <pre class="article-phrase">model output ≠ external fact
+15. trace / audit / evaluation
+</code></pre>
+<p>これは単なる実装手順ではない。</p>
+<p>責任境界の一覧である。</p>
+<p>どの段階で何を確認するのか。</p>
+<p>どの段階で人間へ返すのか。</p>
+<p>どの段階でtoolを許可するのか。</p>
+<p>どの段階で止めるのか。</p>
+<p>どの段階を記録するのか。</p>
+<p>それぞれを分けなければ、生成AIシステムは「なんとなく賢い黒箱」になる。</p>
+<h2>4. model layerの責務と限界</h2>
+<p>model layerの責務は、与えられたcontextから次の出力を生成することである。</p>
+<p>ここでいう出力は、自然文だけではない。</p>
+<pre class="article-phrase"><code>answer text
+structured output
+tool call candidate
+classification
+plan
+refusal
+clarification request
+handoff proposal
+</code></pre>
+<p>modelは、入力されたcontextの中からパターンを見つけ、推論し、生成する。</p>
+<p>文章を作る。</p>
+<p>構造化されたJSONを作る。</p>
+<p>toolを呼ぶべきだと判断し、tool call候補を出す。</p>
+<p>質問が危険または不可能であれば拒否する。</p>
+<p>情報が足りなければ確認を求める。</p>
+<p>しかし、modelには限界がある。</p>
+<pre class="article-phrase"><code>model output ≠ external fact
 model output ≠ tool execution
 model output ≠ permission
 model output ≠ user approval
-model output ≠ completed task</pre>
-        <p>modelはsource of truthではない。memory storeでもない。外部世界を直接操作する主体でもない。責任主体でもない。だから、model outputとapplication actionを分ける必要がある。</p>
+model output ≠ completed task
+</code></pre>
+<p>modelが「ファイルを作成しました」と言っても、本当にファイルが存在するとは限らない。</p>
+<p>modelが「メールを送信しました」と言っても、実際に送信されたとは限らない。</p>
+<p>modelが「この情報は正しいです」と言っても、それだけではsource of truthではない。</p>
+<p>modelが「このtoolを使います」と言っても、使ってよいとは限らない。</p>
+<pre class="article-phrase"><code>model says X happened ≠ X happened
+</code></pre>
+<p>modelは、source of truthではない。</p>
+<p>modelは、memory storeでもない。</p>
+<p>modelは、外部世界を直接操作する主体でもない。</p>
+<p>modelは、責任主体でもない。</p>
+<p>だから、model outputとapplication actionを分ける必要がある。</p>
+<h2>5. application layerの責務</h2>
+<p>application layerは、modelを呼び出すだけの薄い殻ではない。</p>
+<p>むしろ、生成AIシステムの中核的な編成層である。</p>
+<p>application layerは、少なくとも次を担う。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>責務</th>
+  <th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>request assembly</td>
+  <td>ユーザー入力、設定、履歴、添付、system / developer指示をrequestへ組み立てる</td>
+</tr>
+<tr>
+  <td>instruction placement</td>
+  <td>どの内容をsystem / developer / user / tool resultとして置くかを決める</td>
+</tr>
+<tr>
+  <td>context selection</td>
+  <td>履歴、ファイル、検索結果、tool resultから今回入れるものを選ぶ</td>
+</tr>
+<tr>
+  <td>memory injection</td>
+  <td>保存情報をそのまま使うのではなく、今回のtaskに有用な形で注入する</td>
+</tr>
+<tr>
+  <td>tool schema exposure</td>
+  <td>どのtoolをmodelに見せ、どのschemaで呼ばせるかを決める</td>
+</tr>
+<tr>
+  <td>output handling</td>
+  <td>model出力をparse / validate / retry / repair / refusal handlingする</td>
+</tr>
+<tr>
+  <td>loop orchestration</td>
+  <td>tool call、result observation、verification、continue / stopを制御する</td>
+</tr>
+<tr>
+  <td>UI / user control</td>
+  <td>確認、承認、取り消し、編集、選択、表示を設計する</td>
+</tr>
+</tbody>
+</table>
+<p>application layerで重要なのは、「何をmodelに渡すか」と「modelから返ったものをどう扱うか」である。</p>
+<pre class="article-phrase"><code>application decides:
+  what the model sees
+  what the model may call
+  what counts as valid output
+  what requires approval
+  what should be retried
+  what must stop
+  what should be shown to the user
+</code></pre>
+<p>同じmodelでも、application設計が違えば、まったく違うシステムになる。</p>
+<p>安全なapplicationは、model outputをそのまま外部世界へ流さない。</p>
+<p>一度受け取り、構造を確認し、権限を確認し、必要なら検証し、人間へ戻し、traceを残す。</p>
+<h2>6. runtime / tool layerの責務</h2>
+<p>runtime / tool layerは、生成AIシステムにおける外部世界への実行境界である。</p>
+<p>toolは、単なる「能力追加」ではない。</p>
+<p>境界である。</p>
+<pre class="article-phrase"><code>tool = capability + permission boundary + side effect boundary + audit boundary
+</code></pre>
+<p>runtime / tool layerには、次のようなものが含まれる。</p>
+<ul>
+<li>hosted tools</li>
+<li>local runtime tools</li>
+<li>connectors</li>
+<li>external APIs</li>
+<li>file system</li>
+<li>database</li>
+<li>browser / computer control</li>
+<li>sandbox</li>
+<li>code interpreter</li>
+<li>workflow engine</li>
+<li>job queue</li>
+</ul>
+<p>modelがtool call候補を出す。</p>
+<p>applicationがschemaと権限を確認する。</p>
+<p>runtimeが実際に実行する。</p>
+<p>tool resultが返る。</p>
+<p>applicationがそれを観測し、検証し、必要なら再びmodelへ渡す。</p>
+<pre class="article-phrase"><code>model emits tool call candidate
+  ↓
+application validates and authorizes
+  ↓
+runtime executes
+  ↓
+tool result returns
+  ↓
+application verifies
+  ↓
+model receives result as context
+</code></pre>
+<p>ここで重要なのは、execution resultはtruthそのものではないということだ。</p>
+<p>APIが200を返したからといって、taskが成功したとは限らない。</p>
+<p>ファイル作成toolが成功したからといって、中身が正しいとは限らない。</p>
+<p>検索toolが結果を返したからといって、十分な調査ができたとは限らない。</p>
+<p>DB更新が成功したからといって、正しいレコードを更新したとは限らない。</p>
+<pre class="article-phrase"><code>execution succeeded ≠ task succeeded
+result returned ≠ result verified
+side effect occurred ≠ user intended it
+</code></pre>
+<p>runtime / tool layerでは、permission、credential、side effect、sandbox、auditが重要になる。</p>
+<p>特に、外部状態を変える操作では、read-only actionとstate-changing actionを分けなければならない。</p>
+<pre class="article-phrase"><code>read-only action
+  ≠ state-changing action
 
-        <h2>5. applicationとruntimeの責務</h2>
-        <p>application layerは、modelを呼び出すだけの薄い殻ではない。何をcontextへ入れ、どのtoolを見せ、model出力をどうparseし、何をvalid outputとみなし、どこで人間へ戻すかを決める編成層である。</p>
-        <p>runtime / tool layerは、外部世界への実行境界である。toolは単なる能力追加ではなく、permission boundary、side effect boundary、audit boundaryを含む。</p>
+state-changing action
+  requires stronger gate
+</code></pre>
+<p>メール送信、公開、削除、上書き、支払い、契約、PR merge、DB更新などは、強いgateが必要になる。</p>
+<p>toolは便利さの入口であると同時に、事故の入口でもある。</p>
+<h2>7. memory / retrieval layerの位置</h2>
+<p>memoryやretrievalは、modelそのものではない。</p>
+<p>多くの場合、保存された情報や外部知識を候補として取り出し、applicationが選別し、contextへ注入する層である。</p>
+<pre class="article-phrase"><code>stored memory
+  ↓
+retrieval candidate
+  ↓
+application selection
+  ↓
+context injection
+  ↓
+model invocation
+</code></pre>
+<p>memoryが存在することと、今回の応答に使われることは違う。</p>
+<p>検索結果が存在することと、信頼できる根拠になることも違う。</p>
+<p>ファイルが添付されていることと、context windowに十分入ることも違う。</p>
+<p>memory / retrieval layerでは、次を記録する必要がある。</p>
+<pre class="article-phrase"><code>what was retrieved
+why it was retrieved
+what was injected
+what was omitted
+what authority it has
+whether the user can inspect or correct it
+</code></pre>
+<p>memoryは便利である。</p>
+<p>しかし、memoryの注入が見えないと、ユーザーは「なぜその前提で答えたのか」を検証できない。</p>
+<p>だからmemoryは、単なるpersonalizationではなく、監査可能なcontext sourceとして扱う必要がある。</p>
+<h2>8. human layerの責務</h2>
+<p>human layerは、AIシステムの外側にある飾りではない。</p>
+<p>システム構成要素である。</p>
+<p>人間は、次を担う。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>責務</th>
+  <th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>goal setting</td>
+  <td>何を達成したいのかを決める</td>
+</tr>
+<tr>
+  <td>judgment</td>
+  <td>複数の選択肢から、意味や文脈に照らして判断する</td>
+</tr>
+<tr>
+  <td>approval</td>
+  <td>送信、公開、削除、課金、契約などを承認する</td>
+</tr>
+<tr>
+  <td>value choice</td>
+  <td>何を優先し、何を避けるかを決める</td>
+</tr>
+<tr>
+  <td>accountability</td>
+  <td>結果に対する責任を引き受ける</td>
+</tr>
+<tr>
+  <td>evaluation</td>
+  <td>成果物がよいか、正しいか、使えるかを評価する</td>
+</tr>
+<tr>
+  <td>delegation boundary</td>
+  <td>AIに任せる範囲と任せない範囲を決める</td>
+</tr>
+</tbody>
+</table>
+<p>human-in-the-loopは、単に確認ボタンを置くことではない。</p>
+<p>人間が判断できるだけのcontextを返す必要がある。</p>
+<pre class="article-phrase"><code>bad approval:
+  &quot;実行してよいですか？&quot;
 
-        <h2>6. humanは外側ではなく構成要素である</h2>
-        <p>human layerは、目的、判断、承認、責任、評価、意味づけを担う。生成AIシステムから人間を外すのではなく、どこで人間に戻すのか、どこまで委任するのか、どの判断は保持するのかを設計する必要がある。</p>
+good approval:
+  action: 何をするか
+  target: どこに対して行うか
+  consequence: 何が変わるか
+  reversibility: 元に戻せるか
+  evidence: 何を根拠にしているか
+  alternatives: 他の選択肢はあるか
+</code></pre>
+<p>人間をloopに入れるなら、人間が判断できる形で情報を渡さなければならない。</p>
+<h2>9. manifestとして設計する</h2>
+<p>生成AIシステムを安全に設計するには、暗黙の状態を減らし、manifestとして見える形にする必要がある。</p>
+<p>少なくとも、次のmanifestが有用である。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>manifest</th>
+  <th>記録するもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>request manifest</td>
+  <td>今回のtask、user intent、制約、成功条件</td>
+</tr>
+<tr>
+  <td>instruction manifest</td>
+  <td>system / developer / user / tool result の配置</td>
+</tr>
+<tr>
+  <td>context manifest</td>
+  <td>どの履歴、file、search result、tool resultをcontextに入れたか</td>
+</tr>
+<tr>
+  <td>memory manifest</td>
+  <td>どのmemoryを参照し、注入し、除外したか</td>
+</tr>
+<tr>
+  <td>tool manifest</td>
+  <td>利用可能tool、権限、schema、side effect分類</td>
+</tr>
+<tr>
+  <td>output contract</td>
+  <td>期待する出力形式、schema、validation条件</td>
+</tr>
+<tr>
+  <td>loop trace</td>
+  <td>各stepで何を観測し、何を判断し、何を実行したか</td>
+</tr>
+<tr>
+  <td>audit log</td>
+  <td>承認、外部書き込み、失敗、停止、handoffの記録</td>
+</tr>
+</tbody>
+</table>
+<p>manifestは、開発者向けの内部資料だけではない。</p>
+<p>AIシステムを後から説明し、検証し、改善するための足場である。</p>
+<pre class="article-phrase"><code>no manifest → invisible state
+invisible state → unverifiable behavior
+unverifiable behavior → untrustworthy system
+</code></pre>
+<h2>10. failure boundary</h2>
+<p>生成AIシステムでは、失敗を一種類にまとめてはいけない。</p>
+<pre class="article-phrase"><code>model failure
+context failure
+instruction failure
+schema failure
+validation failure
+runtime failure
+permission failure
+verification failure
+approval failure
+evaluation failure
+</code></pre>
+<p>これらは、すべて違う。</p>
+<p>modelが誤ったのか。</p>
+<p>contextに必要情報がなかったのか。</p>
+<p>外部文書中の命令をinstructionとして扱ってしまったのか。</p>
+<p>JSON schemaが曖昧だったのか。</p>
+<p>parseやvalidationが弱かったのか。</p>
+<p>tool実行が失敗したのか。</p>
+<p>権限がなかったのか。</p>
+<p>実行結果を確認しなかったのか。</p>
+<p>人間の承認が必要だったのに省略したのか。</p>
+<p>成果物の評価基準がなかったのか。</p>
+<p>failure boundaryを切ることは、責任逃れではない。</p>
+<p>改善可能性を作ることである。</p>
+<pre class="article-phrase"><code>wrong answer
+  → maybe model / context / instruction / retrieval failure
 
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">生成AIシステムとは、model、application、runtime、humanの責任境界を持つ複合システムである。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">前へ：07 停止条件と検証ループ</a> / <a href="/series/genai-shikumi-deep-dive/concept-map/">次へ：主要概念マップ</a></p>
+bad action
+  → maybe application / runtime / permission / approval failure
+
+unverified completion
+  → maybe validation / verification / audit failure
+</code></pre>
+<p>「AIが間違えた」だけでは改善できない。</p>
+<p>どの層で何が起きたかを分ける必要がある。</p>
+<h2>11. 01〜07の統合</h2>
+<p>ここまでの各回を、08の全体図に対応させると次のようになる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>回</th>
+  <th>扱ったもの</th>
+  <th>全体アーキテクチャ上の位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>01</td>
+  <td>request object</td>
+  <td>user intentをapplicationがrequestへ組み立てる</td>
+</tr>
+<tr>
+  <td>02</td>
+  <td>instruction hierarchy</td>
+  <td>system / developer / user / tool result の権限境界</td>
+</tr>
+<tr>
+  <td>03</td>
+  <td>context</td>
+  <td>履歴、memory、file、RAG、tool resultの入力集合</td>
+</tr>
+<tr>
+  <td>04</td>
+  <td>tool execution loop</td>
+  <td>model output、application validation、runtime execution、tool result</td>
+</tr>
+<tr>
+  <td>05</td>
+  <td>structured output</td>
+  <td>output contract、schema、parse、validate、repair、handoff</td>
+</tr>
+<tr>
+  <td>06</td>
+  <td>memory</td>
+  <td>保存、参照、注入、personalization、監査</td>
+</tr>
+<tr>
+  <td>07</td>
+  <td>agentic loop</td>
+  <td>停止条件、budget、verification、guardrails、handoff、trace</td>
+</tr>
+<tr>
+  <td>08</td>
+  <td>architecture</td>
+  <td>model / application / runtime / human の責任境界</td>
+</tr>
+</tbody>
+</table>
+<p>このシリーズで一貫していたのは、「生成AIはモデル単体ではなく、入力・指示・context・tool・memory・runtime・humanを含むシステムである」という見方である。</p>
+<h2>12. 設計原則</h2>
+<p>最後に、生成AIシステムの設計原則として整理する。</p>
+<ol>
+<li>modelを単独の主体として扱わない。</li>
+<li>user inputをそのままmodel inputとみなさない。</li>
+<li>instruction hierarchyを明示する。</li>
+<li>contextは保存情報ではなく、今回注入された入力集合として扱う。</li>
+<li>tool callは実行候補であり、application側で検証する。</li>
+<li>structured outputは、schema、parse、validate、repairまで含めて設計する。</li>
+<li>memoryは便利なpersonalizationではなく、監査可能なcontext sourceとして扱う。</li>
+<li>agentic loopは、続ける能力ではなく、止まる能力として設計する。</li>
+<li>human approvalは形式的なボタンではなく、判断可能なcontextとセットで置く。</li>
+<li>traceとauditを残し、後から説明・再現・評価できるようにする。</li>
+</ol>
+<p>この10項目は、技術的な細部というより、AIシステムを「信頼できる協働相手」にするための条件である。</p>
+<h2>13. OpenAI Agents SDKとの対応</h2>
+<p>OpenAI Agents SDKでは、Agentはinstructionsやtoolsを備えたLLMとして説明され、handoffs、guardrails、structured outputsなどもAgentに関連するprimitiveとして扱われる。また、Agent + Runnerにより、turns、tool execution、guardrails、handoffs、sessionsなどをSDK側で管理できる。さらにtracingは、LLM生成、tool call、handoff、guardrailなど、agent run中のeventsを記録する仕組みとして説明されている。</p>
+<p>このシリーズの整理に引き寄せるなら、対応は次のように読める。</p>
+<pre class="article-phrase"><code>Agent / model
+  → model layer
+
+Runner / orchestration
+  → application loop layer
+
+tools / connectors
+  → runtime / tool layer
+
+guardrails / handoffs / tracing
+  → control and audit layer
+
+sessions / context management
+  → memory / context layer
+
+human approval / review
+  → human layer
+</code></pre>
+<p>ただし、これは特定SDKの説明をそのまま一般理論にするという意味ではない。</p>
+<p>重要なのは、どのframeworkを使うかではなく、責任境界を消さないことである。</p>
+<h2>14. 結論</h2>
+<p>生成AIシステムとは、modelだけで成立するものではない。</p>
+<p>modelは、入力されたcontextから次の出力を生成する。</p>
+<p>applicationは、request、instruction、context、memory、tool、validation、loopを組み立てる。</p>
+<p>runtimeは、実際のtool、API、file system、database、network、sandboxを扱う。</p>
+<p>memory / retrieval layerは、保存情報や外部知識を候補として取り出し、contextへ注入する。</p>
+<p>guardrailsは、許可・禁止・確認・停止を判定する。</p>
+<p>humanは、目的、判断、承認、責任、評価を担う。</p>
+<p>audit trailは、それらの振る舞いを後から説明可能にする。</p>
+<pre class="article-phrase"><code>model
+  + application
+  + runtime
+  + memory
+  + tools
+  + guardrails
+  + human
+  + audit
+  = AI system
+</code></pre>
+<p>「AIがやった」と見える出来事は、実際には複数層の協働である。</p>
+<p>だから、生成AIを理解するとは、モデルの中身だけを理解することではない。</p>
+<p>モデルの周囲にある、request、instruction、context、tool、memory、runtime、human、auditの配置を理解することでもある。</p>
+<p>そして、AIを安全に使うとは、AIを信じることではない。</p>
+<p>どの層が何をしているかを見えるようにし、どこで確認し、どこで止め、どこで人間が判断するかを設計することである。</p>
+<p>この全体像を持つと、生成AIは単なるチャット画面ではなくなる。</p>
+<p>それは、modelとapplicationとruntimeとhumanが協働する、新しい実行環境として見えてくる。</p>
+<h3>参考</h3>
+<ul>
+<li><a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a></li>
+<li><a href="https://openai.github.io/openai-agents-python/agents/">OpenAI Agents SDK｜Agents</a></li>
+<li><a href="https://openai.github.io/openai-agents-python/running_agents/">OpenAI Agents SDK｜Running agents</a></li>
+<li><a href="https://openai.github.io/openai-agents-python/tracing/">OpenAI Agents SDK｜Tracing</a></li>
+</ul>
+
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">前へ：07 停止条件と検証ループ</a> / <a href="/series/genai-shikumi-deep-dive/concept-map/">次へ：主要概念マップ</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
+
       </article>
     </div>
   </main>

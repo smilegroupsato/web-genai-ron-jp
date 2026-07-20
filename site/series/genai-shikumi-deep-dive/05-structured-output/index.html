@@ -3,63 +3,562 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 05｜構造化出力とは何か｜GENAI-RON</title>
-  <meta name="description" content="構造化出力とは、きれいなJSONを書かせることではない。schema、parse、validation、retry、repair、handoffを含むapplication contractとして読む。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 05｜構造化出力とは何か">
-  <meta property="og:description" content="JSONが出たことと、applicationが安全に扱える出力であることは違う。">
+  <title>生成AIのしくみ 超詳解 05｜GENAI-RON</title>
+  <meta name="description" content="構造化出力を、JSONらしい文字列ではなく、schemaとvalidationを含むapplication contractとして読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 05">
+  <meta property="og:description" content="構造化出力を、JSONらしい文字列ではなく、schemaとvalidationを含むapplication contractとして読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-18 14:34 JST / Notion原稿最終更新日時：2026-07-18 14:34 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 05</p>
       <h1>構造化出力とは何か</h1>
-      <p class="series-subtitle">JSON、schema、validation、再生成。モデル出力とapplicationの間に契約を置く。</p>
-      <p class="series-copy">構造化出力とは、モデルに「きれいなJSONを書いてもらうこと」ではない。</p>
+      <p class="series-subtitle">JSON、schema、validation、repair、handoffを、applicationが受け取れる契約として読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. 「JSONで返す」は出発点でしかない</h2>
-        <p>生成AIに「JSONで返して」と頼むことは珍しくない。問い合わせ分類、議事録のaction item抽出、見積依頼の項目整理、UI表示用データ生成、次のworkflowへのhandoff。人間が読む文章ではなく、アプリケーションが処理できる形で返してほしい場面は多い。</p>
-        <p>しかし、「JSONで返して」と「安全にアプリケーションへ渡せる」は違う。JSONらしく見える文字列が返ってきても、それがparseできるとは限らない。parseできても、期待したschemaに合っているとは限らない。schemaに合っていても、業務上そのまま使ってよいとは限らない。</p>
-        <pre class="article-phrase">JSON-looking text ≠ valid JSON
+<ul>
+<li>ページ作成日時：2026-07-18 14:34 JST</li>
+<li>最終更新日時：2026-07-18 14:34 JST</li>
+</ul>
+<p>生成AIに「JSONで返して」と頼むことは、いまでは珍しくない。</p>
+<p>問い合わせ分類、議事録のaction item抽出、見積依頼の項目整理、UI表示用データ生成、次のworkflowへのhandoff。</p>
+<p>人間が読む文章ではなく、アプリケーションが処理できる形で返してほしい場面は多い。</p>
+<p>しかし、「JSONで返して」と「安全にアプリケーションへ渡せる」は違う。</p>
+<p>JSONらしく見える文字列が返ってきても、それがparseできるとは限らない。</p>
+<p>parseできても、期待したschemaに合っているとは限らない。</p>
+<p>schemaに合っていても、業務上そのまま使ってよいとは限らない。</p>
+<blockquote>
+<p>構造化出力とは、モデルに「きれいなJSONを書いてもらうこと」ではない。applicationが受け取れる契約をschemaとして定義し、モデル出力をその契約に沿わせ、parse / validate / refusal / retry / repair / handoffまで含めて管理することである。</p>
+</blockquote>
+<p>05では、この構造化出力を分解する。</p>
+<h2>1. 「JSONで返す」は、まだ出発点でしかない</h2>
+<p>たとえば、問い合わせ分類をAIに依頼するとする。</p>
+<pre class="article-phrase"><code>次の問い合わせを分類して、JSONで返してください。
+</code></pre>
+<p>返ってくるものは、次のような形かもしれない。</p>
+<pre><code class="language-json">{
+  &quot;category&quot;: &quot;billing&quot;,
+  &quot;priority&quot;: &quot;high&quot;,
+  &quot;needs_reply&quot;: true
+}
+</code></pre>
+<p>見た目としては十分に扱いやすい。</p>
+<p>しかし、application側から見ると、確認すべきことは多い。</p>
+<ul>
+<li>JSONとしてparseできるか</li>
+<li>想定したkeyが存在するか</li>
+<li>valueの型が正しいか</li>
+<li>enumの範囲に収まっているか</li>
+<li>不要なkeyが混ざっていないか</li>
+<li>null、空文字、unknownの扱いが決まっているか</li>
+<li>業務上、その値を使ってよいか</li>
+<li>safety refusalや不完全回答を区別できるか</li>
+</ul>
+<p>つまり、段階はこう分かれる。</p>
+<pre class="article-phrase"><code>JSON-looking text ≠ valid JSON
 valid JSON ≠ schema-valid data
 schema-valid data ≠ business-valid decision
-business-valid decision ≠ safe action</pre>
+business-valid decision ≠ safe action
+</code></pre>
+<p>自然文なら、人間が曖昧さを補える。</p>
+<p>「これは請求関連で、かなり急ぎです。返信が必要です」と書かれていれば、人間は意味を取れる。</p>
+<p>しかし、DB保存、Slack通知、担当者割り当て、CRM更新、次のtool callへの入力に使うなら、機械が安定して読める構造が必要になる。</p>
+<h2>2. JSON syntax、schema adherence、business validationは違う</h2>
+<p>JSON syntaxとは、文字列がJSONとしてparseできることである。</p>
+<p>これは、最低限の構文チェックである。</p>
+<p>たとえば、これはvalid JSONである。</p>
+<pre><code class="language-json">{
+  &quot;priority&quot;: &quot;urgent&quot;
+}
+</code></pre>
+<p>しかし、applicationが期待するpriorityが <code>low</code> / <code>medium</code> / <code>high</code> の三択だった場合、<code>urgent</code> はschema上は不正である。</p>
+<p>逆に、次の出力は人間には意味が分かるが、JSONとしては壊れている。</p>
+<pre><code class="language-json">{
+  &quot;priority&quot;: high,
+  &quot;needs_reply&quot;: yes
+}
+</code></pre>
+<p><code>high</code> も <code>yes</code> も文字列としてquoteされていないため、JSON parserは失敗する。</p>
+<p>さらに、schema上正しくても、業務上使えない場合がある。</p>
+<p>たとえば、<code>customer_id</code> が文字列として正しく存在していても、そのIDが実在しない、権限のない顧客である、すでに退会済みである、ということはありうる。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>段階</th>
+  <th>見るもの</th>
+  <th>失敗例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>JSON syntax</td>
+  <td>JSONとしてparseできるか</td>
+  <td>quote漏れ、末尾comma、Markdown fence混入</td>
+</tr>
+<tr>
+  <td>schema adherence</td>
+  <td>期待した構造に合うか</td>
+  <td>required欠落、型違い、enum外、余計なproperty</td>
+</tr>
+<tr>
+  <td>business validation</td>
+  <td>業務ルール上使えるか</td>
+  <td>存在しないID、期限切れstatus、不許可action</td>
+</tr>
+</tbody>
+</table>
+<p>構造化出力を設計するとは、この三段階を混ぜないことである。</p>
+<h2>3. JSON Schemaはapplication contractである</h2>
+<p>JSON Schemaは、AIの出力形式を整えるための飾りではない。</p>
+<p>モデル、validator、workflowのあいだに置かれるapplication contractである。</p>
+<p>簡単な問い合わせ分類schemaは、たとえば次のように書ける。</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;category&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [&quot;billing&quot;, &quot;technical&quot;, &quot;sales&quot;, &quot;other&quot;]
+    },
+    &quot;priority&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;]
+    },
+    &quot;needs_reply&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [&quot;category&quot;, &quot;priority&quot;, &quot;needs_reply&quot;],
+  &quot;additionalProperties&quot;: false
+}
+</code></pre>
+<p>ここで重要なのは、次の要素である。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>要素</th>
+  <th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>type</code></td>
+  <td>object、array、string、number、integer、boolean、nullなどの型を定義する</td>
+</tr>
+<tr>
+  <td><code>properties</code></td>
+  <td>objectが持つkeyと、そのvalueの型を定義する</td>
+</tr>
+<tr>
+  <td><code>required</code></td>
+  <td>必ず存在すべきfieldを定義する</td>
+</tr>
+<tr>
+  <td><code>enum</code></td>
+  <td>許可される値を限定する</td>
+</tr>
+<tr>
+  <td><code>additionalProperties: false</code></td>
+  <td>想定外のkeyを拒否する</td>
+</tr>
+<tr>
+  <td><code>items</code></td>
+  <td>arrayの要素型を定義する</td>
+</tr>
+</tbody>
+</table>
+<p><code>additionalProperties: false</code> は特に重要である。</p>
+<p>余計なkeyを許すと、モデルが説明文や提案、confidenceのようなfieldを勝手に足すことがある。</p>
+<p>それ自体が悪いわけではないが、application contractとして受け取るなら、想定外のfieldは失敗として扱った方がよい。</p>
+<h2>4. null、unknown、empty、not applicableを分ける</h2>
+<p>構造化出力では、「値がない」を雑に扱うと壊れやすい。</p>
+<p>たとえば、問い合わせから希望日時を抽出するschemaを考える。</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;preferred_date&quot;: {
+      &quot;type&quot;: [&quot;string&quot;, &quot;null&quot;]
+    },
+    &quot;preferred_date_status&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [&quot;present&quot;, &quot;unknown&quot;, &quot;not_applicable&quot;, &quot;withheld&quot;]
+    }
+  },
+  &quot;required&quot;: [&quot;preferred_date&quot;, &quot;preferred_date_status&quot;],
+  &quot;additionalProperties&quot;: false
+}
+</code></pre>
+<p>ここでは、単に <code>preferred_date: null</code> とするだけではなく、なぜnullなのかをstatusで分けている。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>状態</th>
+  <th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>present</code></td>
+  <td>値が抽出できた</td>
+</tr>
+<tr>
+  <td><code>unknown</code></td>
+  <td>入力からは分からない</td>
+</tr>
+<tr>
+  <td><code>not_applicable</code></td>
+  <td>このcaseでは該当しない</td>
+</tr>
+<tr>
+  <td><code>withheld</code></td>
+  <td>安全上または権限上、出さない</td>
+</tr>
+</tbody>
+</table>
+<p>空文字、null、unknown、該当なし、拒否は同じではない。</p>
+<p>この区別は、後続workflowの分岐に直結する。</p>
+<h2>5. JSON modeとStructured Outputs</h2>
+<p>JSON modeとStructured Outputsは似て見えるが、目的が違う。</p>
+<p>JSON modeは、valid JSONを出しやすくする方向の仕組みである。</p>
+<p>一方、Structured Outputsは、開発者が定義したJSON Schemaに出力を沿わせるための仕組みである。</p>
+<pre class="article-phrase"><code>JSON mode:
+  valid JSONを出すことを助ける
 
-        <h2>2. syntax、schema、business validation</h2>
-        <table><tr><th>段階</th><th>見るもの</th><th>失敗例</th></tr><tr><td>JSON syntax</td><td>JSONとしてparseできるか</td><td>quote漏れ、末尾comma、Markdown fence混入。</td></tr><tr><td>schema adherence</td><td>期待した構造に合うか</td><td>required欠落、型違い、enum外、余計なproperty。</td></tr><tr><td>business validation</td><td>業務ルール上使えるか</td><td>存在しないID、期限切れstatus、不許可action。</td></tr></table>
-        <p>構造化出力を設計するとは、この三段階を混ぜないことである。</p>
-
-        <h2>3. JSON Schemaはapplication contractである</h2>
-        <p>JSON Schemaは、AIの出力形式を整えるための飾りではない。モデル、validator、workflowのあいだに置かれるapplication contractである。</p>
-        <p><code>type</code>、<code>properties</code>、<code>required</code>、<code>enum</code>、<code>additionalProperties: false</code>、<code>items</code> などは、後続処理が何を期待できるかを定義する。</p>
-        <p>特に <code>additionalProperties: false</code> は重要である。余計なkeyを許すと、モデルが説明文や提案、confidenceのようなfieldを勝手に足すことがある。application contractとして受け取るなら、想定外のfieldは失敗として扱った方がよい。</p>
-
-        <h2>4. null、unknown、empty、not applicable</h2>
-        <p>構造化出力では、「値がない」を雑に扱うと壊れやすい。空文字、null、unknown、該当なし、拒否は同じではない。欠損理由をstatusで分けることで、後続workflowが安全に分岐できる。</p>
-
-        <h2>5. response schemaとtool arguments schema</h2>
-        <p>function toolのarguments schemaと、最終応答のresponse schemaは似ているが目的が違う。前者は「何を実行したいか」を制約し、後者は「何を返すか」を制約する。</p>
-        <pre class="article-phrase">tool arguments schema:
+Structured Outputs:
+  指定したJSON Schemaに合う出力を得るための仕組み
+</code></pre>
+<p>たとえばJSON modeでは、JSONとしてparse可能な出力は期待できる。</p>
+<p>しかし、<code>category</code> が <code>money_problem</code> になったり、<code>priority</code> が <code>urgent</code> になったり、<code>needs_reply</code> が文字列の <code>&quot;yes&quot;</code> になったりする可能性は残る。</p>
+<p>Structured Outputsでは、schemaを指定することで、こうした構造上のずれを減らす、または避けることを狙う。</p>
+<p>ただし、Structured Outputsを使えばapplication validationが不要になるわけではない。</p>
+<p>schemaは出力形式の契約である。</p>
+<p>業務上の正しさ、権限、安全な実行許可までは、application側で確認する。</p>
+<h2>6. response schemaとtool arguments schemaは違う</h2>
+<p>04では、function toolのarguments schemaを扱った。</p>
+<p>05で扱うresponse schemaは、それと似ているが、目的が違う。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>schema</th>
+  <th>何を制約するか</th>
+  <th>主な用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>function tool arguments schema</td>
+  <td>モデルがtool callで出すarguments</td>
+  <td>外部関数を安全に呼ぶため</td>
+</tr>
+<tr>
+  <td>response schema</td>
+  <td>モデルがユーザーまたはapplicationへ返すfinal output</td>
+  <td>分類、抽出、UI生成、DB保存、workflow handoff</td>
+</tr>
+</tbody>
+</table>
+<p>前者は「何を実行したいか」を制約する。</p>
+<p>後者は「何を返すか」を制約する。</p>
+<pre class="article-phrase"><code>tool arguments schema:
   actの入口を制約する
 
 response schema:
-  observe / decide の結果をapplicationへ渡す出口を制約する</pre>
+  observe / decide の結果をapplicationへ渡す出口を制約する
+</code></pre>
+<p>この区別がないと、構造化出力とtool callingが混ざってしまう。</p>
+<h2>7. Structured Outputsとstrict mode</h2>
+<p>Structured Outputsでは、モデルの最終応答をJSON Schemaに沿った形で受け取る。</p>
+<p>概念的には、次のような構成になる。</p>
+<pre><code class="language-json">{
+  &quot;text&quot;: {
+    &quot;format&quot;: {
+      &quot;type&quot;: &quot;json_schema&quot;,
+      &quot;name&quot;: &quot;support_ticket_classification&quot;,
+      &quot;description&quot;: &quot;Classify a support ticket for workflow routing.&quot;,
+      &quot;schema&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;category&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;billing&quot;, &quot;technical&quot;, &quot;sales&quot;, &quot;other&quot;]
+          },
+          &quot;priority&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;]
+          },
+          &quot;needs_reply&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [&quot;category&quot;, &quot;priority&quot;, &quot;needs_reply&quot;],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;strict&quot;: true
+    }
+  }
+}
+</code></pre>
+<p><code>strict: true</code> は、schema adherenceを強める。</p>
+<p>しかし、それは安全保証ではない。</p>
+<pre class="article-phrase"><code>strict schema adherence ≠ factual correctness
+strict schema adherence ≠ business validity
+strict schema adherence ≠ authorization
+strict schema adherence ≠ safe action
+</code></pre>
+<p>たとえば、schema上は <code>priority: &quot;high&quot;</code> が正しくても、本当にhighなのかは別問題である。</p>
+<p><code>customer_id</code> がstringとして正しくても、そのcustomerが実在するかはDBで確認する必要がある。</p>
+<p><code>action: &quot;refund&quot;</code> がenum内でも、返金してよいかは権限と業務ルールで確認する必要がある。</p>
+<p>また、安全上回答できない場合には、schemaに沿った通常出力ではなくrefusal branchが返ることがある。</p>
+<p>これを「壊れたJSON」として修復しようとしてはいけない。</p>
+<p>refusalは別branchとして扱う。</p>
+<h2>8. parse / validate / branch</h2>
+<p>構造化出力のapplication側処理は、次のように考える。</p>
+<pre class="article-phrase"><code>Receive model response
+  ↓
+Check refusal / safety branch
+  ↓
+Parse JSON
+  ↓
+Validate against JSON Schema
+  ↓
+Validate against business rules
+  ↓
+Normalize to domain model
+  ↓
+Branch workflow
+  ↓
+Log result
+</code></pre>
+<p>ここで大事なのは、model outputを即DB保存しないことである。</p>
+<p>まずparseする。</p>
+<p>次にschema validationを行う。</p>
+<p>そのうえでbusiness validationを行う。</p>
+<p>失敗の種類によって、進む先は違う。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>失敗</th>
+  <th>意味</th>
+  <th>次の処理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>parse error</td>
+  <td>JSONとして読めない</td>
+  <td>repairまたはretry</td>
+</tr>
+<tr>
+  <td>schema validation error</td>
+  <td>構造契約に合わない</td>
+  <td>retryまたはfailure branch</td>
+</tr>
+<tr>
+  <td>business validation error</td>
+  <td>業務上使えない</td>
+  <td>human review、clarification、停止</td>
+</tr>
+<tr>
+  <td>refusal</td>
+  <td>安全上、通常回答ではない</td>
+  <td>safety branch</td>
+</tr>
+<tr>
+  <td>incomplete</td>
+  <td>情報不足</td>
+  <td>追加質問、tool再実行、保留</td>
+</tr>
+</tbody>
+</table>
+<p>構造化出力は、成功だけでなく、失敗を正しく分岐させるための設計である。</p>
+<h2>9. repair / retry / regenerate</h2>
+<p>repair、retry、regenerateは同じではない。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>処理</th>
+  <th>意味</th>
+  <th>向いている失敗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>repair</td>
+  <td>既存出力を修復する</td>
+  <td>軽微なJSON構文エラー、Markdown fence除去</td>
+</tr>
+<tr>
+  <td>retry</td>
+  <td>同じ入力で再生成する</td>
+  <td>schema違反、required欠落、enum外</td>
+</tr>
+<tr>
+  <td>regenerate</td>
+  <td>promptやcontextを調整して再生成する</td>
+  <td>semantic mismatch、schema設計との不整合</td>
+</tr>
+<tr>
+  <td>clarify</td>
+  <td>ユーザーへ追加質問する</td>
+  <td>入力情報不足、曖昧な意図</td>
+</tr>
+<tr>
+  <td>human review</td>
+  <td>人間確認へ送る</td>
+  <td>業務判断、権限判断、リスク判断</td>
+</tr>
+<tr>
+  <td>stop</td>
+  <td>処理を止める</td>
+  <td>safety refusal、危険操作、retry上限超過</td>
+</tr>
+</tbody>
+</table>
+<p>retryを万能視してはいけない。</p>
+<p>同じ失敗が続く場合、schemaが現実の入力に合っていない、必要なcontextが足りない、あるいはモデルに任せてはいけない判断をさせている可能性がある。</p>
+<p>そのため、retryには上限とlogが必要である。</p>
+<pre><code class="language-tsx"> type StructuredOutputRetryLog = {
+  attempt: number;
+  failureType:
+    | &quot;parse_error&quot;
+    | &quot;schema_validation_error&quot;
+    | &quot;business_validation_error&quot;
+    | &quot;refusal&quot;
+    | &quot;incomplete&quot;
+    | &quot;semantic_mismatch&quot;;
+  actionTaken:
+    | &quot;deterministic_repair&quot;
+    | &quot;llm_repair&quot;
+    | &quot;retry&quot;
+    | &quot;regenerate&quot;
+    | &quot;clarify_user&quot;
+    | &quot;rerun_tool&quot;
+    | &quot;human_review&quot;
+    | &quot;stop&quot;;
+  reason: string;
+  timestamp: string;
+};
+</code></pre>
+<p>失敗した出力を捨てるだけでは、改善できない。</p>
+<p>何が失敗し、どの修復を試し、なぜ止めたのかを記録することで、workflowは検証可能になる。</p>
+<h2>10. 型安全なapplication handoff</h2>
+<p>最終的にapplicationが欲しいのは、単なるJSONではない。</p>
+<p>validated outputを、業務上使えるdomain objectへ変換することである。</p>
+<p>TypeScriptならZod、PythonならPydanticのようなruntime validation layerを置くことが多い。</p>
+<pre><code class="language-tsx">const TicketClassification = z.object({
+  category: z.enum([&quot;billing&quot;, &quot;technical&quot;, &quot;sales&quot;, &quot;other&quot;]),
+  priority: z.enum([&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;]),
+  needsReply: z.boolean(),
+  confidence: z.number().min(0).max(1),
+  evidence: z.array(z.string())
+});
+</code></pre>
+<p>ここで重要なのは、schema-validなJSONをそのままDB保存しないことである。</p>
+<p>通常は、次のような変換を挟む。</p>
+<pre class="article-phrase"><code>schema-valid JSON
+  ↓
+runtime validation
+  ↓
+normalization
+  ↓
+domain model
+  ↓
+workflow handoff
+</code></pre>
+<p>domain modelには、値そのものだけでなく、周辺情報も持たせる。</p>
+<ul>
+<li>schema version</li>
+<li>model name / version</li>
+<li>prompt version</li>
+<li>validation status</li>
+<li>confidence</li>
+<li>provenance</li>
+<li>retry count</li>
+<li>human review status</li>
+<li>created_at</li>
+<li>audit_id</li>
+</ul>
+<p>たとえば、handoff manifestは次のように設計できる。</p>
+<pre><code class="language-tsx"> type StructuredOutputHandoffManifest = {
+  schemaName: string;
+  schemaVersion: string;
+  model: string;
+  promptVersion?: string;
+  outputStatus:
+    | &quot;valid&quot;
+    | &quot;repaired&quot;
+    | &quot;retried_valid&quot;
+    | &quot;needs_human_review&quot;
+    | &quot;rejected&quot;;
+  validation: {
+    jsonParsed: boolean;
+    schemaValid: boolean;
+    businessValid: boolean;
+    errors?: string[];
+  };
+  provenance: {
+    inputSources: string[];
+    toolResults?: string[];
+    generatedAt: string;
+  };
+  retryCount: number;
+  handoffAllowed: boolean;
+  nextWorkflow?: string;
+};
+</code></pre>
+<p>このmanifestがあることで、後続のworkflowは「AIがそう言ったから」ではなく、「どのschemaで、どの検証を通過し、どの状態で渡されたか」を見て処理できる。</p>
+<h2>11. 05のまとめ</h2>
+<p>構造化出力は、きれいなJSONを書かせるテクニックではない。</p>
+<p>それは、生成AIをapplication workflowへ接続するための境界設計である。</p>
+<p>JSON syntax、schema adherence、business validation、safety refusal、retry、repair、typed handoffを分けて扱うことで、AI出力は初めて後続処理に渡せる。</p>
+<p>05の結論は、次のようにまとめられる。</p>
+<pre class="article-phrase"><code>Prompt asks for structured output
+  ↓
+Model generates JSON-like or schema-constrained output
+  ↓
+Application checks refusal
+  ↓
+Application parses JSON
+  ↓
+Application validates schema
+  ↓
+Application validates business rules
+  ↓
+Application repairs / retries / stops if needed
+  ↓
+Application converts to domain model
+  ↓
+Application hands off to workflow
+</code></pre>
+<p>つまり、構造化出力とは、出力形式の問題であると同時に、責任境界の問題である。</p>
+<p>モデルは構造を生成する。</p>
+<p>applicationは、それを検査し、解釈し、必要なら止める。</p>
+<p>この境界を設計して初めて、生成AIは「文章を返す存在」から、「workflowに参加できる部品」になる。</p>
+<h2>公式参照</h2>
+<ul>
+<li>OpenAI API Reference：Responses API / text.format / json_schema / strict</li>
+<li>OpenAI Structured Outputs guide</li>
+</ul>
 
-        <h2>6. validationが通っても完了ではない</h2>
-        <p>schema validationは形式の検証であり、task completionの検証とは別である。形式として正しいJSONが、事実として正しいとは限らない。業務上の妥当性、権限、実行安全性はapplication側で確認する必要がある。</p>
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">前へ：04 ツール実行ループとは何か</a> / <a href="/series/genai-shikumi-deep-dive/06-memory/">次へ：06 memoryとは何か</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
 
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">構造化出力とは、モデル出力とapplicationの間にschemaという契約を置くことである。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">前へ：04 ツール実行ループとは何か</a> / <a href="/series/genai-shikumi-deep-dive/06-memory/">次へ：06 memoryとは何か</a></p>
       </article>
     </div>
   </main>

@@ -3,33 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 07｜停止条件と検証ループ｜GENAI-RON</title>
-  <meta name="description" content="agentic loopとは、observe、decide、act、verifyを繰り返しながら、続行・確認・停止を選ぶ制御ループである。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 07｜停止条件と検証ループ">
-  <meta property="og:description" content="止まれることはagentの能力である。停止条件、budget、verification、handoffを読む。">
+  <title>生成AIのしくみ 超詳解 07｜GENAI-RON</title>
+  <meta name="description" content="agentic loopを、停止条件、budget、verification、guardrails、handoff、traceから読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 07">
+  <meta property="og:description" content="agentic loopを、停止条件、budget、verification、guardrails、handoff、traceから読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 10:45 JST / Notion原稿最終更新日時：2026-07-20 10:45 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 07</p>
       <h1>停止条件と検証ループ</h1>
-      <p class="series-subtitle">agentはいつ続行し、いつ止まるのか。agentic systemを、止まれる制御ループとして読む。</p>
-      <p class="series-copy">agentic loopとは、モデルがただ動き続けることではなく、続行または停止を選ぶ制御ループである。</p>
+      <p class="series-subtitle">agentはいつ続行し、いつ止まるのか。agentic loopを、続行・検証・停止・handoffを選ぶ制御ループとして読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. agentic loopは無限ループではない</h2>
-        <p>agentという言葉には、「自律的に動き続けるもの」という印象がある。ユーザーが目的を与え、AIが計画を立て、toolを呼び、結果を見て、また考え、また実行する。</p>
-        <p>しかし、信頼できるagentic systemを設計するうえで重要なのは、どう続けるかだけではない。いつ止まるかである。</p>
-        <pre class="article-phrase">receive task
+<ul>
+<li>ページ作成日時：2026-07-20 10:45 JST</li>
+<li>最終更新日時：2026-07-20 10:45 JST</li>
+</ul>
+<p>agentという言葉には、どこか「自律的に動き続けるもの」という印象がある。</p>
+<p>ユーザーが目的を与える。</p>
+<p>AIが計画を立てる。</p>
+<p>toolを呼ぶ。</p>
+<p>結果を見る。</p>
+<p>また考える。</p>
+<p>また実行する。</p>
+<p>このloopを見ると、agentとは「目的に向かって自動的に進み続けるAI」のように見える。</p>
+<p>しかし、agentic systemを安全に設計するうえで、本当に重要なのは「どう続けるか」だけではない。</p>
+<p>むしろ重要なのは、<strong>いつ止まるか</strong>である。</p>
+<blockquote>
+<p>agentic loopとは、モデルが自律的に動き続けることではない。observe、decide、act、verifyを繰り返しながら、明示された停止条件・検証条件・予算・権限・安全条件に従って、続行または停止を選ぶ制御ループである。</p>
+</blockquote>
+<p>07では、agentが「続行する」「再試行する」「検証する」「人間に確認する」「別agentへ渡す」「停止する」を、何を根拠に決めるのかを扱う。</p>
+<h2>1. agentic loopは無限ループではない</h2>
+<p>agentic loopを単純化すると、次のようになる。</p>
+<pre class="article-phrase"><code>receive task
   ↓
 observe context
   ↓
@@ -41,41 +66,523 @@ observe result
   ↓
 verify
   ↓
-continue or stop</pre>
-
-        <h2>2. stopはfailureではない</h2>
-        <p>停止は必ずしも失敗ではない。正しく止まることはagentの能力である。</p>
-        <table><tr><th>状態</th><th>意味</th></tr><tr><td>completed</td><td>成功条件を満たして完了した。</td></tr><tr><td>blocked</td><td>権限、ファイル、接続、情報などの条件が足りない。</td></tr><tr><td>needs_user</td><td>ユーザー判断が必要。</td></tr><tr><td>manual_review</td><td>人間の確認に戻すべき状態。</td></tr><tr><td>handoff</td><td>別の担当・別のworkflowへ渡す状態。</td></tr></table>
-        <pre class="article-phrase">stop ≠ failure
+continue or stop
+</code></pre>
+<p>ここで重要なのは、最後が <code>continue</code> だけではないことだ。</p>
+<pre class="article-phrase"><code>agentic loop = continue forever
+</code></pre>
+<p>ではない。</p>
+<p>より正確には、次である。</p>
+<pre class="article-phrase"><code>agentic loop = decide whether to continue
+</code></pre>
+<p>agentは、まだできることがあるから続けるのではない。</p>
+<p>続ける理由があり、続ける権限があり、続ける予算があり、続ける安全性があり、続けた結果を検証できるときだけ続ける。</p>
+<pre class="article-phrase"><code>more steps ≠ better agent
+more tool calls ≠ more autonomy
+longer loop ≠ better completion
+safe stopping ≈ reliable agent
+</code></pre>
+<p>agentの賢さは、長く走り続けることでは測れない。</p>
+<p>不要に続けないこと、危険なまま進めないこと、根拠なく完了扱いしないことが重要である。</p>
+<h2>2. stopはfailureではない</h2>
+<p>停止という言葉は、失敗のように聞こえる。</p>
+<p>処理が止まった。</p>
+<p>先へ進めなかった。</p>
+<p>完了できなかった。</p>
+<p>しかし、agentic workflowにおいて、停止は必ずしも失敗ではない。</p>
+<p>むしろ、正しく止まることはagentの能力である。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>停止種別</th>
+  <th>意味</th>
+  <th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>completed</td>
+  <td>成功条件を満たして完了した</td>
+  <td>レポートを作成し、検証も通った</td>
+</tr>
+<tr>
+  <td>failed</td>
+  <td>必要な処理に失敗し、回復不能</td>
+  <td>必須APIが失敗し続けた</td>
+</tr>
+<tr>
+  <td>blocked</td>
+  <td>外部条件が足りず進めない</td>
+  <td>権限、ファイル、接続、情報が不足している</td>
+</tr>
+<tr>
+  <td>needs_user</td>
+  <td>ユーザー判断が必要</td>
+  <td>曖昧な選択、承認、追加情報が必要</td>
+</tr>
+<tr>
+  <td>manual_review</td>
+  <td>人間の確認なしに進めるべきではない</td>
+  <td>法務、財務、削除、送信、公開など</td>
+</tr>
+<tr>
+  <td>handoff</td>
+  <td>別agent・別workflowへ渡す</td>
+  <td>専門agent、承認者、外部systemへ移す</td>
+</tr>
+<tr>
+  <td>aborted</td>
+  <td>安全・権限・方針により中止</td>
+  <td>危険操作、policy conflict、意図不明な破壊的操作</td>
+</tr>
+</tbody>
+</table>
+<p>ここで大事なのは、すべてを <code>failed</code> にしないことである。</p>
+<p>ユーザー確認が必要な状態は、失敗ではない。</p>
+<p>権限が足りない状態も、失敗とは限らない。</p>
+<p>成功条件を満たして止まることは、もちろん失敗ではない。</p>
+<p>安全上止めることも、むしろ成功した制御である。</p>
+<pre class="article-phrase"><code>stop ≠ failure
 blocked ≠ failed
 needs_user ≠ failed
-handoff ≠ failed</pre>
-
-        <h2>3. success criteriaがないagentは止まれない</h2>
-        <p>agentが止まれない最大の理由は、成功条件が曖昧なことである。「この件を調べて、いい感じにまとめて」だけでは、何件調べればよいのか、どのsourceを信頼するのか、どの深さまで読むのか、どこで止まるのかが分かりにくい。</p>
-        <pre class="article-phrase">stop when:
+handoff ≠ failed
+safe abort ≠ failed
+</code></pre>
+<h2>3. success criteriaがないagentは止まれない</h2>
+<p>agentが止まれない最大の理由は、成功条件が曖昧なことである。</p>
+<p>たとえば、ユーザーがこう依頼したとする。</p>
+<pre class="article-phrase"><code>この件を調べて、いい感じにまとめて。
+</code></pre>
+<p>この依頼だけでは、agentはどこで止まればよいか分かりにくい。</p>
+<p>何件調べるのか。</p>
+<p>どのsourceを信頼するのか。</p>
+<p>どの深さまで読むのか。</p>
+<p>どの形式でまとめるのか。</p>
+<p>矛盾があったらどうするのか。</p>
+<p>最新情報をどこまで確認するのか。</p>
+<p>ユーザー判断を挟むべきか。</p>
+<p>success criteriaが曖昧なままagentにtoolを渡すと、次のような挙動になりやすい。</p>
+<pre class="article-phrase"><code>search
+  ↓
+read
+  ↓
+more search
+  ↓
+more read
+  ↓
+maybe enough?
+  ↓
+summary
+  ↓
+maybe more search?
+</code></pre>
+<p>これは賢く調べているように見える。</p>
+<p>しかし設計上は、停止条件が弱い。</p>
+<p>agentには、次のような明示条件が必要である。</p>
+<pre class="article-phrase"><code>stop when:
   - required sources have been checked
   - contradictions have been noted
+  - confidence threshold is met
   - output format is complete
   - no unresolved required fields remain
   - budget is not exceeded
-  - no approval-gated action remains pending</pre>
+  - no approval-gated action remains pending
+</code></pre>
+<p>停止条件は、task goalから自動的には出てこない。</p>
+<p>application側が、成功条件、失敗条件、確認条件、handoff条件として定義する必要がある。</p>
+<h2>4. loop stateとbudget</h2>
+<p>agentic loopを制御するには、現在の状態を持たなければならない。</p>
+<p>今、何step目なのか。</p>
+<p>どのtoolを何回呼んだのか。</p>
+<p>どの試行が失敗したのか。</p>
+<p>あと何回retryできるのか。</p>
+<p>これ以上続けるとcostやriskが高すぎないか。</p>
+<p>状態を持たないloopは、自分が同じ場所を回っていることに気づけない。</p>
+<p>予算を持たないloopは、どこまで続けてよいかを判断できない。</p>
+<pre class="article-phrase"><code>loop without state
+  → 自分が何をしたか分からない
 
-        <h2>4. loop stateとbudget</h2>
-        <p>agentic loopを制御するには、現在の状態を持たなければならない。何step目か、どのtoolを何回呼んだか、どの試行が失敗したか、あと何回retryできるかを記録する。</p>
-        <p>budgetには、turn、tool call、time、cost、token、retry、risk、side effectがある。特にread-onlyなtool callとstate-changingなtool callは分ける必要がある。</p>
+loop without budget
+  → どこまで続けてよいか分からない
+</code></pre>
+<p>agentic workflowで扱うbudgetには、少なくとも次がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>budget</th>
+  <th>意味</th>
+  <th>停止・分岐例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>turn budget</td>
+  <td>思考・応答step数の上限</td>
+  <td>上限到達でsummary / handoff / stop</td>
+</tr>
+<tr>
+  <td>tool call budget</td>
+  <td>tool実行回数の上限</td>
+  <td>検索やAPI呼び出しの暴走を防ぐ</td>
+</tr>
+<tr>
+  <td>time budget</td>
+  <td>実行時間の上限</td>
+  <td>時間切れならpartial resultやhandoff</td>
+</tr>
+<tr>
+  <td>cost budget</td>
+  <td>APIや外部処理の費用上限</td>
+  <td>高額処理前に確認</td>
+</tr>
+<tr>
+  <td>token budget</td>
+  <td>context / output量の上限</td>
+  <td>要約・分割・圧縮へ切り替える</td>
+</tr>
+<tr>
+  <td>retry budget</td>
+  <td>失敗時の再試行上限</td>
+  <td>無限retryを防ぐ</td>
+</tr>
+<tr>
+  <td>risk budget</td>
+  <td>許容される危険度の上限</td>
+  <td>権限・安全・法務境界で止める</td>
+</tr>
+<tr>
+  <td>side effect budget</td>
+  <td>外部状態変更の許容量</td>
+  <td>送信、削除、公開、決済などを制御</td>
+</tr>
+</tbody>
+</table>
+<p>特に重要なのは、read-onlyなtool callとstate-changingなtool callを分けることである。</p>
+<p>ファイルを読む、検索する、カレンダーを見る。</p>
+<p>これらは基本的に観測である。</p>
+<p>一方で、メールを送る、予定を作る、ファイルを削除する、PRをmergeする、支払いを実行する。</p>
+<p>これらは外部状態を変える。</p>
+<pre class="article-phrase"><code>read-only action
+  ≠ state-changing action
 
-        <h2>5. verification loop</h2>
-        <p>agentが「完了しました」と言うことと、実際に完了していることは違う。modelの自己申告、tool resultの成功、valid JSONの返却だけではtask完了とは限らない。</p>
-        <pre class="article-phrase">model says completed ≠ task completed
+state-changing action
+  requires stronger gate
+</code></pre>
+<h2>5. verification loop</h2>
+<p>agentが「完了しました」と言うことと、実際に完了していることは違う。</p>
+<p>モデルは、もっともらしく完了を宣言できる。</p>
+<p>tool resultは、呼び出しが成功したことを示すかもしれない。</p>
+<p>JSONはschema validationを通るかもしれない。</p>
+<p>しかし、それだけではtaskが完了したとは限らない。</p>
+<pre class="article-phrase"><code>model says completed ≠ task completed
 tool call succeeded ≠ task goal achieved
 valid JSON ≠ correct answer
-file created ≠ useful artifact</pre>
-        <p>verification loopとは、成果物の存在、差分、test、外部データ照合、引用、承認記録などを通じて、taskが本当に成功条件を満たしたかを確認する仕組みである。</p>
+file created ≠ useful artifact
+</code></pre>
+<p>verification loopとは、agentの自己申告やtool resultの存在を完了とみなさず、成功条件・証拠・成果物・差分・テスト・reconciliationを通じて、taskが本当に完了したかを確認する仕組みである。</p>
+<p>検証には、少なくとも次の種類がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>verification</th>
+  <th>確認するもの</th>
+  <th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>schema validation</td>
+  <td>形式が契約に合うか</td>
+  <td>JSON Schemaに通る</td>
+</tr>
+<tr>
+  <td>tool result verification</td>
+  <td>toolの返り値が期待通りか</td>
+  <td>作成したページのURLが返る</td>
+</tr>
+<tr>
+  <td>artifact verification</td>
+  <td>成果物が存在し、内容が入っているか</td>
+  <td>作成した文書をfetchして確認する</td>
+</tr>
+<tr>
+  <td>evidence check</td>
+  <td>主張が根拠に支えられているか</td>
+  <td>引用元と本文が対応している</td>
+</tr>
+<tr>
+  <td>diff check</td>
+  <td>変更が意図通りか</td>
+  <td>不要な削除がないか確認する</td>
+</tr>
+<tr>
+  <td>dry run / test</td>
+  <td>実行前に安全に試せるか</td>
+  <td>本番前にpreviewやtestを走らせる</td>
+</tr>
+<tr>
+  <td>reconciliation</td>
+  <td>複数sourceが一致するか</td>
+  <td>会計データや在庫数を照合する</td>
+</tr>
+</tbody>
+</table>
+<p>completedは、自己申告ではない。</p>
+<p>completedとは、成功条件を満たし、必要な検証を通った状態である。</p>
+<h2>6. guardrailsとstop gates</h2>
+<p>guardrailsは、単なる注意書きではない。</p>
+<p>「危ないことをしないでください」とpromptに書くだけでは、agentic workflowの制御としては弱い。</p>
+<p>guardrailは、各stepで続行可否を判定するstop gateである。</p>
+<pre class="article-phrase"><code>observe
+  ↓
+guardrail check
+  ↓
+decide
+  ↓
+guardrail check
+  ↓
+act
+  ↓
+guardrail check
+  ↓
+verify
+  ↓
+continue or stop
+</code></pre>
+<p>主なguardrailには次がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>guardrail</th>
+  <th>対象</th>
+  <th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>input guardrail</td>
+  <td>ユーザー入力</td>
+  <td>危険依頼、個人情報、意図不明な破壊的操作</td>
+</tr>
+<tr>
+  <td>output guardrail</td>
+  <td>agent出力</td>
+  <td>機密漏洩、誤った断定、禁止された形式</td>
+</tr>
+<tr>
+  <td>tool guardrail</td>
+  <td>tool call</td>
+  <td>許可されないAPI、危険な引数、過剰実行</td>
+</tr>
+<tr>
+  <td>permission guardrail</td>
+  <td>権限</td>
+  <td>認可不足、他人のデータ、未承認操作</td>
+</tr>
+<tr>
+  <td>safety guardrail</td>
+  <td>安全性</td>
+  <td>危険行為、違法行為、身体的・経済的被害</td>
+</tr>
+<tr>
+  <td>privacy guardrail</td>
+  <td>個人情報・機密情報</td>
+  <td>不要な露出、越境共有、保存範囲違反</td>
+</tr>
+</tbody>
+</table>
+<p>重要なのは、policy failureとtask failureを混同しないことである。</p>
+<p>ユーザーの依頼を完了できない理由が、技術的失敗なのか、権限不足なのか、安全上の停止なのかで、返すべき状態は変わる。</p>
+<pre class="article-phrase"><code>task failure
+  = 目的達成に失敗した
 
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">agentic loopとは、自律的に動き続ける仕組みではなく、続行・検証・停止・handoffを選ぶ制御ループである。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/06-memory/">前へ：06 memoryとは何か</a> / <a href="/series/genai-shikumi-deep-dive/08-architecture/">次へ：08 全体アーキテクチャ</a></p>
+policy failure
+  = その目的または手段では進めない
+
+permission failure
+  = 権限が足りない
+
+verification failure
+  = 完了したと確認できない
+</code></pre>
+<p>不確実なときは、安全側に倒す。</p>
+<p>これがfail closedである。</p>
+<pre class="article-phrase"><code>if uncertain and risk is high:
+  do not proceed silently
+  ask user / require approval / handoff / stop
+</code></pre>
+<p>fail openは、危険なまま続ける設計である。</p>
+<p>fail closedは、危険なときに止まる設計である。</p>
+<h2>7. ask user / manual review / handoff</h2>
+<p>agentは、自分だけで完結するほどよいとは限らない。</p>
+<p>正しいagentは、必要なときにユーザーへ確認し、人間のreviewを挟み、別agentや別workflowへhandoffできる。</p>
+<p>ここでは、三つを分ける。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>分岐</th>
+  <th>意味</th>
+  <th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>ask user</td>
+  <td>ユーザー判断や追加情報が必要</td>
+  <td>候補A/Bの選択、曖昧な条件の確認</td>
+</tr>
+<tr>
+  <td>manual review</td>
+  <td>人間の確認なしに進めるべきではない</td>
+  <td>送信、公開、削除、契約、支払い</td>
+</tr>
+<tr>
+  <td>handoff</td>
+  <td>別agent・別workflowへ責務を渡す</td>
+  <td>専門agent、承認者、別システムへ移す</td>
+</tr>
+</tbody>
+</table>
+<p>ask userは、agentの失敗ではない。</p>
+<p>むしろ、判断権限を人間に戻す正常な制御である。</p>
+<p>manual reviewは、情報不足とは限らない。</p>
+<p>情報が足りていても、人間の責任や承認が必要な場面がある。</p>
+<p>handoffは、放棄ではない。</p>
+<p>責務範囲の移転である。</p>
+<p>ただし、handoffにはcontext lossが起きやすい。</p>
+<p>何を引き継ぐのか、どこまで確認済みなのか、何が未解決なのかをmanifestとして渡す必要がある。</p>
+<pre><code class="language-tsx">type HandoffManifest = {
+  taskId: string;
+  fromAgent: string;
+  toAgent: string;
+  reason:
+    | &quot;specialized_skill_required&quot;
+    | &quot;permission_required&quot;
+    | &quot;manual_review_required&quot;
+    | &quot;insufficient_context&quot;
+    | &quot;budget_exceeded&quot;
+    | &quot;risk_too_high&quot;;
+  currentState: string;
+  completedSteps: string[];
+  verifiedResults: string[];
+  unresolvedQuestions: string[];
+  requiredApprovals: string[];
+  artifacts: {
+    name: string;
+    url?: string;
+    status: &quot;draft&quot; | &quot;verified&quot; | &quot;needs_review&quot;;
+  }[];
+  recommendedNextAction: string;
+};
+</code></pre>
+<p>handoffが成立するには、単に「次お願いします」と言うだけでは足りない。</p>
+<p>context packが必要である。</p>
+<h2>8. trace / audit / evaluation</h2>
+<p>agentic loopは、その場でうまく動くだけでは不十分である。</p>
+<p>後から説明できなければならない。</p>
+<p>再現できなければならない。</p>
+<p>評価できなければならない。</p>
+<p>改善できなければならない。</p>
+<p>そのために必要なのが、trace / audit / evaluationである。</p>
+<p>traceは単なるログではない。</p>
+<p>重要なのは、「何をしたか」だけではない。</p>
+<p>「なぜそのactionを選んだのか」「なぜ別のactionを選ばなかったのか」「なぜ止まったのか」を再構成できることである。</p>
+<pre class="article-phrase"><code>trace = what happened
+       + why it happened
+       + what was considered
+       + what was rejected
+       + why it stopped
+</code></pre>
+<p>agentic workflowでは、実行したactionだけでなく、実行しなかったactionも重要になる。</p>
+<p>たとえば、メールを送れるtoolがあったが、承認がなかったため送らなかった。</p>
+<p>ファイルを削除できたが、破壊的操作なので止めた。</p>
+<p>追加検索できたが、必要なsource確認が済んでいたため止めた。</p>
+<p>これらはすべて、agentの正常な判断である。</p>
+<pre><code class="language-tsx">type AgentDecisionLog = {
+  runId: string;
+  stepId: string;
+  observedState: string;
+  candidateActions: {
+    action: string;
+    expectedBenefit: string;
+    risk: &quot;low&quot; | &quot;medium&quot; | &quot;high&quot;;
+    cost: &quot;low&quot; | &quot;medium&quot; | &quot;high&quot;;
+    requiresApproval: boolean;
+    selected: boolean;
+    reason: string;
+  }[];
+  verificationStatus?: &quot;not_checked&quot; | &quot;passed&quot; | &quot;failed&quot; | &quot;inconclusive&quot;;
+  stopReason?:
+    | &quot;completed&quot;
+    | &quot;failed&quot;
+    | &quot;blocked&quot;
+    | &quot;needs_user&quot;
+    | &quot;manual_review&quot;
+    | &quot;handoff&quot;
+    | &quot;aborted&quot;
+    | &quot;budget_exceeded&quot;;
+};
+</code></pre>
+<p>traceは、debugのためだけではない。</p>
+<p>監査のためでもある。</p>
+<p>どのtoolが呼ばれたか。</p>
+<p>どのデータが読まれたか。</p>
+<p>どの外部状態が変更されたか。</p>
+<p>どの承認があったか。</p>
+<p>どのguardrailが発火したか。</p>
+<p>どこで停止したか。</p>
+<p>これらがなければ、agentic workflowは運用できない。</p>
+<h2>9. evaluationとregression test</h2>
+<p>agentの評価は、答えの良し悪しだけではない。</p>
+<p>停止できたかも評価対象である。</p>
+<ul>
+<li>成功条件を満たしたら止まれたか</li>
+<li>根拠不足のまま完了扱いしなかったか</li>
+<li>budgetを超えて走らなかったか</li>
+<li>危険なtool callの前で止まれたか</li>
+<li>承認が必要な場面でask userできたか</li>
+<li>handoff時にcontextを失わなかったか</li>
+<li>同じ失敗を次回防げるか</li>
+</ul>
+<p>agentic systemの評価では、成功例だけでなく停止例もtest caseにする必要がある。</p>
+<pre class="article-phrase"><code>should_continue cases
+should_stop cases
+should_ask_user cases
+should_handoff cases
+should_fail_closed cases
+</code></pre>
+<p>replayは、過去のrunを再実行または再検討する仕組みである。</p>
+<p>regression testは、以前防げた失敗を再発させない仕組みである。</p>
+<p>agentは、その場限りの会話相手から、運用可能なsystemへ移るほど、traceとevaluationが重要になる。</p>
+<h2>10. 07まとめ</h2>
+<p>agentic loopとは、AIが勝手に動き続けることではない。</p>
+<p>observe、decide、act、verifyを繰り返しながら、停止条件、budget、verification、guardrails、handoff、traceに従って、続行または停止を選ぶ制御loopである。</p>
+<pre class="article-phrase"><code>model
++ tools
++ context
++ loop state
++ budget
++ verification
++ guardrails
++ handoff
++ trace
++ evaluation
+= operable agentic system
+</code></pre>
+<p>ここまで来ると、生成AIアプリケーションは単なる「モデルへの入力と出力」ではなくなる。</p>
+<p>01でrequest objectを組み立てた。</p>
+<p>02でinstruction hierarchyを扱った。</p>
+<p>03でcontext windowを扱った。</p>
+<p>04でtool call loopを扱った。</p>
+<p>05でstructured outputsを扱った。</p>
+<p>06でmemoryとpersonalizationを扱った。</p>
+<p>07でagentic loopの停止条件と検証を扱った。</p>
+<p>次の08では、これらを一つの全体アーキテクチャとして組み直す。</p>
+<p>model、application、runtime、context、memory、tools、schema、guardrails、trace、人間の承認。</p>
+<p>これらがどの層にあり、どこで接続し、どこで失敗し、どこで制御されるのかを、全体図として整理する。</p>
+
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/06-memory/">前へ：06 memoryとは何か</a> / <a href="/series/genai-shikumi-deep-dive/08-architecture/">次へ：08 全体アーキテクチャ</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
+
       </article>
     </div>
   </main>

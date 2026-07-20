@@ -3,33 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解 03｜contextとは何か｜GENAI-RON</title>
-  <meta name="description" content="contextとは保存情報ではなく、今回の生成に注入された入力集合である。履歴、memory、検索結果、ファイル、tool resultの入り方を整理する。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解 03｜contextとは何か">
-  <meta property="og:description" content="contextとは、保存情報ではなく、今回の生成に注入された入力集合である。">
+  <title>生成AIのしくみ 超詳解 03｜GENAI-RON</title>
+  <meta name="description" content="contextを、保存情報ではなく現在の応答生成に注入された入力集合として読む超詳解。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 03">
+  <meta property="og:description" content="contextを、保存情報ではなく現在の応答生成に注入された入力集合として読む超詳解。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body class="series-page">
-  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
-  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+<body class="series-page series-page-compact">
+  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-18 12:31 JST / Notion原稿最終更新日時：2026-07-18 12:31 JST -->
+  <header class="series-header">
+    <div class="series-header-inner">
+      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="series-nav" aria-label="サイト内ナビゲーション">
+        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+        <a href="/series/genai-shikumi/">一般向け版</a>
+        <a href="/series/genai-shikumi-technical/">詳解版</a>
+        <a href="/article/">論考一覧</a>
+      </nav>
+    </div>
+  </header>
   <main>
     <section class="series-hero">
       <p class="series-kicker">生成AIのしくみ 超詳解 03</p>
       <h1>contextとは何か</h1>
-      <p class="series-subtitle">履歴・メモリ・検索結果・ファイルは、どう現在の入力へ組み込まれるのか。</p>
-      <p class="series-copy">contextとは、保存情報ではなく、今回の生成に注入された入力集合である。</p>
+      <p class="series-subtitle">履歴・メモリ・検索結果・ファイルは、保存されただけではcontextにならない。現在の生成へ注入された入力集合として読む。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
-        <h2>1. contextは「AIが知っていること」ではない</h2>
-        <p>生成AIは、いつも「すべて」を見ているわけではない。過去の会話が保存されていること、memoryに何かが残っていること、ファイルをアップロードしたこと、検索結果が存在すること。それらは現在の応答に使われる可能性を作る。しかし、それだけで現在のcontextになったとは言えない。</p>
-        <p>contextとは、保存されている全情報ではない。現在の一回の応答生成のために選ばれ、整形され、モデルが処理できる入力として渡された情報の集合である。</p>
-        <pre class="article-phrase">Stored information
+<ul>
+<li>ページ作成日時：2026-07-18 12:31 JST</li>
+<li>最終更新日時：2026-07-18 12:31 JST</li>
+</ul>
+<p>生成AIは、いつも「すべて」を見ているわけではない。</p>
+<p>過去の会話が保存されていること。</p>
+<p>memoryに何かが残っていること。</p>
+<p>ファイルをアップロードしたこと。</p>
+<p>検索結果が存在すること。</p>
+<p>それらは、現在の応答に使われる可能性を作る。しかし、それだけで現在のcontextになったとは言えない。</p>
+<p>contextとは、保存されている全情報ではない。</p>
+<p>現在の一回の応答生成のために選ばれ、整形され、モデルが処理できる入力として渡された情報の集合である。</p>
+<blockquote>
+<p>contextとは、保存情報ではなく、今回の生成に注入された入力集合である。</p>
+</blockquote>
+<p>この区別が分からないと、「AIは前に言ったことを覚えているはずだ」「ファイルを渡したから全文を読んでいるはずだ」「memoryにあるなら必ず反映されるはずだ」という誤解が起きる。</p>
+<p>03では、会話履歴、memory、検索結果、ファイル、RAG、tool resultが、どのように現在の入力へ組み込まれるのかを整理する。</p>
+<h2>1. contextは「AIが知っていること」ではない</h2>
+<p>生成AIについて話すとき、contextという言葉は曖昧に使われやすい。</p>
+<p>「前の話を覚えている」</p>
+<p>「プロジェクトの文脈を読んでいる」</p>
+<p>「ファイルを参照している」</p>
+<p>「Web検索の結果を使っている」</p>
+<p>これらは、すべてcontextに関係する。しかし、実装上は同じ処理ではない。</p>
+<p>過去の会話が保存されていることと、その会話が今回の応答へ使われることは別である。</p>
+<p>ファイルがアップロードされていることと、その全文がmodel context windowへ入ることも別である。</p>
+<p>memoryに情報が保存されていることと、その情報が今回の質問に関連すると判定され、入力へ追加されることも別である。</p>
+<p>contextが作られるまでには、少なくとも次の段階がある。</p>
+<pre class="article-phrase"><code>Stored information
   ↓
 Candidate retrieval
   ↓
@@ -43,41 +76,384 @@ Tokenization
   ↓
 Model context window
   ↓
-Output generation</pre>
-        <p>保存されていても、retrievalされなければ今回のcontextには入らない。retrievalされても、選別で落とされれば入らない。選別されても、context windowの制約で圧縮・省略されることがある。</p>
+Output generation
+</code></pre>
+<p>保存されていても、retrievalされなければ今回のcontextには入らない。</p>
+<p>retrievalされても、選別で落とされれば入らない。</p>
+<p>選別されても、context windowの制約で圧縮・省略されることがある。</p>
+<p>つまり、contextは単なる収集ではない。</p>
+<p>contextは編集である。</p>
+<h2>2. conversation state：会話履歴はどう継続されるのか</h2>
+<p>APIの視点から見ると、会話は自動的に続いているわけではない。</p>
+<p>OpenAIのConversation stateガイドでは、text generation requestは独立したstateless requestであり、複数ターンの会話を作るには過去のmessageやResponse outputを次のinputへ渡す必要があると説明されている。</p>
+<p>もっとも単純には、アプリケーション側で履歴を持ち、次のrequestへ再投入する。</p>
+<pre><code class="language-tsx">const history = [
+  { role: &quot;user&quot;, content: &quot;私の名前はTakuです。&quot; },
+  { role: &quot;assistant&quot;, content: &quot;承知しました。&quot; },
+  { role: &quot;user&quot;, content: &quot;私の名前は？&quot; },
+];
 
-        <h2>2. conversation stateとcontextは違う</h2>
-        <p>会話は自動的に続いているように見える。しかし実行構造としては、過去のmessageやresponse outputを次のinputへ再接続することで、複数ターンの会話が作られる。</p>
-        <p>conversation stateは、過去itemsを関連付ける仕組みである。contextは、その中から今回の推論で実際に利用可能になった入力である。</p>
+const response = await client.responses.create({
+  model: &quot;gpt-5.6&quot;,
+  input: history,
+});
+</code></pre>
+<p>モデルが前の会話を知っているように見えるのは、過去のitemsが今回のinputへ再接続されているからである。</p>
+<p>ただし、履歴とはassistantの本文だけではない。</p>
+<p>Responses APIでは、<code>response.output</code> にassistant messageだけでなく、reasoning item、function call、tool resultへつながるitemsが含まれることがある。</p>
+<p>そのため、multi-turn reasoningやtool useを継続するには、単に本文だけを保存するのではなく、必要なResponse itemsを保存・再投入する必要がある。</p>
+<pre><code class="language-tsx">history = [...history, ...response.output];
 
-        <h2>3. memoryはcontext sourceである</h2>
-        <p>ChatGPTのmemoryも、モデル内部に個人情報が直接刻み込まれる仕組みではない。memoryとは、製品側に保持された情報源から、現在の応答に関連すると判断された情報を選び、contextへ再注入する仕組みである。</p>
-        <p>memoryにあることは、今回のcontextへ必ず入ることを意味しない。今回の入力、project scope、関連性、設定、safety、token budgetによって、入るものと入らないものが決まる。</p>
-
-        <h2>4. file input / file search / RAG</h2>
-        <p>ファイルも同じである。ファイルが保存されていることと、その内容が今回の生成へ入ることは別である。Direct file inputでは、特定のfileを今回のrequestへ直接渡す。File searchでは、vector storeから関連chunkを検索して取得する。</p>
-        <pre class="article-phrase">File upload
+history.push({
+  role: &quot;user&quot;,
+  content: &quot;続けて、さっきの結果を表にしてください。&quot;,
+});
+</code></pre>
+<p>会話継続には、主に三つの方式がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>方式</th>
+  <th>何をするか</th>
+  <th>向いている場面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>手動履歴再投入</td>
+  <td>過去のitemsをアプリ側で保持し、次のinputへ入れる</td>
+  <td>履歴選別や圧縮を自分で制御したい場合</td>
+</tr>
+<tr>
+  <td><code>previous_response_id</code></td>
+  <td>直前のResponseへ接続する</td>
+  <td>短い連続会話やreasoning / tool callの継続</td>
+</tr>
+<tr>
+  <td>Conversation object</td>
+  <td>conversationにitemsを保存し、複数requestで共有する</td>
+  <td>session、device、jobをまたぐstate管理</td>
+</tr>
+</tbody>
+</table>
+<p>ここで重要なのは、conversation stateとcontextを分けることだ。</p>
+<p>conversation stateは、過去itemsを関連付ける仕組みである。</p>
+<p>contextは、その中から今回の推論で実際に利用可能になった入力である。</p>
+<h2>3. memory：保存された個人情報ではなく、再注入されるcontext源</h2>
+<p>ChatGPTのmemoryも、モデル内部に個人情報が直接刻み込まれる仕組みではない。</p>
+<p>memoryとは、製品側に保持された情報源から、現在の応答に関連すると判断された情報を選び、contextへ再注入する仕組みである。</p>
+<p>ChatGPTのmemoryには、少なくとも次の区別がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>機能</th>
+  <th>性質</th>
+  <th>contextとの関係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>saved memories</td>
+  <td>名前、好み、制約など、継続的に考慮してほしい情報</td>
+  <td>関連すると判断されれば応答へ影響する</td>
+</tr>
+<tr>
+  <td>reference chat history</td>
+  <td>過去chatから有用な情報を参照する機能</td>
+  <td>過去会話の関連情報が選択・要約されて使われうる</td>
+</tr>
+<tr>
+  <td>memory summary</td>
+  <td>重要なmemoryを確認・修正するための管理画面</td>
+  <td>利用可能情報の完全なdumpではない</td>
+</tr>
+<tr>
+  <td>project memory</td>
+  <td>project内の会話やファイルからcontextを得る機能</td>
+  <td>project scopeに応じて参照範囲が変わる</td>
+</tr>
+</tbody>
+</table>
+<p>saved memoryは、削除するまで継続的に考慮されることを意図した情報である。</p>
+<p>reference chat historyは、過去chatの全内容を逐語的に毎回注入するものではない。関連すると判断された情報が、将来のconversationへ追加される。</p>
+<p>Temporary Chatではmemoryを参照せず、memoryを更新しない。</p>
+<p>Custom GPTでは、saved memory、Custom Instructions、previous conversationsを利用せず、各conversationを新しく開始する。</p>
+<p>Project memoryも分けて考える必要がある。</p>
+<p>通常のprojectでは、設定に応じてproject内外のcontextが使われる場合がある。</p>
+<p>一方、project-only memoryでは、同じproject内のconversationをcontext源として使い、既存のsaved memoriesやproject外conversationは参照しない。</p>
+<p>ここでも、保存と注入は別である。</p>
+<p>memoryにあることは、今回のcontextへ必ず入ることを意味しない。</p>
+<p>今回の入力、project scope、関連性、設定、safety、token budgetによって、入るものと入らないものが決まる。</p>
+<h2>4. file input / file search / RAG：ファイルは保存されただけではcontextにならない</h2>
+<p>ファイルも同じである。</p>
+<p>ファイルが保存されていることと、その内容が今回の生成へ入ることは別である。</p>
+<p>大きく分けると、次の三つがある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>状態</th>
+  <th>意味</th>
+  <th>contextとの関係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>File object</td>
+  <td>Files APIなどへfileが保存されている</td>
+  <td>保存されているだけではcontextではない</td>
+</tr>
+<tr>
+  <td>Direct file input</td>
+  <td><code>input_file</code>として今回のrequestへ渡す</td>
+  <td>そのrequestの入力として処理される</td>
+</tr>
+<tr>
+  <td>File search / RAG</td>
+  <td>vector storeから関連chunkを検索する</td>
+  <td>検索されたchunkだけがcontextへ入る</td>
+</tr>
+</tbody>
+</table>
+<p>Direct file inputでは、特定のfileを今回のrequestへ直接渡す。</p>
+<p>File searchでは、事前にfileをvector storeへ登録し、parse、chunk、embed、indexされた内容から、queryに関連するchunkを検索して取得する。</p>
+<p>RAG pipelineを単純化すると、次のようになる。</p>
+<pre class="article-phrase"><code>File upload
+  ↓
+File object
+  ↓
+Attach to vector store
   ↓
 Parse / chunk / embed / index
   ↓
 User query
   ↓
+Optional query rewrite
+  ↓
+Attribute filter
+  ↓
 Semantic / keyword / hybrid retrieval
+  ↓
+Ranking / score threshold / top-k
   ↓
 Retrieved chunks + provenance
   ↓
 Model synthesis
   ↓
-Answer + citations</pre>
-        <p>検索された断片は、質問と意味的に近いだけである。それは、正しい、最新である、上位指示である、という意味ではない。</p>
+Answer + file citations
+</code></pre>
+<p>検索された断片は、質問と意味的に近いだけである。</p>
+<p>それは、正しい、最新である、上位指示である、という意味ではない。</p>
+<pre class="article-phrase"><code>semantic relevance ≠ factual correctness
+semantic relevance ≠ freshness
+semantic relevance ≠ instruction authority
+</code></pre>
+<p>そのため、RAGではprovenanceが重要になる。</p>
+<p>どのfileから、どのchunkが、どのqueryで、どのscoreで取られたのかを記録する必要がある。</p>
+<h2>5. context windowとtoken budget：大きければ解決、ではない</h2>
+<p>context windowとは、AIの永続記憶ではない。</p>
+<p>現在の生成で同時に扱えるtoken budgetである。</p>
+<p>input token、output token、reasoning tokenは分けて考える必要がある。</p>
+<p>モデルごとにcontext windowとmax output tokensは別々に定義される。</p>
+<p>context windowが大きくなれば、より多くの情報を同時に入れられる。</p>
+<p>しかし、それでcontext設計が不要になるわけではない。</p>
+<p>大きなcontext windowにも問題はある。</p>
+<ul>
+<li>costが増える</li>
+<li>latencyが増える</li>
+<li>古い情報や不要情報が混入する</li>
+<li>retrieved chunksが多すぎてノイズになる</li>
+<li>authorityの異なる情報が混ざる</li>
+<li>何を根拠に答えたのか検証しにくくなる</li>
+</ul>
+<p>そのため、context windowをどう使うかは設計問題である。</p>
+<p>代表的な処理は三つある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>処理</th>
+  <th>意味</th>
+  <th>危険</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>truncation</td>
+  <td>古い履歴や低優先情報を切り捨てる</td>
+  <td>重要な前提を落とす可能性</td>
+</tr>
+<tr>
+  <td>summarization</td>
+  <td>長い情報を短く要約する</td>
+  <td>粒度、例外、ニュアンスを失う可能性</td>
+</tr>
+<tr>
+  <td>compaction</td>
+  <td>再起動可能な形へ圧縮する</td>
+  <td>出典・未決事項・禁止事項を落とすと危険</td>
+</tr>
+</tbody>
+</table>
+<p>prompt cachingも区別しておく。</p>
+<p>prompt cachingは、繰り返し使う入力のcost最適化に関わる。</p>
+<p>しかし、cached inputだから正しいわけではない。</p>
+<p>cacheは、context qualityや安全性を保証しない。</p>
+<h2>6. context injectionを設計・検証する</h2>
+<p>ここまで見ると、context injectionは「関連しそうな情報を詰め込む」作業ではないと分かる。</p>
+<p>context injectionとは、source、scope、authority、trust、freshness、token budgetを持つcontext itemとして情報を選び、何を入れ、何を落とし、何を要約し、何を検証したかを説明できるようにすることである。</p>
+<p>そのために、context manifestを作る。</p>
+<pre><code class="language-json">{
+  &quot;run_id&quot;: &quot;run_2026_07_18_001&quot;,
+  &quot;task&quot;: &quot;03公開版の統合改稿&quot;,
+  &quot;context_window_budget&quot;: 128000,
+  &quot;items&quot;: [
+    {
+      &quot;type&quot;: &quot;developer_instruction&quot;,
+      &quot;source&quot;: &quot;project_policy&quot;,
+      &quot;scope&quot;: &quot;project&quot;,
+      &quot;authority&quot;: &quot;high&quot;,
+      &quot;trust&quot;: &quot;trusted&quot;,
+      &quot;tokens&quot;: 820,
+      &quot;handling&quot;: &quot;follow&quot;
+    },
+    {
+      &quot;type&quot;: &quot;conversation_history&quot;,
+      &quot;source&quot;: &quot;current_thread&quot;,
+      &quot;scope&quot;: &quot;conversation&quot;,
+      &quot;authority&quot;: &quot;history&quot;,
+      &quot;trust&quot;: &quot;trusted_as_history_not_as_fact&quot;,
+      &quot;tokens&quot;: 4200,
+      &quot;handling&quot;: &quot;reference&quot;
+    },
+    {
+      &quot;type&quot;: &quot;retrieved_chunk&quot;,
+      &quot;source&quot;: &quot;vector_store:file_abc&quot;,
+      &quot;scope&quot;: &quot;project&quot;,
+      &quot;authority&quot;: &quot;no_instruction_authority&quot;,
+      &quot;trust&quot;: &quot;untrusted_content&quot;,
+      &quot;tokens&quot;: 900,
+      &quot;handling&quot;: &quot;quote_or_reference&quot;
+    }
+  ],
+  &quot;dropped&quot;: [
+    {
+      &quot;source&quot;: &quot;old_chat_summary&quot;,
+      &quot;reason&quot;: &quot;stale_and_contradicted_by_newer_policy&quot;
+    }
+  ],
+  &quot;checks&quot;: {
+    &quot;stale_context&quot;: &quot;passed&quot;,
+    &quot;contradictions&quot;: &quot;reviewed&quot;,
+    &quot;scope_leakage&quot;: &quot;passed&quot;,
+    &quot;duplicates&quot;: &quot;collapsed&quot;
+  }
+}
+</code></pre>
+<p>このmanifestで重要なのは、情報の種類を一列に並べることではない。</p>
+<p>それぞれの扱いを明示することである。</p>
+<ul>
+<li>developer instructionは従う</li>
+<li>conversation historyは履歴として参照する</li>
+<li>retrieved chunkは資料として扱う</li>
+<li>tool resultは外部状態の証拠として扱うが、命令としては扱わない</li>
+<li>assistant messageは過去出力であり、外部状態の証明ではない</li>
+<li>stale contextは落とす</li>
+<li>contradictionは解決するか、明示する</li>
+</ul>
+<p>context injectionには、検査ループも必要になる。</p>
+<pre class="article-phrase"><code>Collect candidate context
+  ↓
+Classify source / scope / authority / trust
+  ↓
+Select by relevance / freshness / budget
+  ↓
+Render into input items
+  ↓
+Generate answer or tool call
+  ↓
+Verify claims against sources / external state
+  ↓
+If contradiction or missing evidence, retrieve again or stop
+</code></pre>
+<p>このループがないと、AIは古いmemory、間違ったRAG断片、過去assistantの誤発言、外部資料中の命令文を同じ「文脈」として混ぜてしまう。</p>
+<p>context engineeringとは、文脈を増やすことではない。</p>
+<p>文脈の出所、権限、鮮度、扱い方を設計することである。</p>
+<h2>7. 失敗モード</h2>
+<p>context injectionには、典型的な失敗がある。</p>
+<table class="content-table">
+<thead>
+<tr>
+  <th>失敗</th>
+  <th>何が起きるか</th>
+  <th>対策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>stale context</td>
+  <td>古いmemoryや古い仕様を使う</td>
+  <td>updated_at、version、freshness check</td>
+</tr>
+<tr>
+  <td>contradiction</td>
+  <td>新旧の方針や資料が矛盾する</td>
+  <td>source priority、明示的な解決、再確認</td>
+</tr>
+<tr>
+  <td>duplication</td>
+  <td>同じ情報が何度も入る</td>
+  <td>deduplication、summary化</td>
+</tr>
+<tr>
+  <td>scope leakage</td>
+  <td>別projectや別ユーザーのcontextが混入する</td>
+  <td>scope boundary、project-only memory、permission check</td>
+</tr>
+<tr>
+  <td>authority confusion</td>
+  <td>資料中の命令文を上位指示として扱う</td>
+  <td>instructionとreference dataを分離</td>
+</tr>
+<tr>
+  <td>source loss</td>
+  <td>どこから来た情報か分からなくなる</td>
+  <td>provenance、citation、injection log</td>
+</tr>
+</tbody>
+</table>
+<p>これらは、プロンプトの言い方だけでは解決しない。</p>
+<p>アプリケーション層で、contextをどう集め、どう選び、どう記録するかの問題である。</p>
+<h2>8. 03のまとめ</h2>
+<p>03の結論は、次のように置ける。</p>
+<blockquote>
+<p>contextとは、保存されている全情報ではない。現在の応答生成時に、source、scope、authority、trust、freshness、token budgetに基づいて選択され、整形され、モデルへ渡された入力集合である。</p>
+</blockquote>
+<p>会話履歴、memory、project memory、ファイル、RAG、tool resultは、すべてcontext源になりうる。</p>
+<p>しかし、それぞれ保存場所も、選ばれ方も、権限も、鮮度も違う。</p>
+<p>だから、contextを設計するには、次を記録しなければならない。</p>
+<ul>
+<li>どの情報を入れたか</li>
+<li>どの情報を落としたか</li>
+<li>どの情報を要約したか</li>
+<li>どの情報を資料として扱ったか</li>
+<li>どの情報を指示として扱ったか</li>
+<li>どの情報を外部状態の証拠として扱ったか</li>
+<li>どこに矛盾があり、どう解決したか</li>
+</ul>
+<p>04では、このcontextの上で、モデルがどのようにtool callを出し、アプリケーション側が実際の外部操作を行い、その結果を再びcontextへ戻すのかを扱う。</p>
+<h2>公式参照</h2>
+<ul>
+<li><a href="https://developers.openai.com/api/docs/guides/conversation-state">Conversation state｜OpenAI API</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/file-inputs">File inputs｜OpenAI API</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/tools-file-search">File search｜OpenAI API</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/retrieval">Retrieval｜OpenAI API</a></li>
+<li><a href="https://developers.openai.com/api/docs/models">Models｜OpenAI API</a></li>
+<li><a href="https://help.openai.com/en/articles/8590148-memory-in-chatgpt">Memory FAQ｜OpenAI Help Center</a></li>
+<li><a href="https://help.openai.com/en/articles/11146739-how-does-reference-saved-memories-work">How does Reference saved memories work?｜OpenAI Help Center</a></li>
+<li><a href="https://help.openai.com/ja-jp/articles/10169521-projects-in-chatgpt">Projects in ChatGPT｜OpenAI Help Center</a></li>
+</ul>
 
-        <h2>5. context windowは永続記憶ではない</h2>
-        <p>context windowとは、AIの永続記憶ではない。現在の生成で同時に扱えるtoken budgetである。大きなcontext windowは便利だが、不要情報、古い情報、権限の異なる情報が混ざる危険も増える。</p>
-        <p>context設計とは、何を入れるかだけではなく、何を入れないか、どのroleで入れるか、どの根拠として引用できるかを決めることである。</p>
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">前へ：02 指示階層とは何か</a> / <a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">次へ：04 ツール実行ループとは何か</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
 
-        <h2>中心フレーズ</h2>
-        <p class="article-phrase">contextとは、保存情報ではなく、今回の生成に注入された入力集合である。</p>
-        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">前へ：02 指示階層とは何か</a> / <a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">次へ：04 ツール実行ループとは何か</a></p>
       </article>
     </div>
   </main>
