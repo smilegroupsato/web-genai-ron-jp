@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 04｜ツール実行ループとは何か｜GENAI-RON</title>
+  <meta name="description" content="tool useとは、モデルが外部世界を直接操作することではない。modelがtool callを出し、applicationが検証・実行し、tool resultをcontextへ戻すloopである。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 04｜ツール実行ループとは何か">
+  <meta property="og:description" content="modelはtoolを直接実行しない。tool callとtool executionを分けて読む。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 04</p>
+      <h1>ツール実行ループとは何か</h1>
+      <p class="series-subtitle">tool callはどのように発生し、実行され、戻るのか。</p>
+      <p class="series-copy">tool useとは、モデルが外部世界を直接操作することではない。modelが構造化されたtool callを出力し、applicationが検証・実行し、結果をcontextへ戻すmulti-step loopである。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. toolはモデル内部能力ではない</h2>
+        <p>生成AIが「ツールを使う」と言うと、AI自身がWebを検索し、Notionを書き換え、Gmailを送り、カレンダーを操作しているように見える。しかし、LLMそのものが外部APIを直接叩いているわけではない。</p>
+        <p>モデルに渡されるのは、まずtool definitionである。toolの名前、説明、引数、型、必須項目、許容値、schemaの厳密さなどが、モデルの行動空間として提示される。</p>
+
+        <h2>2. tool useに関わる層</h2>
+        <table><tr><th>層</th><th>何が起きるか</th></tr><tr><td>model</td><td>tool schemaを読み、必要ならtool callを出力する。</td></tr><tr><td>orchestrator</td><td>tool callを受け取り、routing、許可、再requestを管理する。</td></tr><tr><td>tool runtime</td><td>実際の関数、API、browser、code interpreter、MCP serverなどを実行する。</td></tr><tr><td>external system</td><td>Web、DB、Gmail、Notion、filesystem、calendarなど実際の対象。</td></tr><tr><td>verification layer</td><td>実行結果、外部状態、安全条件、停止条件を確認する。</td></tr></table>
+        <pre class="article-phrase">Tool definitions are provided to the model
+  ↓
+Model decides whether a tool is needed
+  ↓
+Model emits a tool call
+  ↓
+Application validates and executes it
+  ↓
+Application returns tool result
+  ↓
+Model uses the result to continue or answer</pre>
+        <p>tool callとtool executionは違う。モデルがtool callを出した時点では、まだ外部操作は完了していない。tool callは、実行済みの事実ではなく、実行要求である。</p>
+
+        <h2>3. tool callは構造化された実行要求</h2>
+        <p>tool callは自然文の返答ではない。モデルがresponse outputの中に出す構造化itemである。重要なのは、tool名、arguments、call_idである。</p>
+        <p>しかし、argumentsをそのまま信用してはいけない。schemaに合っているように見えても、権限上許されない操作かもしれない。存在しないIDを指定しているかもしれない。ユーザーがまだ承認していない書き込み操作かもしれない。</p>
+        <pre class="article-phrase">Detect function_call item
+  ↓
+Route by tool name
+  ↓
+Parse arguments
+  ↓
+Validate against schema
+  ↓
+Policy check
+  ↓
+Permission / scope check
+  ↓
+User confirmation if needed
+  ↓
+Execute external function / API</pre>
+
+        <h2>4. 読み取り系toolと書き込み系tool</h2>
+        <p>Web検索、ファイル検索、GitHub read、Notion fetchは基本的には読み取り系の操作である。一方、GitHubに書く、Notionページを更新する、Gmailを送信する、カレンダー予定を作成する、ファイルを削除する、といった操作は外部世界に変更を加える。</p>
+        <p>読み取り、作成、更新、送信、削除、課金、公開では危険度が違う。書き込み系toolでは、確認境界、差分確認、trace、rollback可能性を考える必要がある。</p>
+
+        <h2>5. tool resultは命令ではなく戻り値</h2>
+        <p>tool実行の結果は、モデルへ戻される資料である。tool resultの本文中に命令文が含まれていても、それは通常systemやdeveloper instructionではない。外部資料から戻った文字列は、命令としてではなく、戻り値・証拠・参照情報として隔離して扱う必要がある。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">tool useとは、モデルが外部世界を直接操作することではなく、tool callとtool resultをapplicationが仲介するloopである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/03-context/">前へ：03 contextとは何か</a> / <a href="/series/genai-shikumi-deep-dive/05-structured-output/">次へ：05 構造化出力とは何か</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
