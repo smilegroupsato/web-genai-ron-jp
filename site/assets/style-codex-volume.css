@@ -1,0 +1,163 @@
+/* GENAI-RON codex volume cover styles
+   Scope: top pages for 叢書001 / 002 / 003 only. */
+
+body.codex-volume{
+  --codex-accent:#245c63;
+  --codex-accent-deep:#173a34;
+  --codex-line:rgba(36,92,99,.38);
+}
+
+body.codex-volume .series-header{
+  border-bottom:3px solid var(--codex-accent)!important;
+  background:rgba(250,247,240,.96)!important;
+}
+
+body.codex-volume .series-brand-main,
+body.codex-volume .series-nav a{
+  color:var(--codex-accent-deep)!important;
+}
+
+body.codex-volume .codex-cover{
+  position:relative!important;
+  width:min(1120px,calc(100% - 32px))!important;
+  margin:0 auto!important;
+  padding:64px 0 54px!important;
+  border-bottom:4px solid var(--codex-accent)!important;
+}
+
+body.codex-volume .codex-cover::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:9px!important;
+  height:100%!important;
+  background:var(--codex-accent)!important;
+}
+
+body.codex-volume .codex-cover .series-kicker{
+  display:inline-block!important;
+  margin:0 0 0 28px!important;
+  padding:6px 10px!important;
+  border:1px solid var(--codex-accent)!important;
+  background:rgba(230,238,233,.55)!important;
+  color:var(--codex-accent-deep)!important;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+  letter-spacing:.2em!important;
+  text-transform:none!important;
+}
+
+body.codex-volume .codex-cover .series-kicker::before,
+body.codex-volume .codex-cover .series-kicker::after{
+  content:none!important;
+}
+
+body.codex-volume .codex-cover h1{
+  margin:18px 0 0 28px!important;
+  max-width:900px!important;
+  color:var(--codex-accent-deep)!important;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif!important;
+  font-size:clamp(54px,8vw,96px)!important;
+  line-height:1.08!important;
+  letter-spacing:-.055em!important;
+  font-weight:650!important;
+}
+
+body.codex-volume .codex-subtitle{
+  margin:18px 0 0 28px!important;
+  max-width:900px!important;
+  color:var(--codex-accent-deep)!important;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif!important;
+  font-size:clamp(22px,2.7vw,32px)!important;
+  line-height:1.55!important;
+  letter-spacing:.08em!important;
+}
+
+body.codex-volume .codex-cover .series-subtitle{
+  margin:24px 0 0 28px!important;
+  max-width:820px!important;
+  color:var(--ink,#242424)!important;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif!important;
+  font-size:clamp(17px,1.8vw,21px)!important;
+  line-height:1.82!important;
+  letter-spacing:.015em!important;
+}
+
+body.codex-volume .codex-credit{
+  margin:28px 0 0 28px!important;
+  color:var(--subtle,#8a857c)!important;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+  letter-spacing:.08em!important;
+}
+
+body.codex-volume .codex-main{
+  width:min(1120px,calc(100% - 32px))!important;
+  margin:38px auto 90px!important;
+}
+
+body.codex-volume .codex-contents h2{
+  color:var(--codex-accent-deep)!important;
+  font-size:clamp(30px,4vw,48px)!important;
+}
+
+body.codex-volume .article-card{
+  grid-template-columns:5.2em minmax(0,1fr)!important;
+  padding:20px 0!important;
+  border-top-color:rgba(36,92,99,.32)!important;
+}
+
+body.codex-volume .article-number{
+  color:var(--codex-accent)!important;
+  font-size:22px!important;
+  font-weight:700!important;
+  letter-spacing:.08em!important;
+}
+
+body.codex-volume .article-card h3 a{
+  color:var(--codex-accent-deep)!important;
+  text-decoration-color:rgba(36,92,99,.35)!important;
+}
+
+body.codex-volume .article-phrase{
+  border-top-color:rgba(36,92,99,.28)!important;
+  color:var(--codex-accent-deep)!important;
+  font-size:15px!important;
+}
+
+body.codex-volume .codex-note{
+  border-top:1px solid rgba(36,92,99,.32)!important;
+  padding-top:22px!important;
+}
+
+body.codex-volume .codex-note h2{
+  color:var(--codex-accent-deep)!important;
+}
+
+@media(max-width:560px){
+  body.codex-volume .codex-cover{
+    padding:48px 0 38px!important;
+  }
+  body.codex-volume .codex-cover::before{
+    width:6px!important;
+  }
+  body.codex-volume .codex-cover .series-kicker,
+  body.codex-volume .codex-cover h1,
+  body.codex-volume .codex-subtitle,
+  body.codex-volume .codex-cover .series-subtitle,
+  body.codex-volume .codex-credit{
+    margin-left:18px!important;
+  }
+  body.codex-volume .codex-cover h1{
+    font-size:clamp(48px,13vw,70px)!important;
+  }
+  body.codex-volume .codex-subtitle{
+    font-size:22px!important;
+  }
+  body.codex-volume .article-card{
+    grid-template-columns:3.6em minmax(0,1fr)!important;
+  }
+}
