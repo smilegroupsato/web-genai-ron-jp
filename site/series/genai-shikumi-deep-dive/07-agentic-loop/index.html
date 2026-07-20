@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 07｜停止条件と検証ループ｜GENAI-RON</title>
+  <meta name="description" content="agentic loopとは、observe、decide、act、verifyを繰り返しながら、続行・確認・停止を選ぶ制御ループである。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 07｜停止条件と検証ループ">
+  <meta property="og:description" content="止まれることはagentの能力である。停止条件、budget、verification、handoffを読む。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 07</p>
+      <h1>停止条件と検証ループ</h1>
+      <p class="series-subtitle">agentはいつ続行し、いつ止まるのか。agentic systemを、止まれる制御ループとして読む。</p>
+      <p class="series-copy">agentic loopとは、モデルがただ動き続けることではなく、続行または停止を選ぶ制御ループである。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. agentic loopは無限ループではない</h2>
+        <p>agentという言葉には、「自律的に動き続けるもの」という印象がある。ユーザーが目的を与え、AIが計画を立て、toolを呼び、結果を見て、また考え、また実行する。</p>
+        <p>しかし、信頼できるagentic systemを設計するうえで重要なのは、どう続けるかだけではない。いつ止まるかである。</p>
+        <pre class="article-phrase">receive task
+  ↓
+observe context
+  ↓
+decide next action
+  ↓
+act / call tool / answer / ask user / handoff
+  ↓
+observe result
+  ↓
+verify
+  ↓
+continue or stop</pre>
+
+        <h2>2. stopはfailureではない</h2>
+        <p>停止は必ずしも失敗ではない。正しく止まることはagentの能力である。</p>
+        <table><tr><th>状態</th><th>意味</th></tr><tr><td>completed</td><td>成功条件を満たして完了した。</td></tr><tr><td>blocked</td><td>権限、ファイル、接続、情報などの条件が足りない。</td></tr><tr><td>needs_user</td><td>ユーザー判断が必要。</td></tr><tr><td>manual_review</td><td>人間の確認に戻すべき状態。</td></tr><tr><td>handoff</td><td>別の担当・別のworkflowへ渡す状態。</td></tr></table>
+        <pre class="article-phrase">stop ≠ failure
+blocked ≠ failed
+needs_user ≠ failed
+handoff ≠ failed</pre>
+
+        <h2>3. success criteriaがないagentは止まれない</h2>
+        <p>agentが止まれない最大の理由は、成功条件が曖昧なことである。「この件を調べて、いい感じにまとめて」だけでは、何件調べればよいのか、どのsourceを信頼するのか、どの深さまで読むのか、どこで止まるのかが分かりにくい。</p>
+        <pre class="article-phrase">stop when:
+  - required sources have been checked
+  - contradictions have been noted
+  - output format is complete
+  - no unresolved required fields remain
+  - budget is not exceeded
+  - no approval-gated action remains pending</pre>
+
+        <h2>4. loop stateとbudget</h2>
+        <p>agentic loopを制御するには、現在の状態を持たなければならない。何step目か、どのtoolを何回呼んだか、どの試行が失敗したか、あと何回retryできるかを記録する。</p>
+        <p>budgetには、turn、tool call、time、cost、token、retry、risk、side effectがある。特にread-onlyなtool callとstate-changingなtool callは分ける必要がある。</p>
+
+        <h2>5. verification loop</h2>
+        <p>agentが「完了しました」と言うことと、実際に完了していることは違う。modelの自己申告、tool resultの成功、valid JSONの返却だけではtask完了とは限らない。</p>
+        <pre class="article-phrase">model says completed ≠ task completed
+tool call succeeded ≠ task goal achieved
+valid JSON ≠ correct answer
+file created ≠ useful artifact</pre>
+        <p>verification loopとは、成果物の存在、差分、test、外部データ照合、引用、承認記録などを通じて、taskが本当に成功条件を満たしたかを確認する仕組みである。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">agentic loopとは、自律的に動き続ける仕組みではなく、続行・検証・停止・handoffを選ぶ制御ループである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/06-memory/">前へ：06 memoryとは何か</a> / <a href="/series/genai-shikumi-deep-dive/08-architecture/">次へ：08 全体アーキテクチャ</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
