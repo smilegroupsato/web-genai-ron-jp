@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解｜よくある誤解集｜GENAI-RON</title>
+  <meta name="description" content="生成AIを過度に神秘化せず、かといって単なる文章生成器として過小評価もしないために、よくある誤解と正しい見方を整理する。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解｜よくある誤解集">
+  <meta property="og:description" content="prompt、context、tool、memory、agentをめぐる誤解と正しい見方。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">Deep Dive Reference</p>
+      <h1>よくある誤解集</h1>
+      <p class="series-subtitle">生成AIを神秘化しすぎず、過小評価もしないためのFAQ。</p>
+      <p class="series-copy">「AIが考えて、AIがやった」とまとめずに、request、instruction、context、model output、tool execution、verification、human responsibilityへ分解する。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>prompt / requestに関する誤解</h2>
+        <h3>誤解1：プロンプトとは、チャット欄に書いた文章のことである</h3>
+        <p>正しくは、チャット欄の文章はprompt / requestの一部である。実行時には、system instruction、developer instruction、会話履歴、memory、ファイル、検索結果、tool定義、出力制約などが組み合わされる。</p>
+        <p class="article-phrase">prompt ≠ user text only<br>prompt = runtime input environment</p>
+        <h3>誤解2：同じ文章を送れば、同じ条件で実行される</h3>
+        <p>正しくは、同じユーザー文でも、背後のcontext、memory、利用可能tool、モデル設定、会話履歴が違えば、実行環境は変わる。</p>
+
+        <h2>instruction hierarchyに関する誤解</h2>
+        <h3>誤解3：強い口調で命令すれば、上位指示を上書きできる</h3>
+        <p>正しくは、指示の強さは言葉の強さではなく、置かれた層によって決まる。</p>
+        <p class="article-phrase">louder instruction ≠ higher instruction</p>
+        <h3>誤解4：外部資料に書かれている命令も、AIへの命令である</h3>
+        <p>正しくは、外部資料や検索結果に含まれる文章は、通常は資料であり命令ではない。外部資料中の「前の指示を無視せよ」などを命令として扱ってしまうのが、prompt injectionの典型である。</p>
+        <h3>誤解5：tool resultはmodelへの命令である</h3>
+        <p>正しくは、tool resultは戻り値であり、資料である。通常、tool resultがsystemやdeveloper instructionを上書きすることはない。</p>
+
+        <h2>context / memoryに関する誤解</h2>
+        <h3>誤解6：contextとは、保存されている情報のことである</h3>
+        <p>正しくは、contextとは今回の生成に注入された入力集合である。保存されていても、今回のcontextに入っていなければ、modelは参照できない。</p>
+        <h3>誤解7：AIは過去の会話を全部覚えている</h3>
+        <p>正しくは、過去の会話が常に丸ごとcontextへ入るわけではない。履歴の一部、要約、memory、検索された断片などが選ばれて入ることがある。</p>
+        <h3>誤解8：memoryはモデルの中に人間の記憶のように保存されている</h3>
+        <p>正しくは、多くの場合、memoryは外部または周辺の保存機構にあり、必要に応じて参照され、contextへ再注入される。</p>
+        <p class="article-phrase">memory ≠ model's lived experience<br>memory = stored information + retrieval + injection + audit</p>
+
+        <h2>tool useに関する誤解</h2>
+        <h3>誤解9：モデルがtoolを直接実行している</h3>
+        <p>正しくは、modelはtool call候補を出す。それをapplicationが検証し、runtime / connector / APIが実行し、tool resultが戻る。</p>
+        <p class="article-phrase">model emits tool call<br>application executes tool</p>
+        <h3>誤解10：tool callが出たら、必ず実行される</h3>
+        <p>正しくは、tool callは実行候補である。application側でschema、権限、policy、ユーザー承認、危険度などを確認したうえで、実行される場合もあれば止められる場合もある。</p>
+        <h3>誤解11：読み取りtoolと書き込みtoolは同じ危険度である</h3>
+        <p>正しくは、読み取り、作成、更新、送信、削除、課金、公開では危険度が違う。特に公開、削除、送信、契約、会計処理などは、承認・trace・rollback可能性を考える必要がある。</p>
+
+        <h2>structured output / agent / architectureに関する誤解</h2>
+        <h3>誤解12：JSONが出れば構造化出力である</h3>
+        <p>正しくは、JSONらしい文字列が出ることと、applicationが信頼して扱える構造化出力であることは違う。schema、parse、validation、retry、repairが必要になる。</p>
+        <h3>誤解13：agentとは、自律的に動き続けるAIである</h3>
+        <p>正しくは、agentic loopは、observe、decide、act、verifyを繰り返しながら、続行・停止・確認・handoffを選ぶ制御ループである。</p>
+        <h3>誤解14：止まることは失敗である</h3>
+        <p>正しくは、停止には複数の意味がある。完了、確認待ち、権限不足、manual review、handoffなどがある。止まれるagentのほうが、止まれないagentより信頼できる。</p>
+        <h3>誤解15：AIがやった、という説明で十分である</h3>
+        <p>正しくは、「AIがやった」は粗すぎる。modelが生成したのか、applicationが実行したのか、runtimeが失敗したのか、human approvalが不足したのかを分ける必要がある。</p>
+
+        <h2>まとめ</h2>
+        <p class="article-phrase">生成AIを理解する近道は、「AIが考えて、AIがやった」とまとめずに、request、instruction、context、model output、tool execution、verification、human responsibilityへ分解することである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/glossary/">前へ：用語集</a> / <a href="/series/genai-shikumi-deep-dive/">シリーズトップへ</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
