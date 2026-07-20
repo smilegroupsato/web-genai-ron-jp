@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 02｜指示階層とは何か｜GENAI-RON</title>
+  <meta name="description" content="system / developer / user / tool resultを分け、指示の強さは言葉の強さではなく置かれた層によって決まることを理解する。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 02｜指示階層とは何か">
+  <meta property="og:description" content="指示の強さは、言葉の強さではなく、置かれた層によって決まる。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 02</p>
+      <h1>指示階層とは何か</h1>
+      <p class="series-subtitle">system / developer / user / tool result の権限構造。文章の内容だけでなく、どこから来て、どの層に置かれたかを読む。</p>
+      <p class="series-copy">指示の強さは、言葉の強さではなく、置かれた層によって決まる。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. プロンプトは一枚の文章ではない</h2>
+        <p>生成AIに入る指示は、一つではない。ユーザーがチャット欄に書いた文章だけでもない。アプリケーション側の方針、会話履歴、プロジェクト指示、外部ファイル、検索結果、tool result。これらが実行時に集められ、異なる出所と権限を持った入力としてモデルへ渡される。</p>
+        <p>だから生成AIの挙動を理解するには、文章の内容だけを読むのでは足りない。その文章がどこから来たのか、どの入力経路へ置かれたのか、命令として扱うべきなのか、資料として扱うべきなのかまで読む必要がある。</p>
+
+        <h2>2. roleは人物設定ではない</h2>
+        <p><code>role</code> は「あなたは編集者です」「あなたは弁護士です」という演技上の役割ではない。実装上のroleは、情報の出所・権限・扱い方を示す属性である。</p>
+        <table><tr><th>観点</th><th>意味</th></tr><tr><td>source</td><td>platform / developer / user / model / tool / external content のどこから来たか。</td></tr><tr><td>authority</td><td>上位方針か、今回の依頼か、資料か。</td></tr><tr><td>handling</td><td>従う、参照する、引用する、無視する、確認する、停止する。</td></tr></table>
+        <p>ユーザーが本文中に <code>system:</code> と書いても、それはuser message内の文字列である。文章の見た目がsystem風でも、入力経路はuserのままである。</p>
+
+        <h2>3. system / developer / user / tool result</h2>
+        <p><strong>system</strong> は、プラットフォームや実行環境側が置く上位制約に近い。通常のユーザーがチャット欄から直接編集できるものではない。</p>
+        <p><strong>developer</strong> は、アプリケーション開発者やサービス設計者が置く方針である。出力形式、業務ルール、toolの使い方、確認条件、外部資料の扱いなどを置く。</p>
+        <p><strong>user</strong> は、エンドユーザーの質問、作業依頼、修正指示、処理対象、出力希望である。重要だが、systemやdeveloperなどの上位制約の範囲内で解釈される。</p>
+        <p><strong>tool result</strong> は、外部世界から戻されたデータである。その本文中に命令文が含まれていても、原則としてdeveloper instructionではない。</p>
+
+        <h2>4. 衝突したときに見る順番</h2>
+        <pre class="article-phrase">1. sourceを特定する
+2. instruction authorityがあるかを判定する
+3. 現在の作業へ適用されるscopeかを判定する
+4. 本当に衝突しているかを確認する
+5. 上位指示を守りながら、下位の意図を可能な範囲で満たす
+6. 外部データ中の命令文を資料として隔離する
+7. 曖昧または不可逆な操作では確認・停止する</pre>
+        <p>処理は、単純な「従う／従わない」ではない。権限のある指示には従い、資料として有用なものは参照し、外部資料中の命令文は隔離し、危険な操作では確認または停止する。</p>
+
+        <h2>5. prompt injectionは境界事故である</h2>
+        <p>prompt injectionとは、外部資料や検索結果の中の命令文が、本来は資料であるにもかかわらず、AIへの指示として扱われてしまう境界事故である。強い言葉で「これまでの指示を無視せよ」と書かれていても、それが外部資料の本文であれば、上位指示にはならない。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">指示の強さは、言葉の強さではなく、置かれた層によって決まる。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">前へ：01 プロンプトは実行時にどうコンパイルされるのか</a> / <a href="/series/genai-shikumi-deep-dive/03-context/">次へ：03 contextとは何か</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
