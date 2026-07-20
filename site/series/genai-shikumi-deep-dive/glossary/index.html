@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解｜用語集｜GENAI-RON</title>
+  <meta name="description" content="生成AIのしくみ超詳解で使うrequest、prompt、instruction、context、tool、schema、memory、agentic loop、architectureなどの用語集。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解｜用語集">
+  <meta property="og:description" content="超詳解シリーズ内で使う主要用語の作業定義。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">Deep Dive Reference</p>
+      <h1>用語集</h1>
+      <p class="series-subtitle">生成AIのしくみ超詳解で使う主要用語を整理する。</p>
+      <p class="series-copy">定義は厳密な標準仕様ではなく、このシリーズ内での使い方を明確にするための作業定義です。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>request / prompt 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>prompt</td><td>狭義にはユーザーが入力する文。広義には、実行時にmodelへ渡される入力環境全体。</td><td>01</td></tr><tr><td>prompt compilation</td><td>ユーザー入力、指示、履歴、memory、ファイル、tool定義などが、実行時に入力構造へ組み立てられる過程。理解モデルとして扱う。</td><td>01</td></tr><tr><td>request object</td><td>applicationがmodelへ送る構造化された依頼。instructions、input、tools、settingsなどを含みうる。</td><td>01</td></tr><tr><td>input</td><td>今回modelに処理させる対象。ユーザー文、添付、画像、ファイル内容、会話履歴などを含みうる。</td><td>01</td></tr></table>
+
+        <h2>instruction hierarchy 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>instruction hierarchy</td><td>指示の優先順位構造。system、developer、user、tool resultなどの層を区別する考え方。</td><td>02</td></tr><tr><td>system instruction</td><td>実行環境側の上位制約。モデルの基本的な振る舞いや安全条件などを定める。</td><td>02</td></tr><tr><td>developer instruction</td><td>アプリケーションや開発者が設定する動作方針。ユーザー指示より上位に置かれることがある。</td><td>02</td></tr><tr><td>user instruction</td><td>ユーザーが与える依頼や希望。重要だが、system / developer instructionを上書きできるとは限らない。</td><td>02</td></tr><tr><td>tool result</td><td>tool実行後にapplicationからmodelへ返される結果。資料・戻り値であり、通常は命令ではない。</td><td>02, 04</td></tr><tr><td>prompt injection</td><td>外部資料や検索結果の中の命令文が、本来の資料ではなく指示として扱われてしまう境界事故。</td><td>02, 03</td></tr></table>
+
+        <h2>context / memory / retrieval 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>context</td><td>今回の生成に注入された入力集合。履歴、memory、検索結果、ファイル、tool resultなどを含みうる。</td><td>03</td></tr><tr><td>context window</td><td>modelが一度の生成で参照できる入力量の枠。大きくても無限ではない。</td><td>03</td></tr><tr><td>memory</td><td>保存されたユーザー情報や設定など。必要に応じて参照され、contextへ注入される。</td><td>03, 06</td></tr><tr><td>personalization</td><td>ユーザーの好み、過去の作業、制約などを反映して応答を調整すること。</td><td>06</td></tr><tr><td>retrieval</td><td>外部情報や文書から、今回のtaskに関連する情報を探して取り出すこと。</td><td>03, 06</td></tr><tr><td>RAG</td><td>Retrieval-Augmented Generation。検索・取得した情報をcontextへ入れて生成する構成。</td><td>03</td></tr></table>
+
+        <h2>tool / runtime 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>tool</td><td>modelが呼び出し候補として使える外部機能。検索、コード実行、Notion更新、Gmail操作など。</td><td>04, 08</td></tr><tr><td>tool call</td><td>modelが出力する、特定toolを呼ぶための構造化された要求。実行そのものではない。</td><td>04</td></tr><tr><td>tool schema</td><td>toolに渡せる引数や形式を定義したもの。modelに対する行動空間の定義でもある。</td><td>04, 05</td></tr><tr><td>application execution</td><td>application側がtool callを検証し、実際にtoolやAPIを実行すること。</td><td>04</td></tr><tr><td>runtime</td><td>tool、API、file system、database、sandboxなどが実際に動く実行環境。</td><td>04, 08</td></tr><tr><td>side effect</td><td>外部世界に変更を加える作用。ファイル更新、メール送信、予定作成、削除など。</td><td>07, 08</td></tr></table>
+
+        <h2>structured output 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>structured output</td><td>自然文ではなく、JSONなどapplicationが解釈できる形式で出されるmodel output。</td><td>05</td></tr><tr><td>JSON Schema</td><td>JSON出力の構造、型、必須項目、制約などを定義するschema。</td><td>05</td></tr><tr><td>parse</td><td>model outputをapplicationが読める構造へ変換すること。</td><td>05</td></tr><tr><td>validation</td><td>出力がschemaや業務条件を満たしているか検査すること。</td><td>05, 07</td></tr><tr><td>retry / repair</td><td>失敗時に再試行したり、不完全な出力を条件に合わせて修復したりすること。</td><td>05, 07</td></tr></table>
+
+        <h2>agentic loop / architecture 系</h2>
+        <table><tr><th>用語</th><th>定義</th><th>関連回</th></tr><tr><td>agentic loop</td><td>observe、decide、act、verifyを繰り返し、続行・停止・handoffなどを選ぶ制御ループ。</td><td>07</td></tr><tr><td>budget</td><td>turn数、tool call数、時間、cost、token、retry、risk、side effectなどの上限。</td><td>07</td></tr><tr><td>stop condition</td><td>agentが止まるべき条件。完了、確認待ち、権限不足、handoffなど。</td><td>07</td></tr><tr><td>verification</td><td>taskが成功条件を満たしたか確認すること。modelの自己申告だけでは不十分。</td><td>07</td></tr><tr><td>architecture</td><td>model、application、runtime、humanの責任境界を設計すること。</td><td>08</td></tr><tr><td>audit / trace</td><td>何を見て、何を判断し、何を実行し、なぜ止まったかを後から検証できる記録。</td><td>07, 08</td></tr></table>
+
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/concept-map/">前へ：主要概念マップ</a> / <a href="/series/genai-shikumi-deep-dive/misconceptions/">次へ：よくある誤解集</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
