@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>生成AIのしくみ 超詳解 05｜構造化出力とは何か｜GENAI-RON</title>
+  <meta name="description" content="構造化出力とは、きれいなJSONを書かせることではない。schema、parse、validation、retry、repair、handoffを含むapplication contractとして読む。">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 05｜構造化出力とは何か">
+  <meta property="og:description" content="JSONが出たことと、applicationが安全に扱える出力であることは違う。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="/assets/og.svg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page">
+  <!-- ページ作成日時：2026-07-20 12:12 JST / 最終更新日時：2026-07-20 12:12 JST -->
+  <header class="series-header"><div class="series-header-inner"><a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a><nav class="series-nav" aria-label="サイト内ナビゲーション"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a><a href="/series/genai-shikumi-technical/">詳解版</a><a href="/series/genai-shikumi/">一般向け版</a></nav></div></header>
+  <main>
+    <section class="series-hero">
+      <p class="series-kicker">生成AIのしくみ 超詳解 05</p>
+      <h1>構造化出力とは何か</h1>
+      <p class="series-subtitle">JSON、schema、validation、再生成。モデル出力とapplicationの間に契約を置く。</p>
+      <p class="series-copy">構造化出力とは、モデルに「きれいなJSONを書いてもらうこと」ではない。</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+        <p class="series-kicker">ページ作成日時：2026-07-20 12:12 JST<br>最終更新日時：2026-07-20 12:12 JST</p>
+        <h2>1. 「JSONで返す」は出発点でしかない</h2>
+        <p>生成AIに「JSONで返して」と頼むことは珍しくない。問い合わせ分類、議事録のaction item抽出、見積依頼の項目整理、UI表示用データ生成、次のworkflowへのhandoff。人間が読む文章ではなく、アプリケーションが処理できる形で返してほしい場面は多い。</p>
+        <p>しかし、「JSONで返して」と「安全にアプリケーションへ渡せる」は違う。JSONらしく見える文字列が返ってきても、それがparseできるとは限らない。parseできても、期待したschemaに合っているとは限らない。schemaに合っていても、業務上そのまま使ってよいとは限らない。</p>
+        <pre class="article-phrase">JSON-looking text ≠ valid JSON
+valid JSON ≠ schema-valid data
+schema-valid data ≠ business-valid decision
+business-valid decision ≠ safe action</pre>
+
+        <h2>2. syntax、schema、business validation</h2>
+        <table><tr><th>段階</th><th>見るもの</th><th>失敗例</th></tr><tr><td>JSON syntax</td><td>JSONとしてparseできるか</td><td>quote漏れ、末尾comma、Markdown fence混入。</td></tr><tr><td>schema adherence</td><td>期待した構造に合うか</td><td>required欠落、型違い、enum外、余計なproperty。</td></tr><tr><td>business validation</td><td>業務ルール上使えるか</td><td>存在しないID、期限切れstatus、不許可action。</td></tr></table>
+        <p>構造化出力を設計するとは、この三段階を混ぜないことである。</p>
+
+        <h2>3. JSON Schemaはapplication contractである</h2>
+        <p>JSON Schemaは、AIの出力形式を整えるための飾りではない。モデル、validator、workflowのあいだに置かれるapplication contractである。</p>
+        <p><code>type</code>、<code>properties</code>、<code>required</code>、<code>enum</code>、<code>additionalProperties: false</code>、<code>items</code> などは、後続処理が何を期待できるかを定義する。</p>
+        <p>特に <code>additionalProperties: false</code> は重要である。余計なkeyを許すと、モデルが説明文や提案、confidenceのようなfieldを勝手に足すことがある。application contractとして受け取るなら、想定外のfieldは失敗として扱った方がよい。</p>
+
+        <h2>4. null、unknown、empty、not applicable</h2>
+        <p>構造化出力では、「値がない」を雑に扱うと壊れやすい。空文字、null、unknown、該当なし、拒否は同じではない。欠損理由をstatusで分けることで、後続workflowが安全に分岐できる。</p>
+
+        <h2>5. response schemaとtool arguments schema</h2>
+        <p>function toolのarguments schemaと、最終応答のresponse schemaは似ているが目的が違う。前者は「何を実行したいか」を制約し、後者は「何を返すか」を制約する。</p>
+        <pre class="article-phrase">tool arguments schema:
+  actの入口を制約する
+
+response schema:
+  observe / decide の結果をapplicationへ渡す出口を制約する</pre>
+
+        <h2>6. validationが通っても完了ではない</h2>
+        <p>schema validationは形式の検証であり、task completionの検証とは別である。形式として正しいJSONが、事実として正しいとは限らない。業務上の妥当性、権限、実行安全性はapplication側で確認する必要がある。</p>
+
+        <h2>中心フレーズ</h2>
+        <p class="article-phrase">構造化出力とは、モデル出力とapplicationの間にschemaという契約を置くことである。</p>
+        <p class="article-link"><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">前へ：04 ツール実行ループとは何か</a> / <a href="/series/genai-shikumi-deep-dive/06-memory/">次へ：06 memoryとは何か</a></p>
+      </article>
+    </div>
+  </main>
+  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
