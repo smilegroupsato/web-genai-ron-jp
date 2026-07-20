@@ -228,6 +228,34 @@
     });
   }
 
+  function collapseAnnotationBlockquotes() {
+    document.querySelectorAll('body.series-page-compact article.note-box blockquote').forEach((quote) => {
+      const text = (quote.textContent || '').trim();
+      if (!/^注記[：:]/.test(text)) {
+        return;
+      }
+
+      const details = document.createElement('details');
+      details.className = 'annotation-accordion';
+
+      const summary = document.createElement('summary');
+      summary.textContent = '注記';
+      details.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'annotation-body';
+      Array.from(quote.childNodes).forEach((node) => body.appendChild(node));
+
+      const firstParagraph = body.querySelector('p');
+      if (firstParagraph) {
+        firstParagraph.textContent = firstParagraph.textContent.replace(/^注記[：:]\s*/, '');
+      }
+
+      details.appendChild(body);
+      quote.replaceWith(details);
+    });
+  }
+
   function injectDeepDiveStyle() {
     if (document.getElementById('deep-dive-runtime-style')) {
       return;
@@ -293,6 +321,27 @@ body.series-page-compact .series-main > article.note-box blockquote{
   border-left:4px solid var(--theme-accent, #245c63)!important;
   border-radius:8px!important;
 }
+body.series-page-compact .series-main > article.note-box details.annotation-accordion{
+  margin:1.35em 0;
+  padding:0;
+  border-top:1px solid var(--theme-line, rgba(151,139,119,.36));
+  border-bottom:1px solid var(--theme-line, rgba(151,139,119,.36));
+  background:transparent!important;
+}
+body.series-page-compact .series-main > article.note-box details.annotation-accordion summary{
+  cursor:pointer;
+  padding:.78em 0;
+  color:var(--theme-accent, #245c63)!important;
+  font-weight:650;
+  letter-spacing:.08em;
+}
+body.series-page-compact .series-main > article.note-box details.annotation-accordion .annotation-body{
+  padding:.15em 0 1em;
+  color:var(--theme-muted, #66625a)!important;
+}
+body.series-page-compact .series-main > article.note-box details.annotation-accordion .annotation-body p{
+  color:var(--theme-muted, #66625a)!important;
+}
 body.series-page-compact .article-link{
   display:block;
   margin-top:42px;
@@ -314,6 +363,7 @@ body.series-page-compact .article-link{
     }
     injectDeepDiveStyle();
     convertMarkdownTables();
+    collapseAnnotationBlockquotes();
     enhanceCodeBlocks();
   }
 
