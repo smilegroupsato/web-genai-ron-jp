@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://genai-ron.jp/</loc><lastmod>2026-07-01</lastmod></url>
+  <url><loc>https://genai-ron.jp/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/01-prompt-compilation/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/02-instruction-hierarchy/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/03-context/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/04-tool-execution-loop/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/05-structured-output/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/06-memory/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/07-agentic-loop/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/08-architecture/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/concept-map/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/glossary/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/misconceptions/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://genai-ron.jp/essay/</loc><lastmod>2026-07-01</lastmod></url>
   <url><loc>https://genai-ron.jp/essay/ai-era-authorship/</loc><lastmod>2026-07-01</lastmod></url>
   <url><loc>https://genai-ron.jp/essay/ai-only-generation/</loc><lastmod>2026-06-28</lastmod></url>
