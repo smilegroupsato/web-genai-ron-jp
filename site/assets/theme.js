@@ -11,6 +11,10 @@
     'x-large': '特大'
   };
 
+  function isDeepDivePage() {
+    return window.location.pathname.includes('/series/genai-shikumi-deep-dive/');
+  }
+
   function getStoredTheme() {
     try {
       const value = localStorage.getItem(KEY);
@@ -47,36 +51,25 @@
     document.querySelectorAll('[data-article-text-size-choice]').forEach((button) => {
       const active = button.dataset.articleTextSizeChoice === next;
       button.setAttribute('aria-pressed', String(active));
-      if (active) {
-        button.setAttribute('aria-current', 'true');
-      } else {
-        button.removeAttribute('aria-current');
-      }
+      if (active) button.setAttribute('aria-current', 'true');
+      else button.removeAttribute('aria-current');
     });
   }
 
   function shouldMountTextSizeControl() {
-    if (!document.body || !document.body.classList.contains('series-page')) {
-      return false;
-    }
-    if (!document.querySelector('.series-main > article.note-box')) {
-      return false;
-    }
+    if (!document.body || !document.body.classList.contains('series-page')) return false;
+    if (!document.querySelector('.series-main > article.note-box')) return false;
     const path = window.location.pathname;
     return path.includes('/series/genai-shikumi/') || path.includes('/series/genai-shikumi-technical/');
   }
 
   function mountTextSizeControl() {
     setTextSize(getStoredTextSize(), false);
-    if (!shouldMountTextSizeControl() || document.querySelector('.article-text-size-control')) {
-      return;
-    }
+    if (!shouldMountTextSizeControl() || document.querySelector('.article-text-size-control')) return;
 
     const seriesMain = document.querySelector('.series-main');
     const article = document.querySelector('.series-main > article.note-box');
-    if (!seriesMain || !article) {
-      return;
-    }
+    if (!seriesMain || !article) return;
 
     const control = document.createElement('section');
     control.className = 'article-text-size-control';
@@ -146,15 +139,9 @@
   function highlightJson(source) {
     const escaped = escapeHtml(source);
     return escaped.replace(/(&quot;(?:\\.|[^&])*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b|([{}\[\],:])/g, (match, stringToken, colon, literal, punct) => {
-      if (stringToken) {
-        return colon ? `<span class="syntax-key">${stringToken}</span>${colon}` : `<span class="syntax-string">${stringToken}</span>`;
-      }
-      if (literal) {
-        return `<span class="syntax-literal">${literal}</span>`;
-      }
-      if (punct) {
-        return `<span class="syntax-punctuation">${punct}</span>`;
-      }
+      if (stringToken) return colon ? `<span class="syntax-key">${stringToken}</span>${colon}` : `<span class="syntax-string">${stringToken}</span>`;
+      if (literal) return `<span class="syntax-literal">${literal}</span>`;
+      if (punct) return `<span class="syntax-punctuation">${punct}</span>`;
       return `<span class="syntax-number">${match}</span>`;
     });
   }
@@ -170,14 +157,11 @@
 
   function enhanceCodeBlocks() {
     document.querySelectorAll('body.series-page-compact pre code').forEach((code) => {
-      if (code.dataset.highlighted === 'true') {
-        return;
-      }
+      if (code.dataset.highlighted === 'true') return;
       const className = code.className || '';
       const text = code.textContent || '';
       const looksLikeJson = className.includes('language-json') || /^\s*[{[]/.test(text);
       const looksLikeCode = /language-(tsx|ts|js|javascript|python|css|html)/.test(className) || /\b(const|let|await|function|return|interface|type)\b/.test(text);
-
       if (looksLikeJson) {
         code.innerHTML = highlightJson(text);
         code.dataset.highlighted = 'true';
@@ -192,12 +176,8 @@
     document.querySelectorAll('body.series-page-compact article.note-box p').forEach((paragraph) => {
       const text = (paragraph.textContent || '').trim();
       const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-      if (lines.length < 3 || !lines.every((line) => line.startsWith('|') && line.endsWith('|'))) {
-        return;
-      }
-      if (!/^\|\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|$/.test(lines[1])) {
-        return;
-      }
+      if (lines.length < 3 || !lines.every((line) => line.startsWith('|') && line.endsWith('|'))) return;
+      if (!/^\|\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|$/.test(lines[1])) return;
 
       const rows = lines.map((line) => line.slice(1, -1).split('|').map((cell) => cell.trim()));
       const table = document.createElement('table');
@@ -228,12 +208,45 @@
     });
   }
 
+  function collapseNotionToggleListItems() {
+    document.querySelectorAll('body.series-page-compact article.note-box li').forEach((item) => {
+      if (item.dataset.toggleConverted === 'true' || item.closest('details')) return;
+      const directBlocks = Array.from(item.children).filter((element) =>
+        ['P', 'PRE', 'TABLE', 'BLOCKQUOTE', 'UL', 'OL'].includes(element.tagName)
+      );
+      if (directBlocks.length < 2 || directBlocks[0].tagName !== 'P') return;
+
+      const first = directBlocks[0];
+      const summaryText = (first.textContent || '').trim();
+      if (!summaryText || /^ページ作成日時/.test(summaryText) || /^最終更新日時/.test(summaryText)) return;
+
+      const details = document.createElement('details');
+      details.className = 'notion-toggle';
+
+      const summary = document.createElement('summary');
+      summary.innerHTML = first.innerHTML;
+      details.appendChild(summary);
+
+      const body = document.createElement('div');
+      body.className = 'notion-toggle-body';
+      Array.from(item.childNodes).forEach((node) => {
+        if (node === first) return;
+        if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) return;
+        body.appendChild(node);
+      });
+      details.appendChild(body);
+
+      item.textContent = '';
+      item.classList.add('notion-toggle-li');
+      item.dataset.toggleConverted = 'true';
+      item.appendChild(details);
+    });
+  }
+
   function collapseAnnotationBlockquotes() {
     document.querySelectorAll('body.series-page-compact article.note-box blockquote').forEach((quote) => {
       const text = (quote.textContent || '').trim();
-      if (!/^注記[：:]/.test(text)) {
-        return;
-      }
+      if (!/^注記[：:]/.test(text)) return;
 
       const details = document.createElement('details');
       details.className = 'annotation-accordion';
@@ -247,9 +260,7 @@
       Array.from(quote.childNodes).forEach((node) => body.appendChild(node));
 
       const firstParagraph = body.querySelector('p');
-      if (firstParagraph) {
-        firstParagraph.textContent = firstParagraph.textContent.replace(/^注記[：:]\s*/, '');
-      }
+      if (firstParagraph) firstParagraph.textContent = firstParagraph.textContent.replace(/^注記[：:]\s*/, '');
 
       details.appendChild(body);
       quote.replaceWith(details);
@@ -257,9 +268,7 @@
   }
 
   function injectDeepDiveStyle() {
-    if (document.getElementById('deep-dive-runtime-style')) {
-      return;
-    }
+    if (document.getElementById('deep-dive-runtime-style')) return;
     const style = document.createElement('style');
     style.id = 'deep-dive-runtime-style';
     style.textContent = `
@@ -321,24 +330,32 @@ body.series-page-compact .series-main > article.note-box blockquote{
   border-left:4px solid var(--theme-accent, #245c63)!important;
   border-radius:8px!important;
 }
+body.series-page-compact .series-main > article.note-box .notion-toggle-li{
+  list-style:none!important;
+  margin:1.05em 0!important;
+  padding-left:0!important;
+}
+body.series-page-compact .series-main > article.note-box details.notion-toggle,
 body.series-page-compact .series-main > article.note-box details.annotation-accordion{
-  margin:1.35em 0;
+  margin:1.2em 0;
   padding:0;
   border-top:1px solid var(--theme-line, rgba(151,139,119,.36));
   border-bottom:1px solid var(--theme-line, rgba(151,139,119,.36));
   background:transparent!important;
 }
+body.series-page-compact .series-main > article.note-box details.notion-toggle summary,
 body.series-page-compact .series-main > article.note-box details.annotation-accordion summary{
   cursor:pointer;
   padding:.78em 0;
   color:var(--theme-accent, #245c63)!important;
   font-weight:650;
-  letter-spacing:.08em;
 }
+body.series-page-compact .series-main > article.note-box details.notion-toggle .notion-toggle-body,
 body.series-page-compact .series-main > article.note-box details.annotation-accordion .annotation-body{
   padding:.15em 0 1em;
   color:var(--theme-muted, #66625a)!important;
 }
+body.series-page-compact .series-main > article.note-box details.notion-toggle .notion-toggle-body p,
 body.series-page-compact .series-main > article.note-box details.annotation-accordion .annotation-body p{
   color:var(--theme-muted, #66625a)!important;
 }
@@ -358,10 +375,9 @@ body.series-page-compact .article-link{
   }
 
   function mountDeepDiveEnhancements() {
-    if (!document.body || !document.body.classList.contains('series-page-compact')) {
-      return;
-    }
+    if (!document.body || !document.body.classList.contains('series-page-compact') || !isDeepDivePage()) return;
     injectDeepDiveStyle();
+    collapseNotionToggleListItems();
     convertMarkdownTables();
     collapseAnnotationBlockquotes();
     enhanceCodeBlocks();
