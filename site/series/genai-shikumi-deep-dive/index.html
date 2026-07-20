@@ -32,6 +32,7 @@
       </nav>
     </div>
   </header>
+
   <main>
     <section class="series-hero codex-cover">
       <p class="series-kicker">GENAI-RON叢書 003</p>
@@ -40,17 +41,32 @@
       <p class="series-subtitle">ユーザーが一文を送ってから、生成AIシステムは何を組み立て、何を参照し、何を実行し、どこで止まり、誰が責任を持つのか。</p>
       <p class="codex-credit">文・編集責任：Taku</p>
     </section>
+
     <div class="series-main codex-main">
-      <article class="note-box codex-note">
-<p>このページは、<code>生成AIのしくみ 超詳解</code> 01〜08の公開版索引である。</p>
-<p>このシリーズは、生成AIを「なんとなく賢いチャットボット」としてではなく、request、instruction、context、tool、schema、memory、agentic loop、architectureの組み合わせとして理解するための連続講義である。</p>
-<p>中心にある問いは、これである。</p>
-<blockquote>
-<p>ユーザーが一文を送ってから、生成AIシステムは何を組み立て、何を参照し、何を実行し、どこで止まり、誰が責任を持つのか。</p>
-</blockquote>
-<h2>1. 全体の読み方</h2>
-<p>このシリーズは、順番に読むことで、生成AIの実行構造が下から積み上がるように設計している。</p>
-<pre class="article-phrase"><code>01 request / prompt compilation
+      <section id="articles" class="series-section codex-contents">
+        <h2>目次</h2>
+        <div class="article-grid">
+          <article class="article-card"><span class="article-number">01</span><h3><a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">プロンプトは実行時にどうコンパイルされるのか</a></h3><p>ユーザーがチャット欄に書いた文章だけがpromptではない。上位指示、履歴、memory、ファイル、検索結果、tool定義が、実行時に入力環境として組み立てられる。</p><p class="article-phrase">promptとは、ユーザー文だけではなく、実行時に組み立てられた入力環境である。</p></article>
+          <article class="article-card"><span class="article-number">02</span><h3><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">指示階層とは何か</a></h3><p>system、developer、user、tool resultの権限構造を分け、prompt injectionを「資料と指示の境界事故」として理解する。</p><p class="article-phrase">指示の強さは、言葉の強さではなく、置かれた層によって決まる。</p></article>
+          <article class="article-card"><span class="article-number">03</span><h3><a href="/series/genai-shikumi-deep-dive/03-context/">contextとは何か</a></h3><p>履歴、memory、retrieval、file input、tool resultが、今回の生成にどのように注入されるのかを見る。</p><p class="article-phrase">contextとは、保存情報そのものではなく、今回の生成に入った入力集合である。</p></article>
+          <article class="article-card"><span class="article-number">04</span><h3><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">ツール実行ループとは何か</a></h3><p>modelがtool callを出し、applicationが検証・実行し、tool resultをcontextへ戻す流れを見る。</p><p class="article-phrase">modelはtoolを直接実行しない。外部世界への接続はapplication層で起きる。</p></article>
+          <article class="article-card"><span class="article-number">05</span><h3><a href="/series/genai-shikumi-deep-dive/05-structured-output/">構造化出力とは何か</a></h3><p>JSON、schema、parse、validate、refusal、retry、repair、handoffまで含む、applicationとの契約として扱う。</p><p class="article-phrase">構造化出力とは、きれいなJSONではなく、生成AIシステムとの契約である。</p></article>
+          <article class="article-card"><span class="article-number">06</span><h3><a href="/series/genai-shikumi-deep-dive/06-memory/">memoryとは何か</a></h3><p>保存された情報が選別され、現在のcontextへ再注入される仕組みとしてmemoryを読む。</p><p class="article-phrase">memoryとは、モデル内部の体験ではなく、保存・選別・再注入の仕組みである。</p></article>
+          <article class="article-card"><span class="article-number">07</span><h3><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">停止条件と検証ループ</a></h3><p>agentic loopを、停止条件、budget、verification、guardrails、handoff、traceによって制御されるloopとして見る。</p><p class="article-phrase">agentは動き続けるものではなく、止まり、検証し、引き継ぐように設計される。</p></article>
+          <article class="article-card"><span class="article-number">08</span><h3><a href="/series/genai-shikumi-deep-dive/08-architecture/">全体アーキテクチャ</a></h3><p>model、application、runtime、memory、tools、guardrails、human、auditの責任境界として全体を統合する。</p><p class="article-phrase">生成AIシステムはmodelだけでは成立しない。責任境界を持つ全体設計である。</p></article>
+        </div>
+      </section>
+
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>対象範囲</h2>
+        <p>本叢書は、生成AIを「なんとなく賢いチャットボット」としてではなく、request、instruction、context、tool、schema、memory、agentic loop、architectureの組み合わせとして理解するための超詳解シリーズである。</p>
+        <p>中心にある問いは、ユーザーが一文を送ってから、生成AIシステムは何を組み立て、何を参照し、何を実行し、どこで止まり、誰が責任を持つのか、である。</p>
+      </section>
+
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>読み方</h2>
+        <p>01〜05では、単発の応答がどのように組み立てられるかを見る。06では、過去情報がどのように保存・参照・注入されるかを見る。07では、agentがなぜ止まり、検証し、handoffする必要があるかを見る。08では、これらをmodel / application / runtime / humanの責任分担として統合する。</p>
+        <pre class="article-phrase"><code>01 request / prompt compilation
   ↓
 02 instruction hierarchy
   ↓
@@ -64,89 +80,31 @@
   ↓
 07 agentic loop / stop conditions / verification
   ↓
-08 full architecture / responsibility boundary
-</code></pre>
-<p>01〜05では、単発の応答がどのように組み立てられるかを見る。</p>
-<p>06では、過去情報がどのように保存・参照・注入されるかを見る。</p>
-<p>07では、agentがなぜ動き続けるのではなく、止まり、検証し、handoffする必要があるかを見る。</p>
-<p>08では、これらをmodel / application / runtime / humanの責任分担として統合する。</p>
-<h2>2. 公開版リンク</h2>
-<h3>01｜プロンプトは実行時にどうコンパイルされるのか</h3>
-<p><a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">生成AIのしくみ 超詳解 01｜プロンプトは実行時にどうコンパイルされるのか｜公開版</a></p>
-<p>ユーザーがチャット欄に書いた文章だけがpromptではない。system / developer instruction、履歴、memory、ファイル、検索結果、tool定義などが、実行時に入力環境として組み立てられる。</p>
-<h3>02｜指示階層とは何か</h3>
-<p><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">生成AIのしくみ 超詳解 02｜指示階層とは何か：system / developer / user / tool の権限構造｜公開版</a></p>
-<p>指示の強さは、言葉の強さではなく、置かれた層によって決まる。system、developer、user、tool resultを分け、prompt injectionを「資料と指示の境界事故」として理解する。</p>
-<h3>03｜contextとは何か</h3>
-<p><a href="/series/genai-shikumi-deep-dive/03-context/">生成AIのしくみ 超詳解 03｜contextとは何か：履歴・メモリ・検索結果・ファイルはどう入力へ組み込まれるのか｜公開版</a></p>
-<p>contextとは、保存情報そのものではなく、今回の生成に注入された入力集合である。履歴、memory、retrieval、file input、tool resultがどのように現在の応答に影響するかを見る。</p>
-<h3>04｜ツール実行ループとは何か</h3>
-<p><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">生成AIのしくみ 超詳解 04｜ツール実行ループとは何か：tool callはどのように発生し、実行され、戻るのか｜公開版</a></p>
-<p>modelはtoolを直接実行しない。modelがtool callを出し、applicationが検証・実行し、tool resultをcontextへ戻す。外部世界への接続がどの層で起きるかを扱う。</p>
-<h3>05｜構造化出力とは何か</h3>
-<p><a href="/series/genai-shikumi-deep-dive/05-structured-output/">生成AIのしくみ 超詳解 05｜構造化出力とは何か：JSON、schema、validation、再生成｜公開版</a></p>
-<p>構造化出力とは、きれいなJSONを書かせることではない。schema、parse、validate、refusal、retry、repair、handoffまで含む、applicationとの契約として扱う。</p>
-<h3>06｜memoryとは何か</h3>
-<p><a href="/series/genai-shikumi-deep-dive/06-memory/">生成AIのしくみ 超詳解 06｜memoryとは何か：保存、参照、personalization、監査｜公開版</a></p>
-<p>memoryとは、モデル内部に人間の記憶のような体験が発生することではない。保存された情報が選別され、現在のcontextへ再注入される仕組みとして理解する。</p>
-<h3>07｜停止条件と検証ループ</h3>
-<p><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">生成AIのしくみ 超詳解 07｜停止条件と検証ループ：agentはいつ続行し、いつ止まるのか｜公開版</a></p>
-<p>agentic loopとは、モデルが自律的に動き続けることではない。停止条件、budget、verification、guardrails、handoff、traceによって制御されるloopである。</p>
-<h3>08｜全体アーキテクチャ</h3>
-<p><a href="/series/genai-shikumi-deep-dive/08-architecture/">生成AIのしくみ 超詳解 08｜全体アーキテクチャ：model / application / runtime / human の分担｜公開版</a></p>
-<p>生成AIシステムはmodelだけでは成立しない。model、application、runtime、memory、tools、guardrails、human、auditの責任境界を明示する全体設計として統合する。</p>
-<h2>3. テーマ別の逆引き</h2>
-<h3>prompt / requestを理解したい</h3>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">01｜プロンプトは実行時にどうコンパイルされるのか</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">02｜指示階層とは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/03-context/">03｜contextとは何か</a></li>
-</ul>
-<h3>tool useを理解したい</h3>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">04｜ツール実行ループとは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/05-structured-output/">05｜構造化出力とは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">07｜停止条件と検証ループ</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/08-architecture/">08｜全体アーキテクチャ</a></li>
-</ul>
-<h3>memory / personalizationを理解したい</h3>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/03-context/">03｜contextとは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/06-memory/">06｜memoryとは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/08-architecture/">08｜全体アーキテクチャ</a></li>
-</ul>
-<h3>agentを理解したい</h3>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">04｜ツール実行ループとは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/05-structured-output/">05｜構造化出力とは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">07｜停止条件と検証ループ</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/08-architecture/">08｜全体アーキテクチャ</a></li>
-</ul>
-<h3>システム設計として理解したい</h3>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">02｜指示階層とは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">04｜ツール実行ループとは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/05-structured-output/">05｜構造化出力とは何か</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">07｜停止条件と検証ループ</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/08-architecture/">08｜全体アーキテクチャ</a></li>
-</ul>
-<h2>4. 全体の一文要約</h2>
-<pre class="article-phrase"><code>生成AIとは、モデル単体ではなく、
-ユーザー目的、指示階層、context、tool、schema、memory、loop、guardrails、human judgmentを、
-applicationが実行時に編成するシステムである。
-</code></pre>
-<h2>5. 補助ページ</h2>
-<ul>
-<li><a href="/series/genai-shikumi-deep-dive/concept-map/">概念マップ</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/glossary/">用語集</a></li>
-<li><a href="/series/genai-shikumi-deep-dive/misconceptions/">誤解されやすい点</a></li>
-</ul>
+08 full architecture / responsibility boundary</code></pre>
+      </section>
 
-<nav class="article-link" aria-label="シリーズ補助リンク"><a href="/series/genai-shikumi/">叢書001</a> / <a href="/series/genai-shikumi-technical/">叢書002</a></nav>
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>テーマ別の逆引き</h2>
+        <div class="codex-link-grid">
+          <div class="codex-link-card"><h3>prompt / requestを理解したい</h3><p><a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">01</a>、<a href="/series/genai-shikumi-deep-dive/02-instruction-hierarchy/">02</a>、<a href="/series/genai-shikumi-deep-dive/03-context/">03</a> を読む。</p></div>
+          <div class="codex-link-card"><h3>tool useを理解したい</h3><p><a href="/series/genai-shikumi-deep-dive/04-tool-execution-loop/">04</a>、<a href="/series/genai-shikumi-deep-dive/05-structured-output/">05</a>、<a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">07</a>、<a href="/series/genai-shikumi-deep-dive/08-architecture/">08</a> を読む。</p></div>
+          <div class="codex-link-card"><h3>memory / personalizationを理解したい</h3><p><a href="/series/genai-shikumi-deep-dive/03-context/">03</a>、<a href="/series/genai-shikumi-deep-dive/06-memory/">06</a>、<a href="/series/genai-shikumi-deep-dive/08-architecture/">08</a> を読む。</p></div>
+        </div>
+      </section>
 
-      </article>
+      <section class="series-section note-box series-afterword codex-note">
+        <h2>関連する叢書・補助ページ</h2>
+        <ul class="codex-related-list">
+          <li><a href="/series/genai-shikumi/">GENAI-RON叢書001｜生成AIのしくみ</a></li>
+          <li><a href="/series/genai-shikumi-technical/">GENAI-RON叢書002｜生成AIのしくみ 詳解版</a></li>
+          <li><a href="/series/genai-shikumi-deep-dive/concept-map/">概念マップ</a></li>
+          <li><a href="/series/genai-shikumi-deep-dive/glossary/">用語集</a></li>
+          <li><a href="/series/genai-shikumi-deep-dive/misconceptions/">誤解されやすい点</a></li>
+        </ul>
+      </section>
     </div>
   </main>
+
   <footer class="series-footer"><p>GENAI-RON｜Research Archive of Generative AI</p></footer>
   <script src="/assets/theme.js" defer></script>
 </body>
