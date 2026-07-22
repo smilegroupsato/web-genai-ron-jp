@@ -1,0 +1,100 @@
+name: Validate Promotion Fixture 04
+
+on:
+  pull_request:
+    paths:
+      - "publishing/promotions/04-tool-execution-loop.yml"
+      - "scripts/prepare_promotion_fixture.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/validate_structured_preview.py"
+      - "content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md"
+      - "site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+      - ".github/workflows/validate-promotion-fixture-04.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile fixture and publishing scripts
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/prepare_promotion_fixture.py \
+            scripts/validate_structured_preview.py
+
+      - name: Confirm fixture script has no site write option
+        run: |
+          if python scripts/prepare_promotion_fixture.py --help | grep -q -- '--write-site'; then
+            echo "promotion fixture unexpectedly exposes --write-site" >&2
+            exit 1
+          fi
+
+      - name: Generate dry-run candidate and diff report
+        run: |
+          rm -rf _promotion_fixture
+          python scripts/prepare_promotion_fixture.py
+
+      - name: Validate candidate semantic parity with current public artifact
+        run: |
+          python scripts/validate_structured_preview.py \
+            site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            _promotion_fixture/deep-dive-04-tool-execution-loop/candidate/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            --expected-theme default-academic \
+            --expected-collection core \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
+
+      - name: Validate fixture report safety boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report_path = Path("_promotion_fixture/deep-dive-04-tool-execution-loop/report.json")
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          expected = "site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+
+          assert report["write_enabled"] is False
+          assert report["status"] == "dry-run-generated"
+          assert report["scope"]["site_mutated"] is False
+          assert report["scope"]["allowed_site_paths"] == [expected]
+          assert report["current_public_artifact"]["path"] == expected
+          assert report["rollback"]["base_commit"]
+          assert report["candidate_artifact"]["path"].startswith("_promotion_fixture/")
+          assert report["diff"]["path"].startswith("_promotion_fixture/")
+          print(json.dumps(report["diff"], indent=2))
+          PY
+
+      - name: Confirm branch does not change site tree
+        run: git diff --exit-code origin/main...HEAD -- site/
+
+      - name: Upload promotion fixture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: promotion-fixture-04
+          path: _promotion_fixture/deep-dive-04-tool-execution-loop/
+          if-no-files-found: error
+          retention-days: 7
