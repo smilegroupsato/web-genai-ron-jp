@@ -135,6 +135,12 @@ async function main() {
         };
       };
 
+      const switcher = document.querySelector(".appearance-switcher");
+      const firstSwitcherButton = switcher?.querySelector("button") || null;
+      const firstSwitcherButtonStyle = firstSwitcherButton
+        ? getComputedStyle(firstSwitcherButton)
+        : null;
+
       return {
         title: document.title,
         themeId: root.dataset.themeId || null,
@@ -151,12 +157,28 @@ async function main() {
         scrollWidth: root.scrollWidth,
         bodyScrollWidth: document.body.scrollWidth,
         header: rect(".series-header"),
+        readingPreferences: rect("[data-reading-preferences]"),
         nav: rect(".series-nav"),
         hero: rect(".series-hero"),
         article: rect("article.note-box"),
         footer: rect(".series-footer"),
         h2Count: document.querySelectorAll("article.note-box h2").length,
         linkCount: document.querySelectorAll("a").length,
+        appearanceButtonCount:
+          document.querySelectorAll(".appearance-switcher button").length,
+        appearanceInDedicatedSlot: Boolean(
+          switcher?.closest("[data-reading-preferences-slot]")
+        ),
+        appearanceIsDirectBodyChild: Boolean(
+          document.querySelector("body > .appearance-switcher")
+        ),
+        appearanceButtonStyle: firstSwitcherButtonStyle
+          ? {
+              borderRadius: firstSwitcherButtonStyle.borderRadius,
+              fontFamily: firstSwitcherButtonStyle.fontFamily,
+              minHeight: firstSwitcherButtonStyle.minHeight,
+            }
+          : null,
         overflow,
       };
     });
@@ -170,8 +192,25 @@ async function main() {
         `theme mismatch: expected ${testCase.expectedTheme}, got ${metrics.themeId}`
       );
     }
-    if (!metrics.header || !metrics.hero || !metrics.article || !metrics.footer) {
+    if (
+      !metrics.header ||
+      !metrics.readingPreferences ||
+      !metrics.hero ||
+      !metrics.article ||
+      !metrics.footer
+    ) {
       errors.push("required page region is missing");
+    }
+    if (metrics.appearanceButtonCount !== 3) {
+      errors.push(
+        `appearance control count mismatch: expected 3, got ${metrics.appearanceButtonCount}`
+      );
+    }
+    if (!metrics.appearanceInDedicatedSlot) {
+      errors.push("appearance switcher is not mounted in the dedicated slot");
+    }
+    if (metrics.appearanceIsDirectBodyChild) {
+      errors.push("appearance switcher leaked as a direct child of body");
     }
     if (metrics.scrollWidth > metrics.clientWidth + 1) {
       errors.push(
@@ -200,7 +239,7 @@ async function main() {
 
   for (const entry of report) {
     console.log(
-      `${entry.case.id}: theme=${entry.metrics.themeId} width=${entry.metrics.clientWidth}/${entry.metrics.scrollWidth} errors=${entry.errors.length}`
+      `${entry.case.id}: theme=${entry.metrics.themeId} width=${entry.metrics.clientWidth}/${entry.metrics.scrollWidth} controls=${entry.metrics.appearanceButtonCount} errors=${entry.errors.length}`
     );
     for (const error of entry.errors) console.error(`  ERROR: ${error}`);
   }
