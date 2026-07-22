@@ -3,12 +3,14 @@
 
 This experimental builder combines:
 - content/ Markdown
+- publishing/site.yml
 - publishing/templates/article.html
 - publishing/components/*
+- publishing/themes/*
 - a logical theme id
 
 It intentionally has no --write-site option. Promotion to the public build path
-requires preview generation and diff review first.
+requires preview generation and semantic review first.
 """
 
 from __future__ import annotations
@@ -17,7 +19,12 @@ import argparse
 import html
 import re
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, List, Mapping
+
+try:
+    import yaml
+except ModuleNotFoundError:  # pragma: no cover - exercised by operator setup
+    yaml = None
 
 from build_content_pages import (
     BuildError,
@@ -30,6 +37,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CONTENT_ROOT = REPO_ROOT / "content"
 PUBLISHING_ROOT = REPO_ROOT / "publishing"
 DEFAULT_PREVIEW_ROOT = REPO_ROOT / "_structured_build_preview"
+SITE_REGISTRY = PUBLISHING_ROOT / "site.yml"
 ARTICLE_TEMPLATE = PUBLISHING_ROOT / "templates" / "article.html"
 SITE_HEADER = PUBLISHING_ROOT / "components" / "site-header.html"
 SITE_FOOTER = PUBLISHING_ROOT / "components" / "site-footer.html"
@@ -43,12 +51,111 @@ def read_required(path: Path) -> str:
     return path.read_text(encoding="utf-8").rstrip("\n")
 
 
-def theme_manifest_for(theme_id: str) -> Path:
+def load_yaml_mapping(path: Path) -> Dict[str, object]:
+    if yaml is None:
+        raise BuildError(
+            "PyYAML is required for the structured preview builder. "
+            "Install requirements-publishing.txt in an isolated environment."
+        )
+    raw = read_required(path)
+    data = yaml.safe_load(raw)
+    if not isinstance(data, dict):
+        raise BuildError(f"publishing manifest must be a mapping: {path.relative_to(REPO_ROOT)}")
+    return data
+
+
+def require_mapping(value: object, label: str) -> Mapping[str, object]:
+    if not isinstance(value, dict):
+        raise BuildError(f"publishing manifest mapping is missing or invalid: {label}")
+    return value
+
+
+def repo_path(value: object, label: str) -> Path:
+    raw = str(value or "").strip()
+    if not raw:
+        raise BuildError(f"publishing path is missing: {label}")
+    path = (REPO_ROOT / raw).resolve()
+    try:
+        path.relative_to(REPO_ROOT)
+    except ValueError as exc:
+        raise BuildError(f"publishing path escapes repository: {label}") from exc
+    return path
+
+
+def theme_resolution(theme_id: str) -> Dict[str, str]:
+    registry = load_yaml_mapping(SITE_REGISTRY)
+    registered_themes = require_mapping(registry.get("themes"), "site.yml:themes")
+
     if theme_id == "default-academic":
-        return PUBLISHING_ROOT / "themes" / "default.yml"
-    if theme_id == "library-series" or theme_id.startswith("library-"):
-        return PUBLISHING_ROOT / "themes" / "library-series.yml"
-    raise BuildError(f"unknown structured-preview theme_id: {theme_id!r}")
+        entry = require_mapping(registered_themes.get(theme_id), f"theme:{theme_id}")
+        manifest_path = repo_path(entry.get("manifest"), f"theme:{theme_id}:manifest")
+        manifest = load_yaml_mapping(manifest_path)
+        hero = require_mapping(manifest.get("hero"), f"{manifest_path.name}:hero")
+        return {
+            "theme_id": theme_id,
+            "theme_collection": str(manifest.get("collection_id", "core")),
+            "theme_base": theme_id,
+            "theme_season": "none",
+            "hero_variant": str(hero.get("variant", "text-only")),
+            "text_contrast": str(hero.get("text_contrast", "dark")),
+            "asset_role": str(hero.get("asset_role", "none")),
+            "asset_ref": "none",
+            "asset_status": "none",
+            "production_enabled": "true",
+            "theme_manifest": str(manifest_path.relative_to(REPO_ROOT)),
+        }
+
+    library_entry = require_mapping(
+        registered_themes.get("library-series"), "theme:library-series"
+    )
+    manifest_path = repo_path(
+        library_entry.get("manifest"), "theme:library-series:manifest"
+    )
+    manifest = load_yaml_mapping(manifest_path)
+    runtime_variants = require_mapping(
+        manifest.get("runtime_variants"), f"{manifest_path.name}:runtime_variants"
+    )
+    variant = runtime_variants.get(theme_id)
+    if not isinstance(variant, dict):
+        available = ", ".join(sorted(str(key) for key in runtime_variants))
+        raise BuildError(
+            f"unknown structured-preview theme_id: {theme_id!r}. "
+            f"Registered runtime variants: {available}"
+        )
+
+    base_theme_id = str(variant.get("base_theme", "")).strip()
+    themes = require_mapping(manifest.get("themes"), f"{manifest_path.name}:themes")
+    base_theme = require_mapping(
+        themes.get(base_theme_id), f"{manifest_path.name}:themes:{base_theme_id}"
+    )
+    season = str(variant.get("season", "none")).strip() or "none"
+    if season != "none":
+        season_variants = require_mapping(
+            manifest.get("season_variants"), f"{manifest_path.name}:season_variants"
+        )
+        if season not in season_variants:
+            raise BuildError(f"unknown season {season!r} for theme {theme_id!r}")
+
+    asset_ref = str(variant.get("asset_ref", "unresolved")).strip() or "unresolved"
+    asset_status = "resolved" if asset_ref not in {"none", "unresolved"} else asset_ref
+
+    return {
+        "theme_id": theme_id,
+        "theme_collection": str(manifest.get("collection_id", "library-series")),
+        "theme_base": base_theme_id,
+        "theme_season": season,
+        "hero_variant": str(
+            variant.get("hero_variant", base_theme.get("hero_variant", "image-background"))
+        ),
+        "text_contrast": str(
+            variant.get("text_contrast", base_theme.get("text_contrast", "light"))
+        ),
+        "asset_role": str(variant.get("asset_role", "hero-main")),
+        "asset_ref": asset_ref,
+        "asset_status": asset_status,
+        "production_enabled": str(bool(variant.get("production_enabled", False))).lower(),
+        "theme_manifest": str(manifest_path.relative_to(REPO_ROOT)),
+    }
 
 
 def render_template(template: str, values: Dict[str, str]) -> str:
@@ -70,6 +177,10 @@ def source_paths(explicit: str | None) -> Iterable[Path]:
         path = (REPO_ROOT / explicit).resolve()
         if not path.is_file():
             raise BuildError(f"content source is missing: {explicit}")
+        try:
+            path.relative_to(CONTENT_ROOT)
+        except ValueError as exc:
+            raise BuildError("structured preview source must be under content/") from exc
         yield path
         return
     yield from sorted(CONTENT_ROOT.glob("series/**/*.md"))
@@ -86,9 +197,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
     template = read_required(ARTICLE_TEMPLATE)
     header = read_required(SITE_HEADER)
     footer = read_required(SITE_FOOTER)
-
-    manifest_path = theme_manifest_for(theme_id)
-    read_required(manifest_path)
+    theme = theme_resolution(theme_id)
 
     title = str(meta.get("title", "Untitled"))
     subtitle = str(meta.get("subtitle", ""))
@@ -102,10 +211,14 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
 
     document_title = f"{series_kicker}｜GENAI-RON" if series_kicker else f"{title}｜GENAI-RON"
     og_title = series_kicker or title
-    hero_variant = "text-only" if theme_id == "default-academic" else "image-background"
 
     values = {
-        "theme_id": html.escape(theme_id, quote=True),
+        "theme_id": html.escape(theme["theme_id"], quote=True),
+        "theme_collection": html.escape(theme["theme_collection"], quote=True),
+        "theme_base": html.escape(theme["theme_base"], quote=True),
+        "theme_season": html.escape(theme["theme_season"], quote=True),
+        "theme_manifest": html.escape(theme["theme_manifest"], quote=True),
+        "production_enabled": html.escape(theme["production_enabled"], quote=True),
         "document_title": html.escape(document_title),
         "description": html.escape(description, quote=True),
         "og_title": html.escape(og_title, quote=True),
@@ -114,7 +227,11 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
         "original_updated": html.escape(str(meta.get("original_notion_updated_at", ""))),
         "web_migrated": html.escape(str(meta.get("web_migrated_at", ""))),
         "site_header": header,
-        "hero_variant": html.escape(hero_variant, quote=True),
+        "hero_variant": html.escape(theme["hero_variant"], quote=True),
+        "text_contrast": html.escape(theme["text_contrast"], quote=True),
+        "asset_role": html.escape(theme["asset_role"], quote=True),
+        "asset_ref": html.escape(theme["asset_ref"], quote=True),
+        "asset_status": html.escape(theme["asset_status"], quote=True),
         "series_kicker": html.escape(series_kicker),
         "title": html.escape(title),
         "subtitle": html.escape(subtitle),
@@ -128,9 +245,12 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
 def build_one(path: Path, preview_root: Path, cli_theme_id: str | None) -> Path:
     text = path.read_text(encoding="utf-8")
     meta, body = parse_front_matter(text)
-    theme_id = cli_theme_id or str(meta.get("theme_id", "default-academic")).strip()
+    registry = load_yaml_mapping(SITE_REGISTRY)
+    site = require_mapping(registry.get("site"), "site.yml:site")
+    default_theme_id = str(site.get("default_theme_id", "default-academic"))
+    theme_id = cli_theme_id or str(meta.get("theme_id", default_theme_id)).strip()
     if not theme_id:
-        theme_id = "default-academic"
+        theme_id = default_theme_id
 
     body_html = render_markdown_body(body)
     page = build_article(meta, body_html, theme_id)
@@ -152,7 +272,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--theme-id",
-        help="Logical theme id. Defaults to source metadata or default-academic.",
+        help="Logical theme id. Defaults to source metadata or publishing/site.yml.",
     )
     args = parser.parse_args()
 
