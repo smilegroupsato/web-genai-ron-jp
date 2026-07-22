@@ -46,16 +46,14 @@ jobs:
             exit 1
           fi
 
-      - name: Generate current and structured previews for deep-dive 04
+      - name: Generate current and structured previews for all content pages
         run: |
           rm -rf _content_build_preview_ci _structured_build_preview_ci _structured_library_preview_ci
 
           python scripts/build_content_pages.py \
-            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
             --preview-root _content_build_preview_ci
 
           python scripts/build_structured_preview.py \
-            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
             --preview-root _structured_build_preview_ci
 
           python scripts/build_structured_preview.py \
@@ -63,20 +61,46 @@ jobs:
             --preview-root _structured_library_preview_ci \
             --theme-id library-university-humanities-summer
 
-      - name: Validate default structured preview semantic parity
+      - name: Validate semantic parity for every generated page
         run: |
-          python scripts/validate_structured_preview.py \
-            _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
-            _structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
-            --expected-theme default-academic \
-            --expected-collection core \
-            --expected-base default-academic \
-            --expected-season none \
-            --expected-hero-variant text-only \
-            --expected-text-contrast dark \
-            --expected-asset-role none \
-            --expected-asset-status none \
-            --expected-production-enabled true
+          count=0
+          while IFS= read -r current; do
+            relative="${current#_content_build_preview_ci/}"
+            structured="_structured_build_preview_ci/${relative}"
+
+            if [ ! -f "$structured" ]; then
+              echo "missing structured preview: $structured" >&2
+              exit 1
+            fi
+
+            python scripts/validate_structured_preview.py \
+              "$current" \
+              "$structured" \
+              --expected-theme default-academic \
+              --expected-collection core \
+              --expected-base default-academic \
+              --expected-season none \
+              --expected-hero-variant text-only \
+              --expected-text-contrast dark \
+              --expected-asset-role none \
+              --expected-asset-status none \
+              --expected-production-enabled true
+
+            count=$((count + 1))
+          done < <(find _content_build_preview_ci -name index.html -type f | sort)
+
+          if [ "$count" -eq 0 ]; then
+            echo "no current preview pages were generated" >&2
+            exit 1
+          fi
+
+          structured_count=$(find _structured_build_preview_ci -name index.html -type f | wc -l)
+          if [ "$structured_count" -ne "$count" ]; then
+            echo "page count mismatch: current=$count structured=$structured_count" >&2
+            exit 1
+          fi
+
+          echo "validated pages: $count"
 
       - name: Validate Library Series metadata resolution and semantic parity
         run: |
