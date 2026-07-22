@@ -1,6 +1,6 @@
 ---
 ページ作成日時: "2026-07-22 16:07 JST"
-最終更新日時: "2026-07-22 16:11 JST"
+最終更新日時: "2026-07-22 16:44 JST"
 ---
 
 # genai-ron.jp content source
@@ -9,6 +9,7 @@
 
 ## 更新履歴
 
+- 2026-07-22 16:44 JST：既存 `site/` HTMLから `content/` 原稿Markdownを抽出する補助スクリプトと手順を追記。
 - 2026-07-22 16:11 JST：`content/` から公開HTMLを再生成するための最小ビルダーと運用手順を追記。
 
 ## 目的
@@ -59,6 +60,36 @@ site/
 ## 初期状態
 
 まずは `content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md` を復元サンプルとして作成し、そこから公開HTMLを再生成できるかを確認する。
+
+## 既存HTMLからの抽出手順
+
+既存の `site/` HTMLから `content/` Markdownを作る補助スクリプトは次に置く。
+
+```text
+scripts/extract_site_article_to_content.py
+```
+
+超詳解ページをまとめて抽出する場合は次を使う。
+
+```bash
+python3 scripts/extract_site_article_to_content.py --all-deep-dive
+```
+
+既存の `content/` ファイルは、初期状態では上書きしない。04のようにすでに正本化済みのファイルは `skipped existing ...` と表示される。
+
+抽出後は、必ず差分を確認する。
+
+```bash
+git diff -- content/series/genai-shikumi-deep-dive
+```
+
+既存ファイルを再抽出で上書きする場合は、明示的に `--overwrite` を付ける。
+
+```bash
+python3 scripts/extract_site_article_to_content.py \
+  --source site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+  --overwrite
+```
 
 ## 生成手順
 
