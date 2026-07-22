@@ -5,6 +5,7 @@ on:
     paths:
       - "content/**"
       - "publishing/**"
+      - "requirements-publishing.txt"
       - "scripts/build_content_pages.py"
       - "scripts/build_structured_preview.py"
       - "scripts/validate_structured_preview.py"
@@ -27,6 +28,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
 
       - name: Compile builders and validator
         run: |
@@ -64,15 +68,38 @@ jobs:
           python scripts/validate_structured_preview.py \
             _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
             _structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
-            --expected-theme default-academic
+            --expected-theme default-academic \
+            --expected-collection core \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
 
-      - name: Validate library theme metadata wiring
+      - name: Validate Library Series metadata resolution and semantic parity
         run: |
-          output="_structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
-          grep -q 'data-theme-id="library-university-humanities-summer"' "$output"
-          grep -q 'data-hero-variant="image-background"' "$output"
-          if grep -q '{{' "$output"; then
-            echo "unresolved template placeholder found" >&2
+          python scripts/validate_structured_preview.py \
+            _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            _structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            --expected-theme library-university-humanities-summer \
+            --expected-collection library-series \
+            --expected-base university-humanities \
+            --expected-season summer \
+            --expected-hero-variant image-background \
+            --expected-text-contrast dark \
+            --expected-asset-role hero-main \
+            --expected-asset-status unresolved \
+            --expected-production-enabled false
+
+      - name: Reject unregistered theme ids
+        run: |
+          if python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _invalid_theme_preview_ci \
+            --theme-id library-not-registered; then
+            echo "unregistered theme unexpectedly built" >&2
             exit 1
           fi
 
