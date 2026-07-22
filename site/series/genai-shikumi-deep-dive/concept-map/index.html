@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>生成AIのしくみ 超詳解｜主要概念マップ｜GENAI-RON</title>
+  <title>生成AIのしくみ 超詳解 ｜GENAI-RON</title>
   <meta name="description" content="生成AIのしくみ超詳解 01〜08の主要概念を、関係図と境界として整理する補助資料。">
-  <meta property="og:title" content="生成AIのしくみ 超詳解｜主要概念マップ">
+  <meta property="og:title" content="生成AIのしくみ 超詳解 ">
   <meta property="og:description" content="生成AIのしくみ超詳解 01〜08の主要概念を、関係図と境界として整理する補助資料。">
   <meta property="og:type" content="article">
   <meta property="og:image" content="/assets/og.svg">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 11:42 JST / Notion原稿最終更新日時：2026-07-20 11:42 JST -->
+  <!-- Generated from content/ Markdown / Notion原稿作成日時：2026-07-20 11:42 JST / Notion原稿最終更新日時：2026-07-20 11:42 JST / Web移植日時：2026-07-20 12:56 JST -->
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
@@ -28,16 +28,12 @@
   </header>
   <main>
     <section class="series-hero">
-      <p class="series-kicker">Deep Dive Supplement</p>
+      <p class="series-kicker">生成AIのしくみ 超詳解 </p>
       <h1>主要概念マップ</h1>
       <p class="series-subtitle">01〜08を、一つの概念体系として見渡すための地図。</p>
     </section>
     <div class="series-main">
       <article class="note-box">
-<ul>
-<li>ページ作成日時：2026-07-20 11:42 JST</li>
-<li>最終更新日時：2026-07-20 11:42 JST</li>
-</ul>
 <p>このページは、<code>生成AIのしくみ 超詳解</code> 01〜08を、個別記事ではなく一つの概念体系として見渡すための主要概念マップである。</p>
 <p>目的は、各回で扱った概念を、単なる用語一覧ではなく、互いにどう接続しているかが分かる形にすることにある。</p>
 <h2>1. 全体の骨格</h2>
@@ -239,31 +235,31 @@ Human
 </tbody>
 </table>
 <h2>5. 01〜08の概念接続</h2>
-<h3>01から02へ</h3>
+<p>01から02へ</p>
 <p>01で扱ったrequest objectは、ただ情報を集めるだけではない。</p>
 <p>その中に入る情報には、system、developer、user、tool resultなどの層がある。</p>
 <p>そのため、01の「組み立て」は、02の「指示階層」と直結する。</p>
-<h3>02から03へ</h3>
+<p>02から03へ</p>
 <p>指示階層が分かると、外部資料や検索結果を命令として扱ってはいけない理由が見える。</p>
 <p>これが03のcontext理解につながる。</p>
 <p>contextに入ったからといって、その情報が上位命令になるわけではない。</p>
-<h3>03から04へ</h3>
+<p>03から04へ</p>
 <p>tool resultもcontextの一部である。</p>
 <p>ただし、それはモデルが直接外部世界を見たという意味ではない。</p>
 <p>04では、tool callがapplicationで実行され、その結果がtool resultとしてcontextへ戻るloopを見る。</p>
-<h3>04から05へ</h3>
+<p>04から05へ</p>
 <p>tool callは、自然文ではなく構造化された出力である。</p>
 <p>だから、schema、validation、retry、repairが必要になる。</p>
 <p>04のtool call理解は、05の構造化出力理解へつながる。</p>
-<h3>05から06へ</h3>
+<p>05から06へ</p>
 <p>schema化できるのは出力だけではない。</p>
 <p>memoryの保存・参照・注入にも、何を保存し、いつ使い、どう監査するかという構造が必要である。</p>
 <p>05の契約という考え方は、06のmemory governanceにつながる。</p>
-<h3>06から07へ</h3>
+<p>06から07へ</p>
 <p>memoryやretrievalがあると、agentは長い文脈の中で行動できるように見える。</p>
 <p>しかし、長く動けることと、安全に止まれることは別である。</p>
 <p>06の持続性は、07の停止条件と検証ループを必要とする。</p>
-<h3>07から08へ</h3>
+<p>07から08へ</p>
 <p>agentic loopを制御するには、modelだけでなくapplication、runtime、human、auditの責任境界が必要になる。</p>
 <p>07のcontrol loopは、08の全体アーキテクチャへ統合される。</p>
 <h2>6. 中心命題一覧</h2>
@@ -323,9 +319,7 @@ Human
 <pre class="article-phrase"><code>生成AIを理解するとは、modelの賢さを語ることだけではなく、
 request、instruction、context、tool、schema、memory、loop、human responsibilityの境界を読むことである。
 </code></pre>
-
-<nav class="article-link" aria-label="補助資料リンク"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a> / <a href="/series/genai-shikumi-deep-dive/01-prompt-compilation/">01から読む</a></nav>
-
+<nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
       </article>
     </div>
   </main>

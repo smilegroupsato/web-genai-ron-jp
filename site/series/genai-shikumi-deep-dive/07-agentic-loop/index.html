@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 10:45 JST / Notion原稿最終更新日時：2026-07-20 10:45 JST -->
+  <!-- Generated from content/ Markdown / Notion原稿作成日時：2026-07-20 10:45 JST / Notion原稿最終更新日時：2026-07-20 10:45 JST / Web移植日時：2026-07-20 12:56 JST -->
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
@@ -34,10 +34,6 @@
     </section>
     <div class="series-main">
       <article class="note-box">
-<ul>
-<li>ページ作成日時：2026-07-20 10:45 JST</li>
-<li>最終更新日時：2026-07-20 10:45 JST</li>
-</ul>
 <p>agentという言葉には、どこか「自律的に動き続けるもの」という印象がある。</p>
 <p>ユーザーが目的を与える。</p>
 <p>AIが計画を立てる。</p>
@@ -47,7 +43,7 @@
 <p>また実行する。</p>
 <p>このloopを見ると、agentとは「目的に向かって自動的に進み続けるAI」のように見える。</p>
 <p>しかし、agentic systemを安全に設計するうえで、本当に重要なのは「どう続けるか」だけではない。</p>
-<p>むしろ重要なのは、<strong>いつ止まるか</strong>である。</p>
+<p>むしろ重要なのは、いつ止まるかである。</p>
 <blockquote>
 <p>agentic loopとは、モデルが自律的に動き続けることではない。observe、decide、act、verifyを繰り返しながら、明示された停止条件・検証条件・予算・権限・安全条件に従って、続行または停止を選ぶ制御ループである。</p>
 </blockquote>
@@ -456,12 +452,12 @@ verification failure
   fromAgent: string;
   toAgent: string;
   reason:
-    | &quot;specialized_skill_required&quot;
-    | &quot;permission_required&quot;
-    | &quot;manual_review_required&quot;
-    | &quot;insufficient_context&quot;
-    | &quot;budget_exceeded&quot;
-    | &quot;risk_too_high&quot;;
+    | "specialized_skill_required"
+    | "permission_required"
+    | "manual_review_required"
+    | "insufficient_context"
+    | "budget_exceeded"
+    | "risk_too_high";
   currentState: string;
   completedSteps: string[];
   verifiedResults: string[];
@@ -470,7 +466,7 @@ verification failure
   artifacts: {
     name: string;
     url?: string;
-    status: &quot;draft&quot; | &quot;verified&quot; | &quot;needs_review&quot;;
+    status: "draft" | "verified" | "needs_review";
   }[];
   recommendedNextAction: string;
 };
@@ -505,22 +501,22 @@ verification failure
   candidateActions: {
     action: string;
     expectedBenefit: string;
-    risk: &quot;low&quot; | &quot;medium&quot; | &quot;high&quot;;
-    cost: &quot;low&quot; | &quot;medium&quot; | &quot;high&quot;;
+    risk: "low" | "medium" | "high";
+    cost: "low" | "medium" | "high";
     requiresApproval: boolean;
     selected: boolean;
     reason: string;
   }[];
-  verificationStatus?: &quot;not_checked&quot; | &quot;passed&quot; | &quot;failed&quot; | &quot;inconclusive&quot;;
+  verificationStatus?: "not_checked" | "passed" | "failed" | "inconclusive";
   stopReason?:
-    | &quot;completed&quot;
-    | &quot;failed&quot;
-    | &quot;blocked&quot;
-    | &quot;needs_user&quot;
-    | &quot;manual_review&quot;
-    | &quot;handoff&quot;
-    | &quot;aborted&quot;
-    | &quot;budget_exceeded&quot;;
+    | "completed"
+    | "failed"
+    | "blocked"
+    | "needs_user"
+    | "manual_review"
+    | "handoff"
+    | "aborted"
+    | "budget_exceeded";
 };
 </code></pre>
 <p>traceは、debugのためだけではない。</p>
@@ -580,9 +576,7 @@ should_fail_closed cases
 <p>次の08では、これらを一つの全体アーキテクチャとして組み直す。</p>
 <p>model、application、runtime、context、memory、tools、schema、guardrails、trace、人間の承認。</p>
 <p>これらがどの層にあり、どこで接続し、どこで失敗し、どこで制御されるのかを、全体図として整理する。</p>
-
 <nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/06-memory/">前へ：06 memoryとは何か</a> / <a href="/series/genai-shikumi-deep-dive/08-architecture/">次へ：08 全体アーキテクチャ</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
-
       </article>
     </div>
   </main>

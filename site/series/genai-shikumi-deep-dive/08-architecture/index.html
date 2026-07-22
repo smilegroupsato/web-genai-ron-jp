@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-20 11:22 JST / Notion原稿最終更新日時：2026-07-20 11:22 JST -->
+  <!-- Generated from content/ Markdown / Notion原稿作成日時：2026-07-20 11:22 JST / Notion原稿最終更新日時：2026-07-20 11:22 JST / Web移植日時：2026-07-20 12:56 JST -->
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
@@ -34,10 +34,6 @@
     </section>
     <div class="series-main">
       <article class="note-box">
-<ul>
-<li>ページ作成日時：2026-07-20 11:22 JST</li>
-<li>最終更新日時：2026-07-20 11:22 JST</li>
-</ul>
 <p>ここまで、生成AIのしくみをいくつかの部品に分けて見てきた。</p>
 <p>01では、ユーザー入力がそのままモデルへ流れ込むのではなく、request objectとして組み立てられることを見た。</p>
 <p>02では、system / developer / user / tool result などの指示階層を見た。</p>
@@ -78,7 +74,7 @@ handoff proposal
 </code></pre>
 <p>それを受け取ったapplicationが、構造を確認し、権限を確認し、toolを呼び、runtimeが実行し、結果を受け取り、必要なら再びmodelへ戻す。</p>
 <p>つまり、外からは「AIがやった」ように見えることの多くは、実際には複数の層の協働である。</p>
-<pre class="article-phrase"><code>&quot;AI did it&quot;
+<pre class="article-phrase"><code>"AI did it"
   = model generated something
   + application interpreted it
   + runtime executed something
@@ -402,7 +398,7 @@ whether the user can inspect or correct it
 <p>human-in-the-loopは、単に確認ボタンを置くことではない。</p>
 <p>人間が判断できるだけのcontextを返す必要がある。</p>
 <pre class="article-phrase"><code>bad approval:
-  &quot;実行してよいですか？&quot;
+  "実行してよいですか？"
 
 good approval:
   action: 何をするか
@@ -557,7 +553,7 @@ unverified completion
 <p>このシリーズで一貫していたのは、「生成AIはモデル単体ではなく、入力・指示・context・tool・memory・runtime・humanを含むシステムである」という見方である。</p>
 <h2>12. 設計原則</h2>
 <p>最後に、生成AIシステムの設計原則として整理する。</p>
-<ol>
+<ul>
 <li>modelを単独の主体として扱わない。</li>
 <li>user inputをそのままmodel inputとみなさない。</li>
 <li>instruction hierarchyを明示する。</li>
@@ -568,7 +564,7 @@ unverified completion
 <li>agentic loopは、続ける能力ではなく、止まる能力として設計する。</li>
 <li>human approvalは形式的なボタンではなく、判断可能なcontextとセットで置く。</li>
 <li>traceとauditを残し、後から説明・再現・評価できるようにする。</li>
-</ol>
+</ul>
 <p>この10項目は、技術的な細部というより、AIシステムを「信頼できる協働相手」にするための条件である。</p>
 <h2>13. OpenAI Agents SDKとの対応</h2>
 <p>OpenAI Agents SDKでは、Agentはinstructionsやtoolsを備えたLLMとして説明され、handoffs、guardrails、structured outputsなどもAgentに関連するprimitiveとして扱われる。また、Agent + Runnerにより、turns、tool execution、guardrails、handoffs、sessionsなどをSDK側で管理できる。さらにtracingは、LLM生成、tool call、handoff、guardrailなど、agent run中のeventsを記録する仕組みとして説明されている。</p>
@@ -619,16 +615,14 @@ human approval / review
 <p>どの層が何をしているかを見えるようにし、どこで確認し、どこで止め、どこで人間が判断するかを設計することである。</p>
 <p>この全体像を持つと、生成AIは単なるチャット画面ではなくなる。</p>
 <p>それは、modelとapplicationとruntimeとhumanが協働する、新しい実行環境として見えてくる。</p>
-<h3>参考</h3>
+<p>参考</p>
 <ul>
 <li><a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a></li>
 <li><a href="https://openai.github.io/openai-agents-python/agents/">OpenAI Agents SDK｜Agents</a></li>
 <li><a href="https://openai.github.io/openai-agents-python/running_agents/">OpenAI Agents SDK｜Running agents</a></li>
 <li><a href="https://openai.github.io/openai-agents-python/tracing/">OpenAI Agents SDK｜Tracing</a></li>
 </ul>
-
 <nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/07-agentic-loop/">前へ：07 停止条件と検証ループ</a> / <a href="/series/genai-shikumi-deep-dive/concept-map/">次へ：主要概念マップ</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
-
       </article>
     </div>
   </main>
