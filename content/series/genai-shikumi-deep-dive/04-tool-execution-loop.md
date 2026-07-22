@@ -1,12 +1,19 @@
 ---
 ページ作成日時: "2026-07-22 16:07 JST"
-最終更新日時: "2026-07-22 16:07 JST"
+最終更新日時: "2026-07-22 16:29 JST"
 id: genai-shikumi-deep-dive-04
 title: "ツール実行ループとは何か"
 subtitle: "tool callはモデルの直接操作ではなく、application layerとruntimeが検証・実行・返却するloopである。"
 series: genai-shikumi-deep-dive
 series_label: "生成AIのしくみ 超詳解"
 series_order: 4
+order_display: "04"
+previous_label: "前へ：03 contextとは何か"
+previous_href: "/series/genai-shikumi-deep-dive/03-context/"
+next_label: "次へ：05 構造化出力とは何か"
+next_href: "/series/genai-shikumi-deep-dive/05-structured-output/"
+top_label: "超詳解トップ"
+top_href: "/series/genai-shikumi-deep-dive/"
 slug: "/series/genai-shikumi-deep-dive/04-tool-execution-loop/"
 canonical_url: "https://genai-ron.jp/series/genai-shikumi-deep-dive/04-tool-execution-loop/"
 description: "tool call、application execution、tool resultがどのように発生し戻るのかを読む超詳解。"

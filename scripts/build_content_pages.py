@@ -219,12 +219,37 @@ def render_markdown_body(markdown: str) -> str:
     return "\n".join(out)
 
 
+def render_article_nav(meta: Dict[str, object]) -> str:
+    links: List[str] = []
+
+    previous_href = str(meta.get("previous_href", "")).strip()
+    previous_label = str(meta.get("previous_label", "")).strip()
+    next_href = str(meta.get("next_href", "")).strip()
+    next_label = str(meta.get("next_label", "")).strip()
+    top_href = str(meta.get("top_href", "")).strip()
+    top_label = str(meta.get("top_label", "")).strip()
+
+    if previous_href and previous_label:
+        links.append(f'<a href="{html.escape(previous_href, quote=True)}">{html.escape(previous_label)}</a>')
+    if next_href and next_label:
+        links.append(f'<a href="{html.escape(next_href, quote=True)}">{html.escape(next_label)}</a>')
+    if top_href and top_label:
+        links.append(f'<a href="{html.escape(top_href, quote=True)}">{html.escape(top_label)}</a>')
+
+    if not links:
+        return ""
+
+    return '<nav class="article-link" aria-label="前後リンク">' + " / ".join(links) + "</nav>"
+
+
 def build_article_html(meta: Dict[str, object], body_html: str) -> str:
     title = str(meta.get("title", "Untitled"))
     subtitle = str(meta.get("subtitle", ""))
     description = str(meta.get("description", subtitle))
     series_label = str(meta.get("series_label", "生成AIのしくみ 超詳解"))
-    order = str(meta.get("series_order", ""))
+    order_raw = str(meta.get("series_order", "")).strip()
+    order = str(meta.get("order_display", "")).strip() or (order_raw.zfill(2) if order_raw.isdigit() else order_raw)
+    nav_html = render_article_nav(meta)
     original_created = str(meta.get("original_notion_created_at", ""))
     original_updated = str(meta.get("original_notion_updated_at", ""))
     web_migrated = str(meta.get("web_migrated_at", ""))
@@ -266,6 +291,7 @@ def build_article_html(meta: Dict[str, object], body_html: str) -> str:
     <div class="series-main">
       <article class="note-box">
 {body_html}
+{nav_html}
       </article>
     </div>
   </main>
