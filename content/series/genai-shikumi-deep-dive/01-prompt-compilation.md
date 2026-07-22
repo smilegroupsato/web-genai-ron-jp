@@ -308,7 +308,7 @@ flowchart TD
 
 それらを設計することである。
 
-この見方に立つと、[AGENTS.md](http://AGENTS.md)、[CHATGPT.md](http://CHATGPT.md)、プロジェクト指示、API request、tool schema、RAG、メモリ、会話履歴は、別々の便利機能ではなくなる。
+この見方に立つと、AGENTS.md、CHATGPT.md、プロジェクト指示、API request、tool schema、RAG、メモリ、会話履歴は、別々の便利機能ではなくなる。
 
 それらはすべて、モデルに何を見せ、何を優先させ、どの行動空間を開き、どこで止めるかを決めるための、入力環境の設計要素である。
 

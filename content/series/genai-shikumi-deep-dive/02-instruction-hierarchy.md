@@ -350,9 +350,9 @@ RAG pipelineでは、本文だけでなく、少なくとも次のmetadataを保
 
 prompt injection対策の第一歩は、内容の検査より前に、provenanceを失わないことである。
 
-## 7. [AGENTS.md](http://AGENTS.md)は、どのroleになるのか
+## 7. AGENTS.mdは、どのroleになるのか
 
-結論から言えば、[AGENTS.md](http://AGENTS.md)そのものに固定のroleが宿っているわけではない。
+結論から言えば、AGENTS.mdそのものに固定のroleが宿っているわけではない。
 
 文書がモデル入力になるまでには、次のような経路がある。
 
@@ -372,7 +372,7 @@ Model context
 
 CodexにおけるAGENTS.md
 
-[Codexは作業開始時にAGENTS.md](http://Codex%E3%81%AF%E4%BD%9C%E6%A5%AD%E9%96%8B%E5%A7%8B%E6%99%82%E3%81%ABAGENTS.md)からinstruction chainを構築する。
+Codexは作業開始時にAGENTS.mdからinstruction chainを構築する。
 
 公式仕様では、概ね次の順で探索される。
 
@@ -384,13 +384,13 @@ CodexにおけるAGENTS.md
 
 採用した文書はroot側からcurrent directory側へ結合される。後ろに入る、より近いdirectoryの指示が、より具体的なscopeの指示として先行文をoverrideしうる。
 
-[したがってCodexにおけるAGENTS.md](http://%E3%81%97%E3%81%9F%E3%81%8C%E3%81%A3%E3%81%A6Codex%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BAGENTS.md)は、機能的にはproject / developer instructionに近い。
+したがってCodexにおけるAGENTS.mdは、機能的にはproject / developer instructionに近い。
 
 ただし、API上の `role: "developer"` とファイル自体が完全に同一なのではない。
 
 Codexというアプリケーションが、公式のloader contractによってinstruction chainへ組み込んでいるのである。
 
-- [同じAGENTS.md](http://%E5%90%8C%E3%81%98AGENTS.md)を通常チャットへ添付した場合 [通常のチャットにAGENTS.md](http://%E9%80%9A%E5%B8%B8%E3%81%AE%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%81%ABAGENTS.md)をファイルとして添付し、「この内容を読んで」と依頼した場合、それは原則としてfile content / external contentに近い。 [ファイル名がAGENTS.md](http://%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%90%8D%E3%81%8CAGENTS.md)だから、自動的にdeveloper roleへ昇格するわけではない。 自作APIアプリが内容を検証し、意図的にdeveloper messageへ入れれば、developer instructionとして扱わせる設計はできる。
+- 同じAGENTS.mdを通常チャットへ添付した場合 通常のチャットにAGENTS.mdをファイルとして添付し、「この内容を読んで」と依頼した場合、それは原則としてfile content / external contentに近い。 ファイル名がAGENTS.mdだから、自動的にdeveloper roleへ昇格するわけではない。 自作APIアプリが内容を検証し、意図的にdeveloper messageへ入れれば、developer instructionとして扱わせる設計はできる。
 
 ## 8. ChatGPTのプロジェクト指示と参考ファイル
 
@@ -433,12 +433,12 @@ CHATGPT.mdという名前について
 | 種類 | 何を決めるか | 例 |
 |---|---|---|
 | role / authority precedence | どの指示権限が上位か | developerがuserより上位 |
-| discovery / merge precedence | 複数文書をどの順で結合するか | root [AGENTS.md](http://AGENTS.md)の後にsubdirectory版を結合 |
+| discovery / merge precedence | 複数文書をどの順で結合するか | root AGENTS.mdの後にsubdirectory版を結合 |
 | product scope precedence | 製品機能の適用範囲 | project instructionsがglobal custom instructionsをoverride |
 
 これらは似ているが、同じではない。
 
-[AGENTS.md](http://AGENTS.md)の「近いdirectoryが後から効く」は、ファイル探索とmergeの規則である。
+AGENTS.mdの「近いdirectoryが後から効く」は、ファイル探索とmergeの規則である。
 
 APIの「developerがuserより上位」は、message authorityの規則である。
 
@@ -542,7 +542,7 @@ TOOL OUTPUTS
 - 命令として従うのか、資料として参照するのか
 - どこで確認し、どこで停止するのか
 
-[AGENTS.md](http://AGENTS.md)も、project instructionsも、tool resultも、外部ファイルも、名前だけでは意味が決まらない。
+AGENTS.mdも、project instructionsも、tool resultも、外部ファイルも、名前だけでは意味が決まらない。
 
 :::note
 文書にroleが宿るのではない。loaderが文書を発見し、scopeとtrustを判定し、どの入力層へ組み込むかによって、その文書の働きが決まる。
