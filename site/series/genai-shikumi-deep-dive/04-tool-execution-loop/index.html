@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Web移植日時：2026-07-20 12:56 JST / 原稿正本：Notion export Markdown / Notion原稿作成日時：2026-07-18 13:06 JST / Notion原稿最終更新日時：2026-07-18 13:06 JST -->
+  <!-- Generated from content/ Markdown / Notion原稿作成日時：2026-07-18 13:06 JST / Notion原稿最終更新日時：2026-07-18 13:06 JST / Web移植日時：2026-07-20 12:56 JST -->
   <header class="series-header">
     <div class="series-header-inner">
       <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
@@ -34,10 +34,6 @@
     </section>
     <div class="series-main">
       <article class="note-box">
-<ul>
-<li>ページ作成日時：2026-07-18 13:06 JST</li>
-<li>最終更新日時：2026-07-18 13:06 JST</li>
-</ul>
 <p>生成AIが「ツールを使う」と言うと、AI自身がWebを検索し、Notionを書き換え、Gmailを送り、カレンダーを操作しているように見える。</p>
 <p>しかし、実装上はそうではない。</p>
 <p>LLMそのものが、外部APIを直接叩いているわけではない。</p>
@@ -63,21 +59,21 @@
 </ul>
 <p>理解用に単純化すると、function toolは次のようなinterfaceに近い。</p>
 <pre><code class="language-json">{
-  &quot;type&quot;: &quot;function&quot;,
-  &quot;name&quot;: &quot;get_weather&quot;,
-  &quot;description&quot;: &quot;Get the current weather for a city.&quot;,
-  &quot;parameters&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;city&quot;: {
-        &quot;type&quot;: &quot;string&quot;,
-        &quot;description&quot;: &quot;The city name, e.g. Tokyo&quot;
+  "type": "function",
+  "name": "get_weather",
+  "description": "Get the current weather for a city.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "type": "string",
+        "description": "The city name, e.g. Tokyo"
       }
     },
-    &quot;required&quot;: [&quot;city&quot;],
-    &quot;additionalProperties&quot;: false
+    "required": ["city"],
+    "additionalProperties": false
   },
-  &quot;strict&quot;: true
+  "strict": true
 }
 </code></pre>
 <p>このtool definitionは、単なるドキュメントではない。</p>
@@ -162,10 +158,10 @@ Model uses the result to continue or answer
 <p>モデルが、response outputの中に出す構造化itemである。</p>
 <p>簡略化すると、次のようなものになる。</p>
 <pre><code class="language-json">{
-  &quot;type&quot;: &quot;function_call&quot;,
-  &quot;name&quot;: &quot;get_weather&quot;,
-  &quot;arguments&quot;: &quot;{\&quot;city\&quot;:\&quot;Tokyo\&quot;}&quot;,
-  &quot;call_id&quot;: &quot;call_abc123&quot;
+  "type": "function_call",
+  "name": "get_weather",
+  "arguments": "{\"city\":\"Tokyo\"}",
+  "call_id": "call_abc123"
 }
 </code></pre>
 <p>この中で重要なのは、<code>name</code>、<code>arguments</code>、<code>call_id</code>である。</p>
@@ -225,7 +221,7 @@ schema valid ≠ safe
 schema valid ≠ user-confirmed
 </code></pre>
 <h2>4. tool_choiceは、自然文ではなくruntime parameterである</h2>
-<p>ユーザーが「ツールを使わないで」と自然文で書くことと、API runtimeで <code>tool_choice: &quot;none&quot;</code> を指定することは違う。</p>
+<p>ユーザーが「ツールを使わないで」と自然文で書くことと、API runtimeで <code>tool_choice: "none"</code> を指定することは違う。</p>
 <p>自然文は、モデルが解釈するinstructionである。</p>
 <p><code>tool_choice</code>は、tool使用を制御するruntime parameterである。</p>
 <p>代表的には、次のように整理できる。</p>
@@ -345,9 +341,9 @@ await toolsitem.name;
 <p>tool実行の結果は、モデルへ戻される。</p>
 <p>Function toolの場合、典型的には <code>function_call_output</code> として戻る。</p>
 <pre><code class="language-json">{
-  &quot;type&quot;: &quot;function_call_output&quot;,
-  &quot;call_id&quot;: &quot;call_abc123&quot;,
-  &quot;output&quot;: &quot;{\&quot;ok\&quot;:true,\&quot;temperature\&quot;:29,\&quot;unit\&quot;:\&quot;C\&quot;}&quot;
+  "type": "function_call_output",
+  "call_id": "call_abc123",
+  "output": "{\"ok\":true,\"temperature\":29,\"unit\":\"C\"}"
 }
 </code></pre>
 <p><code>call_id</code>は、どのtool callへの返答なのかを対応づけるために使う。</p>
@@ -361,19 +357,19 @@ tool result ≠ user authorization
 </code></pre>
 <p>そのため、tool resultは、なるべく構造化して戻すのがよい。</p>
 <pre><code class="language-json">{
-  &quot;ok&quot;: true,
-  &quot;source&quot;: &quot;web_search&quot;,
-  &quot;provenance&quot;: [
+  "ok": true,
+  "source": "web_search",
+  "provenance": [
     {
-      &quot;url&quot;: &quot;https://example.com/report&quot;,
-      &quot;retrieved_at&quot;: &quot;2026-07-18T13:06:00+09:00&quot;
+      "url": "https://example.com/report",
+      "retrieved_at": "2026-07-18T13:06:00+09:00"
     }
   ],
-  &quot;data&quot;: {
-    &quot;summary&quot;: &quot;...&quot;
+  "data": {
+    "summary": "..."
   },
-  &quot;warnings&quot;: [
-    &quot;untrusted_external_text&quot;
+  "warnings": [
+    "untrusted_external_text"
   ]
 }
 </code></pre>
@@ -444,10 +440,10 @@ Decide again
 <p>同じtool callが二重実行されると、メールが二重送信されたり、予定が二重作成されたり、請求が二重登録されたりする。</p>
 <p>そのため、副作用のある操作にはidempotency keyを持たせる。</p>
 <pre><code class="language-json">{
-  &quot;operation&quot;: &quot;create_calendar_event&quot;,
-  &quot;idempotency_key&quot;: &quot;event_20260718_1306_user123&quot;,
-  &quot;requested_by&quot;: &quot;user123&quot;,
-  &quot;confirmed_by_user&quot;: true
+  "operation": "create_calendar_event",
+  "idempotency_key": "event_20260718_1306_user123",
+  "requested_by": "user123",
+  "confirmed_by_user": true
 }
 </code></pre>
 <p>audit logも必要である。</p>
@@ -486,9 +482,7 @@ automation ≠ uncontrolled autonomy
 <li><a href="https://developers.openai.com/api/docs/guides/responses">OpenAI API Docs｜Responses API</a></li>
 <li><a href="https://platform.openai.com/docs/api-reference/responses">OpenAI API Reference｜Response input / output items</a></li>
 </ul>
-
 <nav class="article-link" aria-label="前後リンク"><a href="/series/genai-shikumi-deep-dive/03-context/">前へ：03 contextとは何か</a> / <a href="/series/genai-shikumi-deep-dive/05-structured-output/">次へ：05 構造化出力とは何か</a> / <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a></nav>
-
       </article>
     </div>
   </main>
