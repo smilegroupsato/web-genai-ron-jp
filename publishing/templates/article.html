@@ -19,10 +19,13 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
+  <link rel="stylesheet" href="/publishing/design/tokens.css">
+  <link rel="stylesheet" href="/publishing/design/components.css">
 </head>
 <body class="series-page series-page-compact">
   <!-- Generated from content/ + publishing/ structured preview / Theme manifest：{{theme_manifest}} / Notion原稿作成日時：{{original_created}} / Notion原稿最終更新日時：{{original_updated}} / Web移植日時：{{web_migrated}} -->
 {{site_header}}
+{{reading_preferences}}
   <main>
     <section
       class="series-hero"
@@ -45,5 +48,6 @@
   </main>
 {{site_footer}}
   <script src="/assets/theme.js" defer></script>
+  <script src="/publishing/behaviors/reading-preferences-adapter.js" defer></script>
 </body>
 </html>
