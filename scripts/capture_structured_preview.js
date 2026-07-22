@@ -84,10 +84,28 @@ async function main() {
 
     const metrics = await page.evaluate(() => {
       const root = document.documentElement;
+
+      const hasScrollableAncestor = (element) => {
+        let parent = element.parentElement;
+        while (parent && parent !== document.body) {
+          const style = getComputedStyle(parent);
+          const overflowX = style.overflowX;
+          if (
+            (overflowX === "auto" || overflowX === "scroll") &&
+            parent.scrollWidth > parent.clientWidth + 1
+          ) {
+            return true;
+          }
+          parent = parent.parentElement;
+        }
+        return false;
+      };
+
       const overflow = [...document.querySelectorAll("body *")]
         .map((element) => {
           const rect = element.getBoundingClientRect();
           return {
+            element,
             tag: element.tagName,
             className:
               typeof element.className === "string" ? element.className : "",
@@ -97,8 +115,13 @@ async function main() {
             width: rect.width,
           };
         })
-        .filter((entry) => entry.right > root.clientWidth + 1 || entry.left < -1)
-        .slice(0, 30);
+        .filter(
+          (entry) =>
+            (entry.right > root.clientWidth + 1 || entry.left < -1) &&
+            !hasScrollableAncestor(entry.element)
+        )
+        .slice(0, 30)
+        .map(({ element, ...entry }) => entry);
 
       const rect = (selector) => {
         const element = document.querySelector(selector);
@@ -156,7 +179,7 @@ async function main() {
       );
     }
     if (metrics.overflow.length > 0) {
-      errors.push(`overflowing elements: ${metrics.overflow.length}`);
+      errors.push(`uncontained overflowing elements: ${metrics.overflow.length}`);
     }
 
     if (errors.length > 0) failed = true;
