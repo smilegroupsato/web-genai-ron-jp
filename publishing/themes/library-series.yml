@@ -1,6 +1,6 @@
 # GENAI-RON Library Series theme registry
 # ページ作成日時：2026-07-22 22:50 JST
-# 最終更新日時：2026-07-22 22:50 JST
+# 最終更新日時：2026-07-23 07:51 JST
 
 collection_id: library-series
 status: concept
@@ -111,6 +111,43 @@ themes:
       - pre-generation-space
     assets: {}
 
+runtime_variants:
+  library-university-humanities-summer:
+    base_theme: university-humanities
+    season: summer
+    hero_variant: image-background
+    text_contrast: dark
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-medieval-church-summer:
+    base_theme: medieval-church
+    season: summer
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-cyberpunk-library:
+    base_theme: cyberpunk-library
+    season: none
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-llm-interior:
+    base_theme: llm-interior
+    season: none
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
 preview_candidate:
   theme_id: library-university-humanities-summer
   base_theme: university-humanities
@@ -118,3 +155,7 @@ preview_candidate:
   asset_role: hero-main
   asset_ref: unresolved
   production_enabled: false
+
+update_history:
+  - 2026-07-23 07:51 JST: structured preview builderから解決可能なruntime_variantsを追加。
+  - 2026-07-22 22:50 JST: Library Seriesの初期theme registryを作成。
