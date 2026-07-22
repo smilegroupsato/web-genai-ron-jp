@@ -1,6 +1,7 @@
 # content build previews
 _content_build_preview/
 _structured_build_preview/
+_promotion_fixture/
 
 # Python cache
 __pycache__/
