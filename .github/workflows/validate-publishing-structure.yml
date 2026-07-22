@@ -1,0 +1,91 @@
+name: Validate Publishing Structure
+
+on:
+  pull_request:
+    paths:
+      - "content/**"
+      - "publishing/**"
+      - "scripts/build_content_pages.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/validate_structured_preview.py"
+      - ".github/workflows/validate-publishing-structure.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile builders and validator
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/validate_structured_preview.py
+
+      - name: Confirm structured builder cannot write to site
+        run: |
+          if python scripts/build_structured_preview.py --help | grep -q -- '--write-site'; then
+            echo "structured builder unexpectedly exposes --write-site" >&2
+            exit 1
+          fi
+
+      - name: Generate current and structured previews for deep-dive 04
+        run: |
+          rm -rf _content_build_preview_ci _structured_build_preview_ci _structured_library_preview_ci
+
+          python scripts/build_content_pages.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _content_build_preview_ci
+
+          python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _structured_build_preview_ci
+
+          python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _structured_library_preview_ci \
+            --theme-id library-university-humanities-summer
+
+      - name: Validate default structured preview semantic parity
+        run: |
+          python scripts/validate_structured_preview.py \
+            _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            _structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            --expected-theme default-academic
+
+      - name: Validate library theme metadata wiring
+        run: |
+          output="_structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          grep -q 'data-theme-id="library-university-humanities-summer"' "$output"
+          grep -q 'data-hero-variant="image-background"' "$output"
+          if grep -q '{{' "$output"; then
+            echo "unresolved template placeholder found" >&2
+            exit 1
+          fi
+
+      - name: Confirm public site files are unchanged in this branch
+        run: |
+          git diff --exit-code origin/main...HEAD -- site/
+
+      - name: Upload preview artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: publishing-structure-preview
+          path: |
+            _structured_build_preview_ci/
+            _structured_library_preview_ci/
+          if-no-files-found: error
+          retention-days: 7
