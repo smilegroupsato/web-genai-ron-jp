@@ -41,6 +41,7 @@ SITE_REGISTRY = PUBLISHING_ROOT / "site.yml"
 ARTICLE_TEMPLATE = PUBLISHING_ROOT / "templates" / "article.html"
 SITE_HEADER = PUBLISHING_ROOT / "components" / "site-header.html"
 SITE_FOOTER = PUBLISHING_ROOT / "components" / "site-footer.html"
+READING_PREFERENCES = PUBLISHING_ROOT / "components" / "reading-preferences.html"
 
 PLACEHOLDER_RE = re.compile(r"\{\{([a-zA-Z0-9_-]+)\}\}")
 
@@ -197,6 +198,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
     template = read_required(ARTICLE_TEMPLATE)
     header = read_required(SITE_HEADER)
     footer = read_required(SITE_FOOTER)
+    reading_preferences = read_required(READING_PREFERENCES)
     theme = theme_resolution(theme_id)
 
     title = str(meta.get("title", "Untitled"))
@@ -227,6 +229,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
         "original_updated": html.escape(str(meta.get("original_notion_updated_at", ""))),
         "web_migrated": html.escape(str(meta.get("web_migrated_at", ""))),
         "site_header": header,
+        "reading_preferences": reading_preferences,
         "hero_variant": html.escape(theme["hero_variant"], quote=True),
         "text_contrast": html.escape(theme["text_contrast"], quote=True),
         "asset_role": html.escape(theme["asset_role"], quote=True),
