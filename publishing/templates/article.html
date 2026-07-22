@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja" data-theme-id="{{theme_id}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{document_title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta property="og:title" content="{{og_title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="{{og_image}}">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
+  <link rel="stylesheet" href="/assets/theme.css">
+</head>
+<body class="series-page series-page-compact">
+  <!-- Generated from content/ + publishing/ structured preview / Notion原稿作成日時：{{original_created}} / Notion原稿最終更新日時：{{original_updated}} / Web移植日時：{{web_migrated}} -->
+{{site_header}}
+  <main>
+    <section class="series-hero" data-hero-variant="{{hero_variant}}">
+      <p class="series-kicker">{{series_kicker}}</p>
+      <h1>{{title}}</h1>
+      <p class="series-subtitle">{{subtitle}}</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+{{body_html}}
+{{article_nav}}
+      </article>
+    </div>
+  </main>
+{{site_footer}}
+  <script src="/assets/theme.js" defer></script>
+</body>
+</html>
