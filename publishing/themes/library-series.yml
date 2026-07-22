@@ -1,0 +1,161 @@
+# GENAI-RON Library Series theme registry
+# ページ作成日時：2026-07-22 22:50 JST
+# 最終更新日時：2026-07-23 07:51 JST
+
+collection_id: library-series
+status: concept
+asset_storage_status: unresolved
+
+resolution_contract:
+  stable_keys:
+    - theme_id
+    - asset_role
+    - text_contrast
+  flexible_keys:
+    - physical_path
+    - file_format
+    - storage_backend
+    - variations
+
+asset_roles:
+  - hero-main
+  - hero-mobile
+  - hero-thumb
+  - social-card
+
+season_variants:
+  summer:
+    light: strong-oblique-afternoon
+    wash: pale-blue-green
+  autumn:
+    light: long-amber-shadow
+    wash: warm-paper
+  winter:
+    light: cool-morning
+    wash: pale-blue-gray
+  spring:
+    light: soft-diffuse-window
+    wash: pale-green
+
+themes:
+  medieval-church:
+    title: 中世の教会の図書室
+    status: concept
+    hero_variant: image-background
+    text_contrast: light
+    keywords:
+      - stone
+      - manuscript
+      - oblique-light
+      - silence
+    assets: {}
+
+  university-humanities:
+    title: 大学の研究室（文系）
+    status: concept
+    hero_variant: image-background
+    text_contrast: dark
+    keywords:
+      - bookshelves
+      - papers
+      - marginalia
+      - afternoon-light
+    assets: {}
+
+  university-science:
+    title: 大学の研究室（理系）
+    status: concept
+    hero_variant: image-background
+    text_contrast: light
+    keywords:
+      - instruments
+      - equations
+      - verification
+      - workbench
+    assets: {}
+
+  cyberpunk-library:
+    title: サイバーパンク図書館
+    status: concept
+    hero_variant: image-background
+    text_contrast: light
+    keywords:
+      - neon
+      - underground-archive
+      - physical-digital-hybrid
+      - night-city
+    assets: {}
+
+  digital-space:
+    title: デジタル空間の図書館
+    status: concept
+    hero_variant: image-background
+    text_contrast: light
+    keywords:
+      - floating-documents
+      - grid
+      - archive-interface
+      - data-stream
+    assets: {}
+
+  llm-interior:
+    title: LLM内部の空間
+    status: concept
+    hero_variant: image-background
+    text_contrast: light
+    keywords:
+      - context
+      - memory
+      - routing
+      - relationships
+      - pre-generation-space
+    assets: {}
+
+runtime_variants:
+  library-university-humanities-summer:
+    base_theme: university-humanities
+    season: summer
+    hero_variant: image-background
+    text_contrast: dark
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-medieval-church-summer:
+    base_theme: medieval-church
+    season: summer
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-cyberpunk-library:
+    base_theme: cyberpunk-library
+    season: none
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+  library-llm-interior:
+    base_theme: llm-interior
+    season: none
+    hero_variant: image-background
+    text_contrast: light
+    asset_role: hero-main
+    asset_ref: unresolved
+    production_enabled: false
+
+preview_candidate:
+  theme_id: library-university-humanities-summer
+  base_theme: university-humanities
+  season: summer
+  asset_role: hero-main
+  asset_ref: unresolved
+  production_enabled: false
+
+update_history:
+  - 2026-07-23 07:51 JST: structured preview builderから解決可能なruntime_variantsを追加。
+  - 2026-07-22 22:50 JST: Library Seriesの初期theme registryを作成。

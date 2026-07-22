@@ -1,0 +1,180 @@
+name: Validate Publishing Structure
+
+on:
+  pull_request:
+    paths:
+      - "README.md"
+      - "ARCHITECTURE.md"
+      - "content/**"
+      - "publishing/**"
+      - "requirements-publishing.txt"
+      - "scripts/build_content_pages.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/validate_structured_preview.py"
+      - "scripts/capture_structured_preview.js"
+      - ".github/workflows/validate-publishing-structure.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile builders and validator
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/validate_structured_preview.py
+
+      - name: Confirm structured builder cannot write to site
+        run: |
+          if python scripts/build_structured_preview.py --help | grep -q -- '--write-site'; then
+            echo "structured builder unexpectedly exposes --write-site" >&2
+            exit 1
+          fi
+
+      - name: Generate current and structured previews for all content pages
+        run: |
+          rm -rf \
+            _content_build_preview_ci \
+            _structured_build_preview_ci \
+            _structured_library_preview_ci \
+            _structured_visual_qa
+
+          python scripts/build_content_pages.py \
+            --preview-root _content_build_preview_ci
+
+          python scripts/build_structured_preview.py \
+            --preview-root _structured_build_preview_ci
+
+          python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _structured_library_preview_ci \
+            --theme-id library-university-humanities-summer
+
+      - name: Validate semantic parity for every generated page
+        run: |
+          count=0
+          while IFS= read -r current; do
+            relative="${current#_content_build_preview_ci/}"
+            structured="_structured_build_preview_ci/${relative}"
+
+            if [ ! -f "$structured" ]; then
+              echo "missing structured preview: $structured" >&2
+              exit 1
+            fi
+
+            python scripts/validate_structured_preview.py \
+              "$current" \
+              "$structured" \
+              --expected-theme default-academic \
+              --expected-collection core \
+              --expected-base default-academic \
+              --expected-season none \
+              --expected-hero-variant text-only \
+              --expected-text-contrast dark \
+              --expected-asset-role none \
+              --expected-asset-status none \
+              --expected-production-enabled true
+
+            count=$((count + 1))
+          done < <(find _content_build_preview_ci -name index.html -type f | sort)
+
+          if [ "$count" -eq 0 ]; then
+            echo "no current preview pages were generated" >&2
+            exit 1
+          fi
+
+          structured_count=$(find _structured_build_preview_ci -name index.html -type f | wc -l)
+          if [ "$structured_count" -ne "$count" ]; then
+            echo "page count mismatch: current=$count structured=$structured_count" >&2
+            exit 1
+          fi
+
+          echo "validated pages: $count"
+
+      - name: Validate Library Series metadata resolution and semantic parity
+        run: |
+          python scripts/validate_structured_preview.py \
+            _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            _structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            --expected-theme library-university-humanities-summer \
+            --expected-collection library-series \
+            --expected-base university-humanities \
+            --expected-season summer \
+            --expected-hero-variant image-background \
+            --expected-text-contrast dark \
+            --expected-asset-role hero-main \
+            --expected-asset-status unresolved \
+            --expected-production-enabled false
+
+      - name: Reject unregistered theme ids
+        run: |
+          if python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _invalid_theme_preview_ci \
+            --theme-id library-not-registered; then
+            echo "unregistered theme unexpectedly built" >&2
+            exit 1
+          fi
+
+      - name: Confirm public site files are unchanged in this branch
+        run: |
+          git diff --exit-code origin/main...HEAD -- site/
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install isolated visual QA dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start preview server
+        run: |
+          ln -s site/assets assets
+          python -m http.server 8765 --bind 127.0.0.1 > /tmp/genai-ron-preview-http.log 2>&1 &
+          echo $! > /tmp/genai-ron-preview-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8765/_structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/genai-ron-preview-http.log >&2
+          exit 1
+
+      - name: Capture desktop and mobile visual QA
+        env:
+          PREVIEW_BASE_URL: http://127.0.0.1:8765
+          VISUAL_QA_OUTPUT: _structured_visual_qa
+        run: node scripts/capture_structured_preview.js
+
+      - name: Upload preview and visual QA artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: publishing-structure-preview
+          path: |
+            _structured_build_preview_ci/
+            _structured_library_preview_ci/
+            _structured_visual_qa/
+          if-no-files-found: error
+          retention-days: 7

@@ -1,0 +1,34 @@
+# GENAI-RON default academic theme
+# ページ作成日時：2026-07-22 22:50 JST
+# 最終更新日時：2026-07-22 22:50 JST
+
+theme_id: default-academic
+collection_id: core
+status: active-reference
+
+visual_intent:
+  description: Academic journal / University Pressを基調とする常設theme
+  keywords:
+    - quiet
+    - editorial
+    - research-archive
+    - serif
+
+hero:
+  variant: text-only
+  asset_role: none
+  text_contrast: dark
+  image_required: false
+
+palette:
+  accent_token: --gr-color-accent
+  wash_token: --gr-season-wash
+  overlay_token: --gr-hero-overlay
+
+compatibility:
+  current_css:
+    - site/assets/style-genai-shikumi.css
+    - site/assets/theme.css
+  expected_body_class:
+    - series-page
+    - series-page-compact

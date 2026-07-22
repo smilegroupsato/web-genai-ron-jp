@@ -1,0 +1,70 @@
+# GENAI-RON publishing registry
+# ページ作成日時：2026-07-22 22:50 JST
+# 最終更新日時：2026-07-23 08:43 JST
+
+version: "0.1"
+status: experimental
+
+site:
+  id: genai-ron-jp
+  brand_name: GENAI-RON
+  locale: ja
+  public_root: site
+  default_theme_id: default-academic
+
+layouts:
+  article-v1:
+    template: publishing/templates/article.html
+    required_components:
+      - site-header-v1
+      - reading-preferences-v1
+      - site-footer-v1
+
+components:
+  site-header-v1:
+    path: publishing/components/site-header.html
+    role: global-header
+  reading-preferences-v1:
+    path: publishing/components/reading-preferences.html
+    role: isolated-display-preferences-region
+  site-footer-v1:
+    path: publishing/components/site-footer.html
+    role: global-footer
+
+design:
+  token_source: publishing/design/tokens.css
+  component_style_source: publishing/design/components.css
+  deployment_status: preview-linked
+
+behaviors:
+  current_public_runtime:
+    path: site/assets/theme.js
+    status: legacy-shared-runtime
+  reading-preferences-adapter-v1:
+    path: publishing/behaviors/reading-preferences-adapter.js
+    role: move-runtime-controls-into-dedicated-component
+    status: transitional-preview
+
+themes:
+  default-academic:
+    manifest: publishing/themes/default.yml
+  library-series:
+    manifest: publishing/themes/library-series.yml
+
+build:
+  structured_preview_root: _structured_build_preview
+  site_write_enabled: false
+  unresolved_placeholder_policy: fail
+  diff_required_before_promotion: true
+
+compatibility:
+  current_builder: scripts/build_content_pages.py
+  structured_preview_builder: scripts/build_structured_preview.py
+  current_public_css:
+    - site/assets/style-genai-shikumi.css
+    - site/assets/theme.css
+  current_public_js:
+    - site/assets/theme.js
+
+update_history:
+  - 2026-07-23 08:43 JST: 表示設定をheader・本文・footerから独立させるreading-preferences component、component CSS、legacy runtime adapterを登録。

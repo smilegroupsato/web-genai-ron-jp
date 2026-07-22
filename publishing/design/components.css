@@ -1,0 +1,108 @@
+/*
+GENAI-RON structured publishing component styles
+ページ作成日時：2026-07-23 08:43 JST
+最終更新日時：2026-07-23 08:43 JST
+
+Preview-only until promoted through the publishing build path.
+*/
+
+.reading-preferences {
+  border-bottom: 1px solid var(--theme-line, var(--gr-color-line));
+  background: color-mix(
+    in srgb,
+    var(--theme-bg, var(--gr-color-paper)) 96%,
+    transparent
+  );
+  color: var(--theme-muted, var(--gr-color-muted));
+  font-family: var(--gr-font-ui);
+}
+
+.reading-preferences-inner {
+  width: min(1120px, calc(100% - 32px));
+  min-height: 42px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reading-preferences-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reading-preferences-slot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.reading-preferences .appearance-switcher,
+.reading-preferences .article-text-size-control {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.reading-preferences .appearance-switcher button,
+.reading-preferences .article-text-size-button {
+  appearance: none;
+  min-height: 28px;
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--theme-line, var(--gr-color-line));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--theme-muted, var(--gr-color-muted));
+  font: 500 11px/1 var(--gr-font-ui);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.reading-preferences .appearance-switcher button:hover,
+.reading-preferences .article-text-size-button:hover {
+  border-color: var(--theme-accent, var(--gr-color-accent));
+  color: var(--theme-accent, var(--gr-color-accent));
+}
+
+.reading-preferences .appearance-switcher button[aria-pressed="true"],
+.reading-preferences .article-text-size-button[aria-pressed="true"] {
+  border-color: var(--theme-accent, var(--gr-color-accent));
+  background: var(--theme-accent, var(--gr-color-accent));
+  color: var(--theme-button-text, #fffdf8);
+}
+
+.reading-preferences .article-text-size-label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .reading-preferences-inner {
+    min-height: 48px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .reading-preferences-label {
+    flex: 0 0 auto;
+  }
+
+  .reading-preferences-slot,
+  .reading-preferences .appearance-switcher,
+  .reading-preferences .article-text-size-control {
+    flex: 0 0 auto;
+  }
+}
