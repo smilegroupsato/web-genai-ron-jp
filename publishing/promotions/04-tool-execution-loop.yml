@@ -1,0 +1,48 @@
+# GENAI-RON controlled promotion fixture
+# ページ作成日時：2026-07-23 08:51 JST
+# 最終更新日時：2026-07-23 08:51 JST
+
+promotion_id: deep-dive-04-tool-execution-loop
+status: dry-run-only
+write_enabled: false
+
+source:
+  content_path: content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md
+  expected_slug: /series/genai-shikumi-deep-dive/04-tool-execution-loop/
+  theme_id: default-academic
+
+current_public_artifact:
+  path: site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html
+  role: rollback-reference
+  rollback_base_commit: a8aceea7501b2326e0c21519d35ef9653a580991
+
+candidate:
+  root: _promotion_fixture/deep-dive-04-tool-execution-loop/candidate
+  report: _promotion_fixture/deep-dive-04-tool-execution-loop/report.json
+  diff: _promotion_fixture/deep-dive-04-tool-execution-loop/current-to-candidate.diff
+
+scope:
+  allowed_site_paths:
+    - site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html
+  forbidden_site_globs:
+    - site/assets/**
+    - site/index.html
+    - site/series/**/index.html
+
+required_gates:
+  - source_and_slug_match
+  - candidate_generated_outside_site
+  - current_public_artifact_exists
+  - semantic_parity_with_current_public_artifact
+  - diff_report_generated
+  - site_tree_unchanged
+  - rollback_base_recorded
+  - explicit_human_promotion_decision
+
+notes:
+  - This fixture may generate and compare a candidate artifact only.
+  - It must not copy, replace, or delete any file under site/.
+  - General-purpose site writing remains intentionally unavailable.
+
+update_history:
+  - 2026-07-23 08:51 JST: 04ページを最初のcontrolled promotion fixtureとして登録。dry-run、単一target、rollback基準、停止条件を固定。
