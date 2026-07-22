@@ -3,6 +3,8 @@ name: Validate Publishing Structure
 on:
   pull_request:
     paths:
+      - "README.md"
+      - "ARCHITECTURE.md"
       - "content/**"
       - "publishing/**"
       - "requirements-publishing.txt"
