@@ -9,6 +9,7 @@ on:
       - "scripts/build_content_pages.py"
       - "scripts/build_structured_preview.py"
       - "scripts/validate_structured_preview.py"
+      - "scripts/capture_structured_preview.js"
       - ".github/workflows/validate-publishing-structure.yml"
   workflow_dispatch:
 
@@ -48,7 +49,11 @@ jobs:
 
       - name: Generate current and structured previews for all content pages
         run: |
-          rm -rf _content_build_preview_ci _structured_build_preview_ci _structured_library_preview_ci
+          rm -rf \
+            _content_build_preview_ci \
+            _structured_build_preview_ci \
+            _structured_library_preview_ci \
+            _structured_visual_qa
 
           python scripts/build_content_pages.py \
             --preview-root _content_build_preview_ci
@@ -131,12 +136,43 @@ jobs:
         run: |
           git diff --exit-code origin/main...HEAD -- site/
 
-      - name: Upload preview artifacts
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install isolated visual QA dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start preview server
+        run: |
+          ln -s site/assets assets
+          python -m http.server 8765 --bind 127.0.0.1 > /tmp/genai-ron-preview-http.log 2>&1 &
+          echo $! > /tmp/genai-ron-preview-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8765/_structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/genai-ron-preview-http.log >&2
+          exit 1
+
+      - name: Capture desktop and mobile visual QA
+        env:
+          PREVIEW_BASE_URL: http://127.0.0.1:8765
+          VISUAL_QA_OUTPUT: _structured_visual_qa
+        run: node scripts/capture_structured_preview.js
+
+      - name: Upload preview and visual QA artifacts
         uses: actions/upload-artifact@v4
         with:
           name: publishing-structure-preview
           path: |
             _structured_build_preview_ci/
             _structured_library_preview_ci/
+            _structured_visual_qa/
           if-no-files-found: error
           retention-days: 7
