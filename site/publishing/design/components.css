@@ -1,7 +1,7 @@
 /*
 GENAI-RON structured publishing component styles
 ページ作成日時：2026-07-23 10:28 JST
-最終更新日時：2026-07-23 12:22 JST
+最終更新日時：2026-07-23 12:33 JST
 
 Deployed mirror for pages that reference /publishing/design/components.css.
 Source counterpart: publishing/design/components.css
@@ -151,6 +151,83 @@ html[data-appearance] body.series-page-compact .series-main > article.note-box b
 html[data-appearance] body.series-page-compact .series-main > article.note-box .annotation-accordion *,
 html[data-appearance] body.series-page-compact .series-main > article.note-box .notion-toggle * {
   color: inherit !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box pre,
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box .code-block {
+  border: 1px solid color-mix(in srgb, var(--theme-line) 76%, transparent) !important;
+  border-radius: 10px !important;
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 82%,
+    var(--theme-bg, #111412) 18%
+  ) !important;
+  color: var(--theme-text, #f0eee7) !important;
+  box-shadow: none !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box pre code,
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box .code-block code {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box :not(pre) > code {
+  border: 1px solid color-mix(in srgb, var(--theme-line) 70%, transparent) !important;
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 86%,
+    var(--theme-bg, #111412) 14%
+  ) !important;
+  color: color-mix(
+    in srgb,
+    var(--theme-accent, #79b59a) 70%,
+    var(--theme-text, #f0eee7) 30%
+  ) !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box table {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 80%,
+    var(--theme-bg, #111412) 20%
+  ) !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box th {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 70%,
+    var(--theme-soft, #242820) 30%
+  ) !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box td {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 86%,
+    var(--theme-bg, #111412) 14%
+  ) !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box tr:nth-child(even) td {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, #1d211e) 78%,
+    var(--theme-soft, #242820) 22%
+  ) !important;
+}
+
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box blockquote,
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box .annotation-accordion,
+html[data-appearance="reading"] body.series-page-compact .series-main > article.note-box .notion-toggle {
+  border-color: color-mix(in srgb, var(--theme-accent, #79b59a) 42%, var(--theme-line, rgba(214,205,188,.26)) 58%) !important;
+  background: color-mix(
+    in srgb,
+    var(--theme-soft, #242820) 66%,
+    var(--theme-bg, #111412) 34%
+  ) !important;
+  color: var(--theme-text, #f0eee7) !important;
 }
 
 @media (max-width: 640px) {
