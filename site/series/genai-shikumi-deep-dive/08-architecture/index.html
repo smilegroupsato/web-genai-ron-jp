@@ -1,5 +1,12 @@
 <!doctype html>
-<html lang="ja">
+<html
+  lang="ja"
+  data-theme-id="default-academic"
+  data-theme-collection="core"
+  data-theme-base="default-academic"
+  data-theme-season="none"
+  data-theme-production-enabled="true"
+>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,22 +19,37 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-genai-shikumi.css">
   <link rel="stylesheet" href="/assets/theme.css">
+  <link rel="stylesheet" href="/publishing/design/tokens.css">
+  <link rel="stylesheet" href="/publishing/design/components.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Generated from content/ Markdown / Notion原稿作成日時：2026-07-20 11:22 JST / Notion原稿最終更新日時：2026-07-20 11:22 JST / Web移植日時：2026-07-20 12:56 JST -->
-  <header class="series-header">
-    <div class="series-header-inner">
-      <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
-      <nav class="series-nav" aria-label="サイト内ナビゲーション">
-        <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
-        <a href="/series/genai-shikumi/">一般向け版</a>
-        <a href="/series/genai-shikumi-technical/">詳解版</a>
-        <a href="/article/">論考一覧</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Generated from content/ + publishing/ structured preview / Theme manifest：publishing/themes/default.yml / Notion原稿作成日時：2026-07-20 11:22 JST / Notion原稿最終更新日時：2026-07-20 11:22 JST / Web移植日時：2026-07-20 12:56 JST -->
+<header class="series-header">
+  <div class="series-header-inner">
+    <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+    <nav class="series-nav" aria-label="サイト内ナビゲーション">
+      <a href="/series/genai-shikumi-deep-dive/">超詳解トップ</a>
+      <a href="/series/genai-shikumi/">一般向け版</a>
+      <a href="/series/genai-shikumi-technical/">詳解版</a>
+      <a href="/article/">論考一覧</a>
+    </nav>
+  </div>
+</header>
+<aside class="reading-preferences" aria-label="表示設定" data-reading-preferences>
+  <div class="reading-preferences-inner">
+    <span class="reading-preferences-label">表示</span>
+    <div class="reading-preferences-slot" data-reading-preferences-slot></div>
+  </div>
+</aside>
   <main>
-    <section class="series-hero">
+    <section
+      class="series-hero"
+      data-hero-variant="text-only"
+      data-text-contrast="dark"
+      data-asset-role="none"
+      data-asset-ref="none"
+      data-asset-status="none"
+    >
       <p class="series-kicker">生成AIのしくみ 超詳解 08</p>
       <h1>全体アーキテクチャ</h1>
       <p class="series-subtitle">model / application / runtime / human の責任境界を組み直し、生成AIシステム全体を読む。</p>
@@ -626,7 +648,8 @@ human approval / review
       </article>
     </div>
   </main>
-  <footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
+<footer class="series-footer"><p>GENAI-RON｜🧠生成AI論🥦</p></footer>
   <script src="/assets/theme.js" defer></script>
+  <script src="/publishing/behaviors/reading-preferences-adapter.js" defer></script>
 </body>
 </html>
