@@ -1,7 +1,7 @@
 /*
 GENAI-RON structured publishing component styles
 ページ作成日時：2026-07-23 08:43 JST
-最終更新日時：2026-07-23 08:43 JST
+最終更新日時：2026-07-23 10:58 JST
 
 Preview-only until promoted through the publishing build path.
 */
@@ -86,6 +86,20 @@ Preview-only until promoted through the publishing build path.
 .reading-preferences .article-text-size-label {
   font-size: 11px;
   letter-spacing: 0.04em;
+}
+
+html[data-reading-size] body.series-page-compact .series-main > article.note-box,
+html[data-article-text-size] body.series-page-compact .series-main > article.note-box {
+  font-size: var(--gr-reading-size) !important;
+  line-height: var(--gr-reading-line-height) !important;
+}
+
+html[data-reading-size] body.series-page-compact .series-main > article.note-box p,
+html[data-reading-size] body.series-page-compact .series-main > article.note-box li,
+html[data-article-text-size] body.series-page-compact .series-main > article.note-box p,
+html[data-article-text-size] body.series-page-compact .series-main > article.note-box li {
+  font-size: var(--gr-reading-size) !important;
+  line-height: var(--gr-reading-line-height) !important;
 }
 
 @media (max-width: 640px) {

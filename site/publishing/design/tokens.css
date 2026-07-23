@@ -1,7 +1,7 @@
 /*
 GENAI-RON publishing design tokens
 ページ作成日時：2026-07-23 10:28 JST
-最終更新日時：2026-07-23 10:28 JST
+最終更新日時：2026-07-23 10:58 JST
 
 Deployed mirror for pages that reference /publishing/design/tokens.css.
 Source counterpart: publishing/design/tokens.css
@@ -36,20 +36,29 @@ Source counterpart: publishing/design/tokens.css
   --gr-hero-overlay: transparent;
 }
 
-html[data-reading-size="small"] {
+html[data-reading-size="small"],
+html[data-article-text-size="small"] {
   --gr-reading-size: 15.6px;
   --gr-reading-line-height: 1.9;
 }
 
 html[data-reading-size="normal"],
-html:not([data-reading-size]) {
+html[data-article-text-size="normal"],
+html:not([data-reading-size]):not([data-article-text-size]) {
   --gr-reading-size: 17px;
   --gr-reading-line-height: 1.95;
 }
 
-html[data-reading-size="large"] {
+html[data-reading-size="large"],
+html[data-article-text-size="large"] {
   --gr-reading-size: 19px;
   --gr-reading-line-height: 2;
+}
+
+html[data-reading-size="x-large"],
+html[data-article-text-size="x-large"] {
+  --gr-reading-size: 21.25px;
+  --gr-reading-line-height: 2.04;
 }
 
 html[data-theme-id="library-university-humanities-summer"] {
