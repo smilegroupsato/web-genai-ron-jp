@@ -11,6 +11,7 @@ on:
       - "requirements-publishing.txt"
       - "scripts/build_content_pages.py"
       - "scripts/build_structured_preview.py"
+      - "scripts/build_promotion_fixture.py"
       - "scripts/validate_structured_preview.py"
       - "scripts/capture_structured_preview.js"
       - ".github/workflows/validate-publishing-structure.yml"
@@ -41,6 +42,7 @@ jobs:
           python -m py_compile \
             scripts/build_content_pages.py \
             scripts/build_structured_preview.py \
+            scripts/build_promotion_fixture.py \
             scripts/validate_structured_preview.py
 
       - name: Confirm structured builder cannot write to site
@@ -56,7 +58,9 @@ jobs:
             _content_build_preview_ci \
             _structured_build_preview_ci \
             _structured_library_preview_ci \
-            _structured_visual_qa
+            _structured_visual_qa \
+            _promotion_fixture \
+            _promotion_fixture_tmp
 
           python scripts/build_content_pages.py \
             --preview-root _content_build_preview_ci
@@ -125,6 +129,26 @@ jobs:
             --expected-asset-status unresolved \
             --expected-production-enabled false
 
+      - name: Build 08 promotion dry-run fixture
+        run: |
+          python scripts/build_promotion_fixture.py \
+            --source content/series/genai-shikumi-deep-dive/08-architecture.md \
+            --fixture-root _promotion_fixture \
+            --tmp-root _promotion_fixture_tmp
+
+          python scripts/validate_structured_preview.py \
+            _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/current.html \
+            _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/candidate.html \
+            --expected-theme default-academic \
+            --expected-collection core \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
+
       - name: Reject unregistered theme ids
         run: |
           if python scripts/build_structured_preview.py \
@@ -181,6 +205,7 @@ jobs:
           path: |
             _structured_build_preview_ci/
             _structured_library_preview_ci/
+            _promotion_fixture/
             _structured_visual_qa/
           if-no-files-found: error
           retention-days: 7
