@@ -54,6 +54,72 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+async function collectReadingSizeMetrics(page) {
+  return page.evaluate(async () => {
+    const expectedSizes = ["small", "normal", "large", "x-large"];
+    const target =
+      document.querySelector("article.note-box p") ||
+      document.querySelector("article.note-box li") ||
+      document.querySelector("article.note-box");
+    const control = document.querySelector(".article-text-size-control");
+    const buttons = [...document.querySelectorAll("[data-article-text-size-choice]")];
+
+    const readTarget = () => {
+      if (!target) return null;
+      const style = getComputedStyle(target);
+      return {
+        fontSizePx: Number.parseFloat(style.fontSize),
+        lineHeightPx: Number.parseFloat(style.lineHeight),
+        fontSizeRaw: style.fontSize,
+        lineHeightRaw: style.lineHeight,
+      };
+    };
+
+    const results = {};
+    for (const size of expectedSizes) {
+      const button = buttons.find(
+        (candidate) => candidate.dataset.articleTextSizeChoice === size
+      );
+      if (!button) continue;
+      button.click();
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      results[size] = {
+        rootArticleTextSize: document.documentElement.dataset.articleTextSize || null,
+        rootReadingSize: document.documentElement.dataset.readingSize || null,
+        buttonPressed: button.getAttribute("aria-pressed"),
+        buttonCurrent: button.getAttribute("aria-current"),
+        target: readTarget(),
+      };
+    }
+
+    const fontSizes = Object.values(results)
+      .map((result) => result?.target?.fontSizePx)
+      .filter((value) => Number.isFinite(value));
+    const distinctFontSizes = [...new Set(fontSizes.map((value) => value.toFixed(2)))];
+
+    return {
+      targetFound: Boolean(target),
+      controlFound: Boolean(control),
+      buttonCount: buttons.length,
+      expectedSizes,
+      foundSizes: buttons.map((button) => button.dataset.articleTextSizeChoice),
+      inDedicatedSlot: Boolean(control?.closest("[data-reading-preferences-slot]")),
+      directBodyChild: Boolean(document.querySelector("body > .article-text-size-control")),
+      results,
+      distinctFontSizes,
+      sizeOrderOk:
+        Number.isFinite(results.small?.target?.fontSizePx) &&
+        Number.isFinite(results.normal?.target?.fontSizePx) &&
+        Number.isFinite(results.large?.target?.fontSizePx) &&
+        Number.isFinite(results["x-large"]?.target?.fontSizePx) &&
+        results.small.target.fontSizePx < results.normal.target.fontSizePx &&
+        results.normal.target.fontSizePx < results.large.target.fontSizePx &&
+        results.large.target.fontSizePx < results["x-large"].target.fontSizePx,
+    };
+  });
+}
+
 async function main() {
   ensureDir(outputRoot);
   const browser = await chromium.launch({ headless: true });
@@ -82,7 +148,9 @@ async function main() {
       );
     }
 
-    const metrics = await page.evaluate(() => {
+    const readingSizeTest = await collectReadingSizeMetrics(page);
+
+    const metrics = await page.evaluate((readingSizeTest) => {
       const root = document.documentElement;
 
       const hasScrollableAncestor = (element) => {
@@ -172,6 +240,16 @@ async function main() {
         appearanceIsDirectBodyChild: Boolean(
           document.querySelector("body > .appearance-switcher")
         ),
+        textSizeButtonCount:
+          document.querySelectorAll("[data-article-text-size-choice]").length,
+        textSizeInDedicatedSlot: Boolean(
+          document
+            .querySelector(".article-text-size-control")
+            ?.closest("[data-reading-preferences-slot]")
+        ),
+        textSizeIsDirectBodyChild: Boolean(
+          document.querySelector("body > .article-text-size-control")
+        ),
         appearanceButtonStyle: firstSwitcherButtonStyle
           ? {
               borderRadius: firstSwitcherButtonStyle.borderRadius,
@@ -179,9 +257,10 @@ async function main() {
               minHeight: firstSwitcherButtonStyle.minHeight,
             }
           : null,
+        readingSizeTest,
         overflow,
       };
-    });
+    }, readingSizeTest);
 
     const screenshot = path.join(outputRoot, `${testCase.id}.png`);
     await page.screenshot({ path: screenshot, fullPage: true });
@@ -212,6 +291,28 @@ async function main() {
     if (metrics.appearanceIsDirectBodyChild) {
       errors.push("appearance switcher leaked as a direct child of body");
     }
+    if (!metrics.readingSizeTest.targetFound) {
+      errors.push("reading-size target paragraph/list item is missing");
+    }
+    if (!metrics.readingSizeTest.controlFound) {
+      errors.push("reading-size control is missing");
+    }
+    if (metrics.textSizeButtonCount !== 4) {
+      errors.push(
+        `text size control count mismatch: expected 4, got ${metrics.textSizeButtonCount}`
+      );
+    }
+    if (!metrics.textSizeInDedicatedSlot) {
+      errors.push("text size control is not mounted in the dedicated slot");
+    }
+    if (metrics.textSizeIsDirectBodyChild) {
+      errors.push("text size control leaked as a direct child of body");
+    }
+    if (!metrics.readingSizeTest.sizeOrderOk) {
+      errors.push(
+        `computed text sizes did not change in expected order: ${JSON.stringify(metrics.readingSizeTest.results)}`
+      );
+    }
     if (metrics.scrollWidth > metrics.clientWidth + 1) {
       errors.push(
         `document horizontal overflow: ${metrics.scrollWidth}px > ${metrics.clientWidth}px`
@@ -239,7 +340,7 @@ async function main() {
 
   for (const entry of report) {
     console.log(
-      `${entry.case.id}: theme=${entry.metrics.themeId} width=${entry.metrics.clientWidth}/${entry.metrics.scrollWidth} controls=${entry.metrics.appearanceButtonCount} errors=${entry.errors.length}`
+      `${entry.case.id}: theme=${entry.metrics.themeId} width=${entry.metrics.clientWidth}/${entry.metrics.scrollWidth} appearance=${entry.metrics.appearanceButtonCount} textSize=${entry.metrics.textSizeButtonCount} sizeOrder=${entry.metrics.readingSizeTest.sizeOrderOk} errors=${entry.errors.length}`
     );
     for (const error of entry.errors) console.error(`  ERROR: ${error}`);
   }
