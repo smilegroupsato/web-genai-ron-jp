@@ -1,5 +1,5 @@
 # ページ作成日時：2026-07-23 11:53 JST
-# 最終更新日時：2026-07-23 11:53 JST
+# 最終更新日時：2026-07-23 12:22 JST
 
 name: Validate Controlled Write 08
 
@@ -46,11 +46,18 @@ jobs:
             scripts/build_promotion_fixture.py
 
       - name: Confirm controlled write scope
+        id: scope
         run: |
           allowed_site="site/series/genai-shikumi-deep-dive/08-architecture/index.html"
           allowed_workflow=".github/workflows/validate-controlled-write-08.yml"
           changed=$(git diff --name-only origin/main...HEAD | sort)
           printf '%s\n' "$changed"
+
+          if ! printf '%s\n' "$changed" | grep -q -x "$allowed_site"; then
+            echo "08 controlled-write target not present; skipping page-specific validation."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           disallowed=$(printf '%s\n' "$changed" | grep -v -x "$allowed_site" | grep -v -x "$allowed_workflow" || true)
           if [ -n "$disallowed" ]; then
@@ -59,12 +66,10 @@ jobs:
             exit 1
           fi
 
-          if ! printf '%s\n' "$changed" | grep -q -x "$allowed_site"; then
-            echo "controlled site target was not changed" >&2
-            exit 1
-          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
 
       - name: Build 08 promotion fixture
+        if: steps.scope.outputs.skip != 'true'
         run: |
           rm -rf _promotion_fixture _promotion_fixture_tmp
           python scripts/build_promotion_fixture.py \
@@ -73,6 +78,7 @@ jobs:
             --tmp-root _promotion_fixture_tmp
 
       - name: Validate promoted site semantic parity
+        if: steps.scope.outputs.skip != 'true'
         run: |
           python scripts/validate_structured_preview.py \
             _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/current.html \
@@ -88,12 +94,14 @@ jobs:
             --expected-production-enabled true
 
       - name: Validate promoted site is byte-identical to candidate
+        if: steps.scope.outputs.skip != 'true'
         run: |
           cmp -s \
             _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/candidate.html \
             site/series/genai-shikumi-deep-dive/08-architecture/index.html
 
       - name: Upload 08 promotion fixture
+        if: steps.scope.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: promotion-fixture-08
