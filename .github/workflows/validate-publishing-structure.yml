@@ -7,6 +7,7 @@ on:
       - "ARCHITECTURE.md"
       - "content/**"
       - "publishing/**"
+      - "site/publishing/**"
       - "requirements-publishing.txt"
       - "scripts/build_content_pages.py"
       - "scripts/build_structured_preview.py"
@@ -134,9 +135,14 @@ jobs:
             exit 1
           fi
 
-      - name: Confirm public site files are unchanged in this branch
+      - name: Confirm only publishing bridge assets may change under site
         run: |
-          git diff --exit-code origin/main...HEAD -- site/
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**')
+          if [ -n "$disallowed" ]; then
+            echo "unexpected public site file changes:" >&2
+            echo "$disallowed" >&2
+            exit 1
+          fi
 
       - name: Set up Node
         uses: actions/setup-node@v4
