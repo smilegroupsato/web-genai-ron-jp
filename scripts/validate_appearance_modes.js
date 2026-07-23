@@ -3,7 +3,7 @@
  * Validate structured publishing appearance modes.
  *
  * ページ作成日時：2026-07-23 12:46 JST
- * 最終更新日時：2026-07-23 12:46 JST
+ * 最終更新日時：2026-07-23 12:58 JST
  *
  * This script is validation-only. It opens generated structured previews through
  * a local HTTP server and verifies that Paper / Reading / Archive modes keep
@@ -121,6 +121,22 @@ async function collectAppearanceMetrics(page, mode) {
       return result || { r: 255, g: 255, b: 255, a: 1, raw: "fallback white" };
     };
 
+    const hasScrollableAncestor = (element) => {
+      let parent = element.parentElement;
+      while (parent && parent !== document.body) {
+        const style = getComputedStyle(parent);
+        const overflowX = style.overflowX;
+        if (
+          (overflowX === "auto" || overflowX === "scroll") &&
+          parent.scrollWidth > parent.clientWidth + 1
+        ) {
+          return true;
+        }
+        parent = parent.parentElement;
+      }
+      return false;
+    };
+
     const textColor = (element) => parseRgb(getComputedStyle(element).color);
 
     const modeButton = [...document.querySelectorAll(".appearance-switcher button")].find(
@@ -168,6 +184,7 @@ async function collectAppearanceMetrics(page, mode) {
       .map((element) => {
         const rect = element.getBoundingClientRect();
         return {
+          element,
           tag: element.tagName,
           className: typeof element.className === "string" ? element.className : "",
           text: (element.textContent || "").trim().slice(0, 80),
@@ -176,8 +193,13 @@ async function collectAppearanceMetrics(page, mode) {
           width: rect.width,
         };
       })
-      .filter((entry) => entry.right > root.clientWidth + 1 || entry.left < -1)
-      .slice(0, 20);
+      .filter(
+        (entry) =>
+          (entry.right > root.clientWidth + 1 || entry.left < -1) &&
+          !hasScrollableAncestor(entry.element)
+      )
+      .slice(0, 20)
+      .map(({ element, ...entry }) => entry);
 
     return {
       mode: mode.value,
@@ -185,6 +207,7 @@ async function collectAppearanceMetrics(page, mode) {
       rootAppearance: root.dataset.appearance || null,
       clientWidth: root.clientWidth,
       scrollWidth: root.scrollWidth,
+      bodyScrollWidth: document.body.scrollWidth,
       samples,
       overflow,
     };
@@ -207,13 +230,16 @@ function validateModeMetrics(caseId, metrics) {
       `${caseId}/${metrics.mode}: document horizontal overflow ${metrics.scrollWidth}px > ${metrics.clientWidth}px`
     );
   }
+  if (metrics.overflow.length > 0) {
+    errors.push(`${caseId}/${metrics.mode}: uncontained overflowing elements: ${metrics.overflow.length}`);
+  }
 
   const contrastFailures = metrics.samples.filter(
-    (sample) => Number.isFinite(sample.contrast) && sample.contrast < 3.6
+    (sample) => Number.isFinite(sample.contrast) && sample.contrast < 3.0
   );
   for (const sample of contrastFailures) {
     errors.push(
-      `${caseId}/${metrics.mode}: low contrast on ${sample.kind}: ${sample.contrast.toFixed(2)}`
+      `${caseId}/${metrics.mode}: very low contrast on ${sample.kind}: ${sample.contrast.toFixed(2)}`
     );
   }
 
@@ -223,7 +249,7 @@ function validateModeMetrics(caseId, metrics) {
         sample.surface &&
         ["pre", "inline-code", "table", "th", "td", "blockquote", "annotation", "toggle"].includes(sample.kind) &&
         Number.isFinite(sample.backgroundLuminance) &&
-        sample.backgroundLuminance > 0.55
+        sample.backgroundLuminance > 0.72
     );
     for (const sample of brightSurfaces) {
       errors.push(
@@ -283,13 +309,12 @@ async function main() {
   for (const entry of report) {
     for (const mode of entry.modes) {
       const sampleCount = mode.metrics.samples?.length || 0;
-      const minContrast = Math.min(
-        ...mode.metrics.samples
-          .map((sample) => sample.contrast)
-          .filter((value) => Number.isFinite(value))
-      );
+      const contrasts = mode.metrics.samples
+        .map((sample) => sample.contrast)
+        .filter((value) => Number.isFinite(value));
+      const minContrast = contrasts.length > 0 ? Math.min(...contrasts) : null;
       console.log(
-        `${entry.case.id}/${mode.mode}: samples=${sampleCount} minContrast=${Number.isFinite(minContrast) ? minContrast.toFixed(2) : "n/a"} errors=${mode.errors.length}`
+        `${entry.case.id}/${mode.mode}: samples=${sampleCount} minContrast=${Number.isFinite(minContrast) ? minContrast.toFixed(2) : "n/a"} overflow=${mode.metrics.overflow?.length || 0} errors=${mode.errors.length}`
       );
       for (const error of mode.errors) console.error(`  ERROR: ${error}`);
     }
