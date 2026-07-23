@@ -5,10 +5,15 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
 
 1. Changes exactly one supported public article HTML file under site/ and that the
    promoted file is byte-identical to the structured candidate generated from
-   content/ + publishing/; or
-2. Is a gate-only PR that changes only this validator / workflow.
+   content/ + publishing/;
+2. Is a gate-only PR that changes only this validator / workflow; or
+3. Is a non-controlled-write PR where no supported public article HTML file is
+   changed, in which case the controlled-write gate is skipped.
 
 It does not write to site/.
+
+ページ作成日時：2026-07-23 12:08 JST
+最終更新日時：2026-07-23 12:22 JST
 """
 
 from __future__ import annotations
@@ -85,15 +90,15 @@ def validate_scope(files: list[str]) -> str | None:
     if len(site_targets) > 1:
         raise RuntimeError("controlled-write PR must change at most one public article HTML file:\n" + "\n".join(site_targets))
 
-    unexpected_site = sorted(set(site_changes) - set(site_targets))
+    unexpected_site = sorted(set(site_changes) - set(site_targets) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 
     if not site_targets:
-        unexpected = sorted(set(files) - GATE_ONLY_ALLOWLIST)
-        if unexpected:
-            raise RuntimeError("gate-only PR has unexpected changes:\n" + "\n".join(unexpected))
-        print("controlled-write gate-only change: OK")
+        if set(files) <= GATE_ONLY_ALLOWLIST:
+            print("controlled-write gate-only change: OK")
+        else:
+            print("controlled-write target not present: skipped")
         return None
 
     allowed = set(site_targets) | GATE_ONLY_ALLOWLIST

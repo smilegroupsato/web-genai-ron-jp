@@ -1,7 +1,7 @@
 /*
 GENAI-RON structured publishing component styles
 ページ作成日時：2026-07-23 10:28 JST
-最終更新日時：2026-07-23 10:58 JST
+最終更新日時：2026-07-23 12:22 JST
 
 Deployed mirror for pages that reference /publishing/design/components.css.
 Source counterpart: publishing/design/components.css
@@ -101,6 +101,56 @@ html[data-article-text-size] body.series-page-compact .series-main > article.not
 html[data-article-text-size] body.series-page-compact .series-main > article.note-box li {
   font-size: var(--gr-reading-size) !important;
   line-height: var(--gr-reading-line-height) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box table {
+  border-color: var(--theme-line, var(--gr-color-line)) !important;
+  background: var(--theme-card, var(--gr-color-card)) !important;
+  color: var(--theme-text, var(--gr-color-ink)) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box th,
+html[data-appearance] body.series-page-compact .series-main > article.note-box td {
+  border-color: var(--theme-line, var(--gr-color-line)) !important;
+  color: var(--theme-text, var(--gr-color-ink)) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box th {
+  background: color-mix(
+    in srgb,
+    var(--theme-soft, var(--gr-color-paper-secondary)) 78%,
+    var(--theme-card, var(--gr-color-card)) 22%
+  ) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box td {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, var(--gr-color-card)) 92%,
+    var(--theme-bg, var(--gr-color-paper)) 8%
+  ) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box tr:nth-child(even) td {
+  background: color-mix(
+    in srgb,
+    var(--theme-card, var(--gr-color-card)) 84%,
+    var(--theme-soft, var(--gr-color-paper-secondary)) 16%
+  ) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box blockquote,
+html[data-appearance] body.series-page-compact .series-main > article.note-box .annotation-accordion,
+html[data-appearance] body.series-page-compact .series-main > article.note-box .notion-toggle {
+  border-color: var(--theme-line, var(--gr-color-line)) !important;
+  background: var(--theme-soft, var(--gr-color-paper-secondary)) !important;
+  color: var(--theme-text, var(--gr-color-ink)) !important;
+}
+
+html[data-appearance] body.series-page-compact .series-main > article.note-box blockquote *,
+html[data-appearance] body.series-page-compact .series-main > article.note-box .annotation-accordion *,
+html[data-appearance] body.series-page-compact .series-main > article.note-box .notion-toggle * {
+  color: inherit !important;
 }
 
 @media (max-width: 640px) {
