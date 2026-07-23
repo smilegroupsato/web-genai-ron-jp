@@ -52,7 +52,7 @@ jobs:
           rm -rf _promotion_fixture
           python scripts/prepare_promotion_fixture.py
 
-      - name: Validate candidate semantic parity with current public artifact
+      - name: Validate promoted site artifact semantic parity
         run: |
           python scripts/validate_structured_preview.py \
             site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
@@ -66,6 +66,13 @@ jobs:
             --expected-asset-role none \
             --expected-asset-status none \
             --expected-production-enabled true
+
+      - name: Validate promoted site artifact is byte-identical to candidate
+        run: |
+          target="site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          candidate="_promotion_fixture/deep-dive-04-tool-execution-loop/candidate/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          cmp -s "$target" "$candidate"
+          sha256sum "$target" "$candidate"
 
       - name: Validate fixture report safety boundary
         run: |
@@ -88,8 +95,12 @@ jobs:
           print(json.dumps(report["diff"], indent=2))
           PY
 
-      - name: Confirm branch does not change site tree
-        run: git diff --exit-code origin/main...HEAD -- site/
+      - name: Confirm controlled site write scope
+        run: |
+          expected="site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          changed=$(git diff --name-only origin/main...HEAD -- site/)
+          echo "$changed"
+          test "$changed" = "$expected"
 
       - name: Upload promotion fixture artifact
         uses: actions/upload-artifact@v4
