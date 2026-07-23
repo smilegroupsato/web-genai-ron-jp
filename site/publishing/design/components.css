@@ -1,7 +1,7 @@
 /*
 GENAI-RON structured publishing component styles
 ページ作成日時：2026-07-23 10:28 JST
-最終更新日時：2026-07-23 12:33 JST
+最終更新日時：2026-07-23 13:26 JST
 
 Deployed mirror for pages that reference /publishing/design/components.css.
 Source counterpart: publishing/design/components.css
@@ -20,8 +20,9 @@ Source counterpart: publishing/design/components.css
 
 .reading-preferences-inner {
   width: min(1120px, calc(100% - 32px));
-  min-height: 42px;
+  min-height: 48px;
   margin: 0 auto;
+  padding: 6px 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -29,6 +30,7 @@ Source counterpart: publishing/design/components.css
 }
 
 .reading-preferences-label {
+  flex: 0 0 auto;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -37,7 +39,9 @@ Source counterpart: publishing/design/components.css
 .reading-preferences-slot {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -48,12 +52,45 @@ Source counterpart: publishing/design/components.css
   z-index: auto;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  min-height: 34px;
   margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  padding: 3px 6px;
+  border: 1px solid color-mix(in srgb, var(--theme-line, var(--gr-color-line)) 76%, transparent);
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--theme-card, var(--gr-color-card)) 72%,
+    transparent
+  );
   box-shadow: none;
+}
+
+.reading-preferences .appearance-switcher::before {
+  content: "モード";
+  flex: 0 0 auto;
+  color: var(--theme-muted, var(--gr-color-muted));
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.reading-preferences .article-text-size-label {
+  flex: 0 0 auto;
+  color: var(--theme-muted, var(--gr-color-muted));
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.reading-preferences .article-text-size-options {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .reading-preferences .appearance-switcher button,
@@ -82,11 +119,6 @@ Source counterpart: publishing/design/components.css
   border-color: var(--theme-accent, var(--gr-color-accent));
   background: var(--theme-accent, var(--gr-color-accent));
   color: var(--theme-button-text, #fffdf8);
-}
-
-.reading-preferences .article-text-size-label {
-  font-size: 11px;
-  letter-spacing: 0.04em;
 }
 
 html[data-reading-size] body.series-page-compact .series-main > article.note-box,
@@ -232,17 +264,19 @@ html[data-appearance="reading"] body.series-page-compact .series-main > article.
 
 @media (max-width: 640px) {
   .reading-preferences-inner {
-    min-height: 48px;
+    min-height: 0;
+    align-items: flex-start;
     justify-content: flex-start;
     overflow-x: auto;
     scrollbar-width: thin;
   }
 
-  .reading-preferences-label {
+  .reading-preferences-slot {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
     flex: 0 0 auto;
   }
 
-  .reading-preferences-slot,
   .reading-preferences .appearance-switcher,
   .reading-preferences .article-text-size-control {
     flex: 0 0 auto;
