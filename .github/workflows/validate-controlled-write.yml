@@ -1,0 +1,64 @@
+# ページ作成日時：2026-07-23 12:08 JST
+# 最終更新日時：2026-07-23 12:08 JST
+
+name: Validate Controlled Write
+
+on:
+  pull_request:
+    paths:
+      - "site/series/genai-shikumi-deep-dive/**/index.html"
+      - ".github/workflows/validate-controlled-write.yml"
+      - "scripts/validate_controlled_write.py"
+      - "scripts/build_promotion_fixture.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/build_content_pages.py"
+      - "scripts/validate_structured_preview.py"
+      - "publishing/**"
+      - "content/series/genai-shikumi-deep-dive/**"
+      - "requirements-publishing.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile publishing tools
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/validate_structured_preview.py \
+            scripts/build_promotion_fixture.py \
+            scripts/validate_controlled_write.py
+
+      - name: Validate controlled write scope and candidate parity
+        run: |
+          python scripts/validate_controlled_write.py \
+            --base-ref origin/main \
+            --fixture-root _controlled_write_fixture \
+            --tmp-root _controlled_write_tmp
+
+      - name: Upload controlled-write fixture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: controlled-write-fixture
+          path: _controlled_write_fixture/
+          if-no-files-found: ignore
+          retention-days: 7
