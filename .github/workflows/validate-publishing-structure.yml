@@ -14,6 +14,7 @@ on:
       - "scripts/build_promotion_fixture.py"
       - "scripts/validate_structured_preview.py"
       - "scripts/capture_structured_preview.js"
+      - "scripts/validate_appearance_modes.js"
       - ".github/workflows/validate-publishing-structure.yml"
   workflow_dispatch:
 
@@ -59,6 +60,7 @@ jobs:
             _structured_build_preview_ci \
             _structured_library_preview_ci \
             _structured_visual_qa \
+            _appearance_visual_qa \
             _promotion_fixture \
             _promotion_fixture_tmp
 
@@ -198,6 +200,12 @@ jobs:
           VISUAL_QA_OUTPUT: _structured_visual_qa
         run: node scripts/capture_structured_preview.js
 
+      - name: Validate Paper / Reading / Archive appearance modes
+        env:
+          PREVIEW_BASE_URL: http://127.0.0.1:8765
+          APPEARANCE_QA_OUTPUT: _appearance_visual_qa
+        run: node scripts/validate_appearance_modes.js
+
       - name: Upload preview and visual QA artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -207,5 +215,6 @@ jobs:
             _structured_library_preview_ci/
             _promotion_fixture/
             _structured_visual_qa/
+            _appearance_visual_qa/
           if-no-files-found: error
           retention-days: 7
