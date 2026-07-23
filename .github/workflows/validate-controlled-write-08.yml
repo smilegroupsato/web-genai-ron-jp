@@ -1,0 +1,102 @@
+# ページ作成日時：2026-07-23 11:53 JST
+# 最終更新日時：2026-07-23 11:53 JST
+
+name: Validate Controlled Write 08
+
+on:
+  pull_request:
+    paths:
+      - "site/series/genai-shikumi-deep-dive/08-architecture/index.html"
+      - ".github/workflows/validate-controlled-write-08.yml"
+      - "scripts/build_promotion_fixture.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/build_content_pages.py"
+      - "scripts/validate_structured_preview.py"
+      - "publishing/**"
+      - "content/series/genai-shikumi-deep-dive/08-architecture.md"
+      - "requirements-publishing.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile publishing tools
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/validate_structured_preview.py \
+            scripts/build_promotion_fixture.py
+
+      - name: Confirm controlled write scope
+        run: |
+          allowed_site="site/series/genai-shikumi-deep-dive/08-architecture/index.html"
+          allowed_workflow=".github/workflows/validate-controlled-write-08.yml"
+          changed=$(git diff --name-only origin/main...HEAD | sort)
+          printf '%s\n' "$changed"
+
+          disallowed=$(printf '%s\n' "$changed" | grep -v -x "$allowed_site" | grep -v -x "$allowed_workflow" || true)
+          if [ -n "$disallowed" ]; then
+            echo "unexpected files changed:" >&2
+            echo "$disallowed" >&2
+            exit 1
+          fi
+
+          if ! printf '%s\n' "$changed" | grep -q -x "$allowed_site"; then
+            echo "controlled site target was not changed" >&2
+            exit 1
+          fi
+
+      - name: Build 08 promotion fixture
+        run: |
+          rm -rf _promotion_fixture _promotion_fixture_tmp
+          python scripts/build_promotion_fixture.py \
+            --source content/series/genai-shikumi-deep-dive/08-architecture.md \
+            --fixture-root _promotion_fixture \
+            --tmp-root _promotion_fixture_tmp
+
+      - name: Validate promoted site semantic parity
+        run: |
+          python scripts/validate_structured_preview.py \
+            _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/current.html \
+            site/series/genai-shikumi-deep-dive/08-architecture/index.html \
+            --expected-theme default-academic \
+            --expected-collection core \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
+
+      - name: Validate promoted site is byte-identical to candidate
+        run: |
+          cmp -s \
+            _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/candidate.html \
+            site/series/genai-shikumi-deep-dive/08-architecture/index.html
+
+      - name: Upload 08 promotion fixture
+        uses: actions/upload-artifact@v4
+        with:
+          name: promotion-fixture-08
+          path: _promotion_fixture/series/genai-shikumi-deep-dive/08-architecture/
+          if-no-files-found: error
+          retention-days: 7
