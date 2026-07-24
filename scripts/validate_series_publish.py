@@ -24,6 +24,9 @@ TARGET_RE = re.compile(r"^site/series/([^/]+)(?:/([^/]+))?/index\.html$")
 ALLOWED_SERIES = {"ai-dialogue-intro"}
 GATE_ALLOWLIST = {
     ".github/workflows/validate-series-publish.yml",
+    ".github/workflows/validate-publishing-structure.yml",
+    ".github/workflows/validate-promotion-fixture-04.yml",
+    "scripts/validate_controlled_write.py",
     "scripts/validate_series_publish.py",
     "scripts/build_structured_preview.py",
     "publishing/templates/article.html",
