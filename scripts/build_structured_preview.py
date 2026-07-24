@@ -243,6 +243,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
 
     values = {
         "series_slug": html.escape(series_slug, quote=True),
+        "series_attr": '\n  data-series="ai-dialogue-intro"' if series_slug == "ai-dialogue-intro" else "",
         "theme_id": html.escape(theme["theme_id"], quote=True),
         "theme_collection": html.escape(theme["theme_collection"], quote=True),
         "theme_base": html.escape(theme["theme_base"], quote=True),

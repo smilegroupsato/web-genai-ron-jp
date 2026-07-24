@@ -27,6 +27,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TARGET_RE = re.compile(r"^site/series/genai-shikumi-deep-dive/([^/]+)/index\.html$")
+SERIES_PUBLISH_SITE_RE = re.compile(r"^site/series/ai-dialogue-intro/(?:[^/]+/)?index\.html$")
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
     "scripts/validate_controlled_write.py",
@@ -90,7 +91,8 @@ def validate_scope(files: list[str]) -> str | None:
     if len(site_targets) > 1:
         raise RuntimeError("controlled-write PR must change at most one public article HTML file:\n" + "\n".join(site_targets))
 
-    unexpected_site = sorted(set(site_changes) - set(site_targets) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
+    series_publish_site_changes = [path for path in site_changes if SERIES_PUBLISH_SITE_RE.match(path)]
+    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 

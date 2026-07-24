@@ -163,7 +163,7 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**')
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**')
           if [ -n "$disallowed" ]; then
             echo "unexpected public site file changes:" >&2
             echo "$disallowed" >&2
