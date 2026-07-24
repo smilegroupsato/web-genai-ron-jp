@@ -1,0 +1,59 @@
+# ページ作成日時：2026-07-24 08:59 JST
+# 最終更新日時：2026-07-24 08:59 JST
+
+name: Validate Series Publish
+
+on:
+  pull_request:
+    paths:
+      - "site/series/ai-dialogue-intro/**/index.html"
+      - ".github/workflows/validate-series-publish.yml"
+      - "scripts/validate_series_publish.py"
+      - "scripts/build_structured_preview.py"
+      - "scripts/build_content_pages.py"
+      - "publishing/**"
+      - "content/series/ai-dialogue-intro/**"
+      - "requirements-publishing.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependency
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile publishing tools
+        run: |
+          python -m py_compile \
+            scripts/build_content_pages.py \
+            scripts/build_structured_preview.py \
+            scripts/validate_series_publish.py
+
+      - name: Validate series publish output
+        run: |
+          python scripts/validate_series_publish.py \
+            --base-ref origin/main \
+            --preview-root _series_publish_preview
+
+      - name: Upload series publish preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: series-publish-preview
+          path: _series_publish_preview/
+          if-no-files-found: ignore
+          retention-days: 7
