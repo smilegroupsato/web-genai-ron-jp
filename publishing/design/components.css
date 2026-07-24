@@ -281,3 +281,66 @@ html[data-appearance="reading"] body.series-page-compact .series-main > article.
     flex: 0 0 auto;
   }
 }
+
+
+/* AI dialogue intro presentation repair
+   ページ作成日時：2026-07-24 12:09 JST
+   最終更新日時：2026-07-24 12:09 JST
+*/
+html[data-series="ai-dialogue-intro"] body.series-page {
+  font-family: var(--gr-font-body, "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif) !important;
+}
+
+html[data-series="ai-dialogue-intro"] .series-hero h1,
+html[data-series="ai-dialogue-intro"] .series-subtitle,
+html[data-series="ai-dialogue-intro"] .series-main > article.note-box,
+html[data-series="ai-dialogue-intro"] .series-main > article.note-box h2,
+html[data-series="ai-dialogue-intro"] .series-main > article.note-box p,
+html[data-series="ai-dialogue-intro"] .series-main > article.note-box li {
+  font-family: var(--gr-font-body, "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif) !important;
+}
+
+html[data-series="ai-dialogue-intro"] .series-hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+html[data-series="ai-dialogue-intro"] .series-main > article.note-box {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+html[data-series="ai-dialogue-intro"] .series-header,
+html[data-series="ai-dialogue-intro"] .series-nav,
+html[data-series="ai-dialogue-intro"] .reading-preferences,
+html[data-series="ai-dialogue-intro"] .article-link {
+  font-family: var(--gr-font-ui, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif) !important;
+}
+
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] {
+  --theme-bg: #0f1412;
+  --theme-surface: #151a17;
+  --theme-card: #151a17;
+  --theme-card-soft: #151a17;
+  --theme-text: #f6f1e8;
+  --theme-muted: #d8cebf;
+  --theme-subtle: #b4aa9d;
+  --theme-line: rgba(226, 214, 196, .28);
+  --theme-soft: #202721;
+  --theme-link: #a9d7bf;
+}
+
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] body.series-page,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-main,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-hero h1,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-main > article.note-box,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-main > article.note-box h2,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-main > article.note-box p,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-main > article.note-box li {
+  color: var(--theme-text) !important;
+}
+
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-subtitle,
+html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-kicker {
+  color: var(--theme-muted) !important;
+}

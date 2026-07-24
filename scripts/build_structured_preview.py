@@ -159,6 +159,32 @@ def theme_resolution(theme_id: str) -> Dict[str, str]:
     }
 
 
+
+def series_slug_from_meta(meta: Dict[str, object]) -> str:
+    slug = str(meta.get("slug", "")).strip()
+    if slug.startswith("/series/"):
+        parts = slug.strip("/").split("/")
+        if len(parts) >= 2:
+            return parts[1]
+    return ""
+
+
+def render_site_header_for_series(series_slug: str) -> str:
+    if series_slug == "ai-dialogue-intro":
+        return """<header class="series-header">
+  <div class="series-header-inner">
+    <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
+    <nav class="series-nav" aria-label="サイト内ナビゲーション">
+      <a href="/series/ai-dialogue-intro/">目次</a>
+      <a href="/series/ai-dialogue-intro/introduction/">はじめに</a>
+      <a href="/series/ai-dialogue-intro/01-start-talking/">第1章</a>
+      <a href="/article/">論考一覧</a>
+    </nav>
+  </div>
+</header>"""
+    return read_required(SITE_HEADER)
+
+
 def render_template(template: str, values: Dict[str, str]) -> str:
     def replace(match: re.Match[str]) -> str:
         key = match.group(1)
@@ -196,7 +222,8 @@ def output_path_for(meta: Dict[str, object], preview_root: Path) -> Path:
 
 def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str:
     template = read_required(ARTICLE_TEMPLATE)
-    header = read_required(SITE_HEADER)
+    series_slug = series_slug_from_meta(meta)
+    header = render_site_header_for_series(series_slug)
     footer = read_required(SITE_FOOTER)
     reading_preferences = read_required(READING_PREFERENCES)
     theme = theme_resolution(theme_id)
@@ -215,6 +242,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
     og_title = series_kicker or title
 
     values = {
+        "series_slug": html.escape(series_slug, quote=True),
         "theme_id": html.escape(theme["theme_id"], quote=True),
         "theme_collection": html.escape(theme["theme_collection"], quote=True),
         "theme_base": html.escape(theme["theme_base"], quote=True),
