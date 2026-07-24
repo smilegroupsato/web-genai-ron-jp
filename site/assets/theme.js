@@ -15,6 +15,10 @@
     return window.location.pathname.includes('/series/genai-shikumi-deep-dive/');
   }
 
+  function shouldEnableAppearance() {
+    return Boolean(document.querySelector('.reading-preferences'));
+  }
+
   function getStoredTheme() {
     try {
       const value = localStorage.getItem(KEY);
@@ -25,6 +29,10 @@
   }
 
   function setTheme(theme) {
+    if (!shouldEnableAppearance()) {
+      delete document.documentElement.dataset.appearance;
+      return;
+    }
     const next = THEMES.includes(theme) ? theme : 'paper';
     document.documentElement.dataset.appearance = next;
     try { localStorage.setItem(KEY, next); } catch (_) {}
@@ -103,6 +111,10 @@
   }
 
   function mountSwitcher() {
+    if (!shouldEnableAppearance()) {
+      delete document.documentElement.dataset.appearance;
+      return;
+    }
     if (document.querySelector('.appearance-switcher')) {
       setTheme(getStoredTheme());
       return;
