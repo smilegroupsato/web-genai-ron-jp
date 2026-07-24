@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://genai-ron.jp/</loc><lastmod>2026-07-20</lastmod></url>
+  <url><loc>https://genai-ron.jp/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/introduction/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/01-start-talking/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/02-reading-replies/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/03-thinking-changes/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/04-not-a-teacher/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/05-growing-through-dialogue/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/06-personal-companion/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/07-living-with-ai/</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://genai-ron.jp/series/ai-dialogue-intro/afterword/</loc><lastmod>2026-07-24</lastmod></url>
   <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/01-prompt-compilation/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://genai-ron.jp/series/genai-shikumi-deep-dive/02-instruction-hierarchy/</loc><lastmod>2026-07-20</lastmod></url>
