@@ -41,8 +41,13 @@ body.codex-volume .series-nav a[aria-current="page"]{
 }
 
 body.codex-volume .appearance-switcher{
+  position:fixed!important;
   top:7px!important;
   right:10px!important;
+  bottom:auto!important;
+  left:auto!important;
+  max-width:none!important;
+  overflow:visible!important;
   transform:scale(.84)!important;
   transform-origin:top right!important;
   z-index:180!important;
