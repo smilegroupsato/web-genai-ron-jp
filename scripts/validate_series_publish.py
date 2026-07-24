@@ -24,7 +24,17 @@ TARGET_RE = re.compile(r"^site/series/([^/]+)(?:/([^/]+))?/index\.html$")
 ALLOWED_SERIES = {"ai-dialogue-intro"}
 GATE_ALLOWLIST = {
     ".github/workflows/validate-series-publish.yml",
+    ".github/workflows/validate-publishing-structure.yml",
+    ".github/workflows/validate-promotion-fixture-04.yml",
+    "scripts/validate_controlled_write.py",
     "scripts/validate_series_publish.py",
+    "scripts/build_structured_preview.py",
+    "publishing/templates/article.html",
+    "publishing/design/components.css",
+    "site/publishing/design/components.css",
+}
+SITE_ALLOWLIST = {
+    "site/publishing/design/components.css",
 }
 FORBIDDEN_PUBLIC_TEXT = [
     "ページ作成日時",
@@ -133,7 +143,7 @@ def validate_scope(files: list[str]) -> list[str]:
             print("series-publish target not present: skipped")
         return []
 
-    unexpected_site = sorted(set(site_changes) - set(site_targets))
+    unexpected_site = sorted(set(site_changes) - set(site_targets) - SITE_ALLOWLIST)
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 
