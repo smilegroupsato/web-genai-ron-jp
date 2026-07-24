@@ -2,7 +2,10 @@
 """Validate structured publishing output for whole-series publish PRs.
 
 ページ作成日時：2026-07-24 08:59 JST
-最終更新日時：2026-07-24 08:59 JST
+最終更新日時：2026-07-24 14:12 JST
+
+更新履歴：
+- 2026-07-24 14:12 JST：AI対話入門目次へのチラシPDFリンク追加に合わせ、content sourceとPDF assetをSeries Publish Gateの許可対象へ追加。
 
 This gate is intentionally separate from validate_controlled_write.py.
 The controlled-write gate protects one-page migrations, while this script protects
@@ -32,6 +35,8 @@ GATE_ALLOWLIST = {
     "publishing/templates/article.html",
     "publishing/design/components.css",
     "site/publishing/design/components.css",
+    "site/downloads/ai-dialogue-intro-flyer.pdf",
+    "content/series/ai-dialogue-intro/index.md",
 }
 SITE_ALLOWLIST = {
     "site/publishing/design/components.css",

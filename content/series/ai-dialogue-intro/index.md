@@ -9,7 +9,7 @@ theme_id: "default-academic"
 original_notion_created_at: "2026-07-22 17:38 JST"
 original_notion_updated_at: "2026-07-22 22:40 JST"
 content_source_created_at: "2026-07-23 15:23 JST"
-content_source_updated_at: "2026-07-23 15:23 JST"
+content_source_updated_at: "2026-07-24 14:12 JST"
 web_migrated_at: "2026-07-23 15:23 JST"
 next_href: "/series/ai-dialogue-intro/introduction/"
 next_label: "はじめに"
@@ -36,3 +36,10 @@ next_label: "はじめに"
 - [第6章　あなた専用の相棒になる](/series/ai-dialogue-intro/06-personal-companion/)
 - [第7章　生成AIと暮らす](/series/ai-dialogue-intro/07-living-with-ai/)
 - [おわりに](/series/ai-dialogue-intro/afterword/)
+
+## チラシ
+
+このシリーズの案内チラシをPDFで用意しました。印刷して配布したり、紹介用に使えます。
+
+[チラシPDFを開く](/downloads/ai-dialogue-intro-flyer.pdf)
+
