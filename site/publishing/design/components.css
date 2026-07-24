@@ -345,3 +345,26 @@ html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-subtitl
 html[data-series="ai-dialogue-intro"][data-appearance="reading"] .series-kicker {
   color: var(--theme-muted) !important;
 }
+
+
+/* AI dialogue intro navigation typography
+   ページ作成日時：2026-07-24 12:29 JST
+   最終更新日時：2026-07-24 12:29 JST
+*/
+html[data-series="ai-dialogue-intro"] .series-header .series-nav,
+html[data-series="ai-dialogue-intro"] .series-header .series-nav a,
+html[data-series="ai-dialogue-intro"] article.note-box nav.article-link,
+html[data-series="ai-dialogue-intro"] article.note-box nav.article-link a {
+  font-family: var(--gr-font-body, "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif) !important;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+html[data-series="ai-dialogue-intro"] .reading-preferences,
+html[data-series="ai-dialogue-intro"] .reading-preferences *,
+html[data-series="ai-dialogue-intro"] .appearance-switcher,
+html[data-series="ai-dialogue-intro"] .appearance-switcher *,
+html[data-series="ai-dialogue-intro"] .article-text-size-control,
+html[data-series="ai-dialogue-intro"] .article-text-size-control * {
+  font-family: var(--gr-font-ui, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif) !important;
+}
