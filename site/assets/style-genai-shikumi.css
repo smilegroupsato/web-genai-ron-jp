@@ -80,6 +80,122 @@ body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.ser
 body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy{margin-left:26px}
 body.series-page:has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .note-box h2{color:var(--codex-001-deep)}
 
+
+/* Site UI normalization PR-B: 001 / 002 article width and codex alignment
+   Scope: legacy 001 / 002 article pages only.
+   Issue: #27
+*/
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])),
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]){
+  --codex-accent:#245c63;
+  --codex-accent-deep:#173a34;
+  --codex-line:rgba(36,92,99,.38);
+  --accent:var(--codex-accent);
+  --line:var(--codex-line);
+  --codex-article-container:min(1040px,calc(100% - 40px));
+  --codex-article-reader:min(860px,100%);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-header,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-header{
+  border-bottom:3px solid var(--codex-accent);
+  background:rgba(250,247,240,.96);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-brand-main,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-nav a,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-brand-main,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-nav a{
+  color:var(--codex-accent-deep);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-main,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-hero,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-main{
+  width:var(--codex-article-container);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-hero{
+  position:relative;
+  padding:52px 0 34px;
+  border-bottom:4px solid var(--codex-accent);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero::before,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-hero::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:8px;
+  height:100%;
+  background:var(--codex-accent);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-kicker{
+  display:inline-block;
+  margin-left:26px;
+  padding:6px 10px;
+  border:1px solid var(--codex-accent);
+  background:rgba(230,238,233,.55);
+  color:var(--codex-accent-deep);
+  font-size:13px;
+  letter-spacing:.18em;
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-hero h1{
+  margin-left:26px;
+  max-width:980px;
+  color:var(--codex-accent-deep);
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-subtitle,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-copy{
+  margin-left:26px;
+  max-width:840px;
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-main,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-main{
+  margin-top:34px;
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-main > article.note-box,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-main > article.note-box{
+  max-width:var(--codex-article-reader);
+  margin:0 auto 72px 0;
+  padding:28px 0 46px;
+}
+
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-main > article.note-box h2,
+body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-main > article.note-box h2{
+  color:var(--codex-accent-deep);
+}
+
+@media(max-width:560px){
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])),
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]){
+    --codex-article-container:min(100% - 28px,1040px);
+  }
+
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-kicker,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-hero h1,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-subtitle,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi/"]):not(:has(.series-nav a[href="/series/genai-shikumi-technical/"])) .series-copy,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-kicker,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-hero h1,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-subtitle,
+  body.series-page:not(.series-page-compact):has(.series-nav a[href="/series/genai-shikumi-technical/"]) .series-copy{
+    margin-left:18px;
+  }
+}
+
 @media(max-width:900px){.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.series-two-col{grid-template-columns:1fr}}
 @media(max-width:560px){
   body.series-page{font-size:18px;line-height:1.9}.series-hero{padding:44px 0 32px}.series-kicker{font-size:16px}.series-hero h1{font-size:clamp(42px,13vw,64px)}.series-subtitle{font-size:22px;line-height:1.72}.series-copy{font-size:20px;line-height:1.72}.topic-grid{grid-template-columns:1fr}.article-card,.topic-card,.note-box{border-radius:0;padding:18px 0}.topic-card p,.article-card p,.note-box p,.note-box li{font-size:18px;line-height:1.78}.article-grid{grid-template-columns:1fr}.article-card{grid-template-columns:3.2em minmax(0,1fr);column-gap:12px}.article-card h3{font-size:26px}.article-number{font-size:17px}.article-phrase,.article-link{font-size:17px}.series-section h2{font-size:30px}.series-actions{display:grid}.series-button{width:100%;font-size:18px;padding:11px 14px}
