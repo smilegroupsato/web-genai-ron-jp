@@ -1,0 +1,619 @@
+{
+  "manifest_version": 1,
+  "source_root": "site",
+  "route_count": 102,
+  "routes": [
+    {
+      "route": "/article/bibliography.html",
+      "source_html_path": "site/article/bibliography.html",
+      "page_type": "bibliography",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-01.html",
+      "source_html_path": "site/article/chapter-01.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-02.html",
+      "source_html_path": "site/article/chapter-02.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-03.html",
+      "source_html_path": "site/article/chapter-03.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-04.html",
+      "source_html_path": "site/article/chapter-04.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-05.html",
+      "source_html_path": "site/article/chapter-05.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-06.html",
+      "source_html_path": "site/article/chapter-06.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-07.html",
+      "source_html_path": "site/article/chapter-07.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-08.html",
+      "source_html_path": "site/article/chapter-08.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-09.html",
+      "source_html_path": "site/article/chapter-09.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-10.html",
+      "source_html_path": "site/article/chapter-10.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-11.html",
+      "source_html_path": "site/article/chapter-11.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-12.html",
+      "source_html_path": "site/article/chapter-12.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-13.html",
+      "source_html_path": "site/article/chapter-13.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-14.html",
+      "source_html_path": "site/article/chapter-14.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-15.html",
+      "source_html_path": "site/article/chapter-15.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/chapter-16.html",
+      "source_html_path": "site/article/chapter-16.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/",
+      "source_html_path": "site/article/index.html",
+      "page_type": "collection-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/bibliography.html",
+      "source_html_path": "site/article/state-change/bibliography.html",
+      "page_type": "bibliography",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-01.html",
+      "source_html_path": "site/article/state-change/chapter-01.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-02.html",
+      "source_html_path": "site/article/state-change/chapter-02.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-03.html",
+      "source_html_path": "site/article/state-change/chapter-03.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-04.html",
+      "source_html_path": "site/article/state-change/chapter-04.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-05.html",
+      "source_html_path": "site/article/state-change/chapter-05.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-06.html",
+      "source_html_path": "site/article/state-change/chapter-06.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-07.html",
+      "source_html_path": "site/article/state-change/chapter-07.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-08.html",
+      "source_html_path": "site/article/state-change/chapter-08.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-09.html",
+      "source_html_path": "site/article/state-change/chapter-09.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-10.html",
+      "source_html_path": "site/article/state-change/chapter-10.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-11.html",
+      "source_html_path": "site/article/state-change/chapter-11.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-12.html",
+      "source_html_path": "site/article/state-change/chapter-12.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-13.html",
+      "source_html_path": "site/article/state-change/chapter-13.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-14.html",
+      "source_html_path": "site/article/state-change/chapter-14.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-15.html",
+      "source_html_path": "site/article/state-change/chapter-15.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/chapter-16.html",
+      "source_html_path": "site/article/state-change/chapter-16.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change/",
+      "source_html_path": "site/article/state-change/index.html",
+      "page_type": "article-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change-lit-review/",
+      "source_html_path": "site/article/state-change-lit-review/index.html",
+      "page_type": "article-alias",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/state-change.html",
+      "source_html_path": "site/article/state-change.html",
+      "page_type": "article-alias",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/bibliography.html",
+      "source_html_path": "site/article/understanding-defense-action/bibliography.html",
+      "page_type": "bibliography",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-00.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-00.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-01.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-01.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-02.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-02.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-03.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-03.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-04.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-04.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-05.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-05.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-06.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-06.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-07.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-07.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-08.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-08.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-09.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-09.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-10.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-10.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-11.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-11.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-12.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-12.html",
+      "page_type": "article-chapter",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/understanding-defense-action/",
+      "source_html_path": "site/article/understanding-defense-action/index.html",
+      "page_type": "article-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/essay/ai-era-authorship/",
+      "source_html_path": "site/essay/ai-era-authorship/index.html",
+      "page_type": "essay",
+      "preserve_route": true
+    },
+    {
+      "route": "/essay/ai-only-generation/",
+      "source_html_path": "site/essay/ai-only-generation/index.html",
+      "page_type": "essay",
+      "preserve_route": true
+    },
+    {
+      "route": "/essay/",
+      "source_html_path": "site/essay/index.html",
+      "page_type": "collection-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/",
+      "source_html_path": "site/index.html",
+      "page_type": "home",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/history-of-generative-ai/",
+      "source_html_path": "site/notes/history-of-generative-ai/index.html",
+      "page_type": "note",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/history-of-generative-ai/timeline.html",
+      "source_html_path": "site/notes/history-of-generative-ai/timeline.html",
+      "page_type": "note",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/",
+      "source_html_path": "site/notes/index.html",
+      "page_type": "collection-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/state-change-lit-review/",
+      "source_html_path": "site/notes/state-change-lit-review/index.html",
+      "page_type": "note",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/themes.html",
+      "source_html_path": "site/notes/themes.html",
+      "page_type": "note",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/tool-discovery-layer/",
+      "source_html_path": "site/notes/tool-discovery-layer/index.html",
+      "page_type": "note",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/01-start-talking/",
+      "source_html_path": "site/series/ai-dialogue-intro/01-start-talking/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/02-reading-replies/",
+      "source_html_path": "site/series/ai-dialogue-intro/02-reading-replies/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/03-thinking-changes/",
+      "source_html_path": "site/series/ai-dialogue-intro/03-thinking-changes/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/04-not-a-teacher/",
+      "source_html_path": "site/series/ai-dialogue-intro/04-not-a-teacher/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/05-growing-through-dialogue/",
+      "source_html_path": "site/series/ai-dialogue-intro/05-growing-through-dialogue/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/06-personal-companion/",
+      "source_html_path": "site/series/ai-dialogue-intro/06-personal-companion/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/07-living-with-ai/",
+      "source_html_path": "site/series/ai-dialogue-intro/07-living-with-ai/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/afterword/",
+      "source_html_path": "site/series/ai-dialogue-intro/afterword/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/",
+      "source_html_path": "site/series/ai-dialogue-intro/index.html",
+      "page_type": "series-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/ai-dialogue-intro/introduction/",
+      "source_html_path": "site/series/ai-dialogue-intro/introduction/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/01-memory/",
+      "source_html_path": "site/series/genai-shikumi/01-memory/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/02-prompt/",
+      "source_html_path": "site/series/genai-shikumi/02-prompt/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/03-tools/",
+      "source_html_path": "site/series/genai-shikumi/03-tools/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/04-context/",
+      "source_html_path": "site/series/genai-shikumi/04-context/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/05-forgetting/",
+      "source_html_path": "site/series/genai-shikumi/05-forgetting/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/06-understanding/",
+      "source_html_path": "site/series/genai-shikumi/06-understanding/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/07-workflow/",
+      "source_html_path": "site/series/genai-shikumi/07-workflow/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/08-context-design/",
+      "source_html_path": "site/series/genai-shikumi/08-context-design/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/flyer/",
+      "source_html_path": "site/series/genai-shikumi/flyer/index.html",
+      "page_type": "series-support",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi/",
+      "source_html_path": "site/series/genai-shikumi/index.html",
+      "page_type": "series-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/01-prompt-compilation/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/01-prompt-compilation/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/02-instruction-hierarchy/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/02-instruction-hierarchy/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/03-context/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/03-context/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/04-tool-execution-loop/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/05-structured-output/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/05-structured-output/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/06-memory/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/06-memory/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/07-agentic-loop/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/07-agentic-loop/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/08-architecture/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/08-architecture/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/concept-map/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/concept-map/index.html",
+      "page_type": "series-support",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/glossary/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/glossary/index.html",
+      "page_type": "series-support",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/index.html",
+      "page_type": "series-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-deep-dive/misconceptions/",
+      "source_html_path": "site/series/genai-shikumi-deep-dive/misconceptions/index.html",
+      "page_type": "series-support",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/01-memory/",
+      "source_html_path": "site/series/genai-shikumi-technical/01-memory/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/02-instruction-hierarchy/",
+      "source_html_path": "site/series/genai-shikumi-technical/02-instruction-hierarchy/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/03-tool-calling/",
+      "source_html_path": "site/series/genai-shikumi-technical/03-tool-calling/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/04-context-window-retrieval/",
+      "source_html_path": "site/series/genai-shikumi-technical/04-context-window-retrieval/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/05-grounding-hallucination/",
+      "source_html_path": "site/series/genai-shikumi-technical/05-grounding-hallucination/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/06-workflow-design/",
+      "source_html_path": "site/series/genai-shikumi-technical/06-workflow-design/index.html",
+      "page_type": "series-entry",
+      "preserve_route": true
+    },
+    {
+      "route": "/series/genai-shikumi-technical/",
+      "source_html_path": "site/series/genai-shikumi-technical/index.html",
+      "page_type": "series-index",
+      "preserve_route": true
+    }
+  ]
+}
