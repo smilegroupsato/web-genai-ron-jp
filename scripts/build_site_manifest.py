@@ -114,6 +114,15 @@ def page_type_for(route: str) -> str:
 
 
 def content_path_for(route: str) -> str | None:
+    if route == "/article/state-change/":
+        candidate = Path("content/article/state-change/index.md")
+        return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    match = re.fullmatch(
+        r"/article/state-change/(chapter-\d{2}|bibliography)\.html", route
+    )
+    if match:
+        candidate = Path("content/article/state-change") / f"{match.group(1)}.md"
+        return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     if not route.startswith("/series/") or not route.endswith("/"):
         return None
     parts = route.strip("/").split("/")
