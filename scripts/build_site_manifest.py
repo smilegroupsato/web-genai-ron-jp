@@ -23,6 +23,11 @@ DATE_LABELS = {
     "manuscript_updated_at": ("Notion原稿最終更新日時", "原稿最終更新日時"),
     "web_migrated_at": ("Web移植日時",),
 }
+UNDERSTANDING_DATE_LABELS = {
+    **DATE_LABELS,
+    "created_at": (*DATE_LABELS["created_at"], "初版公開日"),
+    "updated_at": (*DATE_LABELS["updated_at"], "最終更新日"),
+}
 
 
 class PageParser(HTMLParser):
@@ -114,14 +119,19 @@ def page_type_for(route: str) -> str:
 
 
 def content_path_for(route: str) -> str | None:
-    if route == "/article/state-change/":
-        candidate = Path("content/article/state-change/index.md")
+    article_match = re.fullmatch(
+        r"/article/(state-change|understanding-defense-action)/", route
+    )
+    if article_match:
+        candidate = Path("content/article") / article_match.group(1) / "index.md"
         return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     match = re.fullmatch(
-        r"/article/state-change/(chapter-\d{2}|bibliography)\.html", route
+        r"/article/(state-change|understanding-defense-action)/"
+        r"(chapter-\d{2}|bibliography)\.html",
+        route,
     )
     if match:
-        candidate = Path("content/article/state-change") / f"{match.group(1)}.md"
+        candidate = Path("content/article") / match.group(1) / f"{match.group(2)}.md"
         return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     if not route.startswith("/series/") or not route.endswith("/"):
         return None
@@ -145,10 +155,13 @@ def frontmatter_for(path: str | None) -> str:
 
 def find_date(text: str, labels: tuple[str, ...]) -> str | None:
     for label in labels:
-        prefix_guard = r"(?<!原稿)" if label == "最終更新日時" else ""
+        prefix_guard = (
+            r"(?<!原稿)" if label in {"最終更新日時", "最終更新日"} else ""
+        )
         match = re.search(
             rf"{prefix_guard}{re.escape(label)}[：:]\s*[\"']?"
-            rf"([^\"'<>\n\r|/]+?(?:JST|Z|[+-]\d{{2}}:\d{{2}}))",
+            rf"(\d{{4}}-\d{{2}}-\d{{2}}"
+            rf"(?:\s+\d{{2}}:\d{{2}}(?:\s+(?:JST|Z|[+-]\d{{2}}:\d{{2}}))?)?)",
             text,
         )
         if match:
@@ -157,7 +170,10 @@ def find_date(text: str, labels: tuple[str, ...]) -> str | None:
 
 
 def metadata_inventory(
-    visible_body: str, html_comment: str, markdown_frontmatter: str
+    visible_body: str,
+    html_comment: str,
+    markdown_frontmatter: str,
+    date_labels: dict[str, tuple[str, ...]] = DATE_LABELS,
 ) -> tuple[dict[str, list[str]], dict[str, str | None]]:
     locations: dict[str, list[str]] = {}
     values: dict[str, str | None] = {}
@@ -166,7 +182,7 @@ def metadata_inventory(
         ("html_comment", html_comment),
         ("markdown_frontmatter", markdown_frontmatter),
     )
-    for field, labels in DATE_LABELS.items():
+    for field, labels in date_labels.items():
         found: list[tuple[str, str]] = []
         for location, text in sources:
             value = find_date(text, labels)
@@ -249,10 +265,16 @@ def build_entry(path: Path) -> dict[str, object]:
     parser.feed(path.read_text(encoding="utf-8"))
     route = route_for(path)
     content_path = content_path_for(route)
+    date_labels = (
+        UNDERSTANDING_DATE_LABELS
+        if route.startswith("/article/understanding-defense-action/")
+        else DATE_LABELS
+    )
     metadata_locations, metadata_values = metadata_inventory(
         compact(" ".join(parser.body_parts)),
         "\n".join(parser.comments),
         frontmatter_for(content_path),
+        date_labels,
     )
     css, js, assets, internal, downloads = classify_refs(route, parser.links)
     source_status, salvage_status = status_for(
