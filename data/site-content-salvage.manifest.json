@@ -2481,8 +2481,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/bibliography.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2536,7 +2536,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-00.html",
@@ -2554,8 +2554,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-00.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2609,7 +2609,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-01.html",
@@ -2627,8 +2627,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-01.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2682,7 +2682,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-02.html",
@@ -2700,8 +2700,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-02.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2755,7 +2755,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-03.html",
@@ -2773,8 +2773,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-03.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2828,7 +2828,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-04.html",
@@ -2846,8 +2846,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-04.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2901,7 +2901,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-05.html",
@@ -2919,8 +2919,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-05.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2974,7 +2974,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-06.html",
@@ -2992,8 +2992,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-06.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3047,7 +3047,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-07.html",
@@ -3065,8 +3065,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-07.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3120,7 +3120,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-08.html",
@@ -3138,8 +3138,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-08.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3193,7 +3193,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-09.html",
@@ -3211,8 +3211,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-09.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3266,7 +3266,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-10.html",
@@ -3284,8 +3284,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-10.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3339,7 +3339,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-11.html",
@@ -3357,8 +3357,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-11.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3412,7 +3412,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/chapter-12.html",
@@ -3430,8 +3430,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-12.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3485,7 +3485,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/understanding-defense-action/",
@@ -3503,14 +3503,14 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/index.md",
       "metadata_locations": {
         "created_at": [
-          "absent"
+          "visible_body"
         ],
         "updated_at": [
-          "absent"
+          "visible_body"
         ],
         "manuscript_created_at": [
           "absent"
@@ -3523,14 +3523,14 @@
         ]
       },
       "metadata_values": {
-        "created_at": null,
-        "updated_at": null,
+        "created_at": "2026-05-20",
+        "updated_at": "2026-05-20",
         "manuscript_created_at": null,
         "manuscript_updated_at": null,
         "web_migrated_at": null
       },
-      "created_at_known": false,
-      "updated_at_known": false,
+      "created_at_known": true,
+      "updated_at_known": true,
       "manuscript_created_at_known": false,
       "manuscript_updated_at_known": false,
       "web_migrated_at_known": false,
@@ -3560,7 +3560,7 @@
         "/downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf"
       ],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/essay/ai-era-authorship/",
