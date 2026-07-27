@@ -1003,8 +1003,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/bibliography.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1062,7 +1062,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-01.html",
@@ -1080,8 +1080,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-01.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1139,7 +1139,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-02.html",
@@ -1157,8 +1157,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-02.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1215,7 +1215,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-03.html",
@@ -1233,8 +1233,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-03.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1291,7 +1291,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-04.html",
@@ -1309,8 +1309,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-04.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1367,7 +1367,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-05.html",
@@ -1385,8 +1385,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-05.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1443,7 +1443,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-06.html",
@@ -1461,8 +1461,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-06.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1519,7 +1519,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-07.html",
@@ -1537,8 +1537,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-07.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1595,7 +1595,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-08.html",
@@ -1613,8 +1613,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-08.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1671,7 +1671,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-09.html",
@@ -1689,8 +1689,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-09.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1747,7 +1747,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-10.html",
@@ -1765,8 +1765,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-10.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1823,7 +1823,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-11.html",
@@ -1841,8 +1841,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-11.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1899,7 +1899,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-12.html",
@@ -1917,8 +1917,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-12.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -1975,7 +1975,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-13.html",
@@ -1993,8 +1993,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-13.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2051,7 +2051,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-14.html",
@@ -2069,8 +2069,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-14.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2127,7 +2127,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-15.html",
@@ -2145,8 +2145,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-15.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2203,7 +2203,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/chapter-16.html",
@@ -2221,8 +2221,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-16.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2279,7 +2279,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change/",
@@ -2297,8 +2297,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -2355,7 +2355,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/article/state-change-lit-review/",
