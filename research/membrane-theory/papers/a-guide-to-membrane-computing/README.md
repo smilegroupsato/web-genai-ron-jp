@@ -1,6 +1,6 @@
 ---
 ページ作成日時: "2026-07-27 08:57 JST"
-最終更新日時: "2026-07-27 08:57 JST"
+最終更新日時: "2026-07-28 07:29 JST"
 ---
 
 # 『A Guide to Membrane Computing』読解プロジェクト
@@ -39,16 +39,21 @@ P systemsの「膜」を、そのままSGOSの膜と同一視しない。P syste
 - `2026.07.27_01_chapter_01_introduction.md` — 第1章 Introduction
 - `2026.07.27_02_glossary.md` — 読解用語集
 - `2026.07.27_03_sgos_comparison_notes.md` — 章横断のSGOS比較ノート
+- `2026.07.28_04_chapter_02_bio_membranes.md` — 第2章 Bio-membranes; structure and functions
+- `2026.07.28_05_chapter_03_basic_model.md` — 第3章 The basic model
 
 以後、原著の章ごとに連番ファイルを追加する。
 
 ## 現在地
 
 - 第1章：初回読解・日本語化・SGOS比較まで完了
-- 第2章以降：未着手
+- 第2章：生体膜の構造・機能とSGOS比較まで完了
+- 第3章：P systemの基本形式、遷移、停止、例題、SGOS比較まで完了
+- 次：第4章 Organizing communication
 - 原著の図表：必要な章で個別に読解する
 - 独自の「SGOS膜理論」：文献読解と混同しない形で漸進的に抽出する
 
 ## 更新履歴
 
+- 2026-07-28 07:29 JST：第2章・第3章をファイル一覧へ追加し、現在地を第4章開始前へ更新。
 - 2026-07-27 08:57 JST：読解プロジェクトを開始し、目的、配置、読解方針、初期ファイル構成を定義。
