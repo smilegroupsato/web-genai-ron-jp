@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-07-27 20:23 JST
+- 最終更新日時：2026-07-27 20:33 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -41,6 +41,8 @@
 
 - [`2026.07.27_01_human_outer_membrane_and_internal_a2a.md`](./2026.07.27_01_human_outer_membrane_and_internal_a2a.md)
   - Notionノートを移行し、チャット「A2A」での新展開を統合した概念ノート。
+- [`2026.07.27_02_human_outer_membrane_model_notion_full.md`](./2026.07.27_02_human_outer_membrane_model_notion_full.md)
+  - Notion「人間外膜モデル｜入れ子状膜としてのHuman–AI System」の全文移行版。ユーザー発言原文、概念展開、先行研究マップ、更新履歴を保持する。
 - [`chat_logs/2026.07.27_01_a2a_full_transcript.md`](./chat_logs/2026.07.27_01_a2a_full_transcript.md)
   - チャット「A2A」の原文対話録。
 
@@ -61,4 +63,5 @@
 
 ## 更新履歴
 
+- 2026-07-27 20:33 JST：Notion全文移行版を研究ノート索引へ追加。
 - 2026-07-27 20:23 JST：Notion「人間外膜モデル」とチャット「A2A」を既存の膜理論領域へ統合。内部膜型A2A、膜誘導型主体性、研究ノートと対話録への索引を追加。
