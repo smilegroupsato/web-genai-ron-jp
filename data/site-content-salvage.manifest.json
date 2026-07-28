@@ -3578,8 +3578,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/ai-era-authorship/index.md",
       "metadata_locations": {
         "created_at": [
           "html_comment"
@@ -3621,7 +3621,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/essay/ai-only-generation/",
@@ -3639,8 +3639,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/ai-only-generation/index.md",
       "metadata_locations": {
         "created_at": [
           "html_comment"
@@ -3682,7 +3682,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/essay/",
@@ -3700,8 +3700,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3745,7 +3745,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/",
@@ -3870,8 +3870,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/history-of-generative-ai/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3917,7 +3917,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/notes/history-of-generative-ai/timeline.html",
@@ -4001,8 +4001,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -4045,7 +4045,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/notes/state-change-lit-review/",
@@ -4135,8 +4135,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/themes.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -4176,7 +4176,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/notes/tool-discovery-layer/",

@@ -133,6 +133,24 @@ def content_path_for(route: str) -> str | None:
     if match:
         candidate = Path("content/article") / match.group(1) / f"{match.group(2)}.md"
         return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    if route.startswith("/essay/"):
+        remainder = route.removeprefix("/essay/")
+        if route.endswith("/"):
+            slug = remainder.rstrip("/")
+            candidate = Path("content") / "essay" / slug / "index.md" if slug else Path("content") / "essay" / "index.md"
+            return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+        if route.endswith(".html"):
+            candidate = Path("content") / "essay" / f"{remainder.removesuffix('.html')}.md"
+            return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    if route.startswith("/notes/"):
+        remainder = route.removeprefix("/notes/")
+        if route.endswith("/"):
+            slug = remainder.rstrip("/")
+            candidate = Path("content") / "notes" / slug / "index.md" if slug else Path("content") / "notes" / "index.md"
+            return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+        if route.endswith(".html"):
+            candidate = Path("content") / "notes" / f"{remainder.removesuffix('.html')}.md"
+            return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     if not route.startswith("/series/") or not route.endswith("/"):
         return None
     parts = route.strip("/").split("/")
