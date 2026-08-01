@@ -1,7 +1,7 @@
 # コンテキストエンジニアリング・レビュー
 
 - ページ作成日時：2026-07-31 08:00 JST
-- 最終更新日時：2026-08-01 14:54 JST
+- 最終更新日時：2026-08-01 21:42 JST
 
 ## 目的
 
@@ -46,8 +46,9 @@
 - [`第1章 Introduction`](reviews/2507.13334/01_introduction.md)
 - [`第2章 Related Work`](reviews/2507.13334/02_related_work.md)
 - [`第3章 なぜコンテキストエンジニアリングなのか`](reviews/2507.13334/03_why_context_engineering.md)
+- [`第4章 基礎的構成要素（1）コンテキスト検索と生成`](reviews/2507.13334/04_context_retrieval_and_generation.md)
 - [`章横断ノート`](reviews/2507.13334/notes.md)
-- 第4章 Foundational Components：次の読解対象
+- 第4章4.2 Context Processing：次の読解対象
 
 ## 標準作業サイクル
 
@@ -71,6 +72,7 @@
 
 ## 更新履歴
 
+- 2026-08-01 21:42 JST：第4章4.1「コンテキスト検索と生成」のレビューと次の読解対象を反映
 - 2026-08-01 14:54 JST：第3章レビュー、章横断ノート、原論文PDFの配置方針を反映
 - 2026-07-31 14:39 JST：`review-policy.md` と `review-plan.md` の責務を分離し、見取り図、標準作業サイクル、`surveys/` 廃止を反映
 - 2026-07-31 14:20 JST：新ディレクトリ構成、基盤文書、第1章・第2章レビューへの入口を反映
