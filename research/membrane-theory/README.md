@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-07-27 20:33 JST
+- 最終更新日時：2026-08-01 17:45 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -43,8 +43,14 @@
   - Notionノートを移行し、チャット「A2A」での新展開を統合した概念ノート。
 - [`2026.07.27_02_human_outer_membrane_model_notion_full.md`](./2026.07.27_02_human_outer_membrane_model_notion_full.md)
   - Notion「人間外膜モデル｜入れ子状膜としてのHuman–AI System」の全文移行版。ユーザー発言原文、概念展開、先行研究マップ、更新履歴を保持する。
+- [`2026.08.01_01_human_membranes_concept_note.md`](./2026.08.01_01_human_membranes_concept_note.md)
+  - 人間の膜を、生物学的膜、認知的膜、人称の膜、親密さの膜、時間の膜、内面分節の膜として整理した概念ノート。
+- [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md)
+  - 離人感、現実感喪失、解離、依存、薬物、疲労、AI対話履歴などを、膜の透過性・張力・勾配・交換速度の変調として整理した一覧。
 - [`chat_logs/2026.07.27_01_a2a_full_transcript.md`](./chat_logs/2026.07.27_01_a2a_full_transcript.md)
   - チャット「A2A」の原文対話録。
+- [`chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md`](./chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md)
+  - 人間の膜、認知的膜、精神交換の異常作動、化学物質と膜に関する対話録。
 
 ## 記録方針
 
@@ -63,5 +69,6 @@
 
 ## 更新履歴
 
+- 2026-08-01 17:45 JST：人間の膜、膜の異常作動一覧、対応する全文記録を研究ノート索引へ追加。
 - 2026-07-27 20:33 JST：Notion全文移行版を研究ノート索引へ追加。
 - 2026-07-27 20:23 JST：Notion「人間外膜モデル」とチャット「A2A」を既存の膜理論領域へ統合。内部膜型A2A、膜誘導型主体性、研究ノートと対話録への索引を追加。
