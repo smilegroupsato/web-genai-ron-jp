@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-03 16:15 JST
+- 最終更新日時：2026-08-03 20:10 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -24,6 +24,17 @@
 `Membrane-Induced Agency / 膜誘導型主体性`
 
 正式名称ではない。全体場へ膜を導入することで、局所状態・知覚範囲・権限・履歴・通信経路を分化させ、運用上の部分主体を成立させるという仮説を指す。
+
+## 「膜」の暫定定義
+
+> 膜とは、二つの領域を分けながら、完全には遮断せず、何かを選別・遅延・変質・調整して通す境界装置である。
+
+この定義でいう厳密さは、すべてを生物学的な膜として扱うことではない。  
+何を膜と呼び、何を膜と呼ばないかを判定できるようにするための厳密さである。
+
+最低条件は、領域が二つあること、完全遮断ではないこと、透過が調整されること、通過時に変質が起きること、膜自体が履歴・圧力・習慣によって変化することである。
+
+元記録：[`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
 
 ## 関連領域
 
@@ -52,11 +63,15 @@
 - [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md)
   - 小説『膜』の参照棚として、佐藤が質問した書籍と、ChatGPTが挙げた参考作品・説明を一覧化した文書。
 - [`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
-  - 情緒研究から発生した「膜の情緒」の最初の考察応答を、膜理論の入口メモとして転記した文書。「膜の情緒」5類型の進め方を含む。
+  - 情緒研究から発生した「膜の情緒」の最初の考察応答を、膜理論の入口メモとして転記した文書。「膜の情緒」5類型の進め方と、比喩としての膜／定義の厳密さに関する補遺を含む。
+- [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md)
+  - 小説『膜』を書く前の設計図として、region、membrane、cline、fold、inversion、nesting、leakage、smoothing、exchange device、context range、topology change を定義した膜空間トポロジー仕様 v0。
 - [`chat_logs/2026.07.27_01_a2a_full_transcript.md`](./chat_logs/2026.07.27_01_a2a_full_transcript.md)
   - チャット「A2A」の原文対話録。
 - [`chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md`](./chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md)
   - 人間の膜、認知的膜、精神交換の異常作動、化学物質と膜に関する対話録。
+- [`chat_logs/2026.08.03_01_membrane_topology_conversation.md`](./chat_logs/2026.08.03_01_membrane_topology_conversation.md)
+  - 膜の反転、入れ子、cline、文脈範囲、脳内region、同期的平坦化、実務と逃避の交換装置、トポロジー小説に関する対話録。
 
 ## 記録方針
 
@@ -75,6 +90,8 @@
 
 ## 更新履歴
 
+- 2026-08-03 20:10 JST：膜空間トポロジー仕様 v0 と対話録を追加。
+- 2026-08-03 16:58 JST：「膜」の暫定定義と元記録へのリンクを追加。
 - 2026-08-03 16:15 JST：「膜の情緒」5類型の進め方を追記。
 - 2026-08-03 15:21 JST：情緒研究から発生した「膜の情緒」の最初の考察応答を追加。
 - 2026-08-01 22:50 JST：小説『膜』の参考書籍一覧を追加。
