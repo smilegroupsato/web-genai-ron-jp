@@ -48,7 +48,7 @@
 - [`第3章 なぜコンテキストエンジニアリングなのか`](reviews/2507.13334/03_why_context_engineering.md)
 - [`第4章 基礎的構成要素（1）コンテキスト検索と生成`](reviews/2507.13334/04_context_retrieval_and_generation.md)
 - [`章横断ノート`](reviews/2507.13334/notes.md)
-- 第4章4.2 Context Processing：次の読解対象
+- 第4章4.2「コンテキスト処理」：次の読解対象
 
 ## 標準作業サイクル
 
