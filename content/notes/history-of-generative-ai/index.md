@@ -2,13 +2,13 @@
 title: "生成AIの歴史｜多層年表"
 route: "/notes/history-of-generative-ai/"
 source_html_path: "site/notes/history-of-generative-ai/index.html"
-source_html_sha256: "f5afe68cb9930b1f1143e9fe075b3f01e782f688eda88e9ac791ac1a7a47ae0f"
+source_html_sha256: "cd12f2c652566b026e80928ead864c9cd7935d11f14f32c18d5094698d154caf"
 page_type: "note"
 series_or_article: "notes"
 order: 1
 chapter: null
 meta_description: "生成AIはどこから来て、どこへ向かうのか。情報理論からChatGPTまで、言語、統計、計算資源、市場が交差した80年の歴史をたどる研究ノート。"
-canonical: null
+canonical: "/notes/history-of-generative-ai/"
 created_at: null
 updated_at: "2026-06-18"
 manuscript_created_at: null
@@ -17,7 +17,7 @@ web_migrated_at: null
 metadata_provenance:
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "html_head"
   created_at: "absent"
   updated_at: "visible_body"
   manuscript_created_at: "absent"
