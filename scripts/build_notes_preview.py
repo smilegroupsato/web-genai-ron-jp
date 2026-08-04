@@ -2,7 +2,7 @@
 """Build one nested research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:16 JST
+最終更新日時：2026-08-04 18:26 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
@@ -276,9 +276,9 @@ def render_history_timeline(article: str, links: list[tuple[str, str]]) -> str:
         raise BuildError("history timeline sources must follow all periods")
 
     legend_markdown = article[: periods[0].start()].strip()
-    legend = indent_fragment(
-        markdown.markdown(legend_markdown, extensions=["extra", "sane_lists"], output_format="html5")
-    )
+    legend = render_layer_grid(legend_markdown)
+    if legend is None:
+        raise BuildError("history timeline legend must contain all supported layer cards")
     sections = [
         '        <section id="legend" class="note-section note-intro">\n'
         f"{legend}\n"
