@@ -13,7 +13,7 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
 It does not write to site/.
 
 ページ作成日時：2026-07-23 12:08 JST
-最終更新日時：2026-07-23 12:22 JST
+最終更新日時：2026-08-04 16:40 JST
 """
 
 from __future__ import annotations
@@ -28,6 +28,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TARGET_RE = re.compile(r"^site/series/genai-shikumi-deep-dive/([^/]+)/index\.html$")
 SERIES_PUBLISH_SITE_RE = re.compile(r"^site/series/ai-dialogue-intro/(?:[^/]+/)?index\.html$")
+NOTES_PUBLISH_SITE_RE = re.compile(r"^site/notes/[a-z0-9][a-z0-9-]*/index\.html$")
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
     "scripts/validate_controlled_write.py",
@@ -92,7 +93,8 @@ def validate_scope(files: list[str]) -> str | None:
         raise RuntimeError("controlled-write PR must change at most one public article HTML file:\n" + "\n".join(site_targets))
 
     series_publish_site_changes = [path for path in site_changes if SERIES_PUBLISH_SITE_RE.match(path)]
-    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
+    notes_publish_site_changes = [path for path in site_changes if NOTES_PUBLISH_SITE_RE.match(path)]
+    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - set(notes_publish_site_changes) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 
