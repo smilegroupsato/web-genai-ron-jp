@@ -8,7 +8,7 @@
   <link rel="canonical" href="/notes/tool-discovery-layer/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-notes.css">
-  <link rel="stylesheet" href="../../assets/theme.css">
+  <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="note-page">
   <header class="site-header">
@@ -90,6 +90,7 @@
 
         <section id="layers" class="note-section">
           <h2>3. 6層モデルで見る</h2>
+
           <h3>3-1. ChatGPTの画面・アプリ層</h3>
           <p>これは、ユーザーが見ているChatGPTアプリやWeb画面である。チャット画面、ファイル添付、Project、カスタム指示、外部アプリ連携設定などが含まれる。今回の問題は、このUIそのものの問題ではない。</p>
 
@@ -172,10 +173,13 @@
           </ul>
           <p>ここで問題になるのは、外部サービス本体の権限だけではない。たとえNotion側で適切な権限が設定されていても、ユーザーが「このページだけを触って」と言ったときに、モデルが別のページを検索したり、ツール一覧を取得したり、スキーマを読み込んだりするなら、ユーザーの認識と実際の操作にはズレが生まれる。</p>
           <p>生成AIの外部ツール利用では、少なくとも次の3種類の権限を分ける必要がある。</p>
+
           <h3>6-1. 外部サービス上の権限</h3>
           <p>Notion、Google Drive、Gmailなどで、実際にそのユーザーが何を読めるか、何を書けるか。</p>
+
           <h3>6-2. ChatGPTアプリ上の権限</h3>
           <p>ChatGPTが、その外部アプリに対して、読み取りや書き込みを行ってよいか。</p>
+
           <h3>6-3. 会話内の実行制約</h3>
           <p>この会話では何をしてよいか。どのツールだけを使ってよいか。どのページだけを対象にしてよいか。</p>
           <p>今回問題になったのは、主に3番目である。外部サービス上の権限があることと、会話内でユーザーが許可したことは同じではない。</p>
@@ -183,6 +187,7 @@
 
         <section id="countermeasures" class="note-section">
           <h2>7. 実用上の対策</h2>
+
           <h3>7-1. ユーザー側の対策</h3>
           <p>外部ツール操作を依頼するときは、禁止事項だけでなく、停止条件を書く必要がある。</p>
           <p>たとえば、次のように指定する。</p>
@@ -273,6 +278,6 @@
   <footer class="note-footer">
     <p>GENAI-RON｜🧠生成AI論🥦</p>
   </footer>
-  <script src="../../assets/theme.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
 </body>
 </html>

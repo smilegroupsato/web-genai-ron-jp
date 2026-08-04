@@ -2,7 +2,7 @@
 """Build one nested research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:22 JST
+最終更新日時：2026-08-04 16:36 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
@@ -152,12 +152,31 @@ def render_sections(article: str) -> str:
             extensions=["extra", "sane_lists"],
             output_format="html5",
         )
+        rendered = indent_fragment(rendered)
         intro_class = " note-intro" if index == 0 else ""
         sections.append(
             f'        <section id="{html.escape(section_id, quote=True)}" '
             f'class="note-section{intro_class}">\n{rendered}\n        </section>'
         )
     return "\n\n".join(sections)
+
+
+def indent_fragment(fragment: str) -> str:
+    """Keep generated note HTML reviewable and close to the legacy layout."""
+    containers = {"<ul>": "</ul>", "<ol>": "</ol>", "<blockquote>": "</blockquote>"}
+    closing = set(containers.values())
+    lines: list[str] = []
+    depth = 0
+    for raw in fragment.splitlines():
+        value = raw.strip()
+        if value in closing:
+            depth = max(0, depth - 1)
+        if value.startswith("<h3") and lines and lines[-1] != "":
+            lines.append("")
+        lines.append(f"{'          '}{'  ' * depth}{value}")
+        if value in containers:
+            depth += 1
+    return "\n".join(lines)
 
 
 def render_template(values: Mapping[str, str]) -> str:
