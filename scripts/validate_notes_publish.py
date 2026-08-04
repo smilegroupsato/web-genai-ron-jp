@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:22 JST
+最終更新日時：2026-08-04 16:36 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -33,6 +33,7 @@ GATE_ALLOWLIST = {
     "scripts/build_notes_preview.py",
     "scripts/promote_note.py",
     "scripts/validate_notes_publish.py",
+    "scripts/validate_notes_visual.js",
 }
 FORBIDDEN_PUBLIC_TEXT = {
     "source_html_path",
@@ -79,7 +80,7 @@ class NoteSnapshot(HTMLParser):
         self.stack.append((tag, starts_main, starts_article, starts_sidebar))
         if tag == "header" and ({"site-header", "series-header"} & classes):
             self.has_header = True
-        if tag == "footer" and ({"site-footer", "series-footer"} & classes):
+        if tag == "footer" and ({"note-footer", "site-footer", "series-footer"} & classes):
             self.has_footer = True
         if starts_main:
             self.in_main = True
