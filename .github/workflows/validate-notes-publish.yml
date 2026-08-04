@@ -1,5 +1,5 @@
 # ページ作成日時：2026-08-04 16:22 JST
-# 最終更新日時：2026-08-04 18:16 JST
+# 最終更新日時：2026-08-04 18:42 JST
 
 name: Validate Notes Publish
 
@@ -89,6 +89,12 @@ jobs:
             --source-check content/notes/history-of-generative-ai/timeline.md \
             --preview-root _notes_history_timeline_check
 
+      - name: Validate notes collection index parity
+        run: |
+          python scripts/validate_notes_publish.py \
+            --source-check content/notes/index.md \
+            --preview-root _notes_collection_index_check
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -103,7 +109,7 @@ jobs:
         id: visual-route
         run: |
           target=$(git diff --name-only origin/main...HEAD | \
-            sed -nE 's#^site(/notes/[a-z0-9][a-z0-9-]*/(index|timeline)\.html)$#\1#p' | \
+            sed -nE 's#^site(/notes/(index\.html|[a-z0-9][a-z0-9-]*/(index|timeline)\.html))$#\1#p' | \
             head -n 1)
           if [ -n "$target" ]; then
             if [[ "$target" == */index.html ]]; then
@@ -148,6 +154,7 @@ jobs:
             _notes_source_check_preview/
             _notes_history_check/
             _notes_history_timeline_check/
+            _notes_collection_index_check/
             _notes_visual_qa/
           if-no-files-found: ignore
           retention-days: 7

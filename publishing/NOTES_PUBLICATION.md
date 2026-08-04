@@ -1,15 +1,19 @@
-# Research Notes controlled publication v0.2
+# Research Notes controlled publication v0.3
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:26 JST
+最終更新日時：2026-08-04 18:42 JST
 
 ## 目的
 
 `content/notes/` の研究ノートを正本として扱い、対象を一つに限定した明示操作だけで `site/notes/` へ反映する。
 
-## v0.2の対象
+## v0.3の対象
 
 ```text
+content/notes/index.md
+  -> preview review
+  -> site/notes/index.html
+
 content/notes/<slug>/index.md
   -> preview review
   -> site/notes/<slug>/index.html
@@ -19,7 +23,7 @@ content/notes/history-of-generative-ai/timeline.md
   -> site/notes/history-of-generative-ai/timeline.html
 ```
 
-`content/notes/index.md`、`themes.md`、複数ページの一括生成は対象外とする。nested `.html` routeは、現時点では完全版年表のみを明示許可する。
+`themes.md`と複数ページの一括生成は対象外とする。nested `.html` routeは、現時点では完全版年表のみを明示許可する。
 
 ## preview
 
@@ -58,12 +62,15 @@ promotion scriptは出力先を引数で受け取らない。sourceのrouteとpa
 
 builderは、Markdownのsection先頭に`Research Group A`等または`Theoretical Lines`のラベルと続く見出しがある場合、既存の`period`構造として保持する。`references` sectionの最初の番号付きリストは`source-list`として保持する。
 
+研究ノート一覧は、`NOTES`ナビゲーション、公開中見出し、番号・リンク付きカードの組を必須とし、`note-card-grid`構造を保持する。root route以外のcollection indexには適用しない。
+
 明示section anchorがない概要型noteは、CONTENTSのページ内リンクとh2の数が一致する場合に限り、順番からanchorを復元する。`turning-points`と`layers`は、既存のカード構造を保つ。
 
 完全版年表は、`PERIODS`目次、5期の順序、5層ラベル、出典sectionが全て一致する場合に限り、`layer-grid`・`period`・`timeline-card`・`badge`構造を再生成する。
 
 ## 更新履歴
 
+- 2026-08-04 18:42 JST：研究ノート一覧`/notes/`を単一対象として扱い、NOTESナビゲーションと番号付きカードの構造保持をv0.3へ追加。
 - 2026-08-04 18:26 JST：完全版年表の凡例を5層の`layer-grid`として保持する構造不変条件を追加。
 - 2026-08-04 18:16 JST：完全版年表のnested route、5期・5層・イベントカードの再生成とCI検証をv0.2として追加。
 - 2026-08-04 18:06 JST：概要型noteの目次・見出し順からのanchor復元と、転換点／5層カードの構造保持を追加。

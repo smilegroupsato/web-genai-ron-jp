@@ -22,21 +22,21 @@
     <section class="note-hero">
       <p class="note-kicker">{{kicker}}</p>
       <h1>{{title}}</h1>
-      <p class="note-lead"><strong>{{lead}}</strong></p>
+      <p class="note-lead">{{lead_html}}</p>
       <p class="note-sublead">{{sublead}}</p>
-      <p class="note-meta">{{note_meta}}</p>
+      {{note_meta_html}}
     </section>
 
-    <div class="note-layout">
+    {{layout_open}}
       <aside class="note-sidebar" aria-label="ページ内目次">
         <p class="note-sidebar-title">{{sidebar_title}}</p>
 {{sidebar_links}}
       </aside>
 
-      <article class="note-content">
+      {{content_open}}
 {{article_html}}
-      </article>
-    </div>
+      {{content_close}}
+    {{layout_close}}
   </main>
 
   <footer class="note-footer">
