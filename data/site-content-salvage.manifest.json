@@ -3764,8 +3764,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -3852,7 +3852,7 @@
         "/downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf"
       ],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/notes/history-of-generative-ai/",
