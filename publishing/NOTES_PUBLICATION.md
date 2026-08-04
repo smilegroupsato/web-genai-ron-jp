@@ -1,7 +1,7 @@
 # Research Notes controlled publication v0
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:37 JST
+最終更新日時：2026-08-04 16:40 JST
 
 ## 目的
 
@@ -54,5 +54,6 @@ promotion scriptは出力先を引数で受け取らない。sourceのrouteとpa
 
 ## 更新履歴
 
+- 2026-08-04 16:40 JST：既存のseries controlled-writeとpublishing structure gateから、notes公開差分を専用gateへ明示委譲。
 - 2026-08-04 16:37 JST：初回controlled promotionに向け、対象route自動解決・既存note layout互換・desktop/mobile visual QAを必須gateへ追加。
 - 2026-08-04 16:22 JST：研究ノートのpreview-only builder、明示promotion、PR validatorのv0契約を新規作成。
