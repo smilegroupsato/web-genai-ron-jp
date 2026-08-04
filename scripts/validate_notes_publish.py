@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:16 JST
+最終更新日時：2026-08-04 18:42 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -30,7 +30,8 @@ from build_notes_preview import (
 )
 
 TARGET_RE = re.compile(
-    r"^site/notes/(?P<slug>[a-z0-9][a-z0-9-]*)/(?P<page>index|timeline)\.html$"
+    r"^site/notes/(?:(?P<root>index)|"
+    r"(?P<slug>[a-z0-9][a-z0-9-]*)/(?P<page>index|timeline))\.html$"
 )
 GATE_ALLOWLIST = {
     ".gitignore",
@@ -85,7 +86,9 @@ class NoteSnapshot(HTMLParser):
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         classes = self.classes(attrs)
         starts_main = tag == "main"
-        starts_article = tag == "article" and bool({"note-content", "note-box"} & classes)
+        starts_article = (
+            tag in {"article", "div"} and "note-content" in classes
+        ) or (tag == "article" and "note-box" in classes)
         starts_sidebar = tag == "aside" and "note-sidebar" in classes
         self.stack.append((tag, starts_main, starts_article, starts_sidebar))
         if tag == "header" and ({"site-header", "series-header"} & classes):
@@ -209,6 +212,8 @@ def source_for_target(target: str) -> Path:
     match = TARGET_RE.match(target)
     if not match:
         raise BuildError(f"unsupported notes target: {target}")
+    if match.group("root"):
+        return REPO_ROOT / "content" / "notes" / "index.md"
     source_name = "index.md" if match.group("page") == "index" else f"{match.group('page')}.md"
     return REPO_ROOT / "content" / "notes" / match.group("slug") / source_name
 
@@ -278,7 +283,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate controlled research-note publication.")
     parser.add_argument("--base-ref", default="origin/main")
     parser.add_argument("--preview-root", default="_notes_publish_preview")
-    parser.add_argument("--source-check", help="Validate one existing content/notes/<slug>/index.md source.")
+    parser.add_argument(
+        "--source-check",
+        help="Validate one existing supported content/notes source.",
+    )
     args = parser.parse_args()
     preview_root = (REPO_ROOT / args.preview_root).resolve()
     if args.source_check:

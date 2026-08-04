@@ -10,6 +10,7 @@ _notes_write_refusal_candidate/
 _notes_state_check/
 _notes_history_check/
 _notes_history_timeline_check/
+_notes_collection_index_check/
 _notes_visual_qa/
 
 # Python cache

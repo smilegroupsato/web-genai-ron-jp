@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""Build one nested research-note preview without writing to site/.
+"""Build one research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:26 JST
+最終更新日時：2026-08-04 18:42 JST
 
 The accepted lane is intentionally narrow:
+- source: content/notes/index.md
+- route: /notes/
+- output: <preview-root>/notes/index.html
 - source: content/notes/<slug>/index.md
 - route: /notes/<slug>/
 - output: <preview-root>/notes/<slug>/index.html
 
-Root note indexes, flat .html routes, and bulk globs remain outside this v0.
+The themes flat route and bulk globs remain outside this version.
 """
 
 from __future__ import annotations
@@ -63,8 +66,13 @@ def validate_source_path(path: Path) -> str:
         relative = resolved.relative_to(CONTENT_ROOT)
     except ValueError as exc:
         raise BuildError("note source must be under content/notes/") from exc
+    if relative.parts == ("index.md",):
+        return ""
     if len(relative.parts) != 2:
-        raise BuildError("notes publication accepts only content/notes/<slug>/<page>.md")
+        raise BuildError(
+            "notes publication accepts only content/notes/index.md or "
+            "content/notes/<slug>/<page>.md"
+        )
     slug = relative.parts[0]
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", slug):
         raise BuildError(f"invalid note slug: {slug!r}")
@@ -81,6 +89,8 @@ def output_name_for_source(source: Path) -> str:
 
 
 def expected_route_for_source(source: Path, slug: str) -> str:
+    if not slug:
+        return "/notes/"
     if source.name == "index.md":
         return f"/notes/{slug}/"
     return f"/notes/{slug}/{output_name_for_source(source)}"
@@ -101,13 +111,16 @@ def validate_metadata(meta: Mapping[str, object], source: Path, slug: str) -> No
     if require_scalar(meta, "title") == "Untitled":
         raise BuildError("note title must be explicit")
     require_scalar(meta, "meta_description")
-    if str(meta.get("page_type") or "").strip() != "note":
-        raise BuildError("page_type must be note")
+    expected_page_type = "collection-index" if not slug else "note"
+    if str(meta.get("page_type") or "").strip() != expected_page_type:
+        raise BuildError(f"page_type must be {expected_page_type}")
     if str(meta.get("series_or_article") or "").strip() != "notes":
         raise BuildError("series_or_article must be notes")
 
 
-def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], str]:
+def parse_preamble(
+    body: str, *, collection_index: bool = False
+) -> tuple[dict[str, str], list[tuple[str, str]], str]:
     anchor = ANCHOR_RE.search(body)
     first_heading = re.search(r"^##\s+", body, re.MULTILINE)
     if anchor is None and first_heading is None:
@@ -116,26 +129,42 @@ def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], st
     preamble = body[:section_start].strip()
     article = body[section_start:].strip()
     lines = [line.strip() for line in preamble.splitlines() if line.strip()]
-    marker = next((value for value in ("CONTENTS", "PERIODS") if value in lines), None)
+    allowed_markers = ("NOTES",) if collection_index else ("CONTENTS", "PERIODS")
+    marker = next((value for value in allowed_markers if value in lines), None)
     if marker is None:
-        raise BuildError("note preamble must contain CONTENTS or PERIODS")
+        raise BuildError(
+            "collection index preamble must contain NOTES"
+            if collection_index
+            else "note preamble must contain CONTENTS or PERIODS"
+        )
     contents_index = lines.index(marker)
     hero = lines[:contents_index]
     toc = lines[contents_index + 1 :]
-    if len(hero) < 5:
-        raise BuildError("note preamble must contain kicker, title, lead, sublead, and meta")
+    minimum_hero_lines = 4 if collection_index else 5
+    if len(hero) < minimum_hero_lines:
+        raise BuildError(
+            "note preamble must contain kicker, title, lead, and sublead"
+            + ("" if collection_index else ", and meta")
+        )
 
     kicker = hero[0]
     title_line = next((line for line in hero if line.startswith("# ")), "")
-    lead_line = next((line for line in hero if line.startswith("**") and line.endswith("**")), "")
+    lead_line = next(
+        (line for line in hero if line.startswith("**") and line.endswith("**")),
+        hero[2] if collection_index and len(hero) >= 3 else "",
+    )
     if not title_line or not lead_line:
         raise BuildError("note preamble title or lead is missing")
     title = title_line[2:].strip()
-    lead = lead_line[2:-2].strip()
+    lead = (
+        lead_line[2:-2].strip()
+        if lead_line.startswith("**") and lead_line.endswith("**")
+        else lead_line
+    )
     title_index = hero.index(title_line)
     lead_index = hero.index(lead_line)
-    meta_line = hero[-1]
-    sublead_lines = hero[lead_index + 1 : -1]
+    meta_line = "" if collection_index else hero[-1]
+    sublead_lines = hero[lead_index + 1 :] if collection_index else hero[lead_index + 1 : -1]
     if not sublead_lines:
         raise BuildError("note preamble sublead is missing")
     if title_index <= 0 or lead_index <= title_index:
@@ -223,6 +252,32 @@ def render_turning_points(section_markdown: str) -> str | None:
     return (
         f"          <h2>{html.escape(title)}</h2>\n"
         '          <div class="turning-grid">\n'
+        + "\n".join(rendered_cards)
+        + "\n          </div>"
+    )
+
+
+def render_collection_cards(section_markdown: str) -> str | None:
+    title, body = section_heading(section_markdown)
+    card_re = re.compile(
+        r"(?ms)^(?P<number>\d+)\s*\n+###\s+\[(?P<title>[^\]]+)\]\((?P<href>[^)]+)\)\s*\n+"
+        r"(?P<body>.+?)(?=\n+(?:\d+)\s*\n+###\s+|\Z)"
+    )
+    cards = list(card_re.finditer(body))
+    if not cards or card_re.sub("", body).strip():
+        return None
+    rendered_cards = []
+    for match in cards:
+        description = markdown.markdown(match.group("body").strip(), output_format="html5")
+        rendered_cards.append(
+            '            <article class="turning-card">'
+            f'<span class="turning-number">{html.escape(match.group("number"))}</span>'
+            f'<h3><a href="{html.escape(match.group("href"), quote=True)}">'
+            f'{html.escape(match.group("title"))}</a></h3>{description}</article>'
+        )
+    return (
+        f"          <h2>{html.escape(title)}</h2>\n"
+        '          <div class="note-card-grid note-card-grid-single">\n'
         + "\n".join(rendered_cards)
         + "\n          </div>"
     )
@@ -352,8 +407,12 @@ def render_history_timeline(article: str, links: list[tuple[str, str]]) -> str:
     return "\n\n".join(sections)
 
 
-def render_sections(article: str, links: list[tuple[str, str]]) -> str:
-    section_sources = split_sections(article, links)
+def render_sections(
+    article: str, links: list[tuple[str, str]], *, collection_index: bool = False
+) -> str:
+    section_sources = (
+        [("collection", article)] if collection_index else split_sections(article, links)
+    )
     sections: list[str] = []
     for index, (section_id, section_markdown) in enumerate(section_sources):
         if not section_markdown:
@@ -373,7 +432,11 @@ def render_sections(article: str, links: list[tuple[str, str]]) -> str:
             )
             section_markdown = section_markdown[period_match.end() :].strip()
         rendered = None
-        if section_id == "turning-points":
+        if collection_index and index == 0:
+            rendered = render_collection_cards(section_markdown)
+            if rendered is None:
+                raise BuildError("notes collection index must contain numbered linked cards")
+        elif section_id == "turning-points":
             rendered = render_turning_points(section_markdown)
         elif section_id == "layers":
             rendered = render_layer_grid(section_markdown)
@@ -387,8 +450,11 @@ def render_sections(article: str, links: list[tuple[str, str]]) -> str:
                 rendered = rendered.replace("<ol>", '<ol class="source-list">', 1)
             rendered = indent_fragment(rendered)
         intro_class = " note-intro" if index == 0 and section_class == "note-section" else ""
+        section_id_html = (
+            "" if collection_index else f' id="{html.escape(section_id, quote=True)}"'
+        )
         sections.append(
-            f'        <section id="{html.escape(section_id, quote=True)}" '
+            f'        <section{section_id_html} '
             f'class="{section_class}{intro_class}">\n{period_header}{rendered}\n        </section>'
         )
     return "\n\n".join(sections)
@@ -440,9 +506,10 @@ def output_path(preview_root: Path, source: Path, slug: str) -> Path:
 
 def build_one(source: Path, preview_root: Path) -> Path:
     slug = validate_source_path(source)
+    collection_index = not slug
     meta, body = load_source(source)
     validate_metadata(meta, source, slug)
-    preamble, links, article = parse_preamble(body)
+    preamble, links, article = parse_preamble(body, collection_index=collection_index)
     title = require_scalar(meta, "title")
     if preamble["title"] != title:
         raise BuildError("front matter title and visible h1 differ")
@@ -458,15 +525,35 @@ def build_one(source: Path, preview_root: Path) -> Path:
         "canonical": html.escape(canonical, quote=True),
         "kicker": html.escape(preamble["kicker"]),
         "title": html.escape(title),
-        "lead": html.escape(preamble["lead"]),
+        "lead_html": (
+            html.escape(preamble["lead"])
+            if collection_index
+            else f'<strong>{html.escape(preamble["lead"])}</strong>'
+        ),
         "sublead": html.escape(preamble["sublead"]),
-        "note_meta": html.escape(preamble["note_meta"]),
+        "note_meta_html": (
+            f'<p class="note-meta">{html.escape(preamble["note_meta"])}</p>'
+            if preamble["note_meta"]
+            else ""
+        ),
         "sidebar_title": html.escape(preamble["sidebar_title"]),
         "sidebar_links": sidebar_links,
+        "layout_open": (
+            '<section class="note-layout" aria-label="研究ノート一覧">'
+            if collection_index
+            else '<div class="note-layout">'
+        ),
+        "layout_close": "</section>" if collection_index else "</div>",
+        "content_open": (
+            '<div class="note-content">'
+            if collection_index
+            else '<article class="note-content">'
+        ),
+        "content_close": "</div>" if collection_index else "</article>",
         "article_html": (
             render_history_timeline(article, links)
             if source.name == "timeline.md"
-            else render_sections(article, links)
+            else render_sections(article, links, collection_index=collection_index)
         ),
     }
     target = output_path(preview_root, source, slug)
@@ -477,7 +564,11 @@ def build_one(source: Path, preview_root: Path) -> Path:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build one research-note preview.")
-    parser.add_argument("--source", required=True, help="content/notes/<slug>/index.md")
+    parser.add_argument(
+        "--source",
+        required=True,
+        help="content/notes/index.md or content/notes/<slug>/<page>.md",
+    )
     parser.add_argument("--preview-root", default=str(DEFAULT_PREVIEW_ROOT))
     args = parser.parse_args()
 
