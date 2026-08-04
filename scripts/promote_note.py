@@ -2,7 +2,7 @@
 """Explicitly promote one regenerated research note into site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:22 JST
+最終更新日時：2026-08-04 18:16 JST
 
 This command never accepts a glob or destination path. The source metadata and
 the narrow notes-v0 path contract determine the only permitted target.
@@ -15,7 +15,13 @@ import shutil
 from pathlib import Path
 
 from build_content_pages import BuildError
-from build_notes_preview import REPO_ROOT, SITE_ROOT, build_one, validate_source_path
+from build_notes_preview import (
+    REPO_ROOT,
+    SITE_ROOT,
+    build_one,
+    output_name_for_source,
+    validate_source_path,
+)
 
 DEFAULT_CANDIDATE_ROOT = REPO_ROOT / "_notes_promotion_candidate"
 
@@ -23,8 +29,9 @@ DEFAULT_CANDIDATE_ROOT = REPO_ROOT / "_notes_promotion_candidate"
 def promote(source: Path, candidate_root: Path, write_site: bool) -> Path:
     slug = validate_source_path(source)
     candidate = build_one(source, candidate_root)
-    target = SITE_ROOT / "notes" / slug / "index.html"
-    expected = candidate_root.resolve() / "notes" / slug / "index.html"
+    output_name = output_name_for_source(source)
+    target = SITE_ROOT / "notes" / slug / output_name
+    expected = candidate_root.resolve() / "notes" / slug / output_name
     if candidate.resolve() != expected:
         raise BuildError("generated note candidate path is outside the controlled target")
     if not write_site:
