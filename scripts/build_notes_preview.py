@@ -2,7 +2,7 @@
 """Build one nested research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:36 JST
+最終更新日時：2026-08-04 17:57 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
@@ -38,6 +38,10 @@ TEMPLATE = REPO_ROOT / "publishing" / "templates" / "note.html"
 ANCHOR_RE = re.compile(r'^<a id="([a-zA-Z0-9_-]+)"></a>\s*$', re.MULTILINE)
 LINK_RE = re.compile(r"^\[([^\]]+)\]\(([^)]+)\)\s*$")
 PLACEHOLDER_RE = re.compile(r"\{\{([a-z_]+)\}\}")
+PERIOD_PREAMBLE_RE = re.compile(
+    r"^(?P<label>Research Group [A-Z]|Theoretical Lines)\s*\n+"
+    r"##\s+(?P<title>[^\n]+)\s*(?:\n+|$)"
+)
 
 
 def load_source(path: Path) -> tuple[dict[str, object], str]:
@@ -147,16 +151,32 @@ def render_sections(article: str) -> str:
         section_markdown = article[start:end].strip()
         if not section_markdown:
             raise BuildError(f"empty note section: {section_id}")
+        period_match = PERIOD_PREAMBLE_RE.match(section_markdown)
+        period_header = ""
+        section_class = "note-section"
+        if period_match:
+            section_class = "period"
+            label = html.escape(period_match.group("label"))
+            title = html.escape(period_match.group("title"))
+            period_header = (
+                '          <div class="period-header">\n'
+                f'            <p class="period-label">{label}</p>\n'
+                f'            <h2>{title}</h2>\n'
+                "          </div>\n"
+            )
+            section_markdown = section_markdown[period_match.end() :].strip()
         rendered = markdown.markdown(
             section_markdown,
             extensions=["extra", "sane_lists"],
             output_format="html5",
         )
+        if section_id == "references":
+            rendered = rendered.replace("<ol>", '<ol class="source-list">', 1)
         rendered = indent_fragment(rendered)
-        intro_class = " note-intro" if index == 0 else ""
+        intro_class = " note-intro" if index == 0 and section_class == "note-section" else ""
         sections.append(
             f'        <section id="{html.escape(section_id, quote=True)}" '
-            f'class="note-section{intro_class}">\n{rendered}\n        </section>'
+            f'class="{section_class}{intro_class}">\n{period_header}{rendered}\n        </section>'
         )
     return "\n\n".join(sections)
 
