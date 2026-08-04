@@ -2,6 +2,13 @@
 _content_build_preview/
 _structured_build_preview/
 _promotion_fixture/
+_notes_build_preview/
+_notes_publish_preview/
+_notes_source_check_preview/
+_notes_promotion_candidate/
+_notes_write_refusal_candidate/
+_notes_state_check/
+_notes_history_check/
 
 # Python cache
 __pycache__/

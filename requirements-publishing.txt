@@ -1,3 +1,4 @@
 # Structured publishing preview only.
 # The current public builder remains dependency-free.
 PyYAML>=6.0,<7
+Markdown>=3.8,<4
