@@ -4928,8 +4928,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/01-memory.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -4971,7 +4971,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/02-prompt/",
@@ -4989,8 +4989,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/02-prompt.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5033,7 +5033,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/03-tools/",
@@ -5051,8 +5051,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/03-tools.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5095,7 +5095,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/04-context/",
@@ -5113,8 +5113,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/04-context.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5157,7 +5157,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/05-forgetting/",
@@ -5175,8 +5175,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/05-forgetting.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5219,7 +5219,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/06-understanding/",
@@ -5237,8 +5237,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/06-understanding.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5281,7 +5281,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/07-workflow/",
@@ -5299,8 +5299,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/07-workflow.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5343,7 +5343,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/08-context-design/",
@@ -5361,8 +5361,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/08-context-design.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5404,7 +5404,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi/flyer/",
@@ -5480,8 +5480,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -5533,7 +5533,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-deep-dive/01-prompt-compilation/",
