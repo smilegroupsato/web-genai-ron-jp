@@ -2,13 +2,13 @@
 title: "生成AIの歴史｜完全版年表"
 route: "/notes/history-of-generative-ai/timeline.html"
 source_html_path: "site/notes/history-of-generative-ai/timeline.html"
-source_html_sha256: "0903d83c591ba1c3f97852398cbe1dede27f9451ebfe8a0d34099e6952b34929"
+source_html_sha256: "7805249f694a5b7efc1e54289a14cec2cf9e2cd65dab16043f0f895c771b0bdc"
 page_type: "note"
 series_or_article: "notes"
 order: null
 chapter: null
 meta_description: "生成AIの歴史を、学問史・技術史・計算資源史・企業／モデル史・社会／市場史の5層でたどる完全版年表。"
-canonical: null
+canonical: "/notes/history-of-generative-ai/timeline.html"
 created_at: null
 updated_at: "2026-06-18"
 manuscript_created_at: null
@@ -17,7 +17,7 @@ web_migrated_at: null
 metadata_provenance:
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "html_head"
   created_at: "absent"
   updated_at: "visible_body"
   manuscript_created_at: "absent"

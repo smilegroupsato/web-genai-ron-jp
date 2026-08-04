@@ -1,7 +1,7 @@
 # Research Notes controlled publication v0.2
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:16 JST
+最終更新日時：2026-08-04 18:26 JST
 
 ## 目的
 
@@ -60,10 +60,11 @@ builderは、Markdownのsection先頭に`Research Group A`等または`Theoretic
 
 明示section anchorがない概要型noteは、CONTENTSのページ内リンクとh2の数が一致する場合に限り、順番からanchorを復元する。`turning-points`と`layers`は、既存のカード構造を保つ。
 
-完全版年表は、`PERIODS`目次、5期の順序、5層ラベル、出典sectionが全て一致する場合に限り、`period`・`timeline-card`・`badge`構造を再生成する。
+完全版年表は、`PERIODS`目次、5期の順序、5層ラベル、出典sectionが全て一致する場合に限り、`layer-grid`・`period`・`timeline-card`・`badge`構造を再生成する。
 
 ## 更新履歴
 
+- 2026-08-04 18:26 JST：完全版年表の凡例を5層の`layer-grid`として保持する構造不変条件を追加。
 - 2026-08-04 18:16 JST：完全版年表のnested route、5期・5層・イベントカードの再生成とCI検証をv0.2として追加。
 - 2026-08-04 18:06 JST：概要型noteの目次・見出し順からのanchor復元と、転換点／5層カードの構造保持を追加。
 - 2026-08-04 17:57 JST：長文研究ノートの既存表現を保つため、研究群区切りと参考文献リストの構造保持を追加。
