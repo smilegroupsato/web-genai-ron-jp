@@ -2,6 +2,7 @@
 title: "User入力からAssistant出力まで、何が起きているのか"
 created_at: "2026-07-29 10:24 JST"
 updated_at: "2026-07-29 11:13 JST"
+slug: "/series/genai-shikumi-deep-dive/supplement-user-input-to-assistant-output-multilayer/"
 status: "draft"
 ---
 
