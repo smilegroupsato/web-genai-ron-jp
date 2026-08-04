@@ -2,7 +2,7 @@
 """Build one nested research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:06 JST
+最終更新日時：2026-08-04 18:16 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
@@ -63,12 +63,27 @@ def validate_source_path(path: Path) -> str:
         relative = resolved.relative_to(CONTENT_ROOT)
     except ValueError as exc:
         raise BuildError("note source must be under content/notes/") from exc
-    if len(relative.parts) != 2 or relative.name != "index.md":
-        raise BuildError("notes publication v0 accepts only content/notes/<slug>/index.md")
+    if len(relative.parts) != 2:
+        raise BuildError("notes publication accepts only content/notes/<slug>/<page>.md")
     slug = relative.parts[0]
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", slug):
         raise BuildError(f"invalid note slug: {slug!r}")
+    allowed_name = relative.name == "index.md" or (
+        slug == "history-of-generative-ai" and relative.name == "timeline.md"
+    )
+    if not allowed_name:
+        raise BuildError("unsupported notes publication source")
     return slug
+
+
+def output_name_for_source(source: Path) -> str:
+    return "index.html" if source.name == "index.md" else f"{source.stem}.html"
+
+
+def expected_route_for_source(source: Path, slug: str) -> str:
+    if source.name == "index.md":
+        return f"/notes/{slug}/"
+    return f"/notes/{slug}/{output_name_for_source(source)}"
 
 
 def require_scalar(meta: Mapping[str, object], key: str) -> str:
@@ -78,9 +93,9 @@ def require_scalar(meta: Mapping[str, object], key: str) -> str:
     return value
 
 
-def validate_metadata(meta: Mapping[str, object], slug: str) -> None:
+def validate_metadata(meta: Mapping[str, object], source: Path, slug: str) -> None:
     route = require_scalar(meta, "route")
-    expected_route = f"/notes/{slug}/"
+    expected_route = expected_route_for_source(source, slug)
     if route != expected_route:
         raise BuildError(f"route mismatch: expected {expected_route!r}, got {route!r}")
     if require_scalar(meta, "title") == "Untitled":
@@ -101,9 +116,10 @@ def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], st
     preamble = body[:section_start].strip()
     article = body[section_start:].strip()
     lines = [line.strip() for line in preamble.splitlines() if line.strip()]
-    if "CONTENTS" not in lines:
-        raise BuildError("note preamble must contain CONTENTS")
-    contents_index = lines.index("CONTENTS")
+    marker = next((value for value in ("CONTENTS", "PERIODS") if value in lines), None)
+    if marker is None:
+        raise BuildError("note preamble must contain CONTENTS or PERIODS")
+    contents_index = lines.index(marker)
     hero = lines[:contents_index]
     toc = lines[contents_index + 1 :]
     if len(hero) < 5:
@@ -140,6 +156,7 @@ def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], st
         "lead": lead,
         "sublead": " ".join(sublead_lines),
         "note_meta": meta_line,
+        "sidebar_title": marker,
     }, links, article
 
 
@@ -246,6 +263,95 @@ def render_layer_grid(section_markdown: str) -> str | None:
     )
 
 
+def render_history_timeline(article: str, links: list[tuple[str, str]]) -> str:
+    period_re = re.compile(r"^第(?P<number>[1-5])期｜(?P<range>[^\n]+)\s*$", re.MULTILINE)
+    source_re = re.compile(r"^##\s+出典・参考資料\s*$", re.MULTILINE)
+    periods = list(period_re.finditer(article))
+    sources = source_re.search(article)
+    expected_ids = [f"period-{number}" for number in range(1, 6)] + ["sources"]
+    toc_ids = [href[1:] for _, href in links if href.startswith("#")]
+    if len(periods) != 5 or sources is None or toc_ids != expected_ids:
+        raise BuildError("history timeline periods or CONTENTS are invalid")
+    if sources.start() <= periods[-1].start():
+        raise BuildError("history timeline sources must follow all periods")
+
+    legend_markdown = article[: periods[0].start()].strip()
+    legend = indent_fragment(
+        markdown.markdown(legend_markdown, extensions=["extra", "sane_lists"], output_format="html5")
+    )
+    sections = [
+        '        <section id="legend" class="note-section note-intro">\n'
+        f"{legend}\n"
+        "        </section>"
+    ]
+
+    layer_classes = {
+        "学問史": "academic",
+        "技術史": "technology",
+        "計算資源史": "compute",
+        "企業／モデル史": "company",
+        "社会／市場史": "society",
+    }
+    layer_pattern = "|".join(re.escape(value) for value in layer_classes)
+    event_re = re.compile(
+        rf"(?ms)^(?P<date>[^\n]+)\s*\n+(?P<layer>{layer_pattern})\s*\n+"
+        rf"###\s+(?P<title>[^\n]+)\s*\n+(?P<body>.+?)"
+        rf"(?=\n+[^\n]+\s*\n+(?:{layer_pattern})\s*\n+###\s+|\Z)"
+    )
+
+    for index, period in enumerate(periods):
+        end = periods[index + 1].start() if index + 1 < len(periods) else sources.start()
+        period_markdown = article[period.end() : end].strip()
+        title, period_body = section_heading(period_markdown)
+        events = list(event_re.finditer(period_body))
+        if not events:
+            raise BuildError(f"history timeline period {index + 1} has no events")
+        summary = period_body[: events[0].start()].strip()
+        event_text = period_body[events[0].start() :]
+        if event_re.sub("", event_text).strip():
+            raise BuildError(f"history timeline period {index + 1} has an unsupported event sequence")
+        summary_html = markdown.markdown(summary, output_format="html5")
+        if not summary_html.startswith("<p>") or summary_html.count("<p>") != 1:
+            raise BuildError(f"history timeline period {index + 1} must have one summary paragraph")
+        summary_html = summary_html.replace("<p>", '<p class="period-summary">', 1)
+        cards = []
+        for event in events:
+            layer = event.group("layer")
+            layer_class = layer_classes[layer]
+            description = markdown.markdown(event.group("body").strip(), output_format="html5")
+            cards.append(
+                f'            <article class="timeline-card" data-layer="{layer_class}">'
+                f'<div class="timeline-date">{html.escape(event.group("date"))}</div>'
+                f'<div class="timeline-body"><span class="badge badge-{layer_class}">'
+                f"{html.escape(layer)}</span><h3>{html.escape(event.group('title'))}</h3>"
+                f"{description}</div></article>"
+            )
+        label = f"第{period.group('number')}期｜{period.group('range')}"
+        sections.append(
+            f'        <section id="period-{period.group("number")}" class="period">\n'
+            '          <div class="period-header">\n'
+            f'            <p class="period-label">{html.escape(label)}</p>\n'
+            f"            <h2>{html.escape(title)}</h2>\n"
+            f"            {summary_html}\n"
+            "          </div>\n"
+            '          <div class="timeline-list">\n'
+            + "\n".join(cards)
+            + "\n          </div>\n"
+            "        </section>"
+        )
+
+    sources_markdown = article[sources.start() :].strip()
+    sources_html = markdown.markdown(
+        sources_markdown, extensions=["extra", "sane_lists"], output_format="html5"
+    ).replace("<ol>", '<ol class="source-list">', 1)
+    sections.append(
+        '        <section id="sources" class="note-section note-intro">\n'
+        f"{indent_fragment(sources_html)}\n"
+        "        </section>"
+    )
+    return "\n\n".join(sections)
+
+
 def render_sections(article: str, links: list[tuple[str, str]]) -> str:
     section_sources = split_sections(article, links)
     sections: list[str] = []
@@ -321,7 +427,7 @@ def render_template(values: Mapping[str, str]) -> str:
     return rendered.rstrip() + "\n"
 
 
-def output_path(preview_root: Path, slug: str) -> Path:
+def output_path(preview_root: Path, source: Path, slug: str) -> Path:
     resolved = preview_root.resolve()
     try:
         resolved.relative_to(SITE_ROOT)
@@ -329,13 +435,13 @@ def output_path(preview_root: Path, slug: str) -> Path:
         pass
     else:
         raise BuildError("notes preview root must not be inside site/")
-    return resolved / "notes" / slug / "index.html"
+    return resolved / "notes" / slug / output_name_for_source(source)
 
 
 def build_one(source: Path, preview_root: Path) -> Path:
     slug = validate_source_path(source)
     meta, body = load_source(source)
-    validate_metadata(meta, slug)
+    validate_metadata(meta, source, slug)
     preamble, links, article = parse_preamble(body)
     title = require_scalar(meta, "title")
     if preamble["title"] != title:
@@ -355,10 +461,15 @@ def build_one(source: Path, preview_root: Path) -> Path:
         "lead": html.escape(preamble["lead"]),
         "sublead": html.escape(preamble["sublead"]),
         "note_meta": html.escape(preamble["note_meta"]),
+        "sidebar_title": html.escape(preamble["sidebar_title"]),
         "sidebar_links": sidebar_links,
-        "article_html": render_sections(article, links),
+        "article_html": (
+            render_history_timeline(article, links)
+            if source.name == "timeline.md"
+            else render_sections(article, links)
+        ),
     }
-    target = output_path(preview_root, slug)
+    target = output_path(preview_root, source, slug)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(render_template(values), encoding="utf-8")
     return target

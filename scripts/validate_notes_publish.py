@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:40 JST
+最終更新日時：2026-08-04 18:16 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -21,9 +21,17 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from build_content_pages import BuildError
-from build_notes_preview import REPO_ROOT, SITE_ROOT, build_one, validate_source_path
+from build_notes_preview import (
+    REPO_ROOT,
+    SITE_ROOT,
+    build_one,
+    output_name_for_source,
+    validate_source_path,
+)
 
-TARGET_RE = re.compile(r"^site/notes/([a-z0-9][a-z0-9-]*)/index\.html$")
+TARGET_RE = re.compile(
+    r"^site/notes/(?P<slug>[a-z0-9][a-z0-9-]*)/(?P<page>index|timeline)\.html$"
+)
 GATE_ALLOWLIST = {
     ".gitignore",
     ".github/workflows/validate-notes-publish.yml",
@@ -201,7 +209,8 @@ def source_for_target(target: str) -> Path:
     match = TARGET_RE.match(target)
     if not match:
         raise BuildError(f"unsupported notes target: {target}")
-    return REPO_ROOT / "content" / "notes" / match.group(1) / "index.md"
+    source_name = "index.md" if match.group("page") == "index" else f"{match.group('page')}.md"
+    return REPO_ROOT / "content" / "notes" / match.group("slug") / source_name
 
 
 def validate_scope(files: list[str]) -> str | None:
@@ -253,7 +262,7 @@ def validate_target(target: str, base_ref: str, preview_root: Path) -> None:
 
 def validate_source_check(source: Path, preview_root: Path) -> None:
     slug = validate_source_path(source)
-    current = SITE_ROOT / "notes" / slug / "index.html"
+    current = SITE_ROOT / "notes" / slug / output_name_for_source(source)
     if not current.is_file():
         raise BuildError(f"source-check public note is missing: {current.relative_to(REPO_ROOT)}")
     shutil.rmtree(preview_root, ignore_errors=True)
