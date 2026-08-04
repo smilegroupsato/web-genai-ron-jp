@@ -490,6 +490,7 @@ def render_template(values: Mapping[str, str]) -> str:
     rendered = PLACEHOLDER_RE.sub(replace, template)
     if PLACEHOLDER_RE.search(rendered):
         raise BuildError("unresolved note template placeholder")
+    rendered = "\n".join(line.rstrip() for line in rendered.splitlines())
     return rendered.rstrip() + "\n"
 
 
