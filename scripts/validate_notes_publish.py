@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 16:36 JST
+最終更新日時：2026-08-04 16:40 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -27,6 +27,7 @@ TARGET_RE = re.compile(r"^site/notes/([a-z0-9][a-z0-9-]*)/index\.html$")
 GATE_ALLOWLIST = {
     ".gitignore",
     ".github/workflows/validate-notes-publish.yml",
+    ".github/workflows/validate-publishing-structure.yml",
     "publishing/NOTES_PUBLICATION.md",
     "publishing/templates/note.html",
     "requirements-publishing.txt",
@@ -34,6 +35,7 @@ GATE_ALLOWLIST = {
     "scripts/promote_note.py",
     "scripts/validate_notes_publish.py",
     "scripts/validate_notes_visual.js",
+    "scripts/validate_controlled_write.py",
 }
 FORBIDDEN_PUBLIC_TEXT = {
     "source_html_path",
