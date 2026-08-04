@@ -1,5 +1,5 @@
 # ページ作成日時：2026-08-04 16:22 JST
-# 最終更新日時：2026-08-04 16:22 JST
+# 最終更新日時：2026-08-04 16:37 JST
 
 name: Validate Notes Publish
 
@@ -15,6 +15,7 @@ on:
       - "scripts/build_notes_preview.py"
       - "scripts/promote_note.py"
       - "scripts/validate_notes_publish.py"
+      - "scripts/validate_notes_visual.js"
       - ".github/workflows/validate-notes-publish.yml"
   workflow_dispatch:
 
@@ -76,6 +77,51 @@ jobs:
             --source-check content/notes/tool-discovery-layer/index.md \
             --preview-root _notes_source_check_preview
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install isolated visual QA dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Resolve visual QA route
+        id: visual-route
+        run: |
+          target=$(git diff --name-only origin/main...HEAD | \
+            sed -nE 's#^site(/notes/[a-z0-9][a-z0-9-]*/index\.html)$#\1#p' | \
+            head -n 1)
+          if [ -n "$target" ]; then
+            route="${target%index.html}"
+          else
+            route="/notes/tool-discovery-layer/"
+          fi
+          echo "route=$route" >> "$GITHUB_OUTPUT"
+
+      - name: Start promoted-note preview server
+        env:
+          NOTES_PREVIEW_ROUTE: ${{ steps.visual-route.outputs.route }}
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory site > /tmp/notes-preview-http.log 2>&1 &
+          echo $! > /tmp/notes-preview-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent "http://127.0.0.1:8765${NOTES_PREVIEW_ROUTE}" > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/notes-preview-http.log >&2
+          exit 1
+
+      - name: Validate promoted note desktop and mobile rendering
+        env:
+          NOTES_PREVIEW_BASE_URL: http://127.0.0.1:8765
+          NOTES_PREVIEW_ROUTE: ${{ steps.visual-route.outputs.route }}
+          NOTES_VISUAL_QA_OUTPUT: _notes_visual_qa
+        run: node scripts/validate_notes_visual.js
+
       - name: Upload notes preview
         if: always()
         uses: actions/upload-artifact@v4
@@ -84,5 +130,6 @@ jobs:
           path: |
             _notes_publish_preview/
             _notes_source_check_preview/
+            _notes_visual_qa/
           if-no-files-found: ignore
           retention-days: 7
