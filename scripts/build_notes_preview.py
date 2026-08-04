@@ -2,7 +2,7 @@
 """Build one nested research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 17:57 JST
+最終更新日時：2026-08-04 18:06 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
@@ -94,10 +94,12 @@ def validate_metadata(meta: Mapping[str, object], slug: str) -> None:
 
 def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], str]:
     anchor = ANCHOR_RE.search(body)
-    if anchor is None:
-        raise BuildError("note body must contain at least one explicit section anchor")
-    preamble = body[: anchor.start()].strip()
-    article = body[anchor.start() :].strip()
+    first_heading = re.search(r"^##\s+", body, re.MULTILINE)
+    if anchor is None and first_heading is None:
+        raise BuildError("note body must contain at least one section heading")
+    section_start = anchor.start() if anchor is not None else first_heading.start()
+    preamble = body[:section_start].strip()
+    article = body[section_start:].strip()
     lines = [line.strip() for line in preamble.splitlines() if line.strip()]
     if "CONTENTS" not in lines:
         raise BuildError("note preamble must contain CONTENTS")
@@ -141,14 +143,113 @@ def parse_preamble(body: str) -> tuple[dict[str, str], list[tuple[str, str]], st
     }, links, article
 
 
-def render_sections(article: str) -> str:
+def split_sections(
+    article: str, links: list[tuple[str, str]]
+) -> list[tuple[str, str]]:
     matches = list(ANCHOR_RE.finditer(article))
+    if matches:
+        return [
+            (
+                match.group(1),
+                article[
+                    match.end() : matches[index + 1].start()
+                    if index + 1 < len(matches)
+                    else len(article)
+                ].strip(),
+            )
+            for index, match in enumerate(matches)
+        ]
+
+    headings = list(re.finditer(r"^##\s+[^\n]+\s*$", article, re.MULTILINE))
+    section_ids = [href[1:] for _, href in links if href.startswith("#")]
+    if len(section_ids) != len(links):
+        raise BuildError("anchorless note CONTENTS must contain only in-page links")
+    if len(headings) != len(section_ids):
+        raise BuildError("anchorless note heading count must match CONTENTS")
+    return [
+        (
+            section_ids[index],
+            article[
+                heading.start() : headings[index + 1].start()
+                if index + 1 < len(headings)
+                else len(article)
+            ].strip(),
+        )
+        for index, heading in enumerate(headings)
+    ]
+
+
+def section_heading(section_markdown: str) -> tuple[str, str]:
+    match = re.match(r"^##\s+(?P<title>[^\n]+)\s*(?:\n+|$)", section_markdown)
+    if match is None:
+        raise BuildError("special note section must start with an h2")
+    return match.group("title"), section_markdown[match.end() :].strip()
+
+
+def render_turning_points(section_markdown: str) -> str | None:
+    title, body = section_heading(section_markdown)
+    card_re = re.compile(
+        r"(?ms)^(?P<number>\d+)\s*\n+###\s+(?P<title>[^\n]+)\s*\n+"
+        r"(?P<body>.+?)(?=\n+(?:\d+)\s*\n+###\s+|\Z)"
+    )
+    cards = list(card_re.finditer(body))
+    if not cards or card_re.sub("", body).strip():
+        return None
+    rendered_cards = []
+    for match in cards:
+        description = markdown.markdown(match.group("body").strip(), output_format="html5")
+        rendered_cards.append(
+            '            <article class="turning-card">'
+            f'<span class="turning-number">{html.escape(match.group("number"))}</span>'
+            f'<h3>{html.escape(match.group("title"))}</h3>{description}</article>'
+        )
+    return (
+        f"          <h2>{html.escape(title)}</h2>\n"
+        '          <div class="turning-grid">\n'
+        + "\n".join(rendered_cards)
+        + "\n          </div>"
+    )
+
+
+def render_layer_grid(section_markdown: str) -> str | None:
+    title, body = section_heading(section_markdown)
+    headings = list(re.finditer(r"^###\s+(?P<title>[^\n]+)\s*$", body, re.MULTILINE))
+    if not headings:
+        return None
+    intro = body[: headings[0].start()].strip()
+    class_by_title = {
+        "学問史": "academic",
+        "技術史": "technology",
+        "計算資源史": "compute",
+        "企業／モデル史": "company",
+        "社会／市場史": "society",
+    }
+    cards = []
+    for index, heading in enumerate(headings):
+        layer_title = heading.group("title")
+        layer_class = class_by_title.get(layer_title)
+        if layer_class is None:
+            return None
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(body)
+        description = markdown.markdown(body[heading.end() : end].strip(), output_format="html5")
+        cards.append(
+            f'            <article class="layer-card layer-{layer_class}">'
+            f"<h3>{html.escape(layer_title)}</h3>{description}</article>"
+        )
+    intro_html = indent_fragment(markdown.markdown(intro, output_format="html5"))
+    return (
+        f"          <h2>{html.escape(title)}</h2>\n"
+        f"{intro_html}\n"
+        '          <div class="layer-grid">\n'
+        + "\n".join(cards)
+        + "\n          </div>"
+    )
+
+
+def render_sections(article: str, links: list[tuple[str, str]]) -> str:
+    section_sources = split_sections(article, links)
     sections: list[str] = []
-    for index, match in enumerate(matches):
-        section_id = match.group(1)
-        start = match.end()
-        end = matches[index + 1].start() if index + 1 < len(matches) else len(article)
-        section_markdown = article[start:end].strip()
+    for index, (section_id, section_markdown) in enumerate(section_sources):
         if not section_markdown:
             raise BuildError(f"empty note section: {section_id}")
         period_match = PERIOD_PREAMBLE_RE.match(section_markdown)
@@ -165,14 +266,20 @@ def render_sections(article: str) -> str:
                 "          </div>\n"
             )
             section_markdown = section_markdown[period_match.end() :].strip()
-        rendered = markdown.markdown(
-            section_markdown,
-            extensions=["extra", "sane_lists"],
-            output_format="html5",
-        )
-        if section_id == "references":
-            rendered = rendered.replace("<ol>", '<ol class="source-list">', 1)
-        rendered = indent_fragment(rendered)
+        rendered = None
+        if section_id == "turning-points":
+            rendered = render_turning_points(section_markdown)
+        elif section_id == "layers":
+            rendered = render_layer_grid(section_markdown)
+        if rendered is None:
+            rendered = markdown.markdown(
+                section_markdown,
+                extensions=["extra", "sane_lists"],
+                output_format="html5",
+            )
+            if section_id == "references":
+                rendered = rendered.replace("<ol>", '<ol class="source-list">', 1)
+            rendered = indent_fragment(rendered)
         intro_class = " note-intro" if index == 0 and section_class == "note-section" else ""
         sections.append(
             f'        <section id="{html.escape(section_id, quote=True)}" '
@@ -249,7 +356,7 @@ def build_one(source: Path, preview_root: Path) -> Path:
         "sublead": html.escape(preamble["sublead"]),
         "note_meta": html.escape(preamble["note_meta"]),
         "sidebar_links": sidebar_links,
-        "article_html": render_sections(article),
+        "article_html": render_sections(article, links),
     }
     target = output_path(preview_root, slug)
     target.parent.mkdir(parents=True, exist_ok=True)
