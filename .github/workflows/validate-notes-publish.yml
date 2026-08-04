@@ -1,0 +1,88 @@
+# ページ作成日時：2026-08-04 16:22 JST
+# 最終更新日時：2026-08-04 16:22 JST
+
+name: Validate Notes Publish
+
+on:
+  pull_request:
+    paths:
+      - ".gitignore"
+      - "content/notes/**"
+      - "site/notes/**"
+      - "publishing/templates/note.html"
+      - "publishing/NOTES_PUBLICATION.md"
+      - "requirements-publishing.txt"
+      - "scripts/build_notes_preview.py"
+      - "scripts/promote_note.py"
+      - "scripts/validate_notes_publish.py"
+      - ".github/workflows/validate-notes-publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install isolated publishing dependencies
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile notes publishing tools
+        run: |
+          python -m py_compile \
+            scripts/build_notes_preview.py \
+            scripts/promote_note.py \
+            scripts/validate_notes_publish.py
+
+      - name: Confirm notes builder cannot write to site
+        run: |
+          if python scripts/build_notes_preview.py --help | grep -q -- '--write-site'; then
+            echo "notes preview builder unexpectedly exposes --write-site" >&2
+            exit 1
+          fi
+
+      - name: Prove explicit write confirmation is required
+        run: |
+          before=$(git status --short -- site/)
+          if python scripts/promote_note.py \
+            --source content/notes/tool-discovery-layer/index.md \
+            --candidate-root _notes_write_refusal_candidate; then
+            echo "note promotion unexpectedly succeeded without --write-site" >&2
+            exit 1
+          fi
+          after=$(git status --short -- site/)
+          test "$before" = "$after"
+
+      - name: Validate gate scope
+        run: |
+          python scripts/validate_notes_publish.py \
+            --base-ref origin/main \
+            --preview-root _notes_publish_preview
+
+      - name: Validate source-to-candidate semantic parity
+        run: |
+          python scripts/validate_notes_publish.py \
+            --source-check content/notes/tool-discovery-layer/index.md \
+            --preview-root _notes_source_check_preview
+
+      - name: Upload notes preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: notes-publication-preview
+          path: |
+            _notes_publish_preview/
+            _notes_source_check_preview/
+          if-no-files-found: ignore
+          retention-days: 7
