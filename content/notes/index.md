@@ -2,13 +2,13 @@
 title: "研究ノート"
 route: "/notes/"
 source_html_path: "site/notes/index.html"
-source_html_sha256: "3c119629c8e5572dd1ec14bd05f80bdf0f03cbe10d5b03d51fd0771afc5c39cc"
+source_html_sha256: "1f7b5827c6efdccb1e880abaab285b8955e793b404eb1075498fe9d4ab203f83"
 page_type: "collection-index"
 series_or_article: "notes"
 order: 0
 chapter: null
 meta_description: "GENAI-RONの研究ノート一覧。論考の背景にある調査、年表、資料整理、仮説、先行研究レビューを公開します。"
-canonical: null
+canonical: "/notes/"
 created_at: null
 updated_at: null
 manuscript_created_at: null
@@ -17,7 +17,7 @@ web_migrated_at: null
 metadata_provenance:
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "html_head"
   created_at: "absent"
   updated_at: "absent"
   manuscript_created_at: "absent"

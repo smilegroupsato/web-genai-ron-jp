@@ -5,21 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>研究ノート｜GENAI-RON</title>
   <meta name="description" content="GENAI-RONの研究ノート一覧。論考の背景にある調査、年表、資料整理、仮説、先行研究レビューを公開します。">
+  <link rel="canonical" href="/notes/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style-notes.css">
-  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="/assets/theme.css">
 </head>
 <body class="note-page">
   <header class="site-header">
     <div class="site-header-inner">
-      <a class="site-brand" href="/">
-        <span class="site-brand-main">GENAI-RON</span>
-        <span class="site-brand-sub">🧠生成AI論🥦</span>
-      </a>
-      <nav class="site-nav" aria-label="サイト内ナビゲーション">
-        <a href="/article/">論考一覧</a>
-        <a href="/notes/">研究ノート</a>
-      </nav>
+      <a class="site-brand" href="/"><span class="site-brand-main">GENAI-RON</span><span class="site-brand-sub">🧠生成AI論🥦</span></a>
+      <nav class="site-nav" aria-label="サイト内ナビゲーション"><a href="/article/">論考一覧</a><a href="/notes/">研究ノート</a><a href="/series/genai-shikumi/">生成AIのしくみ</a></nav>
     </div>
   </header>
 
@@ -29,10 +24,11 @@
       <h1>研究ノート</h1>
       <p class="note-lead">論考の背景にある調査、年表、資料整理、仮説、先行研究レビューを公開する場所です。</p>
       <p class="note-sublead">完成した論考だけでは見えにくい、問いの生成過程や資料の積み上がりを、読める形に整えていきます。</p>
+
     </section>
 
     <section class="note-layout" aria-label="研究ノート一覧">
-      <aside class="note-sidebar">
+      <aside class="note-sidebar" aria-label="ページ内目次">
         <p class="note-sidebar-title">NOTES</p>
         <a href="/notes/history-of-generative-ai/">生成AIの歴史｜多層年表</a>
         <a href="/notes/state-change-lit-review/">状態変化の先行研究レビュー</a>
@@ -43,21 +39,9 @@
         <section class="note-section note-intro">
           <h2>公開中の研究ノート</h2>
           <div class="note-card-grid note-card-grid-single">
-            <article class="turning-card">
-              <span class="turning-number">01</span>
-              <h3><a href="/notes/history-of-generative-ai/">生成AIの歴史｜多層年表</a></h3>
-              <p>情報理論からChatGPT、推論モデルまで。言語、統計、計算資源、市場が交差した80年の歴史をたどる。</p>
-            </article>
-            <article class="turning-card">
-              <span class="turning-number">02</span>
-              <h3><a href="/notes/state-change-lit-review/">LLMとの対話は人間の何を変えるのか</a></h3>
-              <p>「状態変化」をめぐる先行研究レビュー。履歴生成、検証回路、自己開示、情緒的利用、現実への再接続を整理する。</p>
-            </article>
-            <article class="turning-card">
-              <span class="turning-number">03</span>
-              <h3><a href="/notes/tool-discovery-layer/">ChatGPTのツール発見レイヤーとユーザー指示の衝突</a></h3>
-              <p>外部ツール利用時に、ユーザーが禁止したツール一覧取得がなぜ起こり得るのか。会話内制約、モデル判断、ツール・レジストリ層の衝突として整理する。</p>
-            </article>
+            <article class="turning-card"><span class="turning-number">01</span><h3><a href="/notes/history-of-generative-ai/">生成AIの歴史｜多層年表</a></h3><p>情報理論からChatGPT、推論モデルまで。言語、統計、計算資源、市場が交差した80年の歴史をたどる。</p></article>
+            <article class="turning-card"><span class="turning-number">02</span><h3><a href="/notes/state-change-lit-review/">LLMとの対話は人間の何を変えるのか</a></h3><p>「状態変化」をめぐる先行研究レビュー。履歴生成、検証回路、自己開示、情緒的利用、現実への再接続を整理する。</p></article>
+            <article class="turning-card"><span class="turning-number">03</span><h3><a href="/notes/tool-discovery-layer/">ChatGPTのツール発見レイヤーとユーザー指示の衝突</a></h3><p>外部ツール利用時に、ユーザーが禁止したツール一覧取得がなぜ起こり得るのか。会話内制約、モデル判断、ツール・レジストリ層の衝突として整理する。</p></article>
           </div>
         </section>
       </div>
@@ -67,6 +51,6 @@
   <footer class="note-footer">
     <p>GENAI-RON｜🧠生成AI論🥦</p>
   </footer>
-  <script src="../assets/theme.js" defer></script>
+  <script src="/assets/theme.js" defer></script>
 </body>
 </html>

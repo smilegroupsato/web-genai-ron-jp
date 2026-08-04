@@ -13,7 +13,7 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
 It does not write to site/.
 
 ページ作成日時：2026-07-23 12:08 JST
-最終更新日時：2026-08-04 18:16 JST
+最終更新日時：2026-08-04 18:59 JST
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 TARGET_RE = re.compile(r"^site/series/genai-shikumi-deep-dive/([^/]+)/index\.html$")
 SERIES_PUBLISH_SITE_RE = re.compile(r"^site/series/ai-dialogue-intro/(?:[^/]+/)?index\.html$")
 NOTES_PUBLISH_SITE_RE = re.compile(
-    r"^site/notes/[a-z0-9][a-z0-9-]*/(?:index|timeline)\.html$"
+    r"^site/notes/(?:index|[a-z0-9][a-z0-9-]*/(?:index|timeline))\.html$"
 )
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
