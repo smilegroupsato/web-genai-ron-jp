@@ -1,5 +1,5 @@
 # ページ作成日時：2026-08-04 16:22 JST
-# 最終更新日時：2026-08-04 16:37 JST
+# 最終更新日時：2026-08-04 18:06 JST
 
 name: Validate Notes Publish
 
@@ -76,6 +76,12 @@ jobs:
           python scripts/validate_notes_publish.py \
             --source-check content/notes/tool-discovery-layer/index.md \
             --preview-root _notes_source_check_preview
+
+      - name: Validate anchorless history overview parity
+        run: |
+          python scripts/validate_notes_publish.py \
+            --source-check content/notes/history-of-generative-ai/index.md \
+            --preview-root _notes_history_check
 
       - name: Set up Node
         uses: actions/setup-node@v4
