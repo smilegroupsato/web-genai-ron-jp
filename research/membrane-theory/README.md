@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-05 17:17 JST
+- 最終更新日時：2026-08-05 17:47 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -26,6 +26,7 @@
 - 人間は、AIを含むHuman–AI Systemを包み、世界との接触・身体性・価値判断・責任を担う外膜になりうる。
 - 膜は既存の主体を包むだけでなく、一つの生成空間を分節し、局所的な状態・視点・権限・履歴を持つ部分主体を生成しうる。
 - A2Aは、離れたAIを接続する技術だけでなく、一つのモデル空間に差異を持続させる技術としても考えられる。
+- 人間の知性・認知・心理モデルをLLMへ適用する研究は、人間側の構造をLLM上のプロンプト、Role、状態、権限、通信形式へ移す写像問題として検討する必要がある。
 
 ## 現在の作業概念
 
@@ -55,11 +56,14 @@
 - SGOS Communication Architecture / Handoff / Agent Charter / Steward
 - 膜計算、オートポイエーシス、Security Membrane
 - 単一LLM内の複数Roleと内部A2A
+- 人間の認知・心理モデルからLLM構造への写像
 
 ## 研究ノート
 
 - [`INDEX.md`](./INDEX.md)
   - 膜理論文書群の分類台帳。研究・創作・観測記録・原文ログを読み分けるための入口。
+- [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md)
+  - Wang et al. (2024) の Solo Performance Prompting（SPP）論文の読解ノート。単一LLM内の複数Role、Chain-of-Thoughtとの比較、近接研究を整理し、そこから派生する「人間の認知・心理モデルからLLM構造への写像問題」をOpen Questionとして扱う。
 - [`2026.07.27_01_human_outer_membrane_and_internal_a2a.md`](./2026.07.27_01_human_outer_membrane_and_internal_a2a.md)
   - Notionノートを移行し、チャット「A2A」での新展開を統合した概念ノート。
 - [`2026.07.27_02_human_outer_membrane_model_notion_full.md`](./2026.07.27_02_human_outer_membrane_model_notion_full.md)
@@ -100,6 +104,7 @@
 
 ## 更新履歴
 
+- 2026-08-05 17:47 JST：Wang et al. (2024) SPP論文読解と、人間の認知・心理モデルからLLM構造への写像問題を扱う研究ノートを追加。中心命題と関連領域へ写像問題を追記。
 - 2026-08-05 17:17 JST：INDEX.mdを追加し、この領域を「小説『膜』を成立させるための領域横断的な概念研究」として位置づけた。
 - 2026-08-04 10:57 JST：膜空間トポロジー仕様 v0 に、履歴の沈殿、文脈輸送、交換装置の状態遷移、膜の状態変数を追記。
 - 2026-08-03 20:10 JST：膜空間トポロジー仕様 v0 と対話録を追加。
