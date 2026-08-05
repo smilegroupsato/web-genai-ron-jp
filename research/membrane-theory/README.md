@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-05 21:53 JST
+- 最終更新日時：2026-08-06 07:28 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -65,7 +65,9 @@
 - [`CHARTER.md`](./CHARTER.md)
   - 膜理論を研究として扱うための憲章。研究の条件、完成された学術研究への到達条件、arXiv・匿名掲載への欲望の扱いを整理する。
 - [`BIBLIOGRAPHY.md`](./BIBLIOGRAPHY.md)
-  - 先行研究20本読解のための文献台帳。読書ステータス、核5本、第1期20本文献、個別読書メモの入口。
+  - 先行研究20本読解のための文献台帳。読書ステータス、核5本、第1期20本文献、個別読解ノートの入口。
+- [`reading_notes/README.md`](./reading_notes/README.md)
+  - 1文献1ファイルで読解ノートを保存する場所。`author_yyyy_title` 型の命名規則とテンプレートを管理する。
 - [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md)
   - Wang et al. (2024) の Solo Performance Prompting（SPP）論文の読解ノート。単一LLM内の複数Role、Chain-of-Thoughtとの比較、近接研究を整理し、そこから派生する「人間の認知・心理モデルからLLM構造への写像問題」をOpen Questionとして扱う。
 - [`2026.07.27_01_human_outer_membrane_and_internal_a2a.md`](./2026.07.27_01_human_outer_membrane_and_internal_a2a.md)
@@ -108,6 +110,8 @@
 
 ## 更新履歴
 
+- 2026-08-06 07:28 JST：BIB-001読解ノートを個別ファイルへ分離し、reading_notes/配下の読解ノート管理を開始。
+- 2026-08-06 07:21 JST：個別読解ノートの保存場所 `reading_notes/` と命名規則への入口を追加。
 - 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805をmainへ統合し、BIBLIOGRAPHY.md、CHARTER.md、SPP論文読解ノートの入口を併存する形に整理。
 - 2026-08-05 20:20 JST：BIBLIOGRAPHY.mdを追加し、先行研究20本読解の文献台帳への参照を追加。
 - 2026-08-05 17:34 JST：CHARTER.mdを追加し、研究としての基本姿勢と完成された学術研究への到達条件への参照を追加。

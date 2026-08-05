@@ -1,7 +1,7 @@
 # 膜理論 INDEX
 
 - ページ作成日時：2026-08-05 17:17 JST
-- 最終更新日時：2026-08-05 21:53 JST
+- 最終更新日時：2026-08-06 07:28 JST
 - status：working index / classification ledger
 
 この文書は、`research/membrane-theory/` に蓄積された文書を、研究・創作・原文ログの工程別に読み分けるための索引である。
@@ -82,6 +82,8 @@
 | [`INDEX.md`](./INDEX.md) | `00_manifest/` | 文書分類台帳。読む順番と仮想棚を管理する |
 | [`CHARTER.md`](./CHARTER.md) | `00_manifest/` | 膜理論を研究として扱うための憲章。研究の条件と学術研究への到達条件を定める |
 | [`BIBLIOGRAPHY.md`](./BIBLIOGRAPHY.md) | `20_research/` | 先行研究20本読解の文献台帳。読書ステータス、核5本、第1期20本文献を管理する |
+| [`reading_notes/README.md`](./reading_notes/README.md) | `20_research/` | 個別読解ノートの保存場所と命名規則。1文献1ファイルで読解本文を管理する |
+| [`reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) | `20_research/` | BIB-001 Gorter and Grendel (1925) の個別読解ノート |
 | [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md) | `10_theory/` | 膜空間トポロジー仕様 v0。理論の骨格 |
 | [`2026.08.01_01_human_membranes_concept_note.md`](./2026.08.01_01_human_membranes_concept_note.md) | `10_theory/` | 人間の膜の層を整理した概念ノート |
 | [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md) | `10_theory/` | 離人感、現実感喪失、解離、依存などの異常作動一覧 |
@@ -113,16 +115,19 @@
 - 概念ノートでは、既存研究、作業仮説、観測記録、小説素材を混ぜたままにしない。
 - chat_logsは原則として原文保存に徹し、理論化は別ノートで行う。
 - 先行研究ノートでは、出典にある概念と、膜理論による読み替えを明示的に分ける。
+- 先行研究の長い読解本文は `BIBLIOGRAPHY.md` に追記せず、`reading_notes/{author-slug}_{publication-year}_{title-slug}.md` として保存する。
 - 小説草稿は、理論を説明する場所ではなく、膜が読者の側に発生する場として扱う。
 
 ## 次の一手
 
 1. `50_fiction/` 相当の小説草稿・断章を、今後は `works/maku/` とどう分担するか決める。
-2. `20_research/` 相当の先行研究について、1分野1文書の読解台帳を作る。
+2. `20_research/` 相当の先行研究について、`reading_notes/` に1文献1ファイルの読解ノートを作る。
 3. `10_theory/` 相当の文書から、重複する定義を `README.md` とトポロジー仕様へ集約する。
 
 ## 更新履歴
 
+- 2026-08-06 07:28 JST：BIB-001読解ノートを個別ファイルへ分離し、分類台帳へ登録。
+- 2026-08-06 07:21 JST：個別読解ノートの保存場所と命名規則を追加し、BIBLIOGRAPHY.md肥大化を避ける運用へ変更。
 - 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805をmainへ統合し、BIBLIOGRAPHY.mdとSPP論文読解ノートを読む順番・分類台帳に併存登録。
 - 2026-08-05 20:20 JST：BIBLIOGRAPHY.mdを追加し、読む順番と分類台帳に登録。
 - 2026-08-05 17:34 JST：CHARTER.mdを追加し、読む順番と分類台帳に登録。
