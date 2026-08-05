@@ -1,7 +1,7 @@
 # 膜理論 INDEX
 
 - ページ作成日時：2026-08-05 17:17 JST
-- 最終更新日時：2026-08-05 17:34 JST
+- 最終更新日時：2026-08-05 20:20 JST
 - status：working index / classification ledger
 
 この文書は、`research/membrane-theory/` に蓄積された文書を、研究・創作・原文ログの工程別に読み分けるための索引である。
@@ -55,17 +55,19 @@
    - 中心命題、暫定定義、現在の作品タイトル。
 2. [`CHARTER.md`](./CHARTER.md)
    - 研究とは何か、完成された学術研究とは何か、膜理論をどこまで育てるか。
-3. [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md)
+3. [`BIBLIOGRAPHY.md`](./BIBLIOGRAPHY.md)
+   - 先行研究20本読解のための文献台帳。まず読む核5本と第1期20本文献。
+4. [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md)
    - 膜空間の基本仕様。現時点の理論的な骨格。
-4. [`2026.08.01_03_membrane_prior_research_map.md`](./2026.08.01_03_membrane_prior_research_map.md)
+5. [`2026.08.01_03_membrane_prior_research_map.md`](./2026.08.01_03_membrane_prior_research_map.md)
    - 思い込みだけで進めないための先行研究マップ。
-5. [`2026.08.01_01_human_membranes_concept_note.md`](./2026.08.01_01_human_membranes_concept_note.md)
+6. [`2026.08.01_01_human_membranes_concept_note.md`](./2026.08.01_01_human_membranes_concept_note.md)
    - 人間の膜を、生物学的膜、認知的膜、人称の膜、時間の膜、内面分節として整理した文書。
-6. [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md)
+7. [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md)
    - 離人感、現実感喪失、解離、依存などを膜の異常作動として読む文書。
-7. [`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
+8. [`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
    - 膜の情緒、比喩としての膜、定義の厳密さに関する入口。
-8. [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md)
+9. [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md)
    - 小説化のための文学・技法参照棚。
 
 原文の空気や生成過程を確認したい場合だけ、`chat_logs/` を読む。
@@ -77,6 +79,7 @@
 | [`README.md`](./README.md) | `00_manifest/` | 膜理論領域の入口。中心命題、暫定定義、記録方針を置く |
 | [`INDEX.md`](./INDEX.md) | `00_manifest/` | 文書分類台帳。読む順番と仮想棚を管理する |
 | [`CHARTER.md`](./CHARTER.md) | `00_manifest/` | 膜理論を研究として扱うための憲章。研究の条件と学術研究への到達条件を定める |
+| [`BIBLIOGRAPHY.md`](./BIBLIOGRAPHY.md) | `20_research/` | 先行研究20本読解の文献台帳。読書ステータス、核5本、第1期20本文献を管理する |
 | [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md) | `10_theory/` | 膜空間トポロジー仕様 v0。理論の骨格 |
 | [`2026.08.01_01_human_membranes_concept_note.md`](./2026.08.01_01_human_membranes_concept_note.md) | `10_theory/` | 人間の膜の層を整理した概念ノート |
 | [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md) | `10_theory/` | 離人感、現実感喪失、解離、依存などの異常作動一覧 |
@@ -117,5 +120,6 @@
 
 ## 更新履歴
 
+- 2026-08-05 20:20 JST：BIBLIOGRAPHY.mdを追加し、読む順番と分類台帳に登録。
 - 2026-08-05 17:34 JST：CHARTER.mdを追加し、読む順番と分類台帳に登録。
 - 2026-08-05 17:17 JST：初版作成。膜理論文書群を仮想棚ごとに分類し、研究としての位置づけを整理。
