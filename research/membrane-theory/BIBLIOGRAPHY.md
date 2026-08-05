@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-05 21:53 JST
+- 最終更新日時：2026-08-05 22:27 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -62,7 +62,7 @@
 
 | ID | status | 領域 | 文献 | 読む目的 | 膜理論への接続 |
 |---|---|---|---|---|---|
-| BIB-001 | unread | 生物膜 | E. Gorter and F. Grendel, "On Bimolecular Layers of Lipoids on the Chromocytes of the Blood", 1925. | 膜を物質的構造として扱う出発点を確認する | 膜を比喩化する前に、膜がどのような科学的対象として成立したかを確認する |
+| BIB-001 | summarized | 生物膜 | E. Gorter and F. Grendel, "On Bimolecular Layers of Lipoids on the Chromocytes of the Blood", 1925. | 膜を物質的構造として扱う出発点を確認する | 膜を比喩化する前に、膜がどのような科学的対象として成立したかを確認する |
 | BIB-002 | unread | 生物膜 | S. J. Singer and G. L. Nicolson, "The Fluid Mosaic Model of the Structure of Cell Membranes", 1972. | 生物膜モデルの古典を読む | 膜を固定された壁ではなく、流動し、分布し、機能する場として扱う |
 | BIB-003 | unread | 生物膜 | G. L. Nicolson, "The Fluid-Mosaic Model of Membrane Structure: Still Relevant to Understanding the Structure, Function and Dynamics of Biological Membranes after More than 40 Years", 2014. | 流動モザイクモデルの更新点を確認する | 古典モデルをそのまま借りず、膜モデルの更新可能性を保持する |
 | BIB-004 | unread | オートポイエーシス | Humberto R. Maturana and Francisco J. Varela, *Autopoiesis and Cognition: The Realization of the Living*, 1980. | 生命、境界、自己生成の関係を読む | 膜を「自己を囲うもの」ではなく「自己を作る作動」として考える |
@@ -112,8 +112,23 @@
 
 ここに各文献の読書メモを追記する。
 
+### BIB-001 E. Gorter and F. Grendel, "On Bimolecular Layers of Lipoids on the Chromocytes of the Blood", 1925
+
+- status：summarized
+- 読了日：2026-08-05（概要読解）
+- 書誌：E. Gorter and F. Grendel, "On Bimolecular Layers of Lipoids on the Chromocytes of the Blood", *Journal of Experimental Medicine*, 41(4), 439-443, 1925. DOI: https://doi.org/10.1084/jem.41.4.439
+- 要約：赤血球から脂質を抽出し、それを水面上に単分子膜として広げたときの面積を、元の赤血球総表面積と比較した古典論文。抽出脂質の単分子膜面積が赤血球表面積のおよそ2倍になることから、赤血球膜は脂質が一層ではなく二分子厚で並ぶ構造だと結論した。今日の言葉では、細胞膜の脂質二重層モデルの初期根拠である。
+- 実験の骨格：人、ウサギ、犬、モルモット、羊、ヤギの血液を対象に、赤血球を洗浄し、アセトンなどで脂質を抽出する。抽出脂質をベンゼン等に溶かし、水面上に広げ、単分子膜として占める面積を測る。代表値として、犬では赤血球総表面積31.3に対して抽出脂質面積62、人では0.47に対して0.92または0.89となり、比はおおむね2に近い。
+- 重要概念：chromocytes（赤血球）、lipoids（脂質様物質）、monomolecular layer（単分子膜）、bimolecular layer（二分子層）、polar groups（極性基）、Langmuir trough / Langmuir apparatus（ラングミュア式表面膜装置）。
+- 膜理論への接続：この論文で重要なのは、膜を単なる「袋」や「壁」としてではなく、分子が向きを持って配置された境界構造として扱った点である。脂質は親水的な極性基と疎水的な尾部を持つため、膜はただ閉じるのではなく、内側と外側という二つの水相に対して向きを持つ。膜理論に引き寄せるなら、膜は「遮断物」ではなく、内外の環境に応答して成立する配向的な構造である。
+- 小説『膜』への接続：この文献は、小説内で「膜」を説明するためというより、膜の基礎イメージを正すために使える。膜は厚い壁ではなく、薄いが二重の向きを持つ配置である。内側に向く面と外側に向く面があり、その間に疎水的な中間層がある。この二重性は、主人公が現実に直接触れるのではなく、AI対話や記録の層を通して世界へ向く構造の比喩的足場になる。ただし、この比喩化は生物膜そのものとの混同を避ける必要がある。
+- 限界・注意：後世から見ると、実験手法と仮定はかなり粗い。脂質抽出は完全ではなく、赤血球表面積の見積もりにも誤差があり、膜タンパク質の存在も十分には扱われていない。結果として、複数の誤差が相殺され、正しい結論へ偶然近づいた古典として読むのがよい。したがって、この論文を「脂質二重層を完全に証明した論文」と神話化するより、「膜を分子の配向と面積関係から考える入口を作った論文」と位置づける。
+- 次に読むべき文献：Singer & Nicolson (1972) は、脂質二重層を静的な構造から流動する場へ更新するために読む。補助線として、Fricke (1925) の赤血球膜容量測定、Danielli & Davson (1935) の膜モデル、Langmuir の単分子膜研究を確認すると、この論文の歴史的位置が立体化する。
+- 参照：原典ページ https://rupress.org/jem/article/41/4/439/26091/ON-BIMOLECULAR-LAYERS-OF-LIPOIDS-ON-THE / PMC https://pmc.ncbi.nlm.nih.gov/articles/PMC2130960/ / 補助解説 https://rupress.org/jgp/article/150/11/1472/120644/The-lipid-bilayer-membrane-and-its-protein
+
 ## 更新履歴
 
+- 2026-08-05 22:27 JST：BIB-001 Gorter and Grendel (1925) の読解メモを追加し、statusをsummarizedへ更新。
 - 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805の統合に合わせ、CUR-001の所在未確認注記を解消。
 - 2026-08-05 21:16 JST：現在の読解状況を追加。読了/読中文書3件、次に読む候補2件を登録。
 - 2026-08-05 20:20 JST：初版作成。第1期20本文献、核5本、読書ステータス、読書メモテンプレートを追加。
