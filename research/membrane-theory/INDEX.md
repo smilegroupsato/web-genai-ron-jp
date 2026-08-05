@@ -1,7 +1,7 @@
 # 膜理論 INDEX
 
 - ページ作成日時：2026-08-05 17:17 JST
-- 最終更新日時：2026-08-05 20:20 JST
+- 最終更新日時：2026-08-05 21:53 JST
 - status：working index / classification ledger
 
 この文書は、`research/membrane-theory/` に蓄積された文書を、研究・創作・原文ログの工程別に読み分けるための索引である。
@@ -65,9 +65,11 @@
    - 人間の膜を、生物学的膜、認知的膜、人称の膜、時間の膜、内面分節として整理した文書。
 7. [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md)
    - 離人感、現実感喪失、解離、依存などを膜の異常作動として読む文書。
-8. [`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
+8. [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md)
+   - Wang et al. (2024) SPP論文の読解と、人間の認知・心理モデルからLLM構造への写像問題。
+9. [`2026.08.03_05_membrane_joucho_first_response.md`](./2026.08.03_05_membrane_joucho_first_response.md)
    - 膜の情緒、比喩としての膜、定義の厳密さに関する入口。
-9. [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md)
+10. [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md)
    - 小説化のための文学・技法参照棚。
 
 原文の空気や生成過程を確認したい場合だけ、`chat_logs/` を読む。
@@ -85,6 +87,7 @@
 | [`2026.08.01_02_membrane_abnormal_operations.md`](./2026.08.01_02_membrane_abnormal_operations.md) | `10_theory/` | 離人感、現実感喪失、解離、依存などの異常作動一覧 |
 | [`2026.07.27_01_human_outer_membrane_and_internal_a2a.md`](./2026.07.27_01_human_outer_membrane_and_internal_a2a.md) | `10_theory/` | 人間外膜モデル、内部膜型A2A、膜誘導型主体性の統合ノート |
 | [`2026.07.27_02_human_outer_membrane_model_notion_full.md`](./2026.07.27_02_human_outer_membrane_model_notion_full.md) | `10_theory/` / `90_chat_logs/` | Notion全文移行版。正本性が高いが、原文素材も多い |
+| [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md) | `20_research/` / `10_theory/` | Wang et al. (2024) SPP論文の読解ノート。単一LLM内の複数Roleを検討し、人間→LLM写像問題をOpen Questionとして残す |
 | [`2026.08.01_03_membrane_prior_research_map.md`](./2026.08.01_03_membrane_prior_research_map.md) | `20_research/` | 先行研究マップ。研究化の足場 |
 | [`papers/a-guide-to-membrane-computing/README.md`](./papers/a-guide-to-membrane-computing/README.md) | `20_research/` | 膜計算読解プロジェクトの入口 |
 | [`papers/a-guide-to-membrane-computing/2026.07.27_01_chapter_01_introduction.md`](./papers/a-guide-to-membrane-computing/2026.07.27_01_chapter_01_introduction.md) | `20_research/` | 膜計算 第1章読解 |
@@ -120,6 +123,8 @@
 
 ## 更新履歴
 
+- 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805をmainへ統合し、BIBLIOGRAPHY.mdとSPP論文読解ノートを読む順番・分類台帳に併存登録。
 - 2026-08-05 20:20 JST：BIBLIOGRAPHY.mdを追加し、読む順番と分類台帳に登録。
 - 2026-08-05 17:34 JST：CHARTER.mdを追加し、読む順番と分類台帳に登録。
+- 2026-08-05 17:47 JST：Wang et al. (2024) SPP論文読解と人間→LLM写像問題の研究ノートを、読む順番と文書分類台帳へ追加。
 - 2026-08-05 17:17 JST：初版作成。膜理論文書群を仮想棚ごとに分類し、研究としての位置づけを整理。

@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-05 21:16 JST
+- 最終更新日時：2026-08-05 21:53 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -38,7 +38,7 @@
 
 | ID | status | 文書 | 位置づけ | 次アクション |
 |---|---|---|---|---|
-| CUR-001 | reading | `research/membrane-theory/2026.07.25_01_human_cognitive_models_to_llm_mapping.md` | 人間の認知モデルとLLMを接続する文書。膜理論のAI/認知接続に関わる | 現作業コピーでは所在未確認。正本確認後、要約と膜理論への接続を追記する |
+| CUR-001 | reading | [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md) | 人間の認知モデルとLLMを接続する文書。膜理論のAI/認知接続に関わる | Wang et al. (2024) SPP論文読解として、要約と膜理論への接続を追記する |
 | CUR-002 | reading | [`research/membrane-theory/papers/a-guide-to-membrane-computing/`](./papers/a-guide-to-membrane-computing/) | 膜計算 / P systems 読解プロジェクト。形式理論としての膜を扱う | 読解済み章を整理し、膜理論に使える点と使わない点を分ける |
 | CUR-003 | reading | [`2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md`](./2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md) | 千葉雅也『動きすぎてはいけない』プロローグ読解。情緒、接続、切断に関わる | 「動きすぎないこと」と膜の調整作用を接続する |
 | NEXT-001 | queued | [`2026.08.01_03_membrane_prior_research_map.md`](./2026.08.01_03_membrane_prior_research_map.md) | 先行研究マップ。20本読解の分野バランスを調整する入口 | 第1期20本との対応表を作る |
@@ -114,5 +114,6 @@
 
 ## 更新履歴
 
+- 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805の統合に合わせ、CUR-001の所在未確認注記を解消。
 - 2026-08-05 21:16 JST：現在の読解状況を追加。読了/読中文書3件、次に読む候補2件を登録。
 - 2026-08-05 20:20 JST：初版作成。第1期20本文献、核5本、読書ステータス、読書メモテンプレートを追加。
