@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 09:43 JST
+- 最終更新日時：2026-08-06 10:06 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -97,7 +97,7 @@
 | BIB-001 | summarized | 生物膜 | E. Gorter and F. Grendel, "On Bimolecular Layers of Lipoids on the Chromocytes of the Blood", 1925. | 膜を物質的構造として扱う出発点を確認する | 膜を比喩化する前に、膜がどのような科学的対象として成立したかを確認する |
 | BIB-002 | summarized | 生物膜 | S. J. Singer and G. L. Nicolson, "The Fluid Mosaic Model of the Structure of Cell Membranes", 1972. | 生物膜モデルの古典を読む | 膜を固定された壁ではなく、流動し、分布し、機能する場として扱う |
 | BIB-003 | summarized | 生物膜 | G. L. Nicolson, "The Fluid-Mosaic Model of Membrane Structure: Still Relevant to Understanding the Structure, Function and Dynamics of Biological Membranes after More than 40 Years", 2014. | 流動モザイクモデルの更新点を確認する | 古典モデルをそのまま借りず、膜モデルの更新可能性を保持する |
-| BIB-004 | unread | オートポイエーシス | Humberto R. Maturana and Francisco J. Varela, *Autopoiesis and Cognition: The Realization of the Living*, 1980. | 生命、境界、自己生成の関係を読む | 膜を「自己を囲うもの」ではなく「自己を作る作動」として考える |
+| BIB-004 | summarized | オートポイエーシス | Humberto R. Maturana and Francisco J. Varela, *Autopoiesis and Cognition: The Realization of the Living*, 1980. | 生命、境界、自己生成の関係を読む | 膜を「自己を囲うもの」ではなく「自己を作る作動」として考える |
 | BIB-005 | unread | 身体化認知 | Francisco J. Varela, Evan Thompson, and Eleanor Rosch, *The Embodied Mind: Cognitive Science and Human Experience*, 1991. | 身体、認知、経験の接続を読む | AI対話、身体状態、現実感を同じ交換系の中で扱う |
 | BIB-006 | unread | 現象学 | Maurice Merleau-Ponty, *Phenomenologie de la perception*, 1945. | 知覚と身体が世界をどう開くかを読む | 膜を「世界に触れる/触れすぎない」身体的条件として読む |
 | BIB-007 | unread | 現象学・精神医学 | Thomas Fuchs, *Ecology of the Brain: The Phenomenology and Biology of the Embodied Mind*, 2018. | 脳、身体、環境を一つの循環系として読む | 心を脳内だけに閉じず、身体-環境の膜的循環として扱う |
@@ -150,11 +150,12 @@
 | BIB-001 | [`reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) |
 | BIB-002 | [`reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
 | BIB-003 | [`reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
-| BIB-004 | `reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md` |
+| BIB-004 | [`reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md`](./reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md) |
 | REL-001 | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 
 ## 更新履歴
 
+- 2026-08-06 10:06 JST：BIB-004 Maturana and Varela (1980) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 09:43 JST：BIB-003読解ノートに、Simons and Ikonen (1997) / Lingwood and Simons (2010) の脂質ラフト補遺を追加。
 - 2026-08-06 09:29 JST：BIB-003 Nicolson (2014) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 08:07 JST：BIB-002 Singer and Nicolson (1972) の読解ノートを作成し、statusをsummarizedへ更新。
