@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 20:51 JST
+- 最終更新日時：2026-08-06 21:41 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -38,7 +38,7 @@
 
 保存場所：
 
-- `research/membrane-theory/reading_notes/`
+- `research/membrane-theory/20_research/reading_notes/`
 
 ファイル名：
 
@@ -56,11 +56,11 @@
 
 | 文献 | 読解ノートファイル |
 |---|---|
-| Gorter & Grendel (1925), "On Bimolecular Layers of Lipoids..." | `reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md` |
-| Singer & Nicolson (1972), "The Fluid Mosaic Model..." | `reading_notes/singer-nicolson_1972_fluid-mosaic-model.md` |
-| Maturana & Varela (1980), *Autopoiesis and Cognition* | `reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md` |
-| Varela, Thompson & Rosch (1991), *The Embodied Mind* | `reading_notes/varela-thompson-rosch_1991_embodied-mind.md` |
-| Paun, Rozenberg & Salomaa (2002), "A Guide to Membrane Computing" | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
+| Gorter & Grendel (1925), "On Bimolecular Layers of Lipoids..." | `20_research/reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md` |
+| Singer & Nicolson (1972), "The Fluid Mosaic Model..." | `20_research/reading_notes/singer-nicolson_1972_fluid-mosaic-model.md` |
+| Maturana & Varela (1980), *Autopoiesis and Cognition* | `20_research/reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md` |
+| Varela, Thompson & Rosch (1991), *The Embodied Mind* | `20_research/reading_notes/varela-thompson-rosch_1991_embodied-mind.md` |
+| Paun, Rozenberg & Salomaa (2002), "A Guide to Membrane Computing" | `20_research/reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 
 台帳側には、個別読解ノートへのリンク、status、読了日、膜理論への接続の要点だけを残す。
 
@@ -70,11 +70,11 @@
 
 | ID | status | 文書 | 位置づけ | 次アクション |
 |---|---|---|---|---|
-| CUR-001 | reading | [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./2026.07.25_01_human_cognitive_models_to_llm_mapping.md) | 人間の認知モデルとLLMを接続する文書。膜理論のAI/認知接続に関わる | Wang et al. (2024) SPP論文読解として、要約と膜理論への接続を追記する |
-| CUR-002 | reading | [`research/membrane-theory/papers/a-guide-to-membrane-computing/`](./papers/a-guide-to-membrane-computing/) | 膜計算 / P systems 読解プロジェクト。形式理論としての膜を扱う | 読解済み章を整理し、膜理論に使える点と使わない点を分ける |
-| CUR-003 | reading | [`2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md`](./2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md) | 千葉雅也『動きすぎてはいけない』プロローグ読解。情緒、接続、切断に関わる | 「動きすぎないこと」と膜の調整作用を接続する |
-| NEXT-001 | queued | [`2026.08.01_03_membrane_prior_research_map.md`](./2026.08.01_03_membrane_prior_research_map.md) | 先行研究マップ。20本読解の分野バランスを調整する入口 | 第1期20本との対応表を作る |
-| NEXT-002 | queued | [`2026.08.01_04_membrane_literary_reference_books.md`](./2026.08.01_04_membrane_literary_reference_books.md) | 文学・技法参照棚。小説『膜』側の読書地図 | 第1期20本の文学枠と接続する |
+| CUR-001 | reading | [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./20_research/2026.07.25_01_human_cognitive_models_to_llm_mapping.md) | 人間の認知モデルとLLMを接続する文書。膜理論のAI/認知接続に関わる | Wang et al. (2024) SPP論文読解として、要約と膜理論への接続を追記する |
+| CUR-002 | reading | [`research/membrane-theory/papers/a-guide-to-membrane-computing/`](./20_research/papers/a-guide-to-membrane-computing/) | 膜計算 / P systems 読解プロジェクト。形式理論としての膜を扱う | 読解済み章を整理し、膜理論に使える点と使わない点を分ける |
+| CUR-003 | reading | [`2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md`](./30_literature/2026.07.27_01_doukisugitewaikenai_prologue_joucho_connection_disconnection.md) | 千葉雅也『動きすぎてはいけない』プロローグ読解。情緒、接続、切断に関わる | 「動きすぎないこと」と膜の調整作用を接続する |
+| NEXT-001 | queued | [`2026.08.01_03_membrane_prior_research_map.md`](./20_research/2026.08.01_03_membrane_prior_research_map.md) | 先行研究マップ。20本読解の分野バランスを調整する入口 | 第1期20本との対応表を作る |
+| NEXT-002 | queued | [`2026.08.01_04_membrane_literary_reference_books.md`](./30_literature/2026.08.01_04_membrane_literary_reference_books.md) | 文学・技法参照棚。小説『膜』側の読書地図 | 第1期20本の文学枠と接続する |
 
 ## 最初に読む核5本
 
@@ -126,7 +126,7 @@
 
 ## 個別読解ノートテンプレート
 
-各文献を読んだら、`reading_notes/` に以下の形式で1ファイルを作る。
+各文献を読んだら、`20_research/reading_notes/` に以下の形式で1ファイルを作る。
 
 ```markdown
 # 文献名
@@ -144,21 +144,22 @@
 
 ## 個別読解ノート
 
-長い読解ノートはここに追記せず、`reading_notes/` 配下に1文献1ファイルで保存する。
+長い読解ノートはここに追記せず、`20_research/reading_notes/` 配下に1文献1ファイルで保存する。
 
 | ID | 読解ノート |
 |---|---|
-| BIB-001 | [`reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) |
-| BIB-002 | [`reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
-| BIB-003 | [`reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
-| BIB-004 | [`reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md`](./reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md) |
-| BIB-011 | [`reading_notes/sierra_2009_depersonalization-neglected-syndrome.md`](./reading_notes/sierra_2009_depersonalization-neglected-syndrome.md) |
-| BIB-012 | [`reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
-| REL-001 | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
-| REL-002 | [`reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
+| BIB-001 | [`20_research/reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./20_research/reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) |
+| BIB-002 | [`20_research/reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./20_research/reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
+| BIB-003 | [`20_research/reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./20_research/reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
+| BIB-004 | [`20_research/reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md`](./20_research/reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md) |
+| BIB-011 | [`20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md`](./20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md) |
+| BIB-012 | [`20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
+| REL-001 | `20_research/reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
+| REL-002 | [`20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 
 ## 更新履歴
 
+- 2026-08-06 21:41 JST：個別読解ノート保存場所を `20_research/reading_notes/` へ移動し、関連リンクを更新。
 - 2026-08-06 20:51 JST：REL-002 Sierra and Berrios (2000) のCDS 29項目構造レビューを作成し、statusをsummarizedへ更新。
 - 2026-08-06 20:33 JST：REL-002 Sierra and Berrios (2000) を、本家CDSレビュー候補として登録。
 - 2026-08-06 17:37 JST：BIB-011 Sierra (2009) の読解ノートを作成し、statusをsummarizedへ更新。
