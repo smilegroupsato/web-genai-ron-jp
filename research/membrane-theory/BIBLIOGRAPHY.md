@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 09:29 JST
+- 最終更新日時：2026-08-06 09:43 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -149,12 +149,13 @@
 |---|---|
 | BIB-001 | [`reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) |
 | BIB-002 | [`reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
-| BIB-003 | [`reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md) |
+| BIB-003 | [`reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
 | BIB-004 | `reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md` |
 | REL-001 | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 
 ## 更新履歴
 
+- 2026-08-06 09:43 JST：BIB-003読解ノートに、Simons and Ikonen (1997) / Lingwood and Simons (2010) の脂質ラフト補遺を追加。
 - 2026-08-06 09:29 JST：BIB-003 Nicolson (2014) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 08:07 JST：BIB-002 Singer and Nicolson (1972) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 07:28 JST：BIB-001読解メモを個別読解ノートへ分離し、台帳側はリンク管理に変更。
