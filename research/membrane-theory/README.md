@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-06 07:28 JST
+- 最終更新日時：2026-08-06 20:33 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -86,6 +86,8 @@
   - 情緒研究から発生した「膜の情緒」の最初の考察応答を、膜理論の入口メモとして転記した文書。「膜の情緒」5類型の進め方と、比喩としての膜／定義の厳密さに関する補遺を含む。
 - [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./2026.08.03_06_membrane_space_topology_spec_v0.md)
   - 小説『膜』を書く前の設計図として、region、membrane、cline、fold、inversion、nesting、leakage、smoothing、exchange device、context range、topology change を定義した膜空間トポロジー仕様 v0。
+- [`2026.08.06_01_cds_style_observation_and_cds_review_agenda.md`](./2026.08.06_01_cds_style_observation_and_cds_review_agenda.md)
+  - CDS風短縮観察票の回答と暫定分析を、医学的診断ではなく膜理論の観測材料として保存した文書。本家CDSは自己診断ではなく、現象をどう捉えようとしている尺度かをレビューする後続課題として扱う。
 - [`chat_logs/2026.07.27_01_a2a_full_transcript.md`](./chat_logs/2026.07.27_01_a2a_full_transcript.md)
   - チャット「A2A」の原文対話録。
 - [`chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md`](./chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md)
@@ -110,6 +112,7 @@
 
 ## 更新履歴
 
+- 2026-08-06 20:33 JST：CDS風観測メモと本家CDSレビュー課題を研究ノート索引へ追加。
 - 2026-08-06 07:28 JST：BIB-001読解ノートを個別ファイルへ分離し、reading_notes/配下の読解ノート管理を開始。
 - 2026-08-06 07:21 JST：個別読解ノートの保存場所 `reading_notes/` と命名規則への入口を追加。
 - 2026-08-05 21:53 JST：research/spp-human-to-llm-mapping-20260805をmainへ統合し、BIBLIOGRAPHY.md、CHARTER.md、SPP論文読解ノートの入口を併存する形に整理。
