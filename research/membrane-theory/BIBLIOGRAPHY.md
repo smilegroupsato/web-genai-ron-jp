@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 10:06 JST
+- 最終更新日時：2026-08-06 17:12 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -105,7 +105,7 @@
 | BIB-009 | unread | 比喩論 | George Lakoff and Mark Johnson, *Metaphors We Live By*, 1980. | 比喩が単なる装飾でなく思考を組織する仕組みを読む | 「膜」を曖昧な比喩ではなく、概念装置として管理する |
 | BIB-010 | unread | 精神病理学 | Louis A. Sass and Josef Parnas, "Schizophrenia, Consciousness, and the Self", 2003. | 自己感、自己境界、経験の変質を読む | 離人感・現実感喪失・解離を、自己境界の膜的異常として考える |
 | BIB-011 | unread | 離人感 | Mauricio Sierra, *Depersonalization: A New Look at a Neglected Syndrome*, 2009. | DPDRを臨床・神経心理学的に読む | 現実感の薄れ、自己との距離、感情の平坦化を膜の透過性として読む |
-| BIB-012 | unread | 離人感レビュー | Elaine C. Hunter, Mauricio Sierra, and Anthony S. David, "The Epidemiology of Depersonalisation and Derealisation: A Systematic Review", 2004. | DPDRの発生頻度、定義、臨床的位置づけを確認する | 体験的実感と医学的事実を分けるための足場にする |
+| BIB-012 | summarized | 離人感レビュー | Elaine C. Hunter, Mauricio Sierra, and Anthony S. David, "The Epidemiology of Depersonalisation and Derealisation: A Systematic Review", 2004. | DPDRの発生頻度、定義、臨床的位置づけを確認する | 体験的実感と医学的事実を分けるための足場にする |
 | BIB-013 | unread | システム論 | Niklas Luhmann, *Soziale Systeme: Grundriss einer allgemeinen Theorie*, 1984. | システムが境界によって成立する考え方を読む | 社会、組織、AI対話、SGOSを境界作動として見る |
 | BIB-014 | unread | 個体化論 | Gilbert Simondon, *L'individuation a la lumiere des notions de forme et d'information*, 1958/2005. | 個体を完成物でなく生成過程として読む | 膜を、既存主体を包むものではなく主体を分節生成する条件として扱う |
 | BIB-015 | unread | 哲学・文学理論 | Gilles Deleuze and Felix Guattari, *Mille plateaux*, 1980. | リゾーム、生成変化、多層性を読む | 膜空間を、中心を持たない多層・多方向の構造として扱う |
@@ -151,10 +151,12 @@
 | BIB-002 | [`reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
 | BIB-003 | [`reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
 | BIB-004 | [`reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md`](./reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md) |
+| BIB-012 | [`reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
 | REL-001 | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 
 ## 更新履歴
 
+- 2026-08-06 17:12 JST：BIB-012 Hunter, Sierra, and David (2004) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 10:06 JST：BIB-004 Maturana and Varela (1980) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 09:43 JST：BIB-003読解ノートに、Simons and Ikonen (1997) / Lingwood and Simons (2010) の脂質ラフト補遺を追加。
 - 2026-08-06 09:29 JST：BIB-003 Nicolson (2014) の読解ノートを作成し、statusをsummarizedへ更新。
