@@ -229,6 +229,10 @@ Lingwood and Simons (2010) は、脂質ラフト概念を、より慎重な膜�
 - 著者稿参照：https://www.academia.edu/19818944/The_Fluid_Mosaic_Model_of_Membrane_Structure_Still_relevant_to_understanding_the_structure_function_and_dynamics_of_biological_membranes_after_more_than_40_years
 - 関連短稿：Nicolson, "Update of the 1972 Singer-Nicolson Fluid-Mosaic Model of Membrane Structure" https://pmc.ncbi.nlm.nih.gov/articles/PMC7159824/
 - 後年レビュー：Nicolson and Ferreira de Mattos, "Fifty Years of the Fluid-Mosaic Model of Biomembrane Structure and Organization..." https://pmc.ncbi.nlm.nih.gov/articles/PMC9313417/
+- Simons and Ikonen (1997) PubMed：https://pubmed.ncbi.nlm.nih.gov/9177342/
+- Simons and Ikonen (1997) DOI：https://doi.org/10.1038/42408
+- Lingwood and Simons (2010) PubMed：https://pubmed.ncbi.nlm.nih.gov/20044567/
+- Lingwood and Simons (2010) DOI：https://doi.org/10.1126/science.1174621
 
 ## 更新履歴
 
