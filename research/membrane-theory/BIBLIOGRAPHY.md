@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 20:33 JST
+- 最終更新日時：2026-08-06 20:51 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -122,7 +122,7 @@
 | ID | status | 文献 | 位置づけ |
 |---|---|---|---|
 | REL-001 | reading | Gheorghe Paun, Grzegorz Rozenberg, and Arto Salomaa, "A Guide to Membrane Computing", 2002. | 形式理論としての膜。P systems読解プロジェクトの中心文献。`CUR-002` と対応 |
-| REL-002 | queued | Mauricio Sierra and G. E. Berrios, "The Cambridge Depersonalization Scale: A New Instrument for the Measurement of Depersonalization", 2000. | CDS本家。自己診断としてではなく、離人・現実感喪失の現象をどの軸で捉えようとしているかをレビューする後続文献。 |
+| REL-002 | summarized | Mauricio Sierra and G. E. Berrios, "The Cambridge Depersonalization Scale: A New Instrument for the Measurement of Depersonalization", 2000. | CDS本家。29項目が自己・身体・感情・記憶・時間・外界をどう分節しているかをレビューした。 |
 
 ## 個別読解ノートテンプレート
 
@@ -155,9 +155,11 @@
 | BIB-011 | [`reading_notes/sierra_2009_depersonalization-neglected-syndrome.md`](./reading_notes/sierra_2009_depersonalization-neglected-syndrome.md) |
 | BIB-012 | [`reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
 | REL-001 | `reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
+| REL-002 | [`reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 
 ## 更新履歴
 
+- 2026-08-06 20:51 JST：REL-002 Sierra and Berrios (2000) のCDS 29項目構造レビューを作成し、statusをsummarizedへ更新。
 - 2026-08-06 20:33 JST：REL-002 Sierra and Berrios (2000) を、本家CDSレビュー候補として登録。
 - 2026-08-06 17:37 JST：BIB-011 Sierra (2009) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 17:12 JST：BIB-012 Hunter, Sierra, and David (2004) の読解ノートを作成し、statusをsummarizedへ更新。
