@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-07 13:17 JST
+- 最終更新日時：2026-08-07 15:41 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -124,6 +124,7 @@
 | REL-001 | reading | Gheorghe Paun, Grzegorz Rozenberg, and Arto Salomaa, "A Guide to Membrane Computing", 2002. | 形式理論としての膜。P systems読解プロジェクトの中心文献。`CUR-002` と対応 |
 | REL-002 | summarized | Mauricio Sierra and G. E. Berrios, "The Cambridge Depersonalization Scale: A New Instrument for the Measurement of Depersonalization", 2000. | CDS本家。29項目が自己・身体・感情・記憶・時間・外界をどう分節しているかをレビューした。 |
 | REL-003 | summarized | Josef Parnas and Louis Sass, "The Structure of Self-Consciousness in Schizophrenia", 2011. | BIB-010の自己障害論を、最小自己・物語的自己・自己現前・一人称視点の構造へ展開する補助文献。 |
+| REL-004 | summarized | Wolfgang Blankenburg, *Der Verlust der natürlichen Selbstverständlichkeit: Ein Beitrag zur Psychopathologie symptomarmer Schizophrenien*, 1971. 日本語訳：ヴォルフガング・ブランケンブルク『自明性の喪失――分裂病の現象学』木村敏・岡本進・島弘嗣訳、みすず書房、1978年。 | 「自然な自明性」の喪失を、世界・自己・他者への前反省的な馴染みの変調として読む。BIB-010 / REL-003のhyperreflexivity・自己障害論の重要な前史。 |
 
 ## 個別読解ノートテンプレート
 
@@ -159,9 +160,11 @@
 | REL-001 | `20_research/reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 | REL-002 | [`20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 | REL-003 | [`20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md`](./20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md) |
+| REL-004 | [`20_research/reading_notes/blankenburg_1971_verlust-natuerlichen-selbstverstaendlichkeit.md`](./20_research/reading_notes/blankenburg_1971_verlust-natuerlichen-selbstverstaendlichkeit.md) |
 
 ## 更新履歴
 
+- 2026-08-07 15:41 JST：REL-004 Blankenburg (1971) の読解ノートを作成し、関連文献として登録。
 - 2026-08-07 13:17 JST：REL-003 Parnas and Sass (2011) の読解ノートを作成し、関連文献として登録。
 - 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 21:41 JST：個別読解ノート保存場所を `20_research/reading_notes/` へ移動し、関連リンクを更新。
