@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-07 15:41 JST
+- 最終更新日時：2026-08-07 17:53 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -113,7 +113,7 @@
 | BIB-017 | unread | ポストヒューマン論 | N. Katherine Hayles, *How We Became Posthuman: Virtual Bodies in Cybernetics, Literature, and Informatics*, 1999. | 情報、身体、人間の境界変化を読む | Human-AI Systemを、人間の喪失ではなく境界再編として読む |
 | BIB-018 | unread | メディア哲学 | Mark B. N. Hansen, *New Philosophy for New Media*, 2004. | メディアと身体感覚の接続を読む | AI対話やインターフェースを、身体感覚を変える膜として読む |
 | BIB-019 | unread | 小説理論 | Brian McHale, *Postmodernist Fiction*, 1987. | 世界が多重化する小説技法を読む | 膜を説明せず、世界の重なりとして読者に発生させる技法を探す |
-| BIB-020 | unread | 小説実例 | Thomas Pynchon, *Gravity's Rainbow*, 1973. | 陰謀、欲望、技術、歴史が絡み合う読書体験を読む | 膜そのものを語らず、読者側に膜的ネットワークを発生させる実例として読む |
+| BIB-020 | reading | 小説実例 | Thomas Pynchon, *Gravity's Rainbow*, 1973. | 陰謀、欲望、技術、歴史が絡み合う読書体験を読む | 膜そのものを語らず、読者側に膜的ネットワークを発生させる実例として読む |
 
 ## 進行中・関連文献
 
@@ -157,6 +157,7 @@
 | BIB-010 | [`20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md`](./20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md) |
 | BIB-011 | [`20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md`](./20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md) |
 | BIB-012 | [`20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
+| BIB-020 | [`20_research/reading_notes/pynchon_1973_gravitys-rainbow.md`](./20_research/reading_notes/pynchon_1973_gravitys-rainbow.md) |
 | REL-001 | `20_research/reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
 | REL-002 | [`20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 | REL-003 | [`20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md`](./20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md) |
@@ -164,6 +165,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 17:53 JST：BIB-020 Pynchon (1973) の読解ノートを作成し、statusをreadingへ更新。
 - 2026-08-07 15:41 JST：REL-004 Blankenburg (1971) の読解ノートを作成し、関連文献として登録。
 - 2026-08-07 13:17 JST：REL-003 Parnas and Sass (2011) の読解ノートを作成し、関連文献として登録。
 - 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを作成し、statusをsummarizedへ更新。
