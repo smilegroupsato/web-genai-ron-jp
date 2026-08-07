@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-07 12:06 JST
+- 最終更新日時：2026-08-07 22:14 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -106,6 +106,12 @@
   - 人間の膜、認知的膜、精神交換の異常作動、化学物質と膜に関する対話録。
 - [`90_chat_logs/2026.08.03_01_membrane_topology_conversation.md`](./90_chat_logs/2026.08.03_01_membrane_topology_conversation.md)
   - 膜の反転、入れ子、cline、文脈範囲、脳内region、同期的平坦化、実務と逃避の交換装置、トポロジー小説に関する対話録。
+- [`90_chat_logs/2026.08.07_01_gravitys-rainbow_present-strata_meaning-llm-proust_full-transcript.md`](./90_chat_logs/2026.08.07_01_gravitys-rainbow_present-strata_meaning-llm-proust_full-transcript.md)
+  - *Gravity's Rainbow* の読解から、現代の地層、意味の喪失、LLM、プルースト、小説『膜』の形式へ展開した対話録。
+- [`90_chat_logs/2026.08.07_02_infinite-philosophy_brownian-meaning_disembodiment_final-line_full-transcript.md`](./90_chat_logs/2026.08.07_02_infinite-philosophy_brownian-meaning_disembodiment_final-line_full-transcript.md)
+  - 無限哲学装置、意味のブラウン運動、脱身体願望、小説『膜』の最終行に関する対話録。
+- [`90_chat_logs/2026.08.07_03_pynchon-reading-note-review-and-main-merge_full-transcript.md`](./90_chat_logs/2026.08.07_03_pynchon-reading-note-review-and-main-merge_full-transcript.md)
+  - ピンチョン読解ノート確認、読解進行判断、main反映確認に関する対話録。
 
 ## 記録方針
 
@@ -124,6 +130,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 22:14 JST：2026-08-07のピンチョン関連チャットログ3件への入口を追加。
 - 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを研究ノート索引へ追加。
 - 2026-08-06 21:41 JST：INDEXの仮想棚を実ディレクトリ化し、研究ノートを `10_theory/`、`20_research/`、`30_literature/`、`40_observations/`、`90_chat_logs/` へ整理。
 - 2026-08-06 20:33 JST：CDS風観測メモと本家CDSレビュー課題を研究ノート索引へ追加。

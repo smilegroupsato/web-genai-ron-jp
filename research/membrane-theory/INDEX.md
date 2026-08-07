@@ -1,7 +1,7 @@
 # 膜理論 INDEX
 
 - ページ作成日時：2026-08-05 17:17 JST
-- 最終更新日時：2026-08-07 12:06 JST
+- 最終更新日時：2026-08-07 22:14 JST
 - status：working index / classification ledger
 
 この文書は、`research/membrane-theory/` に蓄積された文書を、研究・創作・原文ログの工程別に読み分けるための索引である。
@@ -109,6 +109,9 @@
 | [`90_chat_logs/2026.07.27_01_a2a_full_transcript.md`](./90_chat_logs/2026.07.27_01_a2a_full_transcript.md) | `90_chat_logs/` | A2A原文対話録 |
 | [`90_chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md`](./90_chat_logs/2026.08.01_01_human_membranes_and_abnormal_exchange_full_transcript.md) | `90_chat_logs/` | 人間の膜と精神交換の異常作動に関する全文記録 |
 | [`90_chat_logs/2026.08.03_01_membrane_topology_conversation.md`](./90_chat_logs/2026.08.03_01_membrane_topology_conversation.md) | `90_chat_logs/` | 膜空間トポロジーの対話記録 |
+| [`90_chat_logs/2026.08.07_01_gravitys-rainbow_present-strata_meaning-llm-proust_full-transcript.md`](./90_chat_logs/2026.08.07_01_gravitys-rainbow_present-strata_meaning-llm-proust_full-transcript.md) | `90_chat_logs/` | *Gravity's Rainbow* から現代の地層、意味の喪失、LLM、プルースト、小説『膜』の形式へ展開した対話録 |
+| [`90_chat_logs/2026.08.07_02_infinite-philosophy_brownian-meaning_disembodiment_final-line_full-transcript.md`](./90_chat_logs/2026.08.07_02_infinite-philosophy_brownian-meaning_disembodiment_final-line_full-transcript.md) | `90_chat_logs/` | 無限哲学装置、意味のブラウン運動、脱身体願望、小説『膜』の最終行に関する対話録 |
+| [`90_chat_logs/2026.08.07_03_pynchon-reading-note-review-and-main-merge_full-transcript.md`](./90_chat_logs/2026.08.07_03_pynchon-reading-note-review-and-main-merge_full-transcript.md) | `90_chat_logs/` | ピンチョン読解ノート確認、読解進行判断、main反映確認に関する対話録 |
 
 ## 整理ルール
 
@@ -128,6 +131,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 22:14 JST：ピンチョン読解ノート確認・main反映に関するチャットログを追加し、2026-08-07の関連ログを分類台帳へ登録。
 - 2026-08-07 13:17 JST：REL-003 Parnas and Sass (2011) の読解ノートを分類台帳へ登録。
 - 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを分類台帳へ登録。
 - 2026-08-06 21:41 JST：仮想棚を実ディレクトリ化し、日付付きノートと原文ログを `10_theory/`、`20_research/`、`30_literature/`、`40_observations/`、`90_chat_logs/` へ整理。
