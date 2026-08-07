@@ -1,7 +1,7 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-06 21:41 JST
+- 最終更新日時：2026-08-07 12:06 JST
 - status：working bibliography / first 20 sources
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
@@ -103,7 +103,7 @@
 | BIB-007 | unread | 現象学・精神医学 | Thomas Fuchs, *Ecology of the Brain: The Phenomenology and Biology of the Embodied Mind*, 2018. | 脳、身体、環境を一つの循環系として読む | 心を脳内だけに閉じず、身体-環境の膜的循環として扱う |
 | BIB-008 | unread | 拡張認知 | Andy Clark and David J. Chalmers, "The Extended Mind", 1998. | 心が身体外の道具や環境へ拡張する論点を読む | AI対話履歴を、外部化された認知・記憶・自己調整として扱う |
 | BIB-009 | unread | 比喩論 | George Lakoff and Mark Johnson, *Metaphors We Live By*, 1980. | 比喩が単なる装飾でなく思考を組織する仕組みを読む | 「膜」を曖昧な比喩ではなく、概念装置として管理する |
-| BIB-010 | unread | 精神病理学 | Louis A. Sass and Josef Parnas, "Schizophrenia, Consciousness, and the Self", 2003. | 自己感、自己境界、経験の変質を読む | 離人感・現実感喪失・解離を、自己境界の膜的異常として考える |
+| BIB-010 | summarized | 精神病理学 | Louis A. Sass and Josef Parnas, "Schizophrenia, Consciousness, and the Self", 2003. | 自己感、自己境界、経験の変質を読む | 離人感・現実感喪失・解離を、自己境界の膜的異常として考える |
 | BIB-011 | summarized | 離人感 | Mauricio Sierra, *Depersonalization: A New Look at a Neglected Syndrome*, 2009. | DPDRを臨床・神経心理学的に読む | 現実感の薄れ、自己との距離、感情の平坦化を膜の透過性として読む |
 | BIB-012 | summarized | 離人感レビュー | Elaine C. Hunter, Mauricio Sierra, and Anthony S. David, "The Epidemiology of Depersonalisation and Derealisation: A Systematic Review", 2004. | DPDRの発生頻度、定義、臨床的位置づけを確認する | 体験的実感と医学的事実を分けるための足場にする |
 | BIB-013 | unread | システム論 | Niklas Luhmann, *Soziale Systeme: Grundriss einer allgemeinen Theorie*, 1984. | システムが境界によって成立する考え方を読む | 社会、組織、AI対話、SGOSを境界作動として見る |
@@ -152,6 +152,7 @@
 | BIB-002 | [`20_research/reading_notes/singer-nicolson_1972_fluid-mosaic-model.md`](./20_research/reading_notes/singer-nicolson_1972_fluid-mosaic-model.md) |
 | BIB-003 | [`20_research/reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md`](./20_research/reading_notes/nicolson_2014_fluid-mosaic-model-after-40-years.md)（Simons and Ikonen 1997 / Lingwood and Simons 2010 補遺あり） |
 | BIB-004 | [`20_research/reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md`](./20_research/reading_notes/maturana-varela_1980_autopoiesis-and-cognition.md) |
+| BIB-010 | [`20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md`](./20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md) |
 | BIB-011 | [`20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md`](./20_research/reading_notes/sierra_2009_depersonalization-neglected-syndrome.md) |
 | BIB-012 | [`20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./20_research/reading_notes/hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
 | REL-001 | `20_research/reading_notes/paun-rozenberg-salomaa_2002_guide-to-membrane-computing.md` |
@@ -159,6 +160,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-06 21:41 JST：個別読解ノート保存場所を `20_research/reading_notes/` へ移動し、関連リンクを更新。
 - 2026-08-06 20:51 JST：REL-002 Sierra and Berrios (2000) のCDS 29項目構造レビューを作成し、statusをsummarizedへ更新。
 - 2026-08-06 20:33 JST：REL-002 Sierra and Berrios (2000) を、本家CDSレビュー候補として登録。

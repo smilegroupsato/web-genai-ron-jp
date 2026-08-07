@@ -1,7 +1,7 @@
 # 膜理論 個別読解ノート
 
 - ページ作成日時：2026-08-06 07:21 JST
-- 最終更新日時：2026-08-06 21:41 JST
+- 最終更新日時：2026-08-07 12:06 JST
 - status：reading note directory
 
 このディレクトリは、膜理論の先行研究読解ノートを1文献1ファイルで保存する場所である。
@@ -83,12 +83,14 @@
 | BIB-002 | [`singer-nicolson_1972_fluid-mosaic-model.md`](./singer-nicolson_1972_fluid-mosaic-model.md) |
 | BIB-003 | [`nicolson_2014_fluid-mosaic-model-after-40-years.md`](./nicolson_2014_fluid-mosaic-model-after-40-years.md) |
 | BIB-004 | [`maturana-varela_1980_autopoiesis-and-cognition.md`](./maturana-varela_1980_autopoiesis-and-cognition.md) |
+| BIB-010 | [`sass-parnas_2003_schizophrenia-consciousness-self.md`](./sass-parnas_2003_schizophrenia-consciousness-self.md) |
 | BIB-011 | [`sierra_2009_depersonalization-neglected-syndrome.md`](./sierra_2009_depersonalization-neglected-syndrome.md) |
 | BIB-012 | [`hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
 | REL-002 | [`sierra-berrios_2000_cambridge-depersonalization-scale.md`](./sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 
 ## 更新履歴
 
+- 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを登録。
 - 2026-08-06 21:41 JST：保存場所を `20_research/reading_notes/` へ移動。
 - 2026-08-06 20:51 JST：REL-002 Sierra and Berrios (2000) のCDS 29項目構造レビューを登録。
 - 2026-08-06 17:37 JST：BIB-011 Sierra (2009) を登録し、既存の個別読解ノート一覧を同期。

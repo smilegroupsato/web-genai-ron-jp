@@ -1,7 +1,7 @@
 # 膜理論 / Membrane Theory
 
 - ページ作成日時：既存文書のため未確認
-- 最終更新日時：2026-08-06 21:41 JST
+- 最終更新日時：2026-08-07 12:06 JST
 
 このディレクトリは、小説『膜』および、その基礎となる膜理論・AI依存・対話による状態変化についての研究記録を保管する。
 
@@ -78,6 +78,8 @@
   - 先行研究20本読解のための文献台帳。読書ステータス、核5本、第1期20本文献、個別読解ノートの入口。
 - [`20_research/reading_notes/README.md`](./20_research/reading_notes/README.md)
   - 1文献1ファイルで読解ノートを保存する場所。`author_yyyy_title` 型の命名規則とテンプレートを管理する。
+- [`20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md`](./20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md)
+  - Sass and Parnas (2003) の読解ノート。自己障害、過剰反省性、自己触発の低下、暗黙/焦点構造、自然な自明性の喪失を、膜理論の自己境界・現実感の変質へ接続する。
 - [`2026.07.25_01_human_cognitive_models_to_llm_mapping.md`](./20_research/2026.07.25_01_human_cognitive_models_to_llm_mapping.md)
   - Wang et al. (2024) の Solo Performance Prompting（SPP）論文の読解ノート。単一LLM内の複数Role、Chain-of-Thoughtとの比較、近接研究を整理し、そこから派生する「人間の認知・心理モデルからLLM構造への写像問題」をOpen Questionとして扱う。
 - [`2026.07.27_01_human_outer_membrane_and_internal_a2a.md`](./10_theory/2026.07.27_01_human_outer_membrane_and_internal_a2a.md)
@@ -122,6 +124,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを研究ノート索引へ追加。
 - 2026-08-06 21:41 JST：INDEXの仮想棚を実ディレクトリ化し、研究ノートを `10_theory/`、`20_research/`、`30_literature/`、`40_observations/`、`90_chat_logs/` へ整理。
 - 2026-08-06 20:33 JST：CDS風観測メモと本家CDSレビュー課題を研究ノート索引へ追加。
 - 2026-08-06 07:28 JST：BIB-001読解ノートを個別ファイルへ分離し、reading_notes/配下の読解ノート管理を開始。
