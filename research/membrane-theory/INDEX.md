@@ -84,6 +84,7 @@
 | [`20_research/reading_notes/README.md`](./20_research/reading_notes/README.md) | `20_research/` | 個別読解ノートの保存場所と命名規則。1文献1ファイルで読解本文を管理する |
 | [`20_research/reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md`](./20_research/reading_notes/gorter-grendel_1925_bimolecular-layers-of-lipoids.md) | `20_research/` | BIB-001 Gorter and Grendel (1925) の個別読解ノート |
 | [`20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md`](./20_research/reading_notes/sass-parnas_2003_schizophrenia-consciousness-self.md) | `20_research/` | BIB-010 Sass and Parnas (2003) の個別読解ノート。自己障害、過剰反省性、自己触発の低下、暗黙/焦点構造を扱う |
+| [`20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md`](./20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md) | `20_research/` | REL-003 Parnas and Sass (2011) の個別読解ノート。最小自己、物語的自己、自己現前、一人称視点を扱う |
 | [`2026.08.03_06_membrane_space_topology_spec_v0.md`](./10_theory/2026.08.03_06_membrane_space_topology_spec_v0.md) | `10_theory/` | 膜空間トポロジー仕様 v0。理論の骨格 |
 | [`2026.08.01_01_human_membranes_concept_note.md`](./10_theory/2026.08.01_01_human_membranes_concept_note.md) | `10_theory/` | 人間の膜の層を整理した概念ノート |
 | [`2026.08.01_02_membrane_abnormal_operations.md`](./10_theory/2026.08.01_02_membrane_abnormal_operations.md) | `10_theory/` | 離人感、現実感喪失、解離、依存などの異常作動一覧 |
@@ -127,6 +128,7 @@
 
 ## 更新履歴
 
+- 2026-08-07 13:17 JST：REL-003 Parnas and Sass (2011) の読解ノートを分類台帳へ登録。
 - 2026-08-07 12:06 JST：BIB-010 Sass and Parnas (2003) の読解ノートを分類台帳へ登録。
 - 2026-08-06 21:41 JST：仮想棚を実ディレクトリ化し、日付付きノートと原文ログを `10_theory/`、`20_research/`、`30_literature/`、`40_observations/`、`90_chat_logs/` へ整理。
 - 2026-08-06 07:28 JST：BIB-001読解ノートを個別ファイルへ分離し、分類台帳へ登録。
