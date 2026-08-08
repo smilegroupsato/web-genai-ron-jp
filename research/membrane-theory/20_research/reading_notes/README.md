@@ -1,7 +1,7 @@
 # 膜理論 個別読解ノート
 
 - ページ作成日時：2026-08-06 07:21 JST
-- 最終更新日時：2026-08-07 17:53 JST
+- 最終更新日時：2026-08-08 22:54 JST
 - status：reading note directory
 
 このディレクトリは、膜理論の先行研究読解ノートを1文献1ファイルで保存する場所である。
@@ -83,6 +83,7 @@
 | BIB-002 | [`singer-nicolson_1972_fluid-mosaic-model.md`](./singer-nicolson_1972_fluid-mosaic-model.md) |
 | BIB-003 | [`nicolson_2014_fluid-mosaic-model-after-40-years.md`](./nicolson_2014_fluid-mosaic-model-after-40-years.md) |
 | BIB-004 | [`maturana-varela_1980_autopoiesis-and-cognition.md`](./maturana-varela_1980_autopoiesis-and-cognition.md) |
+| BIB-005 | [`varela-thompson-rosch_1991_embodied-mind.md`](./varela-thompson-rosch_1991_embodied-mind.md) |
 | BIB-010 | [`sass-parnas_2003_schizophrenia-consciousness-self.md`](./sass-parnas_2003_schizophrenia-consciousness-self.md) |
 | BIB-011 | [`sierra_2009_depersonalization-neglected-syndrome.md`](./sierra_2009_depersonalization-neglected-syndrome.md) |
 | BIB-012 | [`hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md`](./hunter-sierra-david_2004_epidemiology-depersonalisation-derealisation.md) |
@@ -93,6 +94,7 @@
 
 ## 更新履歴
 
+- 2026-08-08 22:54 JST：BIB-005 Varela, Thompson, and Rosch (1991) の読解ノートを登録。
 - 2026-08-07 17:53 JST：BIB-020 Pynchon (1973) の読解ノートを登録。
 - 2026-08-07 15:41 JST：REL-004 Blankenburg (1971) の読解ノートを登録。
 - 2026-08-07 13:17 JST：REL-003 Parnas and Sass (2011) の読解ノートを登録。
