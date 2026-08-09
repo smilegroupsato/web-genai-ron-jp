@@ -1,12 +1,12 @@
 # Brian McHale, *Postmodernist Fiction*, 1987 読解ノート
 
 - ページ作成日時：2026-08-08 23:30 JST
-- 最終更新日時：2026-08-09 08:48 JST
+- 最終更新日時：2026-08-09 09:19 JST
 - bibliography_id：BIB-019
 - status：summarized
-- note_stage：first-pass / primary-preview-and-bibliography-assisted
-- source_access：書誌情報 / 目次 / プレビュー範囲 / 二次的書誌情報
-- primary_text_access：partial（全文精読ではない）
+- note_stage：second-pass / primary-text-sampled
+- source_access：PDF本文 / 書誌情報 / 目次 / 二次的書誌情報
+- primary_text_access：available（今回PDF本文を確認）
 - target_file：`mchale_1987_postmodernist-fiction.md`
 
 ## 書誌情報
@@ -28,16 +28,13 @@
 
 ## 参照範囲と注意
 
-このノートは、全文を実本で精読した完成版ではない。
+このノートの初版は、全文を実本で精読した完成版ではなく、書誌、目次、プレビュー範囲、中心命題、各章構成にもとづく読解地図として作成した。
 
-確認できたのは、書誌、目次、プレビュー範囲、中心命題、各章構成である。したがって本ノートは、本文細部の引用集ではなく、膜理論と小説『膜』のための**読解地図 v0**として作成する。
+2026-08-09 にPDF本文を確認し、中心命題、dominant、存在論的問い、love/death の箇所について短引用と日本語訳案を追加した。
 
-今後、実本または正規電子版で精読する場合は、次を追加する。
+ただし、まだ全章を通読して逐語的に精読した完成版ではない。今後の精読では、次を追加する。
 
 - 章ごとの詳細要約
-- 重要箇所の原文短引用
-- 日本語訳案
-- ページ番号
 - Pynchon, Borges, Robbe-Grillet, Nabokov, Coover, Calvino など各作家への具体的適用
 
 ## 読む目的
@@ -62,6 +59,108 @@ McHale の中心命題は、モダニズム小説とポストモダン小説の�
 『膜』で描きたいのは、単に主人公の認識が曖昧になることではない。むしろ、仕事、家族、AIログ、記録、身体、逃避、制度、責任、夢、創作が、それぞれ別の現実性をもつ世界として立ち上がり、互いに干渉し始める状態である。
 
 McHale は、そのための小説理論側の足場になる。
+
+## 重要引用メモ
+
+以下は、PDF本文で確認した第2パス用の短引用である。ページ番号は書籍上のページ番号。PDF物理ページでは、本文第1章の p.3 が PDF p.18 に対応する。
+
+### 1. この本は「一つのアイデア」の本である
+
+原文：
+
+> "postmodernist fiction differs from modernist fiction just as a poetics dominated by ontological issues differs from one dominated by epistemological issues." (Preface, p. xii)
+
+訳案：
+
+> ポストモダン小説は、存在論的問題に支配された詩学が、認識論的問題に支配された詩学と異なるのと同じ仕方で、モダニズム小説と異なる。
+
+メモ：
+
+McHale 自身が、これは essentially a one-idea book だと書いている。つまり、この本は特徴リストではなく、ポストモダン小説を読むための軸を一本立てる本である。
+
+### 2. dominant は作品を組織する焦点である
+
+原文：
+
+> "The dominant may be defined as the focusing component of a work of art" (p. 6)
+
+訳案：
+
+> dominant とは、芸術作品における焦点化された構成要素として定義できる。
+
+メモ：
+
+dominant は「テーマ」ではなく、作品内の諸装置を組織する重心である。膜理論に引き寄せれば、複数の膜現象のうち、どの膜が他の膜の働きを組織しているかを見るための概念になる。
+
+### 3. ポストモダン小説の dominant は存在論的である
+
+原文：
+
+> "the dominant of postmodernist fiction is ontological." (p. 10)
+
+訳案：
+
+> ポストモダン小説の dominant は存在論的である。
+
+メモ：
+
+McHale はここで、モダニズムからポストモダンへの移行を「知ること」から「存在すること」への移行として定式化する。
+
+### 4. 問いは「どの世界か」へ移る
+
+原文：
+
+> "What is a world?" (p. 10)
+
+訳案：
+
+> 世界とは何か。
+
+メモ：
+
+McHale が続けて列挙する問いは、どんな種類の世界があるのか、世界はどう構成され、どう異なるのか、境界が侵犯されると何が起きるのか、という方向へ進む。小説『膜』では、これは「何が本当か」ではなく「どの世界では本当か」という問いになる。
+
+### 5. 愛は存在論的境界をまたぐ関係である
+
+原文：
+
+> "love as a metaleptic relation across ontological boundaries" (p. 223)
+
+訳案：
+
+> 存在論的境界を横断するメタレプシス的関係としての愛。
+
+メモ：
+
+これはかなり重要である。love は単なる主題ではなく、読者とテキスト、作者と登場人物、世界と世界のあいだを横断する関係として扱われる。つまり愛は、世界間の膜を越える力である。
+
+### 6. 死は誰もが越える存在論的境界である
+
+原文：
+
+> "Death is the one ontological boundary that we are all certain to experience" (p. 231)
+
+訳案：
+
+> 死は、私たち全員が経験することを確実にしている唯一の存在論的境界である。
+
+メモ：
+
+佐藤メモの「肉による有限性により、ディスコースはどこかで終わらなければならない」は、この箇所と強く接続する。McHale は、存在論的境界を前景化することが死を前景化することになる、と読む。
+
+### 7. 生はディスコース、死は沈黙として現れる
+
+原文：
+
+> "life has been equated with discourse, death with the end of discourse and silence." (p. 228)
+
+訳案：
+
+> 生はディスコースと等置され、死はディスコースの終わりと沈黙と等置されている。
+
+メモ：
+
+これは narrative と有限性の問題に直結する。語りが続くかぎり、生は延命される。しかし語りが止まると、世界も人物も終わる。小説『膜』では、AIログやGitHubやNotionが語りを延命する装置になりうるが、身体の眠気、支払、愛着、死がそれを止める。
 
 ## 暫定結論
 
@@ -636,5 +735,6 @@ McHale の最後に love and death が置かれていることは重要である
 
 ## 更新履歴
 
+- 2026-08-09 09:19 JST：PDF本文を確認し、中心命題、dominant、存在論的問い、love/death の短引用と訳案を追加。
 - 2026-08-09 08:48 JST：佐藤メモとして、narrative/正史/有限性の論点を追記。
 - 2026-08-08 23:30 JST：初版作成。BIB-019 の first-pass 読解ノートとして、dominant、存在論的世界、Zone、入れ子、ディスコース、小説『膜』への応用を整理。
