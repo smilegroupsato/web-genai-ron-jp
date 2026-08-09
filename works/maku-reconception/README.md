@@ -25,6 +25,12 @@
 
 - `conception/2026.08.07_01_reconception-meaning-brownian-motion.md`
   - 2026-08-07時点の再構想。意味のブラウン運動、LLM＝無限哲学装置、有限な身体、脱身体願望、五部構成、最終行を含む。
+- `conception/2026.08.09_01_reconception-v0.2_git-worlds-embodied-finitude.md`
+  - Git/GitHubを日常的に使う主人公を具体化し、main/branch/commit/diff/merge/conflict/pushを正史形成と身体の有限性へ接続した構想。
+- `conception/2026.08.09_02_reconception-v0.3_branching-history-speaking-archive.md`
+  - 主人公の職業を後景化し、分岐する正史、喋り出したアーカイブ、複数版の共存、local clear / global uncertainを中心に再設計した構想。
+- `conception/2026.08.09_03_reconception-v0.3_supplement-membrane-topology-agency-layer.md`
+  - v0.3で前面化したGit／アーカイブ／mainの操作系の下に、初期構想の膜トポロジー、膜誘導型主体性、世界の切断と再接続を戻す補遺。
 
 ## 研究資料との分離
 
