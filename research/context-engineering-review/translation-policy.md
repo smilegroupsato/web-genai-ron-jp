@@ -1,7 +1,7 @@
 # コンテキストエンジニアリング・レビュー｜訳語方針
 
 - ページ作成日時：2026-07-31 14:20 JST
-- 最終更新日時：2026-08-01 21:42 JST
+- 最終更新日時：2026-08-10 00:44 JST
 
 ## 目的
 
@@ -68,6 +68,22 @@ Retrieval は本稿の技術的文脈では「検索」と訳す。単なる情�
 
 **採用訳：コンテキスト管理**
 
+### Memory Hierarchies and Storage Architectures
+
+**採用訳：メモリ階層とストレージアーキテクチャ**
+
+Memory はLLM分野の用例に合わせて「メモリ」、Storage Architecture は一般的な技術用語として「ストレージアーキテクチャ」を用いる。
+
+### Context Compression
+
+**採用訳：コンテキスト圧縮**
+
+### Context Lifecycle
+
+**採用表記：コンテキストライフサイクル**
+
+本レビュー側で用いる横断概念。生成・取得から保存、検索、利用、圧縮、失効・削除までの流れを指す。「文脈生命周期」のような直訳は用いない。
+
 ### Assembly
 
 **採用訳：組立**
@@ -110,10 +126,11 @@ AIエージェント、ツール、ワークフローの統合制御を表す語
 
 ## 未確定語
 
-Grounding、Routing、Governance、Lifecycle などは、論文中の実際の用法を確認しながら採用訳を決める。
+Grounding、Routing、Governance などは、論文中の実際の用法を確認しながら採用訳を決める。
 
 ## 更新履歴
 
+- 2026-08-10 00:44 JST：Memory Hierarchies and Storage Architectures、Context Compression、Context Lifecycleの採用表記を追加
 - 2026-08-01 21:42 JST：External Knowledge Retrieval、Dynamic Context Assembly、Orchestration、Agentic RAGの採用表記を追加
 - 2026-07-31 14:39 JST：一般に定着した技術用語を独自に直訳しない原則を追加し、Context Windowを「コンテキストウィンドウ」に統一
 - 2026-07-31 14:20 JST：初版作成。主要用語と訳語選定原則を記録
