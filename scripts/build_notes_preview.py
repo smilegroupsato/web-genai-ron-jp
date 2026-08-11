@@ -2,7 +2,7 @@
 """Build one research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-11 09:34 JST
+最終更新日時：2026-08-11 11:14 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/index.md
@@ -50,6 +50,33 @@ PERIOD_PREAMBLE_RE = re.compile(
 )
 THEME_LINK_RE = re.compile(
     r"^\[\*\*(?P<title>[^\n]+)\*\*\n(?P<description>[^\n]+)\]\((?P<href>[^)]+)\)$"
+)
+THEME_CANDIDATES = (
+    (
+        "理解・防御層・行動",
+        "AIとの対話で生じた理解は、どのように行動へ更新されるのか。",
+        "/article/understanding-defense-action/",
+    ),
+    (
+        "AIによって得られた理解は、経験による理解と何が違うのか",
+        "理解・発話・行動のあいだにある差異を扱う。",
+        "/article/understanding-defense-action/chapter-03.html",
+    ),
+    (
+        "状態変化ログの方法論",
+        "状態変化をどのように記録し、比較可能な対象とするか。",
+        "/article/state-change/chapter-14.html",
+    ),
+    (
+        "AI側モードの精緻化",
+        "問題化モードを含む応答モードの理論化。",
+        "/article/state-change/chapter-13.html",
+    ),
+    (
+        "依存性と倫理：世界への橋の条件",
+        "AIが世界の代替ではなく橋として機能する条件。",
+        "/article/state-change/chapter-15.html",
+    ),
 )
 
 
@@ -218,6 +245,7 @@ def parse_themes_page(body: str) -> tuple[dict[str, str], list[tuple[str, str, s
         links.append(
             (match.group("title"), match.group("description"), match.group("href"))
         )
+    validate_theme_links(links)
     return {
         "kicker": kicker,
         "title": title_line[2:].strip(),
@@ -226,6 +254,29 @@ def parse_themes_page(body: str) -> tuple[dict[str, str], list[tuple[str, str, s
         "note_meta": "",
         "sidebar_title": "",
     }, links
+
+
+def validate_theme_links(links: list[tuple[str, str, str]]) -> None:
+    copy = tuple((title, description) for title, description, _ in links)
+    expected_copy = tuple((title, description) for title, description, _ in THEME_CANDIDATES)
+    if copy != expected_copy:
+        raise BuildError("themes candidate titles, descriptions, and order must not change")
+
+    hrefs = tuple(href for _, _, href in links)
+    expected_hrefs = tuple(href for _, _, href in THEME_CANDIDATES)
+    if hrefs == ("#",) * len(THEME_CANDIDATES):
+        return
+    if hrefs != expected_hrefs:
+        raise BuildError("themes links must be all placeholders or the five approved routes")
+
+    missing = []
+    for href in hrefs:
+        relative = href.removeprefix("/")
+        target = SITE_ROOT / relative / "index.html" if href.endswith("/") else SITE_ROOT / relative
+        if not target.is_file():
+            missing.append(href)
+    if missing:
+        raise BuildError("themes link target is missing: " + ", ".join(missing))
 
 
 def split_sections(
