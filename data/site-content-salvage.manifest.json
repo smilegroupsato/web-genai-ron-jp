@@ -3860,8 +3860,8 @@
       "page_type": "note",
       "title": "生成AIの歴史｜多層年表｜GENAI-RON",
       "meta_description": "生成AIはどこから来て、どこへ向かうのか。情報理論からChatGPTまで、言語、統計、計算資源、市場が交差した80年の歴史をたどる研究ノート。",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "/notes/history-of-generative-ai/",
       "body_class": "note-page",
       "loaded_css": [
         "/assets/style-notes.css",
@@ -3908,12 +3908,13 @@
         "/",
         "/article/",
         "/notes/",
-        "/notes/history-of-generative-ai/timeline.html",
+        "/series/genai-shikumi/",
         "/notes/history-of-generative-ai/#overview",
         "/notes/history-of-generative-ai/#turning-points",
         "/notes/history-of-generative-ai/#layers",
         "/notes/history-of-generative-ai/#full-timeline",
-        "/notes/history-of-generative-ai/#why-now"
+        "/notes/history-of-generative-ai/#why-now",
+        "/notes/history-of-generative-ai/timeline.html"
       ],
       "download_links": [],
       "preserve_route": true,
@@ -3925,8 +3926,8 @@
       "page_type": "note",
       "title": "生成AIの歴史｜完全版年表｜GENAI-RON",
       "meta_description": "生成AIの歴史を、学問史・技術史・計算資源史・企業／モデル史・社会／市場史の5層でたどる完全版年表。",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "/notes/history-of-generative-ai/timeline.html",
       "body_class": "note-page",
       "loaded_css": [
         "/assets/style-notes.css",
@@ -3973,7 +3974,7 @@
         "/",
         "/article/",
         "/notes/",
-        "/notes/history-of-generative-ai/",
+        "/series/genai-shikumi/",
         "/notes/history-of-generative-ai/timeline.html#period-1",
         "/notes/history-of-generative-ai/timeline.html#period-2",
         "/notes/history-of-generative-ai/timeline.html#period-3",
@@ -3991,8 +3992,8 @@
       "page_type": "collection-index",
       "title": "研究ノート｜GENAI-RON",
       "meta_description": "GENAI-RONの研究ノート一覧。論考の背景にある調査、年表、資料整理、仮説、先行研究レビューを公開します。",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "/notes/",
       "body_class": "note-page",
       "loaded_css": [
         "/assets/style-notes.css",
@@ -4039,6 +4040,7 @@
         "/",
         "/article/",
         "/notes/",
+        "/series/genai-shikumi/",
         "/notes/history-of-generative-ai/",
         "/notes/state-change-lit-review/",
         "/notes/tool-discovery-layer/"
@@ -4051,7 +4053,7 @@
       "route": "/notes/state-change-lit-review/",
       "source_html_path": "site/notes/state-change-lit-review/index.html",
       "page_type": "note",
-      "title": "LLMとの対話は人間の何を変えるのか――「状態変化」の先行研究レビュー｜GENAI-RON",
+      "title": "LLMとの対話は人間の何を変えるのか｜GENAI-RON",
       "meta_description": "LLMとの対話は、人間の何を変えるのか。状態変化、履歴生成、検証回路、現実への再接続という観点から、LLM利用研究・自己開示研究・メンタルモデル研究・公開会話データを読み直す先行研究レビュー。",
       "canonical_present": true,
       "canonical_value": "/notes/state-change-lit-review/",
@@ -4100,8 +4102,8 @@
       "internal_links": [
         "/",
         "/article/",
-        "/article/state-change/",
         "/notes/",
+        "/series/genai-shikumi/",
         "/notes/state-change-lit-review/#intro",
         "/notes/state-change-lit-review/#question",
         "/notes/state-change-lit-review/#unit",
@@ -4113,7 +4115,8 @@
         "/notes/state-change-lit-review/#axes",
         "/notes/state-change-lit-review/#conclusion",
         "/notes/state-change-lit-review/#program",
-        "/notes/state-change-lit-review/#references"
+        "/notes/state-change-lit-review/#references",
+        "/article/state-change/"
       ],
       "download_links": [],
       "preserve_route": true,
@@ -4123,13 +4126,13 @@
       "route": "/notes/themes.html",
       "source_html_path": "site/notes/themes.html",
       "page_type": "note",
-      "title": "次テーマ候補｜生成AI論",
+      "title": "次テーマ候補｜GENAI-RON",
       "meta_description": "今後の論考候補。",
-      "canonical_present": false,
-      "canonical_value": null,
-      "body_class": null,
+      "canonical_present": true,
+      "canonical_value": "/notes/themes.html",
+      "body_class": "note-page",
       "loaded_css": [
-        "/assets/style.v5-6.css",
+        "/assets/style-notes.css",
         "/assets/theme.css"
       ],
       "loaded_js": [
@@ -4170,9 +4173,15 @@
         "/assets/favicon.svg"
       ],
       "internal_links": [
-        "/index.html",
-        "/article/index.html",
-        "/notes/themes.html"
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/article/understanding-defense-action/",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-15.html"
       ],
       "download_links": [],
       "preserve_route": true,
