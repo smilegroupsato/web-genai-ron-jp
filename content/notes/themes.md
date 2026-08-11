@@ -2,13 +2,13 @@
 title: "次テーマ候補"
 route: "/notes/themes.html"
 source_html_path: "site/notes/themes.html"
-source_html_sha256: "ede2d43c6e52ad6a860e7ac8acdb31fb3105e02bb695a2d52059c6fb66a33de4"
+source_html_sha256: "fd4943debad51fb3aebdb506d4dece0c094b9de2d00b36616d216a2429883528"
 page_type: "note"
 series_or_article: "notes"
 order: 2
 chapter: null
 meta_description: "今後の論考候補。"
-canonical: null
+canonical: "/notes/themes.html"
 created_at: null
 updated_at: null
 manuscript_created_at: null
@@ -17,7 +17,7 @@ web_migrated_at: null
 metadata_provenance:
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "html_head"
   created_at: "absent"
   updated_at: "absent"
   manuscript_created_at: "absent"
