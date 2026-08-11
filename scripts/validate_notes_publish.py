@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-11 11:14 JST
+最終更新日時：2026-08-11 11:55 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -25,6 +25,8 @@ from build_notes_preview import (
     REPO_ROOT,
     SITE_ROOT,
     THEME_CANDIDATES,
+    THEME_HERO,
+    THEME_LEGACY_HERO,
     build_one,
     output_name_for_source,
     validate_source_path,
@@ -46,6 +48,11 @@ GATE_ALLOWLIST = {
     "scripts/validate_notes_publish.py",
     "scripts/validate_notes_visual.js",
     "scripts/validate_controlled_write.py",
+}
+THEMES_RENAME_ANCILLARY = {
+    "data/site-content-salvage.manifest.json",
+    "docs/genai-ron-v2-content-salvage-inventory.md",
+    "site/article/state-change/bibliography.html",
 }
 FORBIDDEN_PUBLIC_TEXT = {
     "source_html_path",
@@ -196,12 +203,36 @@ def themes_links_are_resolved(
     )
 
 
+def themes_hero_is_renamed(left: dict[str, object], right: dict[str, object]) -> bool:
+    legacy_kicker, legacy_title, legacy_lead = THEME_LEGACY_HERO
+    current_kicker, current_title, current_lead = THEME_HERO
+    legacy_prefix = normalize(f"{legacy_kicker} {legacy_title} {legacy_lead}")
+    current_prefix = normalize(f"{current_kicker} {current_title} {current_lead}")
+    left_main = left.get("main_text")
+    right_main = right.get("main_text")
+    return (
+        left.get("title") == legacy_title
+        and right.get("title") == current_title
+        and isinstance(left_main, str)
+        and isinstance(right_main, str)
+        and left_main.startswith(legacy_prefix)
+        and right_main.startswith(current_prefix)
+        and left_main.removeprefix(legacy_prefix)
+        == right_main.removeprefix(current_prefix)
+    )
+
+
 def validate_semantic_parity(
-    current: Path, candidate: Path, *, allow_themes_link_resolution: bool = False
+    current: Path,
+    candidate: Path,
+    *,
+    allow_themes_link_resolution: bool = False,
+    allow_themes_rename: bool = False,
 ) -> None:
     left = parse_html(current)
     right = parse_html(candidate)
     errors: list[str] = []
+    hero_renamed = allow_themes_rename and themes_hero_is_renamed(left, right)
     for key in (
         "title",
         "main_text",
@@ -209,7 +240,7 @@ def validate_semantic_parity(
         "headings",
         "sidebar_links",
     ):
-        if left[key] != right[key]:
+        if left[key] != right[key] and not (hero_renamed and key in {"title", "main_text"}):
             errors.append(f"semantic mismatch: {key}")
     if left["article_links"] != right["article_links"] and not (
         allow_themes_link_resolution
@@ -256,7 +287,8 @@ def validate_scope(files: list[str]) -> str | None:
     site_changes = [path for path in files if path.startswith("site/")]
     if len(targets) > 1:
         raise BuildError("notes publication PR must change at most one public note")
-    unexpected_site = sorted(set(site_changes) - set(targets))
+    ancillary = THEMES_RENAME_ANCILLARY if targets == ["site/notes/themes.html"] else set()
+    unexpected_site = sorted(set(site_changes) - set(targets) - ancillary)
     if unexpected_site:
         raise BuildError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
     if not targets:
@@ -268,7 +300,7 @@ def validate_scope(files: list[str]) -> str | None:
 
     target = targets[0]
     source = source_for_target(target).relative_to(REPO_ROOT).as_posix()
-    allowed = GATE_ALLOWLIST | {target, source}
+    allowed = GATE_ALLOWLIST | {target, source} | ancillary
     unexpected = sorted(set(files) - allowed)
     if unexpected:
         raise BuildError("notes publication PR has unexpected changes:\n" + "\n".join(unexpected))
@@ -296,7 +328,18 @@ def validate_target(target: str, base_ref: str, preview_root: Path) -> None:
             base_current,
             promoted,
             allow_themes_link_resolution=target == "site/notes/themes.html",
+            allow_themes_rename=target == "site/notes/themes.html",
         )
+    if target == "site/notes/themes.html":
+        bibliography = REPO_ROOT / "site/article/state-change/bibliography.html"
+        inventory = REPO_ROOT / "docs/genai-ron-v2-content-salvage-inventory.md"
+        if "関連テーマ →" not in bibliography.read_text(encoding="utf-8"):
+            raise BuildError("state-change bibliography does not link to 関連テーマ")
+        if "| `/notes/themes.html` | 関連テーマ｜GENAI-RON |" not in inventory.read_text(
+            encoding="utf-8"
+        ):
+            raise BuildError("salvage inventory does not use the related-themes title")
+        run([sys.executable, "scripts/build_site_manifest.py", "--check"])
     print("notes controlled promotion: OK")
     print(f"source: {source.relative_to(REPO_ROOT)}")
     print(f"target: {target}")

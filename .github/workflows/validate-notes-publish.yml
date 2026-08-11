@@ -121,6 +121,29 @@ jobs:
                   pass
               else:
                   raise SystemExit("unapproved semantic link change was not rejected")
+
+          legacy_hero = (
+              '<p class="note-kicker">NEXT THEMES</p>\n'
+              '      <h1>次テーマ候補</h1>\n'
+              '      <p class="note-lead">主論考から派生して、今後展開していく予定のテーマ群。</p>'
+          )
+          current_hero = (
+              '<p class="note-kicker">RELATED THEMES</p>\n'
+              '      <h1>関連テーマ</h1>\n'
+              '      <p class="note-lead">主論考から派生した関連テーマと、それぞれの論考への入口。</p>'
+          )
+          with tempfile.TemporaryDirectory() as output_dir:
+              legacy = Path(output_dir) / "themes-legacy.html"
+              renamed = Path(output_dir) / "themes-related.html"
+              legacy.write_text(public_html.replace(current_hero, legacy_hero), encoding="utf-8")
+              renamed.write_text(public_html.replace(legacy_hero, current_hero), encoding="utf-8")
+              validate_semantic_parity(legacy, renamed, allow_themes_rename=True)
+              try:
+                  validate_semantic_parity(legacy, renamed)
+              except BuildError:
+                  pass
+              else:
+                  raise SystemExit("unapproved themes hero rename was not rejected")
           PY
 
       - name: Confirm notes builder cannot write to site

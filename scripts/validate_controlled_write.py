@@ -13,7 +13,7 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
 It does not write to site/.
 
 ページ作成日時：2026-07-23 12:08 JST
-最終更新日時：2026-08-11 09:34 JST
+最終更新日時：2026-08-11 12:02 JST
 """
 
 from __future__ import annotations
@@ -31,6 +31,7 @@ SERIES_PUBLISH_SITE_RE = re.compile(r"^site/series/ai-dialogue-intro/(?:[^/]+/)?
 NOTES_PUBLISH_SITE_RE = re.compile(
     r"^site/notes/(?:index|themes|[a-z0-9][a-z0-9-]*/(?:index|timeline))\.html$"
 )
+RELATED_THEMES_CROSS_REFERENCE = "site/article/state-change/bibliography.html"
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
     "scripts/validate_controlled_write.py",
@@ -96,7 +97,12 @@ def validate_scope(files: list[str]) -> str | None:
 
     series_publish_site_changes = [path for path in site_changes if SERIES_PUBLISH_SITE_RE.match(path)]
     notes_publish_site_changes = [path for path in site_changes if NOTES_PUBLISH_SITE_RE.match(path)]
-    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - set(notes_publish_site_changes) - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
+    related_themes_cross_reference = (
+        {RELATED_THEMES_CROSS_REFERENCE}
+        if "site/notes/themes.html" in notes_publish_site_changes
+        else set()
+    )
+    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - set(notes_publish_site_changes) - related_themes_cross_reference - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 
