@@ -28,6 +28,12 @@ UNDERSTANDING_DATE_LABELS = {
     "created_at": (*DATE_LABELS["created_at"], "初版公開日"),
     "updated_at": (*DATE_LABELS["updated_at"], "最終更新日"),
 }
+ARTICLE_ALIAS_VERIFIED_ROUTES = {
+    "/article/bibliography.html",
+    *(f"/article/chapter-{index:02d}.html" for index in range(1, 17)),
+    "/article/state-change.html",
+    "/article/state-change-lit-review/",
+}
 
 
 class PageParser(HTMLParser):
@@ -276,11 +282,13 @@ def status_for(
     if content_path:
         return "content_source_exists", "needs_parity_check"
     if "移動しました" in title:
-        return "redirect_notice", "alias_review"
+        status = "alias_verified" if route in ARTICLE_ALIAS_VERIFIED_ROUTES else "alias_review"
+        return "redirect_notice", status
     if canonical:
         canonical_path = public_ref(route, canonical)
         if canonical_path and canonical_path.rstrip("/") != route.rstrip("/"):
-            return "alias", "alias_review"
+            status = "alias_verified" if route in ARTICLE_ALIAS_VERIFIED_ROUTES else "alias_review"
+            return "alias", status
     return "html_only", "needs_extraction"
 
 

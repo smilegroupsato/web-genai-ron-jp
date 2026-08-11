@@ -55,7 +55,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-01.html",
@@ -109,7 +109,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-02.html",
@@ -163,7 +163,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-03.html",
@@ -217,7 +217,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-04.html",
@@ -271,7 +271,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-05.html",
@@ -325,7 +325,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-06.html",
@@ -379,7 +379,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-07.html",
@@ -433,7 +433,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-08.html",
@@ -487,7 +487,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-09.html",
@@ -541,7 +541,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-10.html",
@@ -595,7 +595,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-11.html",
@@ -649,7 +649,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-12.html",
@@ -703,7 +703,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-13.html",
@@ -757,7 +757,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-14.html",
@@ -811,7 +811,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-15.html",
@@ -865,7 +865,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/chapter-16.html",
@@ -919,7 +919,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/",
@@ -2409,7 +2409,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/state-change.html",
@@ -2463,7 +2463,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "alias_review"
+      "salvage_status": "alias_verified"
     },
     {
       "route": "/article/understanding-defense-action/bibliography.html",

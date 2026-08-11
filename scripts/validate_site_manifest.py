@@ -17,6 +17,7 @@ SALVAGE_STATUSES = {
     "needs_extraction",
     "needs_parity_check",
     "alias_review",
+    "alias_verified",
     "unknown",
 }
 
