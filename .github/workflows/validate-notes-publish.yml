@@ -1,5 +1,5 @@
 # ページ作成日時：2026-08-04 16:22 JST
-# 最終更新日時：2026-08-04 18:42 JST
+# 最終更新日時：2026-08-11 09:34 JST
 
 name: Validate Notes Publish
 
@@ -95,6 +95,12 @@ jobs:
             --source-check content/notes/index.md \
             --preview-root _notes_collection_index_check
 
+      - name: Validate flat themes page parity
+        run: |
+          python scripts/validate_notes_publish.py \
+            --source-check content/notes/themes.md \
+            --preview-root _notes_themes_check
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -109,7 +115,7 @@ jobs:
         id: visual-route
         run: |
           target=$(git diff --name-only origin/main...HEAD | \
-            sed -nE 's#^site(/notes/(index\.html|[a-z0-9][a-z0-9-]*/(index|timeline)\.html))$#\1#p' | \
+            sed -nE 's#^site(/notes/(index\.html|themes\.html|[a-z0-9][a-z0-9-]*/(index|timeline)\.html))$#\1#p' | \
             head -n 1)
           if [ -n "$target" ]; then
             if [[ "$target" == */index.html ]]; then
@@ -155,6 +161,7 @@ jobs:
             _notes_history_check/
             _notes_history_timeline_check/
             _notes_collection_index_check/
+            _notes_themes_check/
             _notes_visual_qa/
           if-no-files-found: ignore
           retention-days: 7

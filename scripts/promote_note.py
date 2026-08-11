@@ -2,7 +2,7 @@
 """Explicitly promote one regenerated research note into site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:42 JST
+最終更新日時：2026-08-11 09:34 JST
 
 This command never accepts a glob or destination path. The source metadata and
 the narrow notes-v0 path contract determine the only permitted target.
@@ -46,7 +46,7 @@ def main() -> int:
     parser.add_argument(
         "--source",
         required=True,
-        help="content/notes/index.md or content/notes/<slug>/<page>.md",
+        help="content/notes/index.md, content/notes/themes.md, or content/notes/<slug>/<page>.md",
     )
     parser.add_argument("--candidate-root", default=str(DEFAULT_CANDIDATE_ROOT))
     parser.add_argument("--write-site", action="store_true", help="Required explicit site-write confirmation.")

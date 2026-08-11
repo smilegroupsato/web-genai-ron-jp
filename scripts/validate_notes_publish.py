@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:42 JST
+最終更新日時：2026-08-11 09:34 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -30,7 +30,7 @@ from build_notes_preview import (
 )
 
 TARGET_RE = re.compile(
-    r"^site/notes/(?:(?P<root>index)|"
+    r"^site/notes/(?:(?P<root>index)|(?P<flat>themes)|"
     r"(?P<slug>[a-z0-9][a-z0-9-]*)/(?P<page>index|timeline))\.html$"
 )
 GATE_ALLOWLIST = {
@@ -59,6 +59,8 @@ def normalize(value: str) -> str:
 
 
 class NoteSnapshot(HTMLParser):
+    VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.stack: list[tuple[str, bool, bool, bool]] = []
@@ -85,10 +87,14 @@ class NoteSnapshot(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         classes = self.classes(attrs)
+        if tag in self.VOID_TAGS:
+            return
         starts_main = tag == "main"
         starts_article = (
             tag in {"article", "div"} and "note-content" in classes
-        ) or (tag == "article" and "note-box" in classes)
+        ) or (tag == "article" and "note-box" in classes) or (
+            tag == "div" and "article-body" in classes
+        )
         starts_sidebar = tag == "aside" and "note-sidebar" in classes
         self.stack.append((tag, starts_main, starts_article, starts_sidebar))
         if tag == "header" and ({"site-header", "series-header"} & classes):
@@ -214,6 +220,8 @@ def source_for_target(target: str) -> Path:
         raise BuildError(f"unsupported notes target: {target}")
     if match.group("root"):
         return REPO_ROOT / "content" / "notes" / "index.md"
+    if match.group("flat"):
+        return REPO_ROOT / "content" / "notes" / "themes.md"
     source_name = "index.md" if match.group("page") == "index" else f"{match.group('page')}.md"
     return REPO_ROOT / "content" / "notes" / match.group("slug") / source_name
 
