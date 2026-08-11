@@ -13,6 +13,13 @@ _notes_history_timeline_check/
 _notes_collection_index_check/
 _notes_themes_check/
 _notes_visual_qa/
+_new_document_candidate/
+_new_document_visual_qa/
+_new_document_test_tmp/
+_new_content_current_preview_ci/
+_new_content_structured_preview_ci/
+_content_build_preview_ci/
+_structured_build_preview_ci/
 
 # Python cache
 __pycache__/
