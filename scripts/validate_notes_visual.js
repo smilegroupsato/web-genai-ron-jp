@@ -3,7 +3,7 @@
  * Validate desktop/mobile rendering for one promoted research note.
  *
  * ページ作成日時：2026-08-04 16:34 JST
- * 最終更新日時：2026-08-04 16:36 JST
+ * 最終更新日時：2026-08-11 09:34 JST
  */
 
 const fs = require("fs");
@@ -13,6 +13,7 @@ const { chromium } = require("playwright");
 const baseUrl = process.env.NOTES_PREVIEW_BASE_URL || "http://127.0.0.1:8765";
 const route = process.env.NOTES_PREVIEW_ROUTE || "/notes/tool-discovery-layer/";
 const outputDir = process.env.NOTES_VISUAL_QA_OUTPUT || "_notes_visual_qa";
+const requiresSidebarLinks = route !== "/notes/themes.html";
 
 const cases = [
   { name: "desktop", width: 1440, height: 1000 },
@@ -56,7 +57,9 @@ async function main() {
         if (!metrics[key]) errors.push(`required region is missing: ${key}`);
       }
       if (metrics.sections < 1) errors.push("no note sections found");
-      if (metrics.sidebarLinks < 1) errors.push("no sidebar links found");
+      if (requiresSidebarLinks && metrics.sidebarLinks < 1) {
+        errors.push("no sidebar links found");
+      }
       if (metrics.scrollWidth > metrics.clientWidth) {
         errors.push(
           `horizontal overflow: ${metrics.scrollWidth} > ${metrics.clientWidth}`

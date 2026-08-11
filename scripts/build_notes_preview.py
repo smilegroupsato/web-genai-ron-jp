@@ -2,7 +2,7 @@
 """Build one research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-04 18:42 JST
+最終更新日時：2026-08-11 09:34 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/index.md
@@ -11,8 +11,11 @@ The accepted lane is intentionally narrow:
 - source: content/notes/<slug>/index.md
 - route: /notes/<slug>/
 - output: <preview-root>/notes/<slug>/index.html
+- source: content/notes/themes.md
+- route: /notes/themes.html
+- output: <preview-root>/notes/themes.html
 
-The themes flat route and bulk globs remain outside this version.
+Bulk globs remain outside this version.
 """
 
 from __future__ import annotations
@@ -45,6 +48,9 @@ PERIOD_PREAMBLE_RE = re.compile(
     r"^(?P<label>Research Group [A-Z]|Theoretical Lines)\s*\n+"
     r"##\s+(?P<title>[^\n]+)\s*(?:\n+|$)"
 )
+THEME_LINK_RE = re.compile(
+    r"^\[\*\*(?P<title>[^\n]+)\*\*\n(?P<description>[^\n]+)\]\((?P<href>[^)]+)\)$"
+)
 
 
 def load_source(path: Path) -> tuple[dict[str, object], str]:
@@ -68,9 +74,12 @@ def validate_source_path(path: Path) -> str:
         raise BuildError("note source must be under content/notes/") from exc
     if relative.parts == ("index.md",):
         return ""
+    if relative.parts == ("themes.md",):
+        return ""
     if len(relative.parts) != 2:
         raise BuildError(
-            "notes publication accepts only content/notes/index.md or "
+            "notes publication accepts only content/notes/index.md, "
+            "content/notes/themes.md, or "
             "content/notes/<slug>/<page>.md"
         )
     slug = relative.parts[0]
@@ -89,6 +98,8 @@ def output_name_for_source(source: Path) -> str:
 
 
 def expected_route_for_source(source: Path, slug: str) -> str:
+    if source.name == "themes.md":
+        return "/notes/themes.html"
     if not slug:
         return "/notes/"
     if source.name == "index.md":
@@ -111,7 +122,9 @@ def validate_metadata(meta: Mapping[str, object], source: Path, slug: str) -> No
     if require_scalar(meta, "title") == "Untitled":
         raise BuildError("note title must be explicit")
     require_scalar(meta, "meta_description")
-    expected_page_type = "collection-index" if not slug else "note"
+    expected_page_type = (
+        "collection-index" if not slug and source.name == "index.md" else "note"
+    )
     if str(meta.get("page_type") or "").strip() != expected_page_type:
         raise BuildError(f"page_type must be {expected_page_type}")
     if str(meta.get("series_or_article") or "").strip() != "notes":
@@ -187,6 +200,32 @@ def parse_preamble(
         "note_meta": meta_line,
         "sidebar_title": marker,
     }, links, article
+
+
+def parse_themes_page(body: str) -> tuple[dict[str, str], list[tuple[str, str, str]]]:
+    blocks = [value.strip() for value in re.split(r"\n{2,}", body.strip()) if value.strip()]
+    if len(blocks) != 8:
+        raise BuildError("themes page must contain one hero and exactly five candidate links")
+    kicker, title_line, lead = blocks[:3]
+    if kicker != "NEXT THEMES" or not title_line.startswith("# ") or not lead:
+        raise BuildError("themes page hero is invalid")
+
+    links: list[tuple[str, str, str]] = []
+    for block in blocks[3:]:
+        match = THEME_LINK_RE.fullmatch(block)
+        if match is None:
+            raise BuildError(f"invalid themes candidate link: {block!r}")
+        links.append(
+            (match.group("title"), match.group("description"), match.group("href"))
+        )
+    return {
+        "kicker": kicker,
+        "title": title_line[2:].strip(),
+        "lead": lead,
+        "sublead": "",
+        "note_meta": "",
+        "sidebar_title": "",
+    }, links
 
 
 def split_sections(
@@ -280,6 +319,23 @@ def render_collection_cards(section_markdown: str) -> str | None:
         '          <div class="note-card-grid note-card-grid-single">\n'
         + "\n".join(rendered_cards)
         + "\n          </div>"
+    )
+
+
+def render_theme_cards(links: list[tuple[str, str, str]]) -> str:
+    cards = []
+    for title, description, href in links:
+        cards.append(
+            f'          <a class="turning-card" href="{html.escape(href, quote=True)}">'
+            f"<strong>{html.escape(title)}</strong><br>"
+            f'<span class="small-note">{html.escape(description)}</span></a>'
+        )
+    return (
+        '        <section class="note-section note-intro">\n'
+        '          <div class="note-card-grid note-card-grid-single">\n'
+        + "\n".join(cards)
+        + "\n          </div>\n"
+        "        </section>"
     )
 
 
@@ -507,10 +563,17 @@ def output_path(preview_root: Path, source: Path, slug: str) -> Path:
 
 def build_one(source: Path, preview_root: Path) -> Path:
     slug = validate_source_path(source)
-    collection_index = not slug
+    themes_page = source.name == "themes.md" and not slug
+    collection_index = source.name == "index.md" and not slug
     meta, body = load_source(source)
     validate_metadata(meta, source, slug)
-    preamble, links, article = parse_preamble(body, collection_index=collection_index)
+    theme_links: list[tuple[str, str, str]] = []
+    if themes_page:
+        preamble, theme_links = parse_themes_page(body)
+        links: list[tuple[str, str]] = []
+        article = ""
+    else:
+        preamble, links, article = parse_preamble(body, collection_index=collection_index)
     title = require_scalar(meta, "title")
     if preamble["title"] != title:
         raise BuildError("front matter title and visible h1 differ")
@@ -520,6 +583,17 @@ def build_one(source: Path, preview_root: Path) -> Path:
         f'        <a href="{html.escape(href, quote=True)}">{html.escape(label)}</a>'
         for label, href in links
     )
+    sidebar_html = (
+        '      <aside class="note-sidebar" aria-label="ページ内目次" '
+        'aria-hidden="true"></aside>'
+        if themes_page
+        else (
+            '      <aside class="note-sidebar" aria-label="ページ内目次">\n'
+            f'        <p class="note-sidebar-title">{html.escape(preamble["sidebar_title"])}</p>\n'
+            f"{sidebar_links}\n"
+            "      </aside>"
+        )
+    )
     values = {
         "document_title": html.escape(f"{title}｜GENAI-RON"),
         "description": html.escape(require_scalar(meta, "meta_description"), quote=True),
@@ -528,7 +602,7 @@ def build_one(source: Path, preview_root: Path) -> Path:
         "title": html.escape(title),
         "lead_html": (
             html.escape(preamble["lead"])
-            if collection_index
+            if collection_index or themes_page
             else f'<strong>{html.escape(preamble["lead"])}</strong>'
         ),
         "sublead": html.escape(preamble["sublead"]),
@@ -539,6 +613,7 @@ def build_one(source: Path, preview_root: Path) -> Path:
         ),
         "sidebar_title": html.escape(preamble["sidebar_title"]),
         "sidebar_links": sidebar_links,
+        "sidebar_html": sidebar_html,
         "layout_open": (
             '<section class="note-layout" aria-label="研究ノート一覧">'
             if collection_index
@@ -552,7 +627,9 @@ def build_one(source: Path, preview_root: Path) -> Path:
         ),
         "content_close": "</div>" if collection_index else "</article>",
         "article_html": (
-            render_history_timeline(article, links)
+            render_theme_cards(theme_links)
+            if themes_page
+            else render_history_timeline(article, links)
             if source.name == "timeline.md"
             else render_sections(article, links, collection_index=collection_index)
         ),
@@ -568,7 +645,7 @@ def main() -> int:
     parser.add_argument(
         "--source",
         required=True,
-        help="content/notes/index.md or content/notes/<slug>/<page>.md",
+        help="content/notes/index.md, content/notes/themes.md, or content/notes/<slug>/<page>.md",
     )
     parser.add_argument("--preview-root", default=str(DEFAULT_PREVIEW_ROOT))
     args = parser.parse_args()
