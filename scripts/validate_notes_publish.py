@@ -2,7 +2,7 @@
 """Validate the one-note controlled publication lane.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-11 09:34 JST
+最終更新日時：2026-08-11 11:14 JST
 
 PR mode validates the changed-file scope and requires the public note to be
 byte-identical to a candidate regenerated from content/notes/<slug>/index.md.
@@ -24,6 +24,7 @@ from build_content_pages import BuildError
 from build_notes_preview import (
     REPO_ROOT,
     SITE_ROOT,
+    THEME_CANDIDATES,
     build_one,
     output_name_for_source,
     validate_source_path,
@@ -177,7 +178,27 @@ def parse_html(path: Path) -> dict[str, object]:
     return parser.snapshot()
 
 
-def validate_semantic_parity(current: Path, candidate: Path) -> None:
+def themes_links_are_resolved(
+    current_links: object, candidate_links: object
+) -> bool:
+    if not isinstance(current_links, list) or not isinstance(candidate_links, list):
+        return False
+    expected_text = [
+        normalize(f"{title} {description}")
+        for title, description, _ in THEME_CANDIDATES
+    ]
+    return (
+        [href for href, _ in current_links] == ["#"] * len(THEME_CANDIDATES)
+        and [text for _, text in current_links] == expected_text
+        and [href for href, _ in candidate_links]
+        == [href for _, _, href in THEME_CANDIDATES]
+        and [text for _, text in candidate_links] == expected_text
+    )
+
+
+def validate_semantic_parity(
+    current: Path, candidate: Path, *, allow_themes_link_resolution: bool = False
+) -> None:
     left = parse_html(current)
     right = parse_html(candidate)
     errors: list[str] = []
@@ -186,11 +207,15 @@ def validate_semantic_parity(current: Path, candidate: Path) -> None:
         "main_text",
         "article_text",
         "headings",
-        "article_links",
         "sidebar_links",
     ):
         if left[key] != right[key]:
             errors.append(f"semantic mismatch: {key}")
+    if left["article_links"] != right["article_links"] and not (
+        allow_themes_link_resolution
+        and themes_links_are_resolved(left["article_links"], right["article_links"])
+    ):
+        errors.append("semantic mismatch: article_links")
     for key in ("has_header", "has_footer"):
         if not right[key]:
             errors.append(f"candidate missing required region: {key}")
@@ -267,7 +292,11 @@ def validate_target(target: str, base_ref: str, preview_root: Path) -> None:
         result = None
     if result is not None:
         base_current.write_text(result.stdout, encoding="utf-8")
-        validate_semantic_parity(base_current, promoted)
+        validate_semantic_parity(
+            base_current,
+            promoted,
+            allow_themes_link_resolution=target == "site/notes/themes.html",
+        )
     print("notes controlled promotion: OK")
     print(f"source: {source.relative_to(REPO_ROOT)}")
     print(f"target: {target}")

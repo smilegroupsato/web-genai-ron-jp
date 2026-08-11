@@ -1,13 +1,13 @@
-# Research Notes controlled publication v0.4
+# Research Notes controlled publication v0.5
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-11 09:34 JST
+最終更新日時：2026-08-11 11:14 JST
 
 ## 目的
 
 `content/notes/` の研究ノートを正本として扱い、対象を一つに限定した明示操作だけで `site/notes/` へ反映する。
 
-## v0.4の対象
+## v0.5の対象
 
 ```text
 content/notes/index.md
@@ -70,12 +70,21 @@ builderは、Markdownのsection先頭に`Research Group A`等または`Theoretic
 
 次テーマ候補は、`NEXT THEMES`、見出し、導入文、候補リンク5件の順序と文言を必須とする。候補は全体を一つのリンクとする単列カードとして再生成し、通常ノート用のsection目次は要求しない。
 
+候補リンクは、移行前の`#`5件または次の既存公開route 5件の完全一致だけを許可する。placeholderと実routeの混在、順序・文言・リンク先の変更、公開ファイルが存在しないrouteは拒否する。
+
+1. `/article/understanding-defense-action/`
+2. `/article/understanding-defense-action/chapter-03.html`
+3. `/article/state-change/chapter-14.html`
+4. `/article/state-change/chapter-13.html`
+5. `/article/state-change/chapter-15.html`
+
 明示section anchorがない概要型noteは、CONTENTSのページ内リンクとh2の数が一致する場合に限り、順番からanchorを復元する。`turning-points`と`layers`は、既存のカード構造を保つ。
 
 完全版年表は、`PERIODS`目次、5期の順序、5層ラベル、出典sectionが全て一致する場合に限り、`layer-grid`・`period`・`timeline-card`・`badge`構造を再生成する。
 
 ## 更新履歴
 
+- 2026-08-11 11:14 JST：候補5件を既存論考へ解決するv0.5契約を追加し、文言・順序・route実在性を固定。
 - 2026-08-11 09:34 JST：flat route`/notes/themes.html`と候補リンク5件の構造保持をv0.4へ追加。
 - 2026-08-04 18:42 JST：研究ノート一覧`/notes/`を単一対象として扱い、NOTESナビゲーションと番号付きカードの構造保持をv0.3へ追加。
 - 2026-08-04 18:26 JST：完全版年表の凡例を5層の`layer-grid`として保持する構造不変条件を追加。
