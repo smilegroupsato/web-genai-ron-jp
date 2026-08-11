@@ -122,6 +122,9 @@ def content_path_for(route: str) -> str | None:
     if route == "/":
         candidate = Path("content") / "index.md"
         return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    if route == "/article/":
+        candidate = Path("content") / "article" / "index.md"
+        return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     article_match = re.fullmatch(
         r"/article/(state-change|understanding-defense-action)/", route
     )
