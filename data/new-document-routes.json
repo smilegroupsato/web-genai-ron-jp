@@ -1,0 +1,13 @@
+{
+  "registry_version": "0.1",
+  "entries": [
+    {
+      "id": "v2-publication-lane-test",
+      "source": "content/fixtures/v2-publication-lane-test.md",
+      "route": "/fixtures/v2-publication-lane-test/",
+      "index_source": "publishing/fixtures/new-document-index.md",
+      "index_html": "publishing/fixtures/new-document-index.html",
+      "test_only": true
+    }
+  ]
+}

@@ -1,12 +1,22 @@
-name: Validate New Content Publication Lane v0
+# ページ作成日時：2026-08-04 14:06 JST
+# 最終更新日時：2026-08-11 15:35 JST
+
+name: Validate New Content Publication Lane v0.1
 
 on:
   pull_request:
     paths:
       - "content/fixtures/v2-publication-lane-test.md"
+      - "content/templates/new-document.md"
+      - "data/new-document-routes.json"
+      - "publishing/NEW_DOCUMENT_PUBLICATION.md"
+      - "publishing/fixtures/new-document-index.*"
+      - "publishing/templates/article.html"
       - "requirements-publishing.txt"
       - "scripts/build_content_pages.py"
       - "scripts/build_structured_preview.py"
+      - "scripts/new_document_publication.py"
+      - "scripts/validate_new_document_visual.js"
       - "scripts/validate_structured_preview.py"
       - ".github/workflows/validate-new-content-publication-lane-v0.yml"
   workflow_dispatch:
@@ -20,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,18 +41,35 @@ jobs:
       - name: Install isolated publishing dependency
         run: python -m pip install -r requirements-publishing.txt
 
-      - name: Compile builders and validator
+      - name: Compile builders and validators
         run: |
           python -m py_compile \
             scripts/build_content_pages.py \
             scripts/build_structured_preview.py \
+            scripts/new_document_publication.py \
             scripts/validate_structured_preview.py
 
-      - name: Generate fixture previews
+      - name: Prepare SHA-fixed new-document fixture
         run: |
           rm -rf \
             _new_content_current_preview_ci \
-            _new_content_structured_preview_ci
+            _new_content_structured_preview_ci \
+            _new_document_candidate \
+            _new_document_test_tmp \
+            _new_document_visual_qa
+
+          mkdir -p _new_document_test_tmp
+
+          python scripts/new_document_publication.py prepare \
+            --id v2-publication-lane-test \
+            --candidate-root _new_document_candidate \
+            --receipt _new_document_test_tmp/receipt.json
+
+          python scripts/new_document_publication.py verify-receipt \
+            --receipt _new_document_test_tmp/receipt.json
+
+      - name: Generate legacy comparison previews
+        run: |
 
           python scripts/build_content_pages.py \
             --source content/fixtures/v2-publication-lane-test.md \
@@ -49,6 +78,94 @@ jobs:
           python scripts/build_structured_preview.py \
             --source content/fixtures/v2-publication-lane-test.md \
             --preview-root _new_content_structured_preview_ci
+
+      - name: Prove explicit site-write confirmation and fixture isolation
+        run: |
+          before=$(git status --short -- site/)
+          sha=$(python -c 'import json; print(json.load(open("_new_document_test_tmp/receipt.json"))["candidate_sha256"])')
+          if python scripts/new_document_publication.py promote \
+            --receipt _new_document_test_tmp/receipt.json \
+            --expected-sha "$sha"; then
+            echo "new-document promotion unexpectedly succeeded without --write-site" >&2
+            exit 1
+          fi
+          if python scripts/new_document_publication.py promote \
+            --receipt _new_document_test_tmp/receipt.json \
+            --expected-sha "$sha" \
+            --write-site; then
+            echo "test fixture unexpectedly promoted to site" >&2
+            exit 1
+          fi
+          after=$(git status --short -- site/)
+          test "$before" = "$after"
+
+      - name: Prove candidate tampering is rejected
+        run: |
+          cp _new_document_candidate/fixtures/v2-publication-lane-test/index.html \
+            _new_document_test_tmp/candidate.original.html
+          printf '\n<!-- tampered -->\n' >> \
+            _new_document_candidate/fixtures/v2-publication-lane-test/index.html
+          if python scripts/new_document_publication.py verify-receipt \
+            --receipt _new_document_test_tmp/receipt.json; then
+            echo "tampered candidate unexpectedly passed receipt verification" >&2
+            exit 1
+          fi
+          cp _new_document_test_tmp/candidate.original.html \
+            _new_document_candidate/fixtures/v2-publication-lane-test/index.html
+          python scripts/new_document_publication.py verify-receipt \
+            --receipt _new_document_test_tmp/receipt.json
+
+      - name: Prove existing route and missing index link are rejected
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          root = Path("_new_document_test_tmp")
+          source = Path("content/fixtures/v2-publication-lane-test.md")
+          original = source.read_text(encoding="utf-8")
+
+          existing = json.loads(Path("data/new-document-routes.json").read_text(encoding="utf-8"))
+          existing["entries"][0]["route"] = "/article/"
+          existing["entries"][0]["index_source"] = "_new_document_test_tmp/existing-route-index.md"
+          (root / "existing-route-index.md").write_text('[existing](/article/)\n', encoding="utf-8")
+          (root / "existing-route-index.html").write_text('<a href="/article/">existing</a>\n', encoding="utf-8")
+          existing["entries"][0]["index_html"] = "_new_document_test_tmp/existing-route-index.html"
+          (root / "existing-route-registry.json").write_text(json.dumps(existing), encoding="utf-8")
+          source.write_text(original.replace('/fixtures/v2-publication-lane-test/', '/article/').replace('https://genai-ron.jp/fixtures/v2-publication-lane-test/', 'https://genai-ron.jp/article/'), encoding="utf-8")
+          try:
+              result = subprocess.run([
+                  "python", "scripts/new_document_publication.py", "prepare",
+                  "--id", "v2-publication-lane-test",
+                  "--registry", "_new_document_test_tmp/existing-route-registry.json",
+                  "--candidate-root", "_new_document_test_tmp/existing-candidate",
+                  "--receipt", "_new_document_test_tmp/existing-receipt.json",
+              ])
+              if result.returncode == 0:
+                  raise SystemExit("existing route was not rejected")
+          finally:
+              source.write_text(original, encoding="utf-8")
+
+          missing = json.loads(Path("data/new-document-routes.json").read_text(encoding="utf-8"))
+          (root / "missing-link-index.md").write_text('[home](/)\n', encoding="utf-8")
+          (root / "missing-link-index.html").write_text('<a href="/">home</a>\n', encoding="utf-8")
+          missing["entries"][0]["index_source"] = "_new_document_test_tmp/missing-link-index.md"
+          missing["entries"][0]["index_html"] = "_new_document_test_tmp/missing-link-index.html"
+          (root / "missing-link-registry.json").write_text(json.dumps(missing), encoding="utf-8")
+          result = subprocess.run([
+              "python", "scripts/new_document_publication.py", "prepare",
+              "--id", "v2-publication-lane-test",
+              "--registry", "_new_document_test_tmp/missing-link-registry.json",
+              "--candidate-root", "_new_document_test_tmp/missing-candidate",
+              "--receipt", "_new_document_test_tmp/missing-receipt.json",
+          ])
+          if result.returncode == 0:
+              raise SystemExit("missing index link was not rejected")
+          PY
+
+      - name: Validate gate-only PR scope
+        run: python scripts/new_document_publication.py validate-pr --base-ref origin/main
 
       - name: Validate fixture semantic parity
         run: |
@@ -71,6 +188,37 @@ jobs:
             --expected-asset-status none \
             --expected-production-enabled true
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install isolated visual QA dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start new-document candidate preview server
+        run: |
+          ln -s site/assets assets
+          python -m http.server 8765 --bind 127.0.0.1 > /tmp/new-document-preview-http.log 2>&1 &
+          echo $! > /tmp/new-document-preview-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8765/_new_document_candidate/fixtures/v2-publication-lane-test/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/new-document-preview-http.log >&2
+          exit 1
+
+      - name: Validate candidate desktop and mobile rendering
+        env:
+          NEW_DOCUMENT_PREVIEW_BASE_URL: http://127.0.0.1:8765
+          NEW_DOCUMENT_PREVIEW_ROUTE: /_new_document_candidate/fixtures/v2-publication-lane-test/
+          NEW_DOCUMENT_VISUAL_QA_OUTPUT: _new_document_visual_qa
+        run: node scripts/validate_new_document_visual.js
+
       - name: Upload fixture previews
         uses: actions/upload-artifact@v4
         with:
@@ -78,5 +226,8 @@ jobs:
           path: |
             _new_content_current_preview_ci/
             _new_content_structured_preview_ci/
+            _new_document_candidate/
+            _new_document_test_tmp/receipt.json
+            _new_document_visual_qa/
           if-no-files-found: error
           retention-days: 7

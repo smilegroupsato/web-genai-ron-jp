@@ -1,7 +1,7 @@
 # GENAI-RON Publishing Layer
 
 ページ作成日時：2026-07-22 22:50 JST  
-最終更新日時：2026-07-23 08:44 JST
+最終更新日時：2026-08-11 15:35 JST
 
 ## Purpose
 
@@ -120,6 +120,8 @@ preview artifact / report / screenshots
 
 既存の `scripts/build_content_pages.py` と `site/` は、このv0.1では置換しない。
 
+新規文書の標準出版フローは `publishing/NEW_DOCUMENT_PUBLICATION.md` に分離する。既存HTMLの救出ではなく、Markdown正本から新しいrouteを初回公開するためのmetadata、registry、候補SHA固定、単一ページpromotionを扱う。
+
 ## Completed Gate
 
 - 全contentページのsemantic parity
@@ -144,5 +146,6 @@ preview artifact / report / screenshots
 
 ## 更新履歴
 
+- 2026-08-11 15:35 JST：新規文書content-first出版レーンv0.1への導線を追加。
 - 2026-07-23 08:44 JST：semantic / visual QA完了。reading-preferences component、component CSS、legacy runtime adapter、validation記録を反映。
 - 2026-07-22 22:50 JST：parallel publishing layerの責務、構造、停止条件を新規定義。
