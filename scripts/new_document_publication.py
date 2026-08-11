@@ -2,7 +2,7 @@
 """Prepare, verify, promote, and validate one new content-first document.
 
 ページ作成日時：2026-08-11 15:35 JST
-最終更新日時：2026-08-11 15:35 JST
+最終更新日時：2026-08-11 16:12 JST
 """
 
 from __future__ import annotations
@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
@@ -251,7 +252,23 @@ def candidate_for(entry: dict[str, Any], source: Path, candidate_root: Path) -> 
     expected = candidate_root / str(entry["route"]).strip("/") / "index.html"
     if candidate.resolve() != expected.resolve():
         raise BuildError("builder output does not match the registered route")
+    metadata, _ = parse_front_matter(source.read_text(encoding="utf-8"))
     text = candidate.read_text(encoding="utf-8")
+    icon_link = '  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">'
+    canonical_link = f'  <link rel="canonical" href="{escape(str(metadata["canonical_url"]), quote=True)}">'
+    if icon_link not in text:
+        raise BuildError("candidate is missing the canonical insertion point")
+    text = text.replace(icon_link, canonical_link + "\n" + icon_link, 1)
+    provenance_marker = " / Notion原稿作成日時："
+    if provenance_marker not in text:
+        raise BuildError("candidate is missing the provenance insertion point")
+    publication_provenance = (
+        f" / ページ作成日時：{escape(str(metadata['page_created_at']))}"
+        f" / 最終更新日時：{escape(str(metadata['last_updated_at']))}"
+        + provenance_marker
+    )
+    text = text.replace(provenance_marker, publication_provenance, 1)
+    candidate.write_text(text, encoding="utf-8")
     if 'data-theme-production-enabled="true"' not in text:
         raise BuildError("candidate theme is not enabled for production")
     canonical = str(entry["route"])

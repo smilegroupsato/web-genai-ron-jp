@@ -254,13 +254,6 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
         "description": html.escape(description, quote=True),
         "og_title": html.escape(og_title, quote=True),
         "og_image": html.escape(str(meta.get("og_image", "/assets/og.svg")), quote=True),
-        "canonical_link": (
-            f'  <link rel="canonical" href="{html.escape(str(meta.get("canonical_url")), quote=True)}">'
-            if str(meta.get("canonical_url", "")).strip()
-            else ""
-        ),
-        "page_created_at": html.escape(str(meta.get("page_created_at", ""))),
-        "last_updated_at": html.escape(str(meta.get("last_updated_at", ""))),
         "original_created": html.escape(str(meta.get("original_notion_created_at", ""))),
         "original_updated": html.escape(str(meta.get("original_notion_updated_at", ""))),
         "web_migrated": html.escape(str(meta.get("web_migrated_at", ""))),
