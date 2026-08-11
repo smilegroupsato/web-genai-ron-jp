@@ -6342,8 +6342,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/01-memory.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6386,7 +6386,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/02-instruction-hierarchy/",
@@ -6404,8 +6404,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/02-instruction-hierarchy.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6449,7 +6449,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/03-tool-calling/",
@@ -6467,8 +6467,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/03-tool-calling.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6512,7 +6512,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/04-context-window-retrieval/",
@@ -6530,8 +6530,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/04-context-window-retrieval.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6575,7 +6575,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/05-grounding-hallucination/",
@@ -6593,8 +6593,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/05-grounding-hallucination.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6638,7 +6638,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/06-workflow-design/",
@@ -6656,8 +6656,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/06-workflow-design.md",
       "metadata_locations": {
         "created_at": [
           "visible_body"
@@ -6700,7 +6700,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     },
     {
       "route": "/series/genai-shikumi-technical/",
@@ -6719,8 +6719,8 @@
       "loaded_js": [
         "/assets/theme.js"
       ],
-      "content_source_status": "html_only",
-      "corresponding_content_path": null,
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi-technical/index.md",
       "metadata_locations": {
         "created_at": [
           "absent"
@@ -6769,7 +6769,7 @@
       ],
       "download_links": [],
       "preserve_route": true,
-      "salvage_status": "needs_extraction"
+      "salvage_status": "needs_parity_check"
     }
   ]
 }
