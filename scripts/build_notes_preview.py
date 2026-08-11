@@ -2,7 +2,7 @@
 """Build one research-note preview without writing to site/.
 
 ページ作成日時：2026-08-04 16:22 JST
-最終更新日時：2026-08-11 11:14 JST
+最終更新日時：2026-08-11 11:55 JST
 
 The accepted lane is intentionally narrow:
 - source: content/notes/index.md
@@ -77,6 +77,17 @@ THEME_CANDIDATES = (
         "AIが世界の代替ではなく橋として機能する条件。",
         "/article/state-change/chapter-15.html",
     ),
+)
+
+THEME_LEGACY_HERO = (
+    "NEXT THEMES",
+    "次テーマ候補",
+    "主論考から派生して、今後展開していく予定のテーマ群。",
+)
+THEME_HERO = (
+    "RELATED THEMES",
+    "関連テーマ",
+    "主論考から派生した関連テーマと、それぞれの論考への入口。",
 )
 
 
@@ -234,7 +245,8 @@ def parse_themes_page(body: str) -> tuple[dict[str, str], list[tuple[str, str, s
     if len(blocks) != 8:
         raise BuildError("themes page must contain one hero and exactly five candidate links")
     kicker, title_line, lead = blocks[:3]
-    if kicker != "NEXT THEMES" or not title_line.startswith("# ") or not lead:
+    title = title_line[2:].strip() if title_line.startswith("# ") else ""
+    if (kicker, title, lead) != THEME_HERO:
         raise BuildError("themes page hero is invalid")
 
     links: list[tuple[str, str, str]] = []
@@ -248,7 +260,7 @@ def parse_themes_page(body: str) -> tuple[dict[str, str], list[tuple[str, str, s
     validate_theme_links(links)
     return {
         "kicker": kicker,
-        "title": title_line[2:].strip(),
+        "title": title,
         "lead": lead,
         "sublead": "",
         "note_meta": "",

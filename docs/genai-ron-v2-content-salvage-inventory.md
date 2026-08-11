@@ -1,7 +1,7 @@
 # genai-ron.jp v2 content salvage inventory
 
 ページ作成日時：2026-07-27 09:22 JST
-最終更新日時：2026-07-27 09:22 JST
+最終更新日時：2026-08-11 12:02 JST
 
 ## 1. Purpose and boundary
 
@@ -66,7 +66,7 @@ URLは末尾スラッシュを含む現在の公開形をv2のroute contractと�
 | `/notes/history-of-generative-ai/` | 生成AIの歴史｜多層年表｜GENAI-RON |
 | `/notes/history-of-generative-ai/timeline.html` | 生成AIの歴史｜完全版年表｜GENAI-RON |
 | `/notes/state-change-lit-review/` | LLMとの対話は人間の何を変えるのか――「状態変化」の先行研究レビュー｜GENAI-RON |
-| `/notes/themes.html` | 次テーマ候補｜生成AI論 |
+| `/notes/themes.html` | 関連テーマ｜GENAI-RON |
 | `/notes/tool-discovery-layer/` | ChatGPTのツール発見レイヤーとユーザー指示の衝突｜GENAI-RON |
 
 ### Articles
@@ -180,4 +180,5 @@ cutover前に全assetへSHA-256 manifestを作り、生成先で一致を検証�
 
 ## 更新履歴
 
+- 2026-08-11 12:02 JST：`/notes/themes.html`の現行titleを「関連テーマ｜GENAI-RON」へ更新。
 - 2026-07-27 09:22 JST：Issue #27 / #32 / #33と指定ディレクトリを調査し、初回salvage inventoryを作成。

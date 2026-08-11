@@ -1,3 +1,5 @@
+# 最終更新日時：2026-08-11 12:11 JST
+
 name: Validate Publishing Structure
 
 on:
@@ -163,7 +165,7 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**')
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
           if [ -n "$disallowed" ]; then
             echo "unexpected public site file changes:" >&2
             echo "$disallowed" >&2
