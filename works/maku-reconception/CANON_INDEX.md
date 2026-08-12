@@ -1,7 +1,7 @@
 # 小説『膜』再構想版 正本インデックス
 
 - ページ作成日時：2026-08-09 23:07 JST
-- 最終更新日時：2026-08-09 23:07 JST
+- 最終更新日時：2026-08-12 15:16 JST
 - status：canon index / writing context v0.3
 - scope：`works/maku-reconception/`
 
@@ -27,6 +27,12 @@
 | 3 | [`conception/2026.08.09_01_reconception-v0.2_git-worlds-embodied-finitude.md`](./conception/2026.08.09_01_reconception-v0.2_git-worlds-embodied-finitude.md) | v0.2。Gitの正史、複数世界、身体の有限性、暫定主人公像の基礎。 |
 | 4 | [`conception/2026.08.07_01_reconception-meaning-brownian-motion.md`](./conception/2026.08.07_01_reconception-meaning-brownian-motion.md) | 再構想の起点。意味のブラウン運動、LLM＝無限哲学装置、脱身体願望、最終行。 |
 | 5 | [`../maku/notes/conception/2026.08.08_01_original-conception-v0-reconstructed.md`](../maku/notes/conception/2026.08.08_01_original-conception-v0-reconstructed.md) | 旧構想 v0 の復元。AI対話履歴、履歴の沈殿、膜＝交換装置の初期核。 |
+
+## 重要ログ
+
+| 文書 | 役割 |
+|---|---|
+| [`../../chat_log/2026.08.12_01_bureaucratized-membrane-afterhours.md`](../../chat_log/2026.08.12_01_bureaucratized-membrane-afterhours.md) | 官僚制化する膜、身体を飼う制度、逃避先が第二の現実になる afterhours 対話ログ。 |
 
 ## 研究側の正本
 
@@ -62,6 +68,7 @@
 - 主人公は専業ソフトウェアエンジニアではない。
 - Git/GitHubは比喩ではなく、実際に使われる操作系として出す。
 - 膜は説明語ではなく、場面を作る規則として扱う。
+- 膜は守る装置だが、自己保存を始めると身体を飼う制度になり、逃避先を第二の現実にする。
 - mainは真実ではなく、以後の主体と世界を運用するために採用された正史である。
 - 身体は、本当の自己ではなく、局所性と切実さを発生させる最後の外膜である。
 - 最終行は `mainへmergeして。`。
@@ -77,4 +84,5 @@
 
 ## 更新履歴
 
+- 2026-08-12 15:16 JST：官僚制化する膜のchat_logを重要ログへ追加し、固定事項に自己保存する膜の命題を追記。
 - 2026-08-09 23:07 JST：初版。v0.3補遺までを新稿の正本として固定し、具体化フェーズ用の台帳群への入口を作成。
