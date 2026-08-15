@@ -1,7 +1,7 @@
-# OPERATIONAL DEFINITIONS V0｜ChatGPT Exportから膜をどう検出するか
+# OPERATIONAL DEFINITIONS V0.1｜ChatGPT Exportから膜をどう検出するか
 
 ページ作成日時：2026-08-15 17:58 JST  
-最終更新日時：2026-08-15 17:58 JST
+最終更新日時：2026-08-15 21:15 JST
 
 status: draft / Phase 1 operationalization  
 scope: ChatGPT Export × 膜トポロジー分析  
@@ -208,7 +208,18 @@ sedimentation、path dependence、fold、permeability changeはこの単位で�
 | E2 | interactional behavior | ある問題を毎回AIへ持ち込み、同型の変換を要求する | 行動パターンとして比較的強い |
 | E3 | state carryover | 前回の対話結果が次回の前提・判断・語彙を変えている | traceの主要証拠 |
 | E4 | cross-context repetition | 別conversation・別topicでも同じ変換経路が反復される | sedimentation / leakage / foldに重要 |
-| E5 | world return | メール送信、コード反映、購入、業務変更等として現実へ返ったことが報告される | Human–AI outer membraneの強い証拠 |
+| E5 | world return | artifact/actionがworldへ戻る、またはその結果が会話へ戻る | 下記4段階を分離し、同じ強度で扱わない |
+
+#### world return evidence level
+
+| level | 定義 | 証拠上の扱い |
+|---|---|---|
+| planned | 送信・実装・反映が可能なartifactができたが、実行は未確認 | world return未成立。return候補 |
+| user-reported | Uが送信・実装・実行したと報告 | world return成立候補。ただし自己報告として記録 |
+| tool-verified | connector/toolが送信済みメール、反映済みrepository、外部system状態等を確認 | 外部実行の確認としてuser-reportedより強い。ただしSatoの内面証拠ではない |
+| feedback-return | world側の結果、修正、反応、例外が後続conversationへ戻り、次の選択・artifact・規則候補を変えた | outer-membrane循環の強い証拠。membrane/sedimentationの確定とは別判定 |
+
+`tool-verified` はtoolが確認できる範囲についてのみ強い。toolの取得失敗、権限外状態、assistantによる解釈まで保証しない。`feedback-return` は `user-reported` または `tool-verified` と併記できる。
 
 AIの発言そのものは佐藤の状態証拠として扱わない。
 
@@ -370,6 +381,16 @@ clineは単発episodeでも記述可能。ただしmembraneの証拠とするに
 
 transportとは、ある局所状態で成立した情報、感情、責任、判断、記憶、artifact、規則が、別の局所状態で再利用可能な形へ移されること。
 
+#### minimum evidence
+
+transportには少なくとも次を必要とする。
+
+- T1: sourceとtarget、または通過前後の局所状態が識別できる。
+- T2: 運ばれたobjectがtarget側で再利用可能な機能を持つ、またはsource側とは異なる役割を果たす。
+- T3: 単なるmessage delivery、同一内容の表示、assistantによる直前文の参照だけでは説明しきれない。
+
+T1〜T3を満たさない場合は、communication / message passing / storageとして記録し、機能的transportとはしない。
+
 ### positive evidence
 
 - 会話 → Repository Context。
@@ -382,6 +403,8 @@ transportとは、ある局所状態で成立した情報、感情、責任、�
 
 - 同じconversation内で話題が続いただけ。
 - assistantが前の文を引用しただけ。
+- user messageがassistantへ届き、assistantが一回答しただけ。
+- 長い説明が生成されたが、Uによる採用、修正、再利用、world returnが観測されない。
 
 ### false-positive risk
 
@@ -459,9 +482,22 @@ traceとは、一回のtransition / transport / refusal / delay / transformation
 
 短期conversation memoryを長期的なtraceと誤認する。
 
+#### context scope / confound
+
+trace候補には必ずscopeを記録する。
+
+- same-turn
+- same-conversation
+- cross-conversation
+- world-or-external-artifact
+
+same-conversation内で時間が空いていても、ChatGPTのconversation context、Memory、Project instructions、assistantの履歴参照によって再現できる場合がある。入力短縮、語彙継承、前回型の再使用だけで、Sato側の長期traceとはしない。
+
 ### confidence
 
-時間的隔たりやconversation境界を越えて残るほど高い。
+- low：same-turnまたはsame-conversation内のcarryoverで、context memoryとの分離ができない。
+- medium：Uの明示的な採用・修正が後続episodeの判断・artifactを変えたが、same-conversation confoundが残る。
+- high：cross-conversationまたはworld/external artifactを介して再出現し、Memory、Project instructions、assistant styleだけでは説明しにくい。
 
 ### counterexample
 
@@ -474,6 +510,15 @@ traceとは、一回のtransition / transport / refusal / delay / transformation
 ### operational definition
 
 sedimentationとは、複数のtraceが蓄積し、次の同型transitionにおける透過性、選択性、速度、形式、期待、役割、接続先を変えた状態である。
+
+#### rule status
+
+| status | 定義 | sedimentation上の扱い |
+|---|---|---|
+| proposed | AまたはUが将来規則を提案した | rule change未成立 |
+| accepted | Uが規則を採用または修正して採用した | trace候補。実行前ならsedimentation未成立 |
+| enacted | 後続episodeで規則が実際の選択・速度・形式・接続先を変えた | sedimentation候補のminimum evidence |
+| stabilized | 離れた複数episode/contextで同規則が再利用され、既定経路として機能した | 強いsedimentation evidence |
 
 ### positive evidence
 
@@ -495,8 +540,11 @@ sedimentationとは、複数のtraceが蓄積し、次の同型transitionにお�
 
 ### confidence
 
-- medium：複数traceの反復を確認。
-- high：反復前後でtransition ruleが変わったことを確認。
+- C1：proposed / acceptedまで、または反復はあるがrule change未確認。
+- C2候補：enactedを確認。ただしsame-conversationだけなら原則C2上限とし、Memory、Project instructions、assistant history、external workflow ruleを明示する。
+- C3：cross-conversationまたはworld/external carrierでもstabilizedを確認し、主要confoundだけでは説明しにくい。
+
+same-conversationだけの反復からsedimentationを確定しない。same-conversation内のenacted ruleはsupported candidateにはなりうるが、原則としてC3にしない。
 
 ### counterexample
 
@@ -805,19 +853,42 @@ AIが何へ変えたか。構造、選択肢、文章、code、schema、説明�
 
 ### W4 Sato selection / enactment
 
-佐藤が採用、修正、拒否、実行指示、外部反映を行ったか。
+W4は該当するactionを複数選択して記録する。
+
+| action | 定義 |
+|---|---|
+| accept | A出力をそのまま採用する |
+| reject | A出力またはその一部を拒否する |
+| modify | パラメータ、文面、形式等を修正する |
+| add-world-context | Aが持たない現実事情を追加する |
+| domain-rule-correction | 現場知識・責任に基づき規則または判断を訂正する |
+| enactment-request | 送信、実装、反映等を依頼・指示する |
+| enacted | 実行済みであることがUまたはT evidenceで確認される |
+
+`accept`だけと、`modify` / `add-world-context` / `domain-rule-correction`を同じ強度で扱わない。Aが提案し、Uが修正・採用し、後続で機能した場合にI evidenceを検討する。
 
 ### W5 world return / feedback
 
-送信、実装、購入、会話、会社運用、作品、GitHub/Notion等へ戻り、その結果が再びChatGPTへ報告されたか。
+W5はsection 4のreturn levelを必ず記録する。
+
+- planned
+- user-reported
+- tool-verified
+- feedback-return
+
+### W1〜W5循環とmembrane成立の分離
 
 W1〜W5が一周したepisodeは、Human–AI outer membraneの輸送・変換を観測する強い事例である。
+
+しかし、それだけでsection 6のmembrane minimum evidence M1〜M3、またはsection 11のsedimentationを満たしたことにはならない。
+
+membrane成立には、W1〜W5とは別に、具体的な選択・遅延・変質・交換operationの同型反復と、alternative explanationの検討が必要である。sedimentationにはさらにenacted / stabilized rule changeを必要とする。
 
 ただし、佐藤自身を「膜そのもの」と実体視しない。ここでいう外膜とは、Human–AI systemが世界との接触をどのように選別・変換しているかを記述するモデル上の機能である。
 
 ---
 
-## 21. user / assistant / interaction-emergentの分離
+## 21. user / assistant / tool-external / interaction-emergentの分離
 
 膜分析では、発言主体を混ぜない。
 
@@ -831,11 +902,21 @@ AI側が提案した概念、解釈、比喩、構造。
 
 これだけでは佐藤側の膜証拠にはしない。
 
+### T：tool / external-system observation
+
+connector、API、repository、送信済みメール、外部DB、実装状態等から取得された観測。Tは外部状態の確認にはAの自由な提案・解釈より強いが、佐藤の内面、意図、経験の証拠にはしない。
+
+Tには可能な限り次を記録する。
+
+- system/source
+- observed state
+- observation time
+- 取得範囲または限界
+- assistant interpretationから分離した短い事実要約
+
 ### I：interaction-emergent evidence
 
-Aで提示されたものを佐藤が採用・修正し、後の別文脈で自発的に再利用した場合。
-
-このとき初めて、Human–AI interactionにおけるtrace / sedimentation候補になる。
+Aで提示されたものをUが採用・修正し、後続の判断・artifact・actionで再利用した場合、またはU/A/Tの往復によって元の各要素だけには還元できない規則・artifact・feedback pathが成立した場合。単なるA出力やT観測だけではIとしない。
 
 この区別は、後から作った理論語彙を過去の佐藤へ遡及投影しないために必須である。
 
@@ -851,6 +932,11 @@ Aで提示されたものを佐藤が採用・修正し、後の別文脈で自�
 | C1 | weak candidate。一回のepisodeで概念に整合するが反復不足 |
 | C2 | supported candidate。複数episodeで反復し、alternative explanationをある程度排除 |
 | C3 | strong evidence。反復に加え、後続の透過規則・行動・接続性の変化まで確認 |
+
+- `tool-verified` world returnは、外部実行の確認について`user-reported`より強い。ただし、それだけでmembrane confidenceを一段上げない。
+- same-conversationだけの反復は、Memory、Project instructions、assistant historyを排除できない限り原則C2上限とする。
+- sedimentationのC2には少なくとも`enacted` rule、C3には原則`stabilized` ruleを必要とする。
+- W1〜W5循環成立、transport成立、membrane成立、sedimentation成立のconfidenceを混同しない。必要なら同じepisodeへ別々にconfidenceを付ける。
 
 confidenceは真偽の確率ではない。現時点のログがどこまで主張を支えるかの強度である。
 
@@ -885,6 +971,18 @@ confidenceは真偽の確率ではない。現時点のログがどこまで主�
 - reuse ≠ leakage。
 - file hierarchy ≠ nesting。
 - assistant output ≠ user state。
+- message passing ≠ transport。
+- Aが具体から抽象へ段階的に説明したこと ≠ user cline。
+- Aが複数分野を一度関連づけたこと ≠ gluing / fold。
+- Aが共通語を複数分野へ適用したこと ≠ smoothing / leakage。
+- tool observation ≠ user state。
+- W1〜W5 cycle completion ≠ membrane establishment。
+
+#### Pre-smoke validation note（2026-08-15）
+
+negative control `テンソルの基礎概念`（conversation_id `6a38978a-ee88-83e8-982d-51510f852858`）へV0 schemaを適用した結果、最終判定でmembrane関連operationの誤検出は0件だった。assistantの長い段階説明、分野横断、共通語彙をcline、fold/gluing、smoothing/leakageへ昇格させず、user→assistantの一往復をtransportとしなかった。
+
+これは1件のvalidationであり、false-positive rate一般を確定するものではない。Phase 2でもnegative controlを含める。
 
 ---
 
@@ -915,6 +1013,28 @@ transition:
   transformed_to:
   output_or_return:
 
+w4_user_action:
+  accept:
+  reject:
+  modify:
+  add_world_context:
+  domain_rule_correction:
+  enactment_request:
+  enacted:
+
+world_return:
+  level:  # none | planned | user-reported | tool-verified | feedback-return
+  evidence:
+
+rule_status:
+  status:  # none | proposed | accepted | enacted | stabilized
+  rule_summary:
+  evidence:
+
+context_scope:
+  scope:  # same-turn | same-conversation | cross-conversation | world-or-external-artifact
+  memory_or_instruction_confound:
+
 cline_dimensions:
   responsibility:
   reality_salience:
@@ -928,6 +1048,7 @@ operation_candidates:
   transport:
   transformation:
   trace:
+  gluing:
   fold:
   inversion:
   leakage:
@@ -937,17 +1058,22 @@ operation_candidates:
 origin_of_evidence:
   user:
   assistant:
+  tool_external:
   interaction_emergent:
 
 alternative_explanations:
   -
 
 confidence:
-  level:
+  outer_membrane_cycle:
+  membrane:
+  sedimentation:
   reason:
 
 follow_up_needed:
 ```
+
+`world_return.level`で複数段階が成立する場合は配列または複数記載を許す。たとえば`tool-verified`かつ`feedback-return`を併記できる。
 
 これは`MEMBRANE_ANALYSIS_SCHEMA_V0.md`の代替ではない。Phase 2へ入る前に、このOperational Definitionを使って実際のログを読めるかを確認するための最小記録形である。
 
@@ -969,19 +1095,23 @@ transition前後で、責任、現実感、行動圧、親密さ、抽象度、A
 
 selection / block / delay / transformation / exchange / signalingのどれが起きたか。
 
-### Step 4：反復を探す
+### Step 4：反復とcontext scopeを記録する
 
-同じconversation内だけでなく、時間的に離れたepisodeに同型operationがあるか。
+同型operationの反復を探し、same-turn / same-conversation / cross-conversation / world-or-external-artifactを明記する。same-conversation内反復だけならMemory、Project instructions、assistant historyを主要confoundとして置く。
 
-### Step 5：traceを探す
+### Step 5：traceとprovenanceを探す
 
-最初の通過が後続の語彙、判断、期待、artifact、接続先を変えたか。
+後続の語彙、判断、期待、artifact、接続先の差を確認し、U / A / T / Iを分離する。AまたはTだけからSatoの状態を推定しない。
 
-### Step 6：sedimentationを判定する
+### Step 6：rule statusを判定する
 
-反復によって次回の通過規則が変わったか。
+観測された規則をproposed / accepted / enacted / stabilizedへ分類する。単なる提案・採用をrule changeの実行証拠にしない。
 
-### Step 7：alternative explanationを置く
+### Step 7：outer-membrane cycleとmembraneを別判定する
+
+W1〜W5、W4 action、world-return levelを記録する。その循環が成立しても、membrane M1〜M3とsedimentation条件は独立に判定する。
+
+### Step 8：alternative explanationを置く
 
 - UI artifact。
 - Project instructions。
@@ -990,14 +1120,17 @@ selection / block / delay / transformation / exchange / signalingのどれが起
 - 単純なtopic similarity。
 - recency。
 - external workflow rule。
+- same-conversation context。
+- tool/connector workflow。
+- message passing一般。
 
 で説明できないか。
 
-### Step 8：membrane confidenceを付ける
+### Step 9：membrane confidenceを付ける
 
 C0〜C3。
 
-### Step 9：regionを再記述する
+### Step 10：regionを再記述する
 
 最後に初めて、前後の局所状態をregion候補として命名する。
 
@@ -1072,11 +1205,17 @@ selectionはConsole Topology categoryから機械的に均等抽出しない。�
 - 用語をtopic classificationへ還元せず判定できる。
 - positive evidenceとnegative evidenceが両方ある。
 - false-positive riskを明示できる。
-- user / assistant / interaction-emergent evidenceを分離できる。
+- user / assistant / tool-external / interaction-emergent evidenceを分離できる。
 - membraneとcline、traceとsedimentation、gluingとfold、transportとleakageを区別できる。
 - Human–AI outer membraneを全人格断定なしに扱える。
 - 「膜ではなかった」という判定を記録できる。
 - 少数精読で実際にannotation可能な最小schemaがある。
+- planned / user-reported / tool-verified / feedback-returnを分離できる。
+- proposed / accepted / enacted / stabilized ruleを分離できる。
+- U / A / T / I evidenceを分離できる。
+- same-conversation memoryをtrace/sedimentationのconfoundとして記録できる。
+- W1〜W5循環とmembrane/sedimentation成立を別々に判定できる。
+- negative controlでmessage passing、Aの説明構造、分野横断をoperationとして過剰検出しない。
 
 ---
 
@@ -1088,6 +1227,8 @@ Phase 2へ直行する前に、まずこの文書を用いて2種類のpre-smoke
 2. 膜操作が薄そうなconversationを1本読み、false positiveが大量発生しないか確認する。
 
 この2本でOperational Definitionを一度修正した後、5〜8 conversationsの本smokeへ進む。
+
+> 2026-08-15 pre-smokeでは、rich case `✉️松浦報告メール文面作成` 1件でW1〜W5循環、transport、transformation、trace候補をannotationできた。一方、same-conversation memoryと通常workflowのconfoundが残るため、membrane / sedimentationはC2候補に留まり、確定しなかった。negative control `テンソルの基礎概念` 1件では最終誤検出0件だった。raw本文は転載しない。上記V0.1 patchをPhase 2用schemaへ反映することを条件に、5〜8 conversationsの本smokeへ進行可能とする。
 
 ---
 
@@ -1105,4 +1246,5 @@ Phase 2へ直行する前に、まずこの文書を用いて2種類のpre-smoke
 
 ## 更新履歴
 
+- 2026-08-15 21:15 JST：V0.1。pre-smokeに基づきworld return、rule status、same-conversation confound、W4、evidence origin、transport minimum evidence、gluing、confidence、循環成立とmembrane成立の分離、validation noteを校正。
 - 2026-08-15 17:58 JST：初版。10_theory全正本文書を横断し、ChatGPT Export上の観測可能性、positive / negative evidence、false-positive risk、confidence、counterexample、Human–AI outer membrane、反証条件、pre-smoke方針を定義。
