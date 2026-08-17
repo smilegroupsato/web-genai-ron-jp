@@ -1,7 +1,7 @@
 # OPERATIONAL DEFINITIONS V0.1｜ChatGPT Exportから膜をどう検出するか
 
 ページ作成日時：2026-08-15 17:58 JST  
-最終更新日時：2026-08-15 21:15 JST
+最終更新日時：2026-08-17 11:08 JST
 
 status: draft / Phase 1 operationalization  
 scope: ChatGPT Export × 膜トポロジー分析  
@@ -518,7 +518,50 @@ sedimentationとは、複数のtraceが蓄積し、次の同型transitionにお�
 | proposed | AまたはUが将来規則を提案した | rule change未成立 |
 | accepted | Uが規則を採用または修正して採用した | trace候補。実行前ならsedimentation未成立 |
 | enacted | 後続episodeで規則が実際の選択・速度・形式・接続先を変えた | sedimentation候補のminimum evidence |
+| revised | enacted前後のruleが修正され、別versionになった | 旧versionを上書きせずrevision lineageで追う |
+| superseded | 後続versionまたは別routeへ置換された | 旧versionの継続証拠として数えない |
 | stabilized | 離れた複数episode/contextで同規則が再利用され、既定経路として機能した | 強いsedimentation evidence |
+
+#### rule lineage
+
+ruleは単一の現在値で保持せず、versionごとに次を記録する。
+
+- `rule_id`
+- `proposed_at`
+- `accepted_at`
+- `enacted_at`
+- `revised_at`
+- `superseded_at`
+- `stabilized_at`
+- `revision_parent`
+- `evidence_refs`
+
+初期routeがrejectまたは置換された場合、改訂routeとの単純な継続として扱わない。旧versionと改訂versionは別々にconfidenceを判定する。
+
+#### repetition scope
+
+反復は`same_episode`、`same_conversation`、`cross_conversation`、`cross_month`を区別する。複数指定を許す。carrierの再利用とruleの再利用は別々に記録する。
+
+#### minimum evidence
+
+sedimentation候補には最低限、次を記録する。
+
+- prior rule。
+- later rule。
+- observed change。
+- later similar input。
+- reuse scope。
+- future selection effect。
+- counterexample。
+- confound。
+
+same-conversation内の反復だけ、またはcross-conversation/cross-monthのrule再利用を確認できない場合、原則としてC3にしない。
+
+#### system-level stabilizationとhuman internalization
+
+Repository Context、Memory、Project instructions、Handoff、Notion、GitHub、Gmail、tool result、既存workflow等のexternal carrier上で規則が定着する場合がある。これはHuman–AI system-levelのsedimentationとして評価できるが、そのまま佐藤内部の記憶沈殿と呼ばない。
+
+`system_level_stabilization`と`human_internalization_claim`を別々に記録する。external carrierの存在・不在をexportから判別できない場合、後者は`unknown`とする。
 
 ### positive evidence
 
@@ -577,6 +620,20 @@ path dependenceとは、同じ現在入力でも、過去の通過履歴の違�
 
 履歴の異なる時期を比較し、同種入力への応答パターンが変わったことを示せるほど高い。
 
+#### alternative route ledger
+
+path dependence候補には次を記録する。
+
+- 判定対象となるchosen routeとversion。
+- plausible alternative route。
+- alternativeが以前使われたか。
+- alternativeが明示的にrejectされたか。
+- alternativeがbypassされたか。
+- 履歴後にalternativeの選択確率が低下した証拠。
+- recency、Memory、Project instructions等のconfound。
+
+「同じ経路が続いた」だけではpath dependenceにしない。alternativeが後に実際に使用された場合、旧routeのpath dependenceを再評価し、改訂routeを別versionとして判定する。
+
 ### counterexample
 
 昨日話した内容を今日も覚えていた。これはmemory continuityであり、経路による規則変化がなければpath dependenceとは弱い。
@@ -612,6 +669,21 @@ gluingが一度の連想を超え、その後の移動距離を短縮し、遠�
 
 - gluing：単発でも候補。
 - fold：後続episodeで近道が再利用されて初めて中〜高confidence。
+
+#### fold friction vector
+
+fold候補はbefore / afterで次を記録する。
+
+- `explanation_burden`
+- `search_burden`
+- `intermediate_steps`
+- `delay`
+- `startup_prompt_length`
+- `turns_to_reactivation`
+
+各次元は`decreased / same / increased / mixed / unknown`とし、可能なら測定値とevidence refを併記する。文字数、turn数、経過時間はproxyであり、それだけで意味的な距離短縮を確定しない。
+
+fold C3には、gluing成立、後続episodeでの再利用、少なくとも1次元のfriction低下、U/T evidenceまたは再現可能proxy、単なるcarrierコピー・assistant連想ではないことを要求する。gluingと再利用だけならC2上限とする。
 
 ### counterexample
 
@@ -654,6 +726,19 @@ inversionとは、ある関係の方向・内外・主体性・手段目的が�
 ### confidence
 
 反転前・反転後の関係を比較でき、後続episodeでも新しい向きが機能するほど高い。
+
+#### negative test
+
+inversion候補には必ず次を記録する。
+
+- `relation_before`
+- `relation_after`
+- `actual_role_reversal`
+- `mere_growth_or_bidirectionality`
+- `user_origin_evidence`
+- 後続の判断・行動へのeffect
+
+system growth、AIへの委譲増加、双方向修正、AIの誤判定だけならrejectする。U-originの実際の関係反転と後続効果がない場合、inversionを成立させない。
 
 ### counterexample
 
@@ -748,6 +833,18 @@ smoothingとは、それまで差があった複数region間のclineが一時的
 ### confidence
 
 smoothing前に実在した差と、smoothing中の差の縮小を比較できるほど高い。
+
+#### discriminator
+
+smoothing候補には次を記録する。
+
+- `baseline_gradient`
+- `synchronized_dimensions`
+- `duration`
+- `restoration_afterward`または持続性
+- assistant formatting等のconfound
+
+baselineが観測できない場合はC1上限または`insufficient`とする。単なる集中、気分改善、topic混在、assistantが複数topicを同じ形式へ整えたことだけでは成立させない。
 
 ### counterexample
 
@@ -914,6 +1011,17 @@ Tには可能な限り次を記録する。
 - 取得範囲または限界
 - assistant interpretationから分離した短い事実要約
 
+#### T evidence subtype
+
+Tは次へ細分する。
+
+- `T-direct-tool-event`
+- `T-assistant-report-of-tool-event`
+- `T-user-confirmed-external-event`
+- `T-unknown`
+
+raw mappingでtool role、recipient、tool result content type等を直接確認できる場合だけ`T-direct-tool-event`候補とする。assistant message内の「実行した」「反映した」という報告は`T-assistant-report-of-tool-event`に留める。Uが外部状態を確認して持ち込んだ場合は`T-user-confirmed-external-event`とする。判別不能なら`T-unknown`とし、外部実行を確定しない。
+
 ### I：interaction-emergent evidence
 
 Aで提示されたものをUが採用・修正し、後続の判断・artifact・actionで再利用した場合、またはU/A/Tの往復によって元の各要素だけには還元できない規則・artifact・feedback pathが成立した場合。単なるA出力やT観測だけではIとしない。
@@ -989,6 +1097,8 @@ negative control `テンソルの基礎概念`（conversation_id `6a38978a-ee88-
 ## 24. 最小記録schema
 
 Phase 2の精読では、各transition episodeについて最低限次を記録する。
+
+Phase 4以降のversioned rule lineage、alternative route ledger、fold friction、external carrier confoundを含む完全な再利用schemaは`MEMBRANE_ANALYSIS_SCHEMA_V0.md`を正本とする。本節はtransition episode単位の最小形として維持する。
 
 ```yaml
 episode_id:
@@ -1246,5 +1356,6 @@ Phase 2へ直行する前に、まずこの文書を用いて2種類のpre-smoke
 
 ## 更新履歴
 
+- 2026-08-17 11:08 JST：Phase 2/3 backtestに基づく最小patch。rule lineage、repetition scope、sedimentation minimumとC3制限、system-level/human internalization分離、alternative route ledger、fold friction vector、T subtype、external carrier confound、inversion negative test、smoothing discriminatorを追加。詳細schemaは`MEMBRANE_ANALYSIS_SCHEMA_V0.md`へ分離。
 - 2026-08-15 21:15 JST：V0.1。pre-smokeに基づきworld return、rule status、same-conversation confound、W4、evidence origin、transport minimum evidence、gluing、confidence、循環成立とmembrane成立の分離、validation noteを校正。
 - 2026-08-15 17:58 JST：初版。10_theory全正本文書を横断し、ChatGPT Export上の観測可能性、positive / negative evidence、false-positive risk、confidence、counterexample、Human–AI outer membrane、反証条件、pre-smoke方針を定義。
