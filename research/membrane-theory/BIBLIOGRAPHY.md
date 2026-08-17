@@ -1,8 +1,8 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-09 09:19 JST
-- status：working bibliography / first 20 sources
+- 最終更新日時：2026-08-17 17:50 JST
+- status：working bibliography / first 20 sources + ASC scale references
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
 
@@ -125,6 +125,21 @@
 | REL-002 | summarized | Mauricio Sierra and G. E. Berrios, "The Cambridge Depersonalization Scale: A New Instrument for the Measurement of Depersonalization", 2000. | CDS本家。29項目が自己・身体・感情・記憶・時間・外界をどう分節しているかをレビューした。 |
 | REL-003 | summarized | Josef Parnas and Louis Sass, "The Structure of Self-Consciousness in Schizophrenia", 2011. | BIB-010の自己障害論を、最小自己・物語的自己・自己現前・一人称視点の構造へ展開する補助文献。 |
 | REL-004 | summarized | Wolfgang Blankenburg, *Der Verlust der natürlichen Selbstverständlichkeit: Ein Beitrag zur Psychopathologie symptomarmer Schizophrenien*, 1971. 日本語訳：ヴォルフガング・ブランケンブルク『自明性の喪失――分裂病の現象学』木村敏・岡本進・島弘嗣訳、みすず書房、1978年。 | 「自然な自明性」の喪失を、世界・自己・他者への前反省的な馴染みの変調として読む。BIB-010 / REL-003のhyperreflexivity・自己障害論の重要な前史。 |
+| REL-005 | unread | Adolf Dittrich, "The Standardized Psychometric Assessment of Altered States of Consciousness (ASCs) in Humans", 1998. | ASC尺度群の基礎。5D-ASC / APZ / OAV系を、非通常意識状態の多次元評価として読む。 |
+| REL-006 | unread | Erich Studerus, Alex Gamma, and Franz X. Vollenweider, "Psychometric Evaluation of the Altered States of Consciousness Rating Scale (OAV)", 2010. | 5D-ASC / 11-ASC系の実証的再整理。飛び具合を「一体感・自我崩壊不安・視覚変容」などへ分解する参照点。 |
+| REL-007 | unread | Rick J. Strassman, Clifford R. Qualls, Edward H. Uhlenhuth, and Robert Kellner, "Dose-Response Study of N,N-Dimethyltryptamine in Humans. II. Subjective Effects and Preliminary Results of a New Rating Scale", 1994. | Hallucinogen Rating Scale / HRSの原典。薬理学的な主観効果を、身体・知覚・感情・認知などへ分ける。 |
+| REL-008 | unread | Matthew M. Nour, Lisa Evans, David Nutt, and Robin L. Carhart-Harris, "Ego-Dissolution and Psychedelics: Validation of the Ego-Dissolution Inventory (EDI)", 2016. | EDI原典。自我境界の薄まりを、膜理論のboundary-thinningとして読む。 |
+| REL-009 | unread | Kentaro Kusudo, Hiroyuki Tani, Kanako Yonezawa, Shinichiro Nakajima, Matthew M. Nour, Robin L. Carhart-Harris, and Hiroyuki Uchida, "Development of the Japanese Version of the Ego-Dissolution Inventory (EDI)", 2024. | EDI日本語版。佐藤用の「膜・ASC観察票」で最優先に参照する日本語尺度。 |
+| REL-010 | unread | Frederick S. Barrett, Matthew W. Johnson, and Roland R. Griffiths, "Validation of the Revised Mystical Experience Questionnaire in Experimental Sessions with Psilocybin", 2015. | MEQ30原典。神秘性、肯定的気分、時空超越、言語化不能性を、膜の一体感・時空変容側から読む。 |
+| REL-011 | unread | Kanako Yonezawa et al., "Development of the Japanese Version of the 30-Item Mystical Experience Questionnaire", 2024. | MEQ30日本語版。神秘体験・一体感・時空超越の日本語記録に使う。 |
+| REL-012 | unread | Frederick S. Barrett, Matthew P. Bradstreet, Jeannie-Marie S. Leoutsakos, Matthew W. Johnson, and Roland R. Griffiths, "The Challenging Experience Questionnaire: Characterization of Challenging Experiences with Psilocybin Mushrooms", 2016. | CEQ原典。恐怖、孤立、死、パラノイアなど、困難なASCを膜の破綻・戻りにくさとして読む。 |
+| REL-013 | unread | Hiroyuki Tani et al., "Development of the Japanese Version of the Challenging Experience Questionnaire", 2024. | CEQ日本語版。バッド寄りの体験、不安、孤立、復帰困難を日本語で観察する入口。 |
+| REL-014 | unread | J. Douglas Bremner et al., "Measurement of Dissociative States with the Clinician-Administered Dissociative States Scale (CADSS)", 1998. | CADSS原典。いま起きている状態性の解離を、離人・現実感消失・観察者化として読む。 |
+| REL-015 | unread | Eve M. Bernstein and Frank W. Putnam, "Development, Reliability, and Validity of a Dissociation Scale", 1986; Eve B. Carlson and Frank W. Putnam, *Dissociative Experiences Scale-II*, 1993. | DES / DES-II系。解離傾向全般を、没入・記憶の抜け・離人・現実感消失の広い棚として読む。 |
+| REL-016 | unread | Miyuki Sugiura et al., "Reliability and Validity of a Japanese Version of the Cambridge Depersonalization Scale as a Screening Instrument for Depersonalization Disorder", 2009. | CDS日本語版。REL-002の本家CDSと併用し、離人感・現実感消失を日本語で観察する入口。 |
+| REL-017 | unread | Ronald J. Pekala, Jack Steinberg, and V. K. Kumar, "Measurement of Phenomenological Experience: Phenomenology of Consciousness Inventory", 1986. | PCI原典。薬物に限らない催眠・瞑想・没入・変性意識の現象学的プロフィールを読む。 |
+| REL-018 | unread | Meghan E. Morean et al., "The Drug Effects Questionnaire: Psychometric Support across Three Drug Types", 2013. | DEQ系。薬効としての「効いている」「好き」「もっと欲しい」などを、ASC尺度とは分けて扱う。 |
+| REL-019 | unread | Charles A. Haertzen, Harris E. Hill, and Richard E. Belleville, "Development of the Addiction Research Center Inventory (ARCI): Selection of Items That Are Sensitive to the Effects of Various Drugs", 1963. | ARCI原典。薬物主観効果の古典的尺度。ASCそのものではなく、薬効・身体感覚・気分変化の参照棚。 |
 
 ## 個別読解ノートテンプレート
 
@@ -164,9 +179,25 @@
 | REL-002 | [`20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md`](./20_research/reading_notes/sierra-berrios_2000_cambridge-depersonalization-scale.md) |
 | REL-003 | [`20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md`](./20_research/reading_notes/parnas-sass_2011_structure-of-self-consciousness.md) |
 | REL-004 | [`20_research/reading_notes/blankenburg_1971_verlust-natuerlichen-selbstverstaendlichkeit.md`](./20_research/reading_notes/blankenburg_1971_verlust-natuerlichen-selbstverstaendlichkeit.md) |
+| REL-005 | `20_research/reading_notes/dittrich_1998_standardized-psychometric-assessment-asc.md` |
+| REL-006 | `20_research/reading_notes/studerus-gamma-vollenweider_2010_oav-rating-scale.md` |
+| REL-007 | `20_research/reading_notes/strassman-et-al_1994_dmt-subjective-effects-hrs.md` |
+| REL-008 | `20_research/reading_notes/nour-et-al_2016_ego-dissolution-inventory.md` |
+| REL-009 | `20_research/reading_notes/kusudo-et-al_2024_japanese-ego-dissolution-inventory.md` |
+| REL-010 | `20_research/reading_notes/barrett-johnson-griffiths_2015_meq30-validation.md` |
+| REL-011 | `20_research/reading_notes/yonezawa-et-al_2024_japanese-meq30.md` |
+| REL-012 | `20_research/reading_notes/barrett-et-al_2016_challenging-experience-questionnaire.md` |
+| REL-013 | `20_research/reading_notes/tani-et-al_2024_japanese-challenging-experience-questionnaire.md` |
+| REL-014 | `20_research/reading_notes/bremner-et-al_1998_cadss.md` |
+| REL-015 | `20_research/reading_notes/bernstein-putnam_1986_dissociative-experiences-scale.md` |
+| REL-016 | `20_research/reading_notes/sugiura-et-al_2009_japanese-cambridge-depersonalization-scale.md` |
+| REL-017 | `20_research/reading_notes/pekala-steinberg-kumar_1986_phenomenology-consciousness-inventory.md` |
+| REL-018 | `20_research/reading_notes/morean-et-al_2013_drug-effects-questionnaire.md` |
+| REL-019 | `20_research/reading_notes/haertzen-hill-belleville_1963_arci.md` |
 
 ## 更新履歴
 
+- 2026-08-17 17:50 JST：このセッションで挙げたASC/解離/サイケデリック体験尺度を、原典・日本語版を含めてREL-005〜REL-019として追加。
 - 2026-08-09 08:48 JST：BIB-019 McHale (1987) の読解ノートに、narrative/正史/有限性の佐藤メモを追記。
 - 2026-08-08 23:30 JST：BIB-019 McHale (1987) の読解ノートを作成し、statusをsummarizedへ更新。
 - 2026-08-08 22:54 JST：BIB-005 Varela, Thompson, and Rosch (1991) の読解ノートを作成し、補遺「意味の起源と、意味生成の停止」を追加。statusをreadingへ更新。
