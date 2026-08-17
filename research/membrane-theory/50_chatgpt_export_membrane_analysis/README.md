@@ -1,7 +1,7 @@
 # ChatGPT Export Membrane Analysis
 
 ページ作成日時：2026-08-15 16:56 JST  
-最終更新日時：2026-08-17 11:08 JST
+最終更新日時：2026-08-17 14:12 JST
 
 status: active / design-first  
 scope: ChatGPT Exportを用いた佐藤の膜空間・膜形成過程の分析
@@ -32,6 +32,10 @@ ChatGPTデータエクスポートを、Area / Project / Workbench / Toolの分�
 
 - [`OPERATIONAL_DEFINITIONS_V0.md`](OPERATIONAL_DEFINITIONS_V0.md)：膜理論の各operationをChatGPT Export上でどこまで主張できるかを定義する。
 - [`MEMBRANE_ANALYSIS_SCHEMA_V0.md`](MEMBRANE_ANALYSIS_SCHEMA_V0.md)：message eventからlongitudinal rule lineage、sedimentation、path dependence、fold判定までの記録schemaとgateを定義する。
+
+## 可視化正本
+
+- [`visualization/README.md`](visualization/README.md)：観測されたHuman–AI system topology、topology生成史、claim boundaryの英語版・日本語版SVGと、証拠強度を歪めないvisual grammarの入口。
 
 ## データ境界
 
@@ -106,5 +110,6 @@ region間で、意味、責任、痛み、現実感、親密さ、自由度、�
 
 ## 更新履歴
 
+- 2026-08-17 14:12 JST：Phase 7可視化正本の入口として`visualization/README.md`を追加。
 - 2026-08-17 11:08 JST：Phase 4 backtest済みの`MEMBRANE_ANALYSIS_SCHEMA_V0.md`を分析schema正本として索引へ追加。
 - 2026-08-15 16:56 JST：ChatGPT Exportを膜理論に基づいて再分析する専用領域を作成。理論正本、データ境界、主要観測概念、成果物境界を定義。

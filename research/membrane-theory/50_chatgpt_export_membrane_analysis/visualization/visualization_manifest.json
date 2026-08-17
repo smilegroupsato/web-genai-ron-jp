@@ -1,0 +1,94 @@
+{
+  "schema_version": "membrane-topology-visualization-v0",
+  "created_at_jst": "2026-08-17 14:12 JST",
+  "source_phase": "2026-08-17 Phase 7",
+  "canonical_c3_relation_count": 4,
+  "canonical_evidence_group_count": 9,
+  "derived_png_policy": "local-only / not committed",
+  "figures": [
+    {
+      "figure_id": "observed_human_ai_system_topology",
+      "language": "en",
+      "path": "figures/2026.08.17_01_observed_human_ai_system_topology.svg",
+      "role": "English canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "bad2a2657358d53e924bccd52587ebca9b4e1c55e72b204da4f423a33e6de1de"
+    },
+    {
+      "figure_id": "observed_human_ai_system_topology",
+      "language": "ja",
+      "path": "figures/2026.08.17_01_observed_human_ai_system_topology_ja.svg",
+      "role": "Japanese canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "03b7180f72a8c5ad9deae0bb24ca145d338f798ac408dce2cd57f0f947f8a3ac"
+    },
+    {
+      "figure_id": "topology_genesis",
+      "language": "en",
+      "path": "figures/2026.08.17_02_topology_genesis.svg",
+      "role": "English canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "d514ad181cc2cfccae759c4759250678426f1f233da65cd3fd0872a990771681"
+    },
+    {
+      "figure_id": "topology_genesis",
+      "language": "ja",
+      "path": "figures/2026.08.17_02_topology_genesis_ja.svg",
+      "role": "Japanese canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "eb79d2ffef1dbbb80f5f2a813442545eaafceed8baeabbb321f8b9bb64bc80d6"
+    },
+    {
+      "figure_id": "claim_boundary",
+      "language": "en",
+      "path": "figures/2026.08.17_03_claim_boundary.svg",
+      "role": "English canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "40ad6a657782bc26593b1c294490e6758ae4044118358215a19999b7f6852165"
+    },
+    {
+      "figure_id": "claim_boundary",
+      "language": "ja",
+      "path": "figures/2026.08.17_03_claim_boundary_ja.svg",
+      "role": "Japanese canonical figure",
+      "canonical": true,
+      "source_phase": "2026-08-17 Phase 7",
+      "evidence_mapping": [
+        "canonical C3 relations: 4",
+        "canonical evidence groups: 9",
+        "Path B fold: conditional/shared evidence"
+      ],
+      "sha256": "6e3eb4e163fb0a766a6390147d910d67fa7979c98be3857ec85d3d18aa9f04ef"
+    }
+  ]
+}
