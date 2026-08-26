@@ -171,7 +171,8 @@ html[data-theme-id="membrane-academic"] article.note-box a {
   text-underline-offset: 0.22em;
 }
 
-html[data-theme-id="membrane-academic"] .membrane-index-layout {
+html[data-theme-id="membrane-academic"] .membrane-index-main > article.membrane-index-layout {
+  width: 100%;
   max-width: none;
   padding: 0;
   background: transparent;
