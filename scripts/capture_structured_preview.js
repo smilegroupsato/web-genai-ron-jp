@@ -48,6 +48,24 @@ const cases = [
     height: 844,
     expectedTheme: "library-university-humanities-summer",
   },
+  {
+    id: "membrane-desktop",
+    route:
+      "/_structured_membrane_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/",
+    width: 1440,
+    height: 1000,
+    expectedTheme: "membrane-academic",
+    expectedStylesheet: "/publishing/themes/membrane.css",
+  },
+  {
+    id: "membrane-mobile",
+    route:
+      "/_structured_membrane_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/",
+    width: 390,
+    height: 844,
+    expectedTheme: "membrane-academic",
+    expectedStylesheet: "/publishing/themes/membrane.css",
+  },
 ];
 
 function ensureDir(dir) {
@@ -216,6 +234,12 @@ async function main() {
         baseTheme: root.dataset.themeBase || null,
         season: root.dataset.themeSeason || null,
         assetStatus: root.dataset.heroAssetStatus || null,
+        themeStylesheets: [...document.querySelectorAll('link[rel="stylesheet"]')].map(
+          (link) => new URL(link.href).pathname
+        ),
+        membraneThemeReady: getComputedStyle(root)
+          .getPropertyValue("--membrane-theme-ready")
+          .trim(),
         productionEnabled: root.dataset.themeProductionEnabled || null,
         heroVariant:
           document.querySelector(".series-hero")?.dataset.heroVariant || null,
@@ -270,6 +294,15 @@ async function main() {
       errors.push(
         `theme mismatch: expected ${testCase.expectedTheme}, got ${metrics.themeId}`
       );
+    }
+    if (
+      testCase.expectedStylesheet &&
+      !metrics.themeStylesheets.includes(testCase.expectedStylesheet)
+    ) {
+      errors.push(`theme stylesheet is missing: ${testCase.expectedStylesheet}`);
+    }
+    if (testCase.expectedStylesheet && metrics.membraneThemeReady !== "1") {
+      errors.push("membrane theme stylesheet was linked but did not apply");
     }
     if (
       !metrics.header ||
