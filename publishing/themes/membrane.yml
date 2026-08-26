@@ -1,0 +1,27 @@
+# GENAI-RON MEMBRANE academic theme
+# ページ作成日時：2026-08-26 13:40 JST
+# 最終更新日時：2026-08-26 13:40 JST
+
+theme_id: membrane-academic
+collection_id: membrane
+base_theme: default-academic
+status: active
+production_enabled: true
+
+visual_intent:
+  description: University Pressの研究書を半透明の膜越しに読む常設theme
+  keywords:
+    - quiet
+    - editorial
+    - translucent-layer
+    - permeable-boundary
+
+hero:
+  variant: text-only
+  asset_role: none
+  asset_ref: none
+  text_contrast: dark
+  image_required: false
+
+stylesheets:
+  - /publishing/themes/membrane.css
