@@ -46,6 +46,8 @@ REQUIRED_METADATA = {
 INFRA_ALLOWLIST = {
     ".gitignore",
     ".github/workflows/validate-new-content-publication-lane-v0.yml",
+    ".github/workflows/validate-promotion-fixture-04.yml",
+    ".github/workflows/validate-publishing-structure.yml",
     "content/fixtures/v2-publication-lane-test.md",
     "content/templates/new-document.md",
     "data/new-document-routes.json",
@@ -53,12 +55,14 @@ INFRA_ALLOWLIST = {
     "publishing/README.md",
     "publishing/fixtures/new-document-index.html",
     "publishing/fixtures/new-document-index.md",
+    "publishing/site.yml",
     "publishing/templates/article.html",
-    "scripts/build_site_manifest.py",
+    "publishing/themes/membrane.css",
+    "publishing/themes/membrane.yml",
     "scripts/build_structured_preview.py",
+    "scripts/capture_structured_preview.js",
     "scripts/new_document_publication.py",
     "scripts/validate_new_document_visual.js",
-    "scripts/validate_site_manifest_routing.py",
 }
 
 
