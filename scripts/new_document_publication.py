@@ -54,9 +54,11 @@ INFRA_ALLOWLIST = {
     "publishing/fixtures/new-document-index.html",
     "publishing/fixtures/new-document-index.md",
     "publishing/templates/article.html",
+    "scripts/build_site_manifest.py",
     "scripts/build_structured_preview.py",
     "scripts/new_document_publication.py",
     "scripts/validate_new_document_visual.js",
+    "scripts/validate_site_manifest_routing.py",
 }
 
 
