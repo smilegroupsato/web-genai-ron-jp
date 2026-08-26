@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf8f2"/>
+      <stop offset="1" stop-color="#f4f2eb"/>
+    </linearGradient>
+    <linearGradient id="memA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9e1de" stop-opacity=".16"/>
+      <stop offset=".45" stop-color="#cfdcda" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#eef0ea" stop-opacity=".10"/>
+    </linearGradient>
+    <linearGradient id="memB" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#edf0e8" stop-opacity=".08"/>
+      <stop offset=".55" stop-color="#d5dfda" stop-opacity=".27"/>
+      <stop offset="1" stop-color="#c9d8d8" stop-opacity=".18"/>
+    </linearGradient>
+    <filter id="paperNoise" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="2" seed="17" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono">
+        <feFuncA type="table" tableValues="0 .055"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="fiber" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.08" numOctaves="3" seed="29" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="1.2" cy="1.2" r=".55" fill="#78847f" opacity=".075"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect width="1600" height="900" fill="url(#dots)"/>
+  <rect width="1600" height="900" filter="url(#paperNoise)" opacity=".32"/>
+
+  <path d="M-120 120 C170 20 345 105 535 190 C735 280 900 290 1080 205 C1260 118 1430 62 1725 120 L1700 445 C1420 365 1240 410 1080 490 C880 590 690 580 515 500 C330 414 120 340 -130 430 Z"
+        fill="url(#memA)" stroke="#71817c" stroke-opacity=".23" stroke-width="1.25" filter="url(#fiber)"/>
+
+  <path d="M-150 720 C130 575 320 565 520 610 C760 664 886 760 1055 790 C1250 826 1420 735 1710 565 L1730 960 L-180 960 Z"
+        fill="url(#memB)" stroke="#7b8b84" stroke-opacity=".22" stroke-width="1.15" filter="url(#fiber)"/>
+
+  <path d="M-70 605 C260 525 445 530 646 590 C865 655 970 742 1175 724 C1360 708 1460 612 1650 500"
+        fill="none" stroke="#6f817b" stroke-opacity=".18" stroke-width="1" filter="url(#fiber)"/>
+
+  <path d="M70 90 C350 230 465 370 570 515 C665 645 790 707 940 697 C1115 686 1260 585 1535 530"
+        fill="none" stroke="#8b948f" stroke-opacity=".13" stroke-width=".9" filter="url(#fiber)"/>
+
+  <g opacity=".12" fill="none" stroke="#75847f" stroke-width=".7">
+    <path d="M210 80 C385 215 466 338 580 478 C682 604 832 639 1008 607"/>
+    <path d="M118 690 C370 602 540 630 735 720 C890 792 1018 812 1180 775"/>
+    <path d="M1015 115 C1180 165 1278 258 1430 322"/>
+  </g>
+</svg>
