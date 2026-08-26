@@ -62,6 +62,8 @@ jobs:
             _structured_build_preview_ci \
             _structured_library_preview_ci \
             _structured_membrane_preview_ci \
+            _content_membrane_index_preview_ci \
+            _structured_membrane_index_preview_ci \
             _structured_visual_qa \
             _appearance_visual_qa \
             _promotion_fixture \
@@ -82,6 +84,14 @@ jobs:
             --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
             --preview-root _structured_membrane_preview_ci \
             --theme-id membrane-academic
+
+          python scripts/build_content_pages.py \
+            --source content/fixtures/membrane-index-layout-test.md \
+            --preview-root _content_membrane_index_preview_ci
+
+          python scripts/build_structured_preview.py \
+            --source content/fixtures/membrane-index-layout-test.md \
+            --preview-root _structured_membrane_index_preview_ci
 
       - name: Validate semantic parity for every generated page
         run: |
@@ -175,6 +185,43 @@ jobs:
             echo "MEMBRANE stylesheet leaked into an existing theme" >&2
             exit 1
           fi
+
+      - name: Validate MEMBRANE index semantic layout and parity
+        run: |
+          current="_content_membrane_index_preview_ci/fixtures/membrane-index-layout-test/index.html"
+          structured="_structured_membrane_index_preview_ci/fixtures/membrane-index-layout-test/index.html"
+          python scripts/validate_structured_preview.py \
+            "$current" \
+            "$structured" \
+            --expected-theme membrane-academic \
+            --expected-collection membrane \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
+
+          for region in \
+            membrane-index-hero \
+            membrane-index-primary-nav \
+            membrane-index-information \
+            membrane-index-grid \
+            membrane-index-thoughts \
+            membrane-index-research-map \
+            membrane-index-reading \
+            membrane-index-bibliography \
+            membrane-index-about; do
+            grep -Eq "class=\"[^\"]*${region}[^\"]*\"" "$structured"
+          done
+
+          for unpublished in thoughts research-map reading bibliography; do
+            if grep -Fq "/membrane/${unpublished}/" "$structured"; then
+              echo "unpublished MEMBRANE route is linked: ${unpublished}" >&2
+              exit 1
+            fi
+          done
 
       - name: Build 08 promotion dry-run fixture
         run: |
@@ -296,6 +343,7 @@ jobs:
             _structured_build_preview_ci/
             _structured_library_preview_ci/
             _structured_membrane_preview_ci/
+            _structured_membrane_index_preview_ci/
             _promotion_fixture/
             _structured_visual_qa/
             _appearance_visual_qa/

@@ -49,6 +49,7 @@ INFRA_ALLOWLIST = {
     ".github/workflows/validate-promotion-fixture-04.yml",
     ".github/workflows/validate-publishing-structure.yml",
     "content/fixtures/v2-publication-lane-test.md",
+    "content/fixtures/membrane-index-layout-test.md",
     "content/templates/new-document.md",
     "data/new-document-routes.json",
     "data/site-content-salvage.manifest.json",
@@ -57,6 +58,7 @@ INFRA_ALLOWLIST = {
     "publishing/fixtures/new-document-index.html",
     "publishing/fixtures/new-document-index.md",
     "publishing/components/membrane-header.html",
+    "publishing/components/membrane-index.html",
     "publishing/site.yml",
     "publishing/templates/article.html",
     "publishing/themes/membrane.css",
@@ -67,6 +69,7 @@ INFRA_ALLOWLIST = {
     "scripts/capture_structured_preview.js",
     "scripts/new_document_publication.py",
     "scripts/validate_new_document_visual.js",
+    "scripts/validate_structured_preview.py",
     "scripts/validate_site_manifest_routing.py",
 }
 

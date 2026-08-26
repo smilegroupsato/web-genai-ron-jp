@@ -66,6 +66,26 @@ const cases = [
     expectedTheme: "membrane-academic",
     expectedStylesheet: "/publishing/themes/membrane.css",
   },
+  {
+    id: "membrane-index-desktop",
+    route:
+      "/_structured_membrane_index_preview_ci/fixtures/membrane-index-layout-test/",
+    width: 1440,
+    height: 1000,
+    expectedTheme: "membrane-academic",
+    expectedStylesheet: "/publishing/themes/membrane.css",
+    expectedMembraneIndex: true,
+  },
+  {
+    id: "membrane-index-mobile",
+    route:
+      "/_structured_membrane_index_preview_ci/fixtures/membrane-index-layout-test/",
+    width: 390,
+    height: 844,
+    expectedTheme: "membrane-academic",
+    expectedStylesheet: "/publishing/themes/membrane.css",
+    expectedMembraneIndex: true,
+  },
 ];
 
 function ensureDir(dir) {
@@ -283,6 +303,9 @@ async function main() {
           : null,
         readingSizeTest,
         overflow,
+        membraneIndexRegionCount: document.querySelectorAll(
+          ".membrane-index-hero, .membrane-index-primary-nav, .membrane-index-information, .membrane-index-grid, .membrane-index-thoughts, .membrane-index-research-map, .membrane-index-reading, .membrane-index-bibliography, .membrane-index-about"
+        ).length,
       };
     }, readingSizeTest);
 
@@ -293,6 +316,11 @@ async function main() {
     if (metrics.themeId !== testCase.expectedTheme) {
       errors.push(
         `theme mismatch: expected ${testCase.expectedTheme}, got ${metrics.themeId}`
+      );
+    }
+    if (testCase.expectedMembraneIndex && metrics.membraneIndexRegionCount !== 9) {
+      errors.push(
+        `MEMBRANE index region mismatch: expected 9, got ${metrics.membraneIndexRegionCount}`
       );
     }
     if (

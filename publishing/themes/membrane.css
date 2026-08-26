@@ -1,7 +1,7 @@
 /*
 GENAI-RON MEMBRANE production theme
 ページ作成日時：2026-08-26 13:40 JST
-最終更新日時：2026-08-26 13:40 JST
+最終更新日時：2026-08-26 16:59 JST
 
 Scoped to data-theme-id so the default and Library Series themes remain unchanged.
 */
@@ -171,7 +171,112 @@ html[data-theme-id="membrane-academic"] article.note-box a {
   text-underline-offset: 0.22em;
 }
 
+html[data-theme-id="membrane-academic"] .membrane-index-main > article.membrane-index-layout {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  background: transparent;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-hero {
+  padding-inline: clamp(1.5rem, 8vw, 7rem);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-introduction {
+  max-width: 38rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 48rem;
+  margin-top: clamp(2rem, 7vw, 5rem);
+  border-top: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav span {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem;
+  border-right: 1px solid var(--membrane-rule);
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  letter-spacing: 0.05em;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav b,
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav small {
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-information {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.25fr) 1fr;
+  gap: 1rem;
+  padding: 0.9rem clamp(1.5rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--membrane-rule);
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.78rem;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-inline: clamp(1rem, 3vw, 2.5rem);
+  border-inline: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid > section {
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-right: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid > section:last-child {
+  border-right: 0;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid h2,
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography h2,
+html[data-theme-id="membrane-academic"] .membrane-index-about h2 {
+  margin-top: 0;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-reading table {
+  width: 100%;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography {
+  margin: 0 clamp(1rem, 3vw, 2.5rem);
+  padding: 1rem clamp(1.25rem, 3vw, 2.5rem);
+  border: 1px solid var(--membrane-rule);
+  background: var(--membrane-blue);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-about {
+  max-width: 54rem;
+  margin-inline: auto;
+  padding: clamp(3rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+}
+
 @media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .membrane-index-primary-nav,
+  html[data-theme-id="membrane-academic"] .membrane-index-grid,
+  html[data-theme-id="membrane-academic"] .membrane-index-information {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-primary-nav span,
+  html[data-theme-id="membrane-academic"] .membrane-index-grid > section {
+    border-right: 0;
+    border-bottom: 1px solid var(--membrane-rule);
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-information {
+    gap: 0.35rem;
+  }
+
   html[data-theme-id="membrane-academic"] .series-hero {
     min-height: 0;
     padding-block: 4.5rem;
