@@ -24,6 +24,7 @@ class ArticleSnapshotParser(HTMLParser):
         self.in_h1 = False
         self.in_h2 = False
         self.in_nav = False
+        self.excluded_depth = 0
         self.title_parts: List[str] = []
         self.heading_parts: List[str] = []
         self.current_heading: List[str] = []
@@ -52,6 +53,14 @@ class ArticleSnapshotParser(HTMLParser):
     def handle_starttag(self, tag: str, attrs: List[Tuple[str, str | None]]) -> None:
         attrs_dict = dict(attrs)
         classes = self._classes(attrs)
+        if self.excluded_depth or classes.intersection(
+            {
+                "membrane-index-title",
+                "membrane-index-primary-nav",
+                "membrane-index-information",
+            }
+        ):
+            self.excluded_depth += 1
         starts_article = tag == "article" and "note-box" in classes
         self.stack.append((tag, starts_article))
 
@@ -85,6 +94,7 @@ class ArticleSnapshotParser(HTMLParser):
             self.current_link_text = []
 
     def handle_endtag(self, tag: str) -> None:
+        was_excluded = self.excluded_depth > 0
         if tag == "h1":
             self.in_h1 = False
         if self.in_article and tag == "h2" and self.in_h2:
@@ -104,13 +114,15 @@ class ArticleSnapshotParser(HTMLParser):
             _, started_article = self.stack.pop()
             if started_article:
                 self.in_article = False
+        if was_excluded:
+            self.excluded_depth -= 1
 
     def handle_data(self, data: str) -> None:
         if not data.strip():
             return
         if self.in_h1:
             self.title_parts.append(data)
-        if self.in_article:
+        if self.in_article and not self.excluded_depth:
             self.article_text_parts.append(data)
             if self.in_h2:
                 self.current_heading.append(data)
