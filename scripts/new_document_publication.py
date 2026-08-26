@@ -51,6 +51,7 @@ INFRA_ALLOWLIST = {
     "content/fixtures/v2-publication-lane-test.md",
     "content/templates/new-document.md",
     "data/new-document-routes.json",
+    "data/site-content-salvage.manifest.json",
     "publishing/NEW_DOCUMENT_PUBLICATION.md",
     "publishing/README.md",
     "publishing/fixtures/new-document-index.html",
