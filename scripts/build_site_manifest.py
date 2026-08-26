@@ -100,6 +100,10 @@ def route_for(path: Path) -> str:
 def page_type_for(route: str) -> str:
     if route == "/":
         return "home"
+    if route == "/membrane/":
+        return "membrane-index"
+    if route.startswith("/membrane/"):
+        return "membrane-entry"
     if route in {"/article/", "/notes/", "/essay/"}:
         return "collection-index"
     if route.endswith("/bibliography.html"):
@@ -127,6 +131,21 @@ def page_type_for(route: str) -> str:
 def content_path_for(route: str) -> str | None:
     if route == "/":
         candidate = Path("content") / "index.md"
+        return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    if route == "/membrane/":
+        candidate = Path("content") / "membrane" / "index.md"
+        return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
+    membrane_match = re.fullmatch(
+        r"/membrane/(?:(thoughts|reading)/([^/]+)|(about|research-map|bibliography))/",
+        route,
+    )
+    if membrane_match:
+        section, slug, standalone = membrane_match.groups()
+        candidate = (
+            Path("content/membrane") / section / f"{slug}.md"
+            if section and slug
+            else Path("content/membrane") / f"{standalone}.md"
+        )
         return candidate.as_posix() if (REPO_ROOT / candidate).is_file() else None
     if route == "/article/":
         candidate = Path("content") / "article" / "index.md"
