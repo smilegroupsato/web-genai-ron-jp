@@ -43,6 +43,7 @@ SITE_HEADER = PUBLISHING_ROOT / "components" / "site-header.html"
 MEMBRANE_HEADER = PUBLISHING_ROOT / "components" / "membrane-header.html"
 SITE_FOOTER = PUBLISHING_ROOT / "components" / "site-footer.html"
 READING_PREFERENCES = PUBLISHING_ROOT / "components" / "reading-preferences.html"
+MEMBRANE_INDEX = PUBLISHING_ROOT / "components" / "membrane-index.html"
 
 PLACEHOLDER_RE = re.compile(r"\{\{([a-zA-Z0-9_-]+)\}\}")
 
@@ -261,6 +262,81 @@ def render_template(template: str, values: Dict[str, str]) -> str:
     return rendered
 
 
+def membrane_index_sections(markdown: str) -> tuple[str, Dict[str, str]]:
+    matches = list(re.finditer(r"^##\s+(.+?)\s*$", markdown, flags=re.MULTILINE))
+    introduction = markdown[: matches[0].start()] if matches else markdown
+    sections: Dict[str, str] = {}
+    for position, match in enumerate(matches):
+        heading = match.group(1).split("/", 1)[0].strip().upper()
+        end = (
+            len(markdown)
+            if heading == "ABOUT"
+            else matches[position + 1].start() if position + 1 < len(matches) else len(markdown)
+        )
+        sections[heading] = markdown[match.start() : end]
+        if heading == "ABOUT":
+            break
+    required = {"THOUGHTS", "RESEARCH MAP", "READING", "BIBLIOGRAPHY", "ABOUT"}
+    missing = sorted(required - sections.keys())
+    if missing:
+        raise BuildError(f"membrane-index sections are missing: {', '.join(missing)}")
+    return introduction, sections
+
+
+def render_standard_main(meta: Dict[str, object], body_html: str, theme: Dict[str, str]) -> str:
+    series_label = str(meta.get("series_label", "生成AIのしくみ 超詳解"))
+    order_raw = str(meta.get("series_order", "")).strip()
+    order = str(meta.get("order_display", "")).strip() or (
+        order_raw.zfill(2) if order_raw.isdigit() else order_raw
+    )
+    kicker = " ".join(part for part in (series_label, order) if part).strip()
+    return f'''    <section
+      class="series-hero"
+      data-hero-variant="{html.escape(theme["hero_variant"], quote=True)}"
+      data-text-contrast="{html.escape(theme["text_contrast"], quote=True)}"
+      data-asset-role="{html.escape(theme["asset_role"], quote=True)}"
+      data-asset-ref="{html.escape(theme["asset_ref"], quote=True)}"
+      data-asset-status="{html.escape(theme["asset_status"], quote=True)}"
+    >
+      <p class="series-kicker">{html.escape(kicker)}</p>
+      <h1>{html.escape(str(meta.get("title", "Untitled")))}</h1>
+      <p class="series-subtitle">{html.escape(str(meta.get("subtitle", "")))}</p>
+    </section>
+    <div class="series-main">
+      <article class="note-box">
+{body_html}
+{render_article_nav(meta)}
+      </article>
+    </div>'''
+
+
+def render_membrane_index_main(
+    meta: Dict[str, object], markdown: str, theme: Dict[str, str]
+) -> str:
+    introduction, sections = membrane_index_sections(markdown)
+    series_label = str(meta.get("series_label", "MEMBRANE STUDIES"))
+    order = str(meta.get("order_display", meta.get("series_order", ""))).strip()
+    values = {
+        "hero_variant": html.escape(theme["hero_variant"], quote=True),
+        "text_contrast": html.escape(theme["text_contrast"], quote=True),
+        "asset_role": html.escape(theme["asset_role"], quote=True),
+        "asset_ref": html.escape(theme["asset_ref"], quote=True),
+        "asset_status": html.escape(theme["asset_status"], quote=True),
+        "series_kicker": html.escape(" ".join(filter(None, (series_label, order)))),
+        "title": html.escape(str(meta.get("title", "Untitled"))),
+        "subtitle": html.escape(str(meta.get("subtitle", ""))),
+        "description": html.escape(str(meta.get("description", ""))),
+        "introduction_html": render_markdown_body(introduction),
+        "thoughts_html": render_markdown_body(sections["THOUGHTS"]),
+        "research_map_html": render_markdown_body(sections["RESEARCH MAP"]),
+        "reading_html": render_markdown_body(sections["READING"]),
+        "bibliography_html": render_markdown_body(sections["BIBLIOGRAPHY"]),
+        "about_html": render_markdown_body(sections["ABOUT"]),
+        "article_nav": render_article_nav(meta),
+    }
+    return render_template(read_required(MEMBRANE_INDEX), values)
+
+
 def source_paths(explicit: str | None) -> Iterable[Path]:
     if explicit:
         path = (REPO_ROOT / explicit).resolve()
@@ -282,7 +358,7 @@ def output_path_for(meta: Dict[str, object], preview_root: Path) -> Path:
     return preview_root / slug.strip("/") / "index.html"
 
 
-def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str:
+def build_article(meta: Dict[str, object], markdown: str, body_html: str, theme_id: str) -> str:
     template = read_required(ARTICLE_TEMPLATE)
     series_slug = series_slug_from_meta(meta)
     theme = theme_resolution(theme_id)
@@ -302,6 +378,12 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
 
     document_title = f"{series_kicker}｜GENAI-RON" if series_kicker else f"{title}｜GENAI-RON"
     og_title = series_kicker or title
+    page_variant = str(meta.get("page_variant", "")).strip()
+    main_content = (
+        render_membrane_index_main(meta, markdown, theme)
+        if page_variant == "membrane-index"
+        else render_standard_main(meta, body_html, theme)
+    )
 
     values = {
         "series_slug": html.escape(series_slug, quote=True),
@@ -322,16 +404,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
         "web_migrated": html.escape(str(meta.get("web_migrated_at", ""))),
         "site_header": header,
         "reading_preferences": reading_preferences,
-        "hero_variant": html.escape(theme["hero_variant"], quote=True),
-        "text_contrast": html.escape(theme["text_contrast"], quote=True),
-        "asset_role": html.escape(theme["asset_role"], quote=True),
-        "asset_ref": html.escape(theme["asset_ref"], quote=True),
-        "asset_status": html.escape(theme["asset_status"], quote=True),
-        "series_kicker": html.escape(series_kicker),
-        "title": html.escape(title),
-        "subtitle": html.escape(subtitle),
-        "body_html": body_html,
-        "article_nav": render_article_nav(meta),
+        "main_content": main_content,
         "site_footer": footer,
     }
     return render_template(template, values) + "\n"
@@ -348,7 +421,7 @@ def build_one(path: Path, preview_root: Path, cli_theme_id: str | None) -> Path:
         theme_id = default_theme_id
 
     body_html = render_markdown_body(body)
-    page = build_article(meta, body_html, theme_id)
+    page = build_article(meta, body, body_html, theme_id)
     out_path = output_path_for(meta, preview_root)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(page, encoding="utf-8")
