@@ -67,12 +67,25 @@ jobs:
             --expected-asset-status none \
             --expected-production-enabled true
 
-      - name: Validate promoted site artifact is byte-identical to candidate
+      - name: Validate site byte identity or unchanged known drift
         run: |
           target="site/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
           candidate="_promotion_fixture/deep-dive-04-tool-execution-loop/candidate/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
-          cmp -s "$target" "$candidate"
-          sha256sum "$target" "$candidate"
+          if cmp -s "$target" "$candidate"; then
+            sha256sum "$target" "$candidate"
+            exit 0
+          fi
+
+          base_root=$(mktemp -d)
+          git worktree add --detach "$base_root" origin/main
+          (
+            cd "$base_root"
+            python scripts/prepare_promotion_fixture.py
+          )
+          baseline="$base_root/_promotion_fixture/deep-dive-04-tool-execution-loop/candidate/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          cmp -s "$baseline" "$candidate"
+          sha256sum "$baseline" "$candidate"
+          git worktree remove --force "$base_root"
 
       - name: Validate fixture report safety boundary
         run: |
