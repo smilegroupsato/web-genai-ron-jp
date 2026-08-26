@@ -40,6 +40,11 @@ rendering_contract:
 - 本文と注記
 - コードブロックと表
 - 参照リンク
+- 標準 Markdown の強調と引用
+
+**強調表示**は strong 要素として描画する。
+
+> 標準 Markdown の引用は blockquote 要素として描画する。
 
 ```text
 content fixture -> current preview
