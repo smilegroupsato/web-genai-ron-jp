@@ -40,6 +40,7 @@ DEFAULT_PREVIEW_ROOT = REPO_ROOT / "_structured_build_preview"
 SITE_REGISTRY = PUBLISHING_ROOT / "site.yml"
 ARTICLE_TEMPLATE = PUBLISHING_ROOT / "templates" / "article.html"
 SITE_HEADER = PUBLISHING_ROOT / "components" / "site-header.html"
+MEMBRANE_HEADER = PUBLISHING_ROOT / "components" / "membrane-header.html"
 SITE_FOOTER = PUBLISHING_ROOT / "components" / "site-footer.html"
 READING_PREFERENCES = PUBLISHING_ROOT / "components" / "reading-preferences.html"
 
@@ -228,7 +229,9 @@ def series_slug_from_meta(meta: Dict[str, object]) -> str:
     return ""
 
 
-def render_site_header_for_series(series_slug: str) -> str:
+def render_site_header(series_slug: str, theme: Dict[str, str]) -> str:
+    if theme["theme_id"] == "membrane-academic" or theme["theme_collection"] == "membrane":
+        return read_required(MEMBRANE_HEADER)
     if series_slug == "ai-dialogue-intro":
         return """<header class="series-header">
   <div class="series-header-inner">
@@ -282,10 +285,10 @@ def output_path_for(meta: Dict[str, object], preview_root: Path) -> Path:
 def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str:
     template = read_required(ARTICLE_TEMPLATE)
     series_slug = series_slug_from_meta(meta)
-    header = render_site_header_for_series(series_slug)
+    theme = theme_resolution(theme_id)
+    header = render_site_header(series_slug, theme)
     footer = read_required(SITE_FOOTER)
     reading_preferences = read_required(READING_PREFERENCES)
-    theme = theme_resolution(theme_id)
 
     title = str(meta.get("title", "Untitled"))
     subtitle = str(meta.get("subtitle", ""))

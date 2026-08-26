@@ -184,6 +184,14 @@ jobs:
           test -f "$current"
           test -f "$structured"
 
+          grep -Fq '<strong>強調表示</strong>' "$current"
+          grep -Fq '<blockquote>' "$current"
+          grep -Fq '標準 Markdown の引用は blockquote 要素として描画する。' "$current"
+          if grep -Fq '**強調表示**' "$current"; then
+            echo "strong Markdown was left unrendered" >&2
+            exit 1
+          fi
+
           python scripts/validate_structured_preview.py \
             "$current" \
             "$structured" \
