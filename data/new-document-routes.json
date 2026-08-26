@@ -8,6 +8,13 @@
       "index_source": "publishing/fixtures/new-document-index.md",
       "index_html": "publishing/fixtures/new-document-index.html",
       "test_only": true
+    },
+    {
+      "id": "membrane-index",
+      "source": "content/membrane/index.md",
+      "route": "/membrane/",
+      "index_source": "content/index.md",
+      "index_html": "site/index.html"
     }
   ]
 }
