@@ -193,9 +193,46 @@ jobs:
             exit 1
           fi
 
+      - name: Validate MEMBRANE home entry semantic parity
+        run: |
+          python - <<'PY'
+          import re
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          route = "/membrane/"
+          markers = (
+              "膜 | MEMBRANE",
+              "Special Publication",
+              "生命・自己・世界・AIのあいだにある「膜」を、既存研究と作業仮説を分けながら考える公開研究ノート。",
+          )
+          source = Path("content/index.md").read_text(encoding="utf-8")
+          public = Path("site/index.html").read_text(encoding="utf-8")
+
+          class LinkCollector(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.hrefs = []
+
+              def handle_starttag(self, tag, attrs):
+                  if tag == "a":
+                      href = dict(attrs).get("href")
+                      if href:
+                          self.hrefs.append(href)
+
+          parser = LinkCollector()
+          parser.feed(public)
+          markdown_links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", source)
+          assert markdown_links.count(route) == 1
+          assert parser.hrefs.count(route) == 1
+          for marker in markers:
+              assert marker in source
+              assert marker in public
+          PY
+
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
           if [ -n "$disallowed" ]; then
             echo "unexpected public site file changes:" >&2
             echo "$disallowed" >&2
