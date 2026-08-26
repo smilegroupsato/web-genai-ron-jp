@@ -14,9 +14,11 @@ on:
       - "publishing/templates/article.html"
       - "requirements-publishing.txt"
       - "scripts/build_content_pages.py"
+      - "scripts/build_site_manifest.py"
       - "scripts/build_structured_preview.py"
       - "scripts/new_document_publication.py"
       - "scripts/validate_new_document_visual.js"
+      - "scripts/validate_site_manifest_routing.py"
       - "scripts/validate_structured_preview.py"
       - ".github/workflows/validate-new-content-publication-lane-v0.yml"
   workflow_dispatch:
@@ -45,9 +47,16 @@ jobs:
         run: |
           python -m py_compile \
             scripts/build_content_pages.py \
+            scripts/build_site_manifest.py \
             scripts/build_structured_preview.py \
             scripts/new_document_publication.py \
+            scripts/validate_site_manifest_routing.py \
             scripts/validate_structured_preview.py
+
+      - name: Validate site manifest namespace routing
+        run: |
+          python scripts/validate_site_manifest_routing.py
+          python scripts/build_site_manifest.py --check
 
       - name: Prepare SHA-fixed new-document fixture
         run: |
