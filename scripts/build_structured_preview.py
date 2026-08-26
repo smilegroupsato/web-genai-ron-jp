@@ -83,6 +83,27 @@ def repo_path(value: object, label: str) -> Path:
     return path
 
 
+def render_theme_stylesheets(value: object, label: str) -> str:
+    if value is None:
+        return ""
+    if not isinstance(value, list):
+        raise BuildError(f"publishing manifest stylesheets must be a list: {label}")
+
+    links: List[str] = []
+    for item in value:
+        href = str(item).strip()
+        if (
+            not href.startswith("/")
+            or href.startswith("//")
+            or any(char in href for char in ("\n", "\r"))
+        ):
+            raise BuildError(
+                f"theme stylesheet must be a root-relative URL: {label}: {href!r}"
+            )
+        links.append(f'  <link rel="stylesheet" href="{html.escape(href, quote=True)}">')
+    return "\n" + "\n".join(links) if links else ""
+
+
 def theme_resolution(theme_id: str) -> Dict[str, str]:
     registry = load_yaml_mapping(SITE_REGISTRY)
     registered_themes = require_mapping(registry.get("themes"), "site.yml:themes")
@@ -104,6 +125,43 @@ def theme_resolution(theme_id: str) -> Dict[str, str]:
             "asset_status": "none",
             "production_enabled": "true",
             "theme_manifest": str(manifest_path.relative_to(REPO_ROOT)),
+            "theme_stylesheets": "",
+        }
+
+    standalone_entry = registered_themes.get(theme_id)
+    if theme_id != "library-series" and isinstance(standalone_entry, dict):
+        manifest_path = repo_path(
+            standalone_entry.get("manifest"), f"theme:{theme_id}:manifest"
+        )
+        manifest = load_yaml_mapping(manifest_path)
+        manifest_theme_id = str(manifest.get("theme_id", "")).strip()
+        if manifest_theme_id != theme_id:
+            raise BuildError(
+                f"theme manifest id mismatch: requested {theme_id!r}, "
+                f"got {manifest_theme_id!r}"
+            )
+        hero = require_mapping(manifest.get("hero"), f"{manifest_path.name}:hero")
+        asset_ref = str(hero.get("asset_ref", "none")).strip() or "none"
+        asset_status = (
+            "resolved" if asset_ref not in {"none", "unresolved"} else asset_ref
+        )
+        return {
+            "theme_id": theme_id,
+            "theme_collection": str(manifest.get("collection_id", "core")),
+            "theme_base": str(manifest.get("base_theme", theme_id)),
+            "theme_season": str(manifest.get("season", "none")),
+            "hero_variant": str(hero.get("variant", "text-only")),
+            "text_contrast": str(hero.get("text_contrast", "dark")),
+            "asset_role": str(hero.get("asset_role", "none")),
+            "asset_ref": asset_ref,
+            "asset_status": asset_status,
+            "production_enabled": str(
+                bool(manifest.get("production_enabled", False))
+            ).lower(),
+            "theme_manifest": str(manifest_path.relative_to(REPO_ROOT)),
+            "theme_stylesheets": render_theme_stylesheets(
+                manifest.get("stylesheets"), f"{manifest_path.name}:stylesheets"
+            ),
         }
 
     library_entry = require_mapping(
@@ -156,6 +214,7 @@ def theme_resolution(theme_id: str) -> Dict[str, str]:
         "asset_status": asset_status,
         "production_enabled": str(bool(variant.get("production_enabled", False))).lower(),
         "theme_manifest": str(manifest_path.relative_to(REPO_ROOT)),
+        "theme_stylesheets": "",
     }
 
 
@@ -249,6 +308,7 @@ def build_article(meta: Dict[str, object], body_html: str, theme_id: str) -> str
         "theme_base": html.escape(theme["theme_base"], quote=True),
         "theme_season": html.escape(theme["theme_season"], quote=True),
         "theme_manifest": html.escape(theme["theme_manifest"], quote=True),
+        "theme_stylesheets": theme["theme_stylesheets"],
         "production_enabled": html.escape(theme["production_enabled"], quote=True),
         "document_title": html.escape(document_title),
         "description": html.escape(description, quote=True),
