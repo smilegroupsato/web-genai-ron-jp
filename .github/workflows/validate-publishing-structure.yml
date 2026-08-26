@@ -61,6 +61,7 @@ jobs:
             _content_build_preview_ci \
             _structured_build_preview_ci \
             _structured_library_preview_ci \
+            _structured_membrane_preview_ci \
             _structured_visual_qa \
             _appearance_visual_qa \
             _promotion_fixture \
@@ -76,6 +77,11 @@ jobs:
             --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
             --preview-root _structured_library_preview_ci \
             --theme-id library-university-humanities-summer
+
+          python scripts/build_structured_preview.py \
+            --source content/series/genai-shikumi-deep-dive/04-tool-execution-loop.md \
+            --preview-root _structured_membrane_preview_ci \
+            --theme-id membrane-academic
 
       - name: Validate semantic parity for every generated page
         run: |
@@ -132,6 +138,30 @@ jobs:
             --expected-asset-role hero-main \
             --expected-asset-status unresolved \
             --expected-production-enabled false
+
+      - name: Validate MEMBRANE metadata, stylesheet, and semantic parity
+        run: |
+          membrane="_structured_membrane_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html"
+          python scripts/validate_structured_preview.py \
+            _content_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            "$membrane" \
+            --expected-theme membrane-academic \
+            --expected-collection membrane \
+            --expected-base default-academic \
+            --expected-season none \
+            --expected-hero-variant text-only \
+            --expected-text-contrast dark \
+            --expected-asset-role none \
+            --expected-asset-status none \
+            --expected-production-enabled true
+
+          grep -Fq '<link rel="stylesheet" href="/publishing/themes/membrane.css">' "$membrane"
+          if grep -Fq '/publishing/themes/membrane.css' \
+            _structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
+            _structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html; then
+            echo "MEMBRANE stylesheet leaked into an existing theme" >&2
+            exit 1
+          fi
 
       - name: Build 08 promotion dry-run fixture
         run: |
@@ -215,6 +245,7 @@ jobs:
           path: |
             _structured_build_preview_ci/
             _structured_library_preview_ci/
+            _structured_membrane_preview_ci/
             _promotion_fixture/
             _structured_visual_qa/
             _appearance_visual_qa/

@@ -48,6 +48,8 @@ behaviors:
 themes:
   default-academic:
     manifest: publishing/themes/default.yml
+  membrane-academic:
+    manifest: publishing/themes/membrane.yml
   library-series:
     manifest: publishing/themes/library-series.yml
 
