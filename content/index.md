@@ -46,6 +46,16 @@ Research Archive of Generative AI
 - [Research Notes](#notes)
 - [Essays](#essays)
 
+Special Publication
+
+## 独立研究領域
+
+### [膜 | MEMBRANE](/membrane/)
+
+生命・自己・世界・AIのあいだにある「膜」を、既存研究と作業仮説を分けながら考える公開研究ノート。
+
+Special Publication / MEMBRANE Studies / Ongoing Research
+
 <a id="series"></a>
 
 Series
