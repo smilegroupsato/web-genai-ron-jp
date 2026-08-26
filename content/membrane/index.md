@@ -9,10 +9,10 @@ order_display: ""
 slug: "/membrane/"
 canonical_url: "https://genai-ron.jp/membrane/"
 description: "生命、自己、世界、AIのあいだにある『膜』を、既存研究と作業仮説を分けながら考える公開研究ノート。"
-theme_id: "default-academic"
+theme_id: "membrane-academic"
 status: "publication-candidate"
 page_created_at: "2026-08-26 13:23 JST"
-last_updated_at: "2026-08-26 13:23 JST"
+last_updated_at: "2026-08-26 15:03 JST"
 exclude_from_public_body:
   - "更新履歴"
   - "作業履歴"
@@ -120,4 +120,5 @@ exclude_from_public_body:
 
 ## 更新履歴
 
+- 2026-08-26 15:03 JST：production themeを`membrane-academic`へ切り替え。
 - 2026-08-26 13:23 JST：公開トップ草稿をproduction candidate用Markdown正本として作成。
