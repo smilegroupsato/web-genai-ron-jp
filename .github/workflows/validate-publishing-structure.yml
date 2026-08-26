@@ -156,6 +156,19 @@ jobs:
             --expected-production-enabled true
 
           grep -Fq '<link rel="stylesheet" href="/publishing/themes/membrane.css">' "$membrane"
+          grep -Fq '<span class="series-brand-main">GENAI-RON</span>' "$membrane"
+          grep -Fq '<span class="series-brand-sub">膜 | MEMBRANE</span>' "$membrane"
+          grep -Fq '<a href="/membrane/">MEMBRANEトップ</a>' "$membrane"
+          if grep -Fq 'aria-label="サイト内ナビゲーション"' "$membrane"; then
+            echo "default header leaked into MEMBRANE" >&2
+            exit 1
+          fi
+          for unpublished in thoughts research-map reading bibliography; do
+            if grep -Fq "/membrane/${unpublished}/" "$membrane"; then
+              echo "unpublished MEMBRANE route is linked: ${unpublished}" >&2
+              exit 1
+            fi
+          done
           if grep -Fq '/publishing/themes/membrane.css' \
             _structured_build_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html \
             _structured_library_preview_ci/series/genai-shikumi-deep-dive/04-tool-execution-loop/index.html; then
