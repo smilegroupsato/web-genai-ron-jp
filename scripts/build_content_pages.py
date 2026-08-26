@@ -96,6 +96,7 @@ def render_inline(text: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link_repl, text)
     text = re.sub(r"`([^`]+)`", code_repl, text)
     escaped = html.escape(text, quote=False)
+    escaped = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", escaped)
 
     def restore(match: re.Match[str]) -> str:
         return tokens[int(match.group(1))]
@@ -159,6 +160,15 @@ def render_note(lines: List[str], index: int) -> Tuple[str, int]:
     return f"<blockquote>\n<p>{paragraph}</p>\n</blockquote>", index
 
 
+def render_blockquote(lines: List[str], index: int) -> Tuple[str, int]:
+    body: List[str] = []
+    while index < len(lines) and lines[index].lstrip().startswith(">"):
+        body.append(lines[index].lstrip()[1:].lstrip())
+        index += 1
+    paragraph = render_inline(" ".join(part for part in body if part))
+    return f"<blockquote>\n<p>{paragraph}</p>\n</blockquote>", index
+
+
 def render_markdown_body(markdown: str) -> str:
     lines = markdown.splitlines()
     out: List[str] = []
@@ -187,6 +197,11 @@ def render_markdown_body(markdown: str) -> str:
             out.append(html_block)
             continue
 
+        if line.lstrip().startswith(">"):
+            html_block, i = render_blockquote(lines, i)
+            out.append(html_block)
+            continue
+
         if is_table_start(lines, i):
             html_block, i = render_table(lines, i)
             out.append(html_block)
@@ -210,7 +225,7 @@ def render_markdown_body(markdown: str) -> str:
             if not nxt_stripped:
                 i += 1
                 break
-            if nxt_stripped.startswith(("```", ":::note", "## ")) or nxt.startswith("- ") or is_table_start(lines, i):
+            if nxt_stripped.startswith(("```", ":::note", "## ", ">")) or nxt.startswith("- ") or is_table_start(lines, i):
                 break
             paragraph.append(nxt_stripped)
             i += 1
