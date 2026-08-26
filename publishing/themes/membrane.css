@@ -1,0 +1,210 @@
+/*
+GENAI-RON MEMBRANE production theme
+ページ作成日時：2026-08-26 13:40 JST
+最終更新日時：2026-08-26 13:40 JST
+
+Scoped to data-theme-id so the default and Library Series themes remain unchanged.
+*/
+
+html[data-theme-id="membrane-academic"] {
+  --membrane-theme-ready: 1;
+  --membrane-paper: #f7f5ef;
+  --membrane-paper-deep: #eeece5;
+  --membrane-ink: #202522;
+  --membrane-muted: #66706b;
+  --membrane-rule: rgba(71, 86, 79, 0.24);
+  --membrane-milk: rgba(255, 255, 252, 0.58);
+  --membrane-blue: rgba(196, 210, 211, 0.28);
+  --membrane-green: rgba(199, 213, 201, 0.24);
+}
+
+html[data-theme-id="membrane-academic"] body.series-page {
+  background-color: var(--theme-bg, var(--membrane-paper));
+  color: var(--theme-text, var(--membrane-ink));
+  font-family: var(
+    --gr-font-body,
+    "Hiragino Mincho ProN",
+    "Yu Mincho",
+    YuMincho,
+    "Noto Serif JP",
+    serif
+  );
+}
+
+html[data-theme-id="membrane-academic"] .series-header,
+html[data-theme-id="membrane-academic"] .reading-preferences,
+html[data-theme-id="membrane-academic"] .series-footer {
+  border-color: var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(22rem, 54vw, 38rem);
+  padding-block: clamp(5rem, 11vw, 9rem);
+  border-top: 1px solid var(--membrane-rule);
+  border-bottom: 1px solid var(--membrane-rule);
+  background: var(--theme-bg, var(--membrane-paper));
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::before,
+html[data-theme-id="membrane-academic"] .series-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::before {
+  inset: 8% -10% 14% 22%;
+  border: 1px solid rgba(101, 122, 116, 0.24);
+  border-left-color: rgba(101, 122, 116, 0.08);
+  border-right: 3px double rgba(101, 122, 116, 0.22);
+  background: var(--membrane-blue);
+  clip-path: polygon(5% 8%, 78% 0, 100% 22%, 91% 72%, 68% 100%, 8% 88%, 0 43%);
+  transform: rotate(-1.2deg) translateX(2px);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::after {
+  inset: 26% 34% -24% -12%;
+  border: 1px solid rgba(103, 126, 105, 0.2);
+  border-top-color: rgba(103, 126, 105, 0.08);
+  background: var(--membrane-green);
+  clip-path: polygon(0 20%, 57% 4%, 96% 25%, 100% 80%, 48% 100%, 8% 76%);
+  transform: rotate(0.8deg) translateY(1px);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-theme-id="membrane-academic"] .series-kicker {
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero h1 {
+  max-width: 12ch;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+html[data-theme-id="membrane-academic"] .series-subtitle {
+  max-width: 34rem;
+  color: var(--theme-muted, var(--membrane-muted));
+  letter-spacing: 0.04em;
+}
+
+html[data-theme-id="membrane-academic"] .series-main {
+  position: relative;
+}
+
+html[data-theme-id="membrane-academic"] .series-main::before {
+  content: "";
+  position: absolute;
+  top: clamp(5rem, 12vw, 10rem);
+  right: 0;
+  width: min(18vw, 13rem);
+  height: 34rem;
+  border-left: 1px solid var(--membrane-rule);
+  background: var(--membrane-milk);
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+html[data-theme-id="membrane-academic"] .series-main > article.note-box {
+  position: relative;
+  max-width: 46rem;
+  margin-inline: auto;
+  background: color-mix(
+    in srgb,
+    var(--theme-card, var(--membrane-paper)) 94%,
+    transparent
+  );
+}
+
+html[data-theme-id="membrane-academic"] article.note-box h2 {
+  margin-top: 3.8em;
+  padding-top: 1.05em;
+  border-top: 1px solid var(--membrane-rule);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+html[data-theme-id="membrane-academic"] article.note-box h2::after {
+  content: "";
+  display: block;
+  width: 42%;
+  margin-top: 0.72em;
+  border-bottom: 1px solid rgba(111, 132, 124, 0.14);
+  transform: translateX(0.28rem);
+}
+
+html[data-theme-id="membrane-academic"] article.note-box blockquote {
+  position: relative;
+  margin-block: 2.5rem;
+  padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem);
+  border: 0;
+  border-left: 1px solid rgba(96, 120, 111, 0.38);
+  background: color-mix(
+    in srgb,
+    var(--theme-soft, var(--membrane-paper-deep)) 72%,
+    transparent
+  );
+  box-shadow: 0.45rem 0.45rem 0 var(--membrane-blue);
+}
+
+html[data-theme-id="membrane-academic"] article.note-box blockquote::before {
+  content: "";
+  position: absolute;
+  inset: -0.4rem 12% auto -0.4rem;
+  border-top: 1px solid rgba(96, 120, 111, 0.2);
+}
+
+html[data-theme-id="membrane-academic"] article.note-box a {
+  text-decoration-color: rgba(73, 105, 93, 0.42);
+  text-underline-offset: 0.22em;
+}
+
+@media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .series-hero {
+    min-height: 0;
+    padding-block: 4.5rem;
+  }
+
+  html[data-theme-id="membrane-academic"] .series-hero::before {
+    inset: 12% -42% 18% 38%;
+    opacity: 0.76;
+  }
+
+  html[data-theme-id="membrane-academic"] .series-hero::after,
+  html[data-theme-id="membrane-academic"] .series-main::before {
+    display: none;
+  }
+
+  html[data-theme-id="membrane-academic"] article.note-box h2 {
+    margin-top: 3em;
+  }
+
+  html[data-theme-id="membrane-academic"] article.note-box blockquote {
+    margin-inline: 0;
+    padding: 1.2rem 1.1rem;
+    box-shadow: 0.25rem 0.25rem 0 var(--membrane-blue);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-id="membrane-academic"] *,
+  html[data-theme-id="membrane-academic"] *::before,
+  html[data-theme-id="membrane-academic"] *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
