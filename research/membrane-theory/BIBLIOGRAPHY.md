@@ -1,8 +1,8 @@
 # 膜理論 BIBLIOGRAPHY
 
 - ページ作成日時：2026-08-05 20:20 JST
-- 最終更新日時：2026-08-17 17:50 JST
-- status：working bibliography / first 20 sources + ASC scale references
+- 最終更新日時：2026-08-26 15:41 JST
+- status：working bibliography / first 20 sources + ASC scale + Global Workspace / J-space references
 
 この文書は、膜理論を概念研究・創作研究・領域横断ノートから、外部検討に耐える研究へ育てるための文献台帳である。
 
@@ -140,6 +140,8 @@
 | REL-017 | unread | Ronald J. Pekala, Jack Steinberg, and V. K. Kumar, "Measurement of Phenomenological Experience: Phenomenology of Consciousness Inventory", 1986. | PCI原典。薬物に限らない催眠・瞑想・没入・変性意識の現象学的プロフィールを読む。 |
 | REL-018 | unread | Meghan E. Morean et al., "The Drug Effects Questionnaire: Psychometric Support across Three Drug Types", 2013. | DEQ系。薬効としての「効いている」「好き」「もっと欲しい」などを、ASC尺度とは分けて扱う。 |
 | REL-019 | unread | Charles A. Haertzen, Harris E. Hill, and Richard E. Belleville, "Development of the Addiction Research Center Inventory (ARCI): Selection of Items That Are Sensitive to the Effects of Various Drugs", 1963. | ARCI原典。薬物主観効果の古典的尺度。ASCそのものではなく、薬効・身体感覚・気分変化の参照棚。 |
+| REL-020 | queued | Wes Gurnee et al., "Verbalizable Representations Form a Global Workspace in Language Models", *Transformer Circuits*, 2026. arXiv:2607.15495. | LLM内部の言語化可能な表象集合 `J-space` が、報告・意図的保持・中間推論・下流計算へのbroadcastというGlobal Workspace的機能を持つという実証。AI内部で「局所処理→共有可能な状態」がどう生まれるかを、膜の選択透過・共有境界・主体的統一の生成と接続して読む。 |
+| REL-021 | queued | Bernard J. Baars, *A Cognitive Theory of Consciousness*, 1988. | Global Workspace Theoryの基礎文献。多数の局所的・無意識的処理のうち一部がglobal availabilityを得ることで、報告可能性・統合・制御が成立するという枠組みを読む。REL-020のJ-spaceを単なるLLM内部特徴としてではなく、主体・意識・共有可能性の理論史の中で評価する基準にする。 |
 
 ## 個別読解ノートテンプレート
 
@@ -194,9 +196,12 @@
 | REL-017 | `20_research/reading_notes/pekala-steinberg-kumar_1986_phenomenology-consciousness-inventory.md` |
 | REL-018 | `20_research/reading_notes/morean-et-al_2013_drug-effects-questionnaire.md` |
 | REL-019 | `20_research/reading_notes/haertzen-hill-belleville_1963_arci.md` |
+| REL-020 | `20_research/reading_notes/gurnee-et-al_2026_verbalizable-representations-global-workspace.md` |
+| REL-021 | `20_research/reading_notes/baars_1988_cognitive-theory-consciousness.md` |
 
 ## 更新履歴
 
+- 2026-08-26 15:41 JST：Global Workspace / J-space読書候補として Gurnee et al. (2026) と Baars (1988) をREL-020〜REL-021へ追加。
 - 2026-08-17 17:50 JST：このセッションで挙げたASC/解離/サイケデリック体験尺度を、原典・日本語版を含めてREL-005〜REL-019として追加。
 - 2026-08-09 08:48 JST：BIB-019 McHale (1987) の読解ノートに、narrative/正史/有限性の佐藤メモを追記。
 - 2026-08-08 23:30 JST：BIB-019 McHale (1987) の読解ノートを作成し、statusをsummarizedへ更新。
