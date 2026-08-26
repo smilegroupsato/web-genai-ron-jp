@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 57425)
-Total output lines: 6776
-
 {
   "manifest_version": 1,
   "source_root": "site",
@@ -1957,7 +1954,3071 @@ Total output lines: 6776
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/…27425 tokens truncated…lues": {
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change/chapter-13.html",
+      "source_html_path": "site/article/state-change/chapter-13.html",
+      "page_type": "article-chapter",
+      "title": "第13章｜AI側モード：状態変化を支える外部構造｜生成AI論",
+      "meta_description": "AI側モード：状態変化を支える外部構造",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": null,
+      "loaded_css": [
+        "/assets/style_article1.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-13.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change/chapter-14.html",
+      "source_html_path": "site/article/state-change/chapter-14.html",
+      "page_type": "article-chapter",
+      "title": "第14章｜状態変化ログという方法｜生成AI論",
+      "meta_description": "状態変化ログという方法",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": null,
+      "loaded_css": [
+        "/assets/style_article1.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-14.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change/chapter-15.html",
+      "source_html_path": "site/article/state-change/chapter-15.html",
+      "page_type": "article-chapter",
+      "title": "第15章｜依存性と倫理：世界への橋か、世界の代替か｜生成AI論",
+      "meta_description": "依存性と倫理：世界への橋か、世界の代替か",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": null,
+      "loaded_css": [
+        "/assets/style_article1.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-15.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change/chapter-16.html",
+      "source_html_path": "site/article/state-change/chapter-16.html",
+      "page_type": "article-chapter",
+      "title": "第16章｜結論：生成AIとの対話は不可逆な履歴生成である｜生成AI論",
+      "meta_description": "結論：生成AIとの対話は不可逆な履歴生成である",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": null,
+      "loaded_css": [
+        "/assets/style_article1.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/chapter-16.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change/",
+      "source_html_path": "site/article/state-change/index.html",
+      "page_type": "article-index",
+      "title": "生成AIとの対話における状態変化とその一回性・不可逆性について",
+      "meta_description": "本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れ",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": null,
+      "loaded_css": [
+        "/assets/style_article1.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/state-change/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/state-change/state-change/",
+        "/article/state-change/chapter-01.html",
+        "/article/state-change/chapter-02.html",
+        "/article/state-change/chapter-03.html",
+        "/article/state-change/chapter-04.html",
+        "/article/state-change/chapter-05.html",
+        "/article/state-change/chapter-06.html",
+        "/article/state-change/chapter-07.html",
+        "/article/state-change/chapter-08.html",
+        "/article/state-change/chapter-09.html",
+        "/article/state-change/chapter-10.html",
+        "/article/state-change/chapter-11.html",
+        "/article/state-change/chapter-12.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-15.html",
+        "/article/state-change/chapter-16.html",
+        "/article/state-change/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/state-change-lit-review/",
+      "source_html_path": "site/article/state-change-lit-review/index.html",
+      "page_type": "article-alias",
+      "title": "移動しました｜GENAI-RON",
+      "meta_description": null,
+      "canonical_present": true,
+      "canonical_value": "/notes/state-change-lit-review/",
+      "body_class": null,
+      "loaded_css": [
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "redirect_notice",
+      "corresponding_content_path": null,
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [],
+      "internal_links": [
+        "/notes/state-change-lit-review/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "alias_verified"
+    },
+    {
+      "route": "/article/state-change.html",
+      "source_html_path": "site/article/state-change.html",
+      "page_type": "article-alias",
+      "title": "論考①｜生成AI論",
+      "meta_description": null,
+      "canonical_present": true,
+      "canonical_value": "state-change/index.html",
+      "body_class": null,
+      "loaded_css": [
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "alias",
+      "corresponding_content_path": null,
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [],
+      "internal_links": [
+        "/article/state-change/index.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "alias_verified"
+    },
+    {
+      "route": "/article/understanding-defense-action/bibliography.html",
+      "source_html_path": "site/article/understanding-defense-action/bibliography.html",
+      "page_type": "bibliography",
+      "title": "ビブリオグラフィー｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/bibliography.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-00.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-00.html",
+      "page_type": "article-chapter",
+      "title": "第0章｜序論｜AIで分かった。でも変われない。｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-00.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-01.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-01.html",
+      "page_type": "article-chapter",
+      "title": "第1章｜先行研究レビュー｜理解・行動・防御壁をどう見るか｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-01.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-02.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-02.html",
+      "page_type": "article-chapter",
+      "title": "第2章｜速い理解｜AIが短縮するもの｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-02.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-03.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-03.html",
+      "page_type": "article-chapter",
+      "title": "第3章｜遅い理解｜経験に沈むまでの時間｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-03.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-04.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-04.html",
+      "page_type": "article-chapter",
+      "title": "第4章｜状態変化は、行動変化ではない｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-04.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-05.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-05.html",
+      "page_type": "article-chapter",
+      "title": "第5章｜言葉は行為である。しかし、言葉だけが行為ではない。｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-05.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-06.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-06.html",
+      "page_type": "article-chapter",
+      "title": "第6章｜防御壁とは何か｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-06.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-07.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-07.html",
+      "page_type": "article-chapter",
+      "title": "第7章｜防御壁の二つの作用｜通過阻害と方向転換｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-07.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-08.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-08.html",
+      "page_type": "article-chapter",
+      "title": "第8章｜作用Aの更新｜理解を行動へ通す｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-08.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-09.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-09.html",
+      "page_type": "article-chapter",
+      "title": "第9章｜作用Bの更新｜理解の使い道を反転させない｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-09.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-10.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-10.html",
+      "page_type": "article-chapter",
+      "title": "第10章｜言葉が事実になるまで｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-10.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-11.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-11.html",
+      "page_type": "article-chapter",
+      "title": "第11章｜AIは防御壁を越えられるのか｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-11.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/chapter-12.html",
+      "source_html_path": "site/article/understanding-defense-action/chapter-12.html",
+      "page_type": "article-chapter",
+      "title": "第12章｜結論｜理解を行動へ沈めるために｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/chapter-12.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/article/understanding-defense-action/",
+      "source_html_path": "site/article/understanding-defense-action/index.html",
+      "page_type": "article-index",
+      "title": "理解・防御壁・行動｜GENAI-RON",
+      "meta_description": "生成AIとの対話によって、人間の問い方・理解・行動・記録がどう変わるのかを考える研究サイト。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "theme-article-02 article-understanding-defense-action",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/article/understanding-defense-action/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "visible_body"
+        ],
+        "updated_at": [
+          "visible_body"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": "2026-05-20",
+        "updated_at": "2026-05-20",
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": true,
+      "updated_at_known": true,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/article/understanding-defense-action/index.html",
+        "/article/understanding-defense-action/chapter-00.html",
+        "/article/understanding-defense-action/chapter-01.html",
+        "/article/understanding-defense-action/chapter-02.html",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/understanding-defense-action/chapter-04.html",
+        "/article/understanding-defense-action/chapter-05.html",
+        "/article/understanding-defense-action/chapter-06.html",
+        "/article/understanding-defense-action/chapter-07.html",
+        "/article/understanding-defense-action/chapter-08.html",
+        "/article/understanding-defense-action/chapter-09.html",
+        "/article/understanding-defense-action/chapter-10.html",
+        "/article/understanding-defense-action/chapter-11.html",
+        "/article/understanding-defense-action/chapter-12.html",
+        "/article/understanding-defense-action/bibliography.html"
+      ],
+      "download_links": [
+        "/downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf"
+      ],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/essay/ai-era-authorship/",
+      "source_html_path": "site/essay/ai-era-authorship/index.html",
+      "page_type": "essay",
+      "title": "自分で作らない創作の時代に、主体はどこに残るのか｜GENAI-RON",
+      "meta_description": "秋山竜次、オリエンタルラジオ、くっきー！の芸を入口に、自分で全部を作らない創作に残る主体性・作家性、そしてAI時代に人間に残された仕事を考えるエッセイ。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "essay-page essay-ai-era-authorship",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/ai-era-authorship/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "html_comment"
+        ],
+        "updated_at": [
+          "html_comment"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": "2026-07-01 11:48 JST",
+        "updated_at": "2026-07-01 11:48 JST",
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": true,
+      "updated_at_known": true,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/essay/index.html",
+        "/notes/index.html",
+        "/series/genai-shikumi/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/essay/ai-only-generation/",
+      "source_html_path": "site/essay/ai-only-generation/index.html",
+      "page_type": "essay",
+      "title": "AIしか使わない世代は現れるか｜GENAI-RON",
+      "meta_description": "検索する世代、動画で調べる世代を経て、AIとの対話を世界への入口にする世代は現れるのか。AIによる創造と、現実から切り離された対話型の夢との境界を考えるエッセイ。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "essay-page essay-ai-only-generation",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/ai-only-generation/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "html_comment"
+        ],
+        "updated_at": [
+          "html_comment"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": "2026-06-28 21:49 JST",
+        "updated_at": "2026-06-28 21:49 JST",
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": true,
+      "updated_at_known": true,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/essay/index.html",
+        "/notes/index.html",
+        "/series/genai-shikumi/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/essay/",
+      "source_html_path": "site/essay/index.html",
+      "page_type": "collection-index",
+      "title": "エッセイ｜GENAI-RON",
+      "meta_description": "GENAI-RONのエッセイ一覧。生成AIとの対話、検索、動画、現実への再接続をめぐる短い論考と読み物を公開します。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "essay-index",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/essay/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/article/index.html",
+        "/essay/index.html",
+        "/notes/index.html",
+        "/series/genai-shikumi/",
+        "/essay/ai-era-authorship/",
+        "/essay/ai-only-generation/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/",
+      "source_html_path": "site/index.html",
+      "page_type": "home",
+      "title": "GENAI-RON｜生成AI論",
+      "meta_description": "生成AIを、使い方ではなく、記憶・文脈・行為・理解・社会化の問題として読むための研究アーカイブ。シリーズ、論考、研究ノート、エッセイを一覧できます。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "home-index",
+      "loaded_css": [
+        "/assets/style.v5-6.css",
+        "/assets/style-home-index.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/index.html",
+        "/#series",
+        "/#articles",
+        "/#notes",
+        "/#essays",
+        "/membrane/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/series/ai-dialogue-intro/02-reading-replies/",
+        "/series/ai-dialogue-intro/03-thinking-changes/",
+        "/series/ai-dialogue-intro/04-not-a-teacher/",
+        "/series/ai-dialogue-intro/05-growing-through-dialogue/",
+        "/series/ai-dialogue-intro/06-personal-companion/",
+        "/series/ai-dialogue-intro/07-living-with-ai/",
+        "/series/ai-dialogue-intro/afterword/",
+        "/series/genai-shikumi/",
+        "/series/genai-shikumi/01-memory/",
+        "/series/genai-shikumi/02-prompt/",
+        "/series/genai-shikumi/03-tools/",
+        "/series/genai-shikumi/04-context/",
+        "/series/genai-shikumi/05-forgetting/",
+        "/series/genai-shikumi/06-understanding/",
+        "/series/genai-shikumi/07-workflow/",
+        "/series/genai-shikumi/08-context-design/",
+        "/series/genai-shikumi-technical/",
+        "/series/genai-shikumi-technical/01-memory/",
+        "/series/genai-shikumi-technical/02-instruction-hierarchy/",
+        "/series/genai-shikumi-technical/03-tool-calling/",
+        "/series/genai-shikumi-technical/04-context-window-retrieval/",
+        "/series/genai-shikumi-technical/05-grounding-hallucination/",
+        "/series/genai-shikumi-technical/06-workflow-design/",
+        "/series/genai-shikumi-deep-dive/",
+        "/series/genai-shikumi-deep-dive/01-prompt-compilation/",
+        "/series/genai-shikumi-deep-dive/02-instruction-hierarchy/",
+        "/series/genai-shikumi-deep-dive/03-context/",
+        "/series/genai-shikumi-deep-dive/04-tool-execution-loop/",
+        "/series/genai-shikumi-deep-dive/05-structured-output/",
+        "/series/genai-shikumi-deep-dive/06-memory/",
+        "/series/genai-shikumi-deep-dive/07-agentic-loop/",
+        "/series/genai-shikumi-deep-dive/08-architecture/",
+        "/article/state-change/",
+        "/article/understanding-defense-action/",
+        "/notes/history-of-generative-ai/",
+        "/notes/state-change-lit-review/",
+        "/notes/tool-discovery-layer/",
+        "/essay/ai-era-authorship/",
+        "/essay/ai-only-generation/"
+      ],
+      "download_links": [
+        "/downloads/genai-ron_01_state-change_2026-05-20.pdf",
+        "/downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf"
+      ],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/history-of-generative-ai/",
+      "source_html_path": "site/notes/history-of-generative-ai/index.html",
+      "page_type": "note",
+      "title": "生成AIの歴史｜多層年表｜GENAI-RON",
+      "meta_description": "生成AIはどこから来て、どこへ向かうのか。情報理論からChatGPTまで、言語、統計、計算資源、市場が交差した80年の歴史をたどる研究ノート。",
+      "canonical_present": true,
+      "canonical_value": "/notes/history-of-generative-ai/",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/history-of-generative-ai/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/notes/history-of-generative-ai/#overview",
+        "/notes/history-of-generative-ai/#turning-points",
+        "/notes/history-of-generative-ai/#layers",
+        "/notes/history-of-generative-ai/#full-timeline",
+        "/notes/history-of-generative-ai/#why-now",
+        "/notes/history-of-generative-ai/timeline.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/history-of-generative-ai/timeline.html",
+      "source_html_path": "site/notes/history-of-generative-ai/timeline.html",
+      "page_type": "note",
+      "title": "生成AIの歴史｜完全版年表｜GENAI-RON",
+      "meta_description": "生成AIの歴史を、学問史・技術史・計算資源史・企業／モデル史・社会／市場史の5層でたどる完全版年表。",
+      "canonical_present": true,
+      "canonical_value": "/notes/history-of-generative-ai/timeline.html",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/history-of-generative-ai/timeline.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/notes/history-of-generative-ai/timeline.html#period-1",
+        "/notes/history-of-generative-ai/timeline.html#period-2",
+        "/notes/history-of-generative-ai/timeline.html#period-3",
+        "/notes/history-of-generative-ai/timeline.html#period-4",
+        "/notes/history-of-generative-ai/timeline.html#period-5",
+        "/notes/history-of-generative-ai/timeline.html#sources"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/",
+      "source_html_path": "site/notes/index.html",
+      "page_type": "collection-index",
+      "title": "研究ノート｜GENAI-RON",
+      "meta_description": "GENAI-RONの研究ノート一覧。論考の背景にある調査、年表、資料整理、仮説、先行研究レビューを公開します。",
+      "canonical_present": true,
+      "canonical_value": "/notes/",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/notes/history-of-generative-ai/",
+        "/notes/state-change-lit-review/",
+        "/notes/tool-discovery-layer/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/state-change-lit-review/",
+      "source_html_path": "site/notes/state-change-lit-review/index.html",
+      "page_type": "note",
+      "title": "LLMとの対話は人間の何を変えるのか｜GENAI-RON",
+      "meta_description": "LLMとの対話は、人間の何を変えるのか。状態変化、履歴生成、検証回路、現実への再接続という観点から、LLM利用研究・自己開示研究・メンタルモデル研究・公開会話データを読み直す先行研究レビュー。",
+      "canonical_present": true,
+      "canonical_value": "/notes/state-change-lit-review/",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/state-change-lit-review/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/notes/state-change-lit-review/#intro",
+        "/notes/state-change-lit-review/#question",
+        "/notes/state-change-lit-review/#unit",
+        "/notes/state-change-lit-review/#group-a",
+        "/notes/state-change-lit-review/#group-b",
+        "/notes/state-change-lit-review/#group-c",
+        "/notes/state-change-lit-review/#group-d",
+        "/notes/state-change-lit-review/#theory",
+        "/notes/state-change-lit-review/#axes",
+        "/notes/state-change-lit-review/#conclusion",
+        "/notes/state-change-lit-review/#program",
+        "/notes/state-change-lit-review/#references",
+        "/article/state-change/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/themes.html",
+      "source_html_path": "site/notes/themes.html",
+      "page_type": "note",
+      "title": "関連テーマ｜GENAI-RON",
+      "meta_description": "主論考から派生した関連テーマと論考への案内。",
+      "canonical_present": true,
+      "canonical_value": "/notes/themes.html",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/themes.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/article/understanding-defense-action/",
+        "/article/understanding-defense-action/chapter-03.html",
+        "/article/state-change/chapter-14.html",
+        "/article/state-change/chapter-13.html",
+        "/article/state-change/chapter-15.html"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/notes/tool-discovery-layer/",
+      "source_html_path": "site/notes/tool-discovery-layer/index.html",
+      "page_type": "note",
+      "title": "ChatGPTのツール発見レイヤーとユーザー指示の衝突｜GENAI-RON",
+      "meta_description": "ChatGPTの外部ツール利用で、ユーザーが禁止したツール一覧取得が実行された観察事例をもとに、ツール発見レイヤー、モデル判断、会話内制約の衝突を整理する研究ノート。",
+      "canonical_present": true,
+      "canonical_value": "/notes/tool-discovery-layer/",
+      "body_class": "note-page",
+      "loaded_css": [
+        "/assets/style-notes.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/tool-discovery-layer/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/",
+        "/notes/tool-discovery-layer/#overview",
+        "/notes/tool-discovery-layer/#toc",
+        "/notes/tool-discovery-layer/#case",
+        "/notes/tool-discovery-layer/#problem",
+        "/notes/tool-discovery-layer/#layers",
+        "/notes/tool-discovery-layer/#technical",
+        "/notes/tool-discovery-layer/#control",
+        "/notes/tool-discovery-layer/#security",
+        "/notes/tool-discovery-layer/#countermeasures",
+        "/notes/tool-discovery-layer/#public-discussion",
+        "/notes/tool-discovery-layer/#core",
+        "/notes/tool-discovery-layer/#references"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/01-start-talking/",
+      "source_html_path": "site/series/ai-dialogue-intro/01-start-talking/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第1章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第1章 まず、話してみる",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/01-start-talking.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:39 JST",
+        "manuscript_updated_at": "2026-07-22 17:39 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/02-reading-replies/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/02-reading-replies/",
+      "source_html_path": "site/series/ai-dialogue-intro/02-reading-replies/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第2章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第2章 返事を読む",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/02-reading-replies.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:39 JST",
+        "manuscript_updated_at": "2026-07-22 17:39 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/03-thinking-changes/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/03-thinking-changes/",
+      "source_html_path": "site/series/ai-dialogue-intro/03-thinking-changes/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第3章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第3章 話しているうちに考えが変わる",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/03-thinking-changes.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:42 JST",
+        "manuscript_updated_at": "2026-07-22 17:42 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/02-reading-replies/",
+        "/series/ai-dialogue-intro/04-not-a-teacher/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/04-not-a-teacher/",
+      "source_html_path": "site/series/ai-dialogue-intro/04-not-a-teacher/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第4章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第4章 AIは先生ではない",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/04-not-a-teacher.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:42 JST",
+        "manuscript_updated_at": "2026-07-22 17:42 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/03-thinking-changes/",
+        "/series/ai-dialogue-intro/05-growing-through-dialogue/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/05-growing-through-dialogue/",
+      "source_html_path": "site/series/ai-dialogue-intro/05-growing-through-dialogue/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第5章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第5章 何度も話すと、少しずつ育つ",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/05-growing-through-dialogue.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:42 JST",
+        "manuscript_updated_at": "2026-07-22 17:42 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/04-not-a-teacher/",
+        "/series/ai-dialogue-intro/06-personal-companion/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/06-personal-companion/",
+      "source_html_path": "site/series/ai-dialogue-intro/06-personal-companion/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第6章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第6章 あなた専用の相棒になる",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/06-personal-companion.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:45 JST",
+        "manuscript_updated_at": "2026-07-22 17:45 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/05-growing-through-dialogue/",
+        "/series/ai-dialogue-intro/07-living-with-ai/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/07-living-with-ai/",
+      "source_html_path": "site/series/ai-dialogue-intro/07-living-with-ai/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる 第7章｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜第7章 生成AIと暮らす",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/07-living-with-ai.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:45 JST",
+        "manuscript_updated_at": "2026-07-22 17:45 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/06-personal-companion/",
+        "/series/ai-dialogue-intro/afterword/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/afterword/",
+      "source_html_path": "site/series/ai-dialogue-intro/afterword/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる おわりに｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜おわりに",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/afterword.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:45 JST",
+        "manuscript_updated_at": "2026-07-22 17:45 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/07-living-with-ai/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/",
+      "source_html_path": "site/series/ai-dialogue-intro/index.html",
+      "page_type": "series-index",
+      "title": "生成AIと話すと、考えが見えてくる 目次｜GENAI-RON",
+      "meta_description": "生成AIを、命令して答えをもらう道具としてではなく、話しながら考えを見つける対話相手として使うための入門。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:38 JST",
+        "manuscript_updated_at": "2026-07-22 22:40 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/",
+        "/series/ai-dialogue-intro/02-reading-replies/",
+        "/series/ai-dialogue-intro/03-thinking-changes/",
+        "/series/ai-dialogue-intro/04-not-a-teacher/",
+        "/series/ai-dialogue-intro/05-growing-through-dialogue/",
+        "/series/ai-dialogue-intro/06-personal-companion/",
+        "/series/ai-dialogue-intro/07-living-with-ai/",
+        "/series/ai-dialogue-intro/afterword/"
+      ],
+      "download_links": [
+        "/downloads/ai-dialogue-intro-flyer.pdf"
+      ],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/ai-dialogue-intro/introduction/",
+      "source_html_path": "site/series/ai-dialogue-intro/introduction/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIと話すと、考えが見えてくる はじめに｜GENAI-RON",
+      "meta_description": "生成AIと話すと、考えが見えてくる｜はじめに",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/ai-dialogue-intro/introduction.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "html_comment"
+        ],
+        "manuscript_updated_at": [
+          "html_comment"
+        ],
+        "web_migrated_at": [
+          "html_comment"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": "2026-07-22 17:39 JST",
+        "manuscript_updated_at": "2026-07-22 17:39 JST",
+        "web_migrated_at": "2026-07-23 15:23 JST"
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": true,
+      "manuscript_updated_at_known": true,
+      "web_migrated_at_known": true,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/ai-dialogue-intro/",
+        "/series/ai-dialogue-intro/introduction/",
+        "/series/ai-dialogue-intro/01-start-talking/",
+        "/article/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/genai-shikumi/01-memory/",
+      "source_html_path": "site/series/genai-shikumi/01-memory/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIのしくみ 01｜ChatGPTの「記憶」はどこにあるのか｜GENAI-RON",
+      "meta_description": "ChatGPTはなぜ覚えているように見えるのか。生成AIの記憶を、モデル本体、会話文脈、保存メモリ、外部ツールに分けて一般向けに解説します。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/01-memory.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": null,
+        "updated_at": null,
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": false,
+      "updated_at_known": false,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/genai-shikumi/",
+        "/article/",
+        "/notes/",
+        "/series/genai-shikumi/02-prompt/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/series/genai-shikumi/02-prompt/",
+      "source_html_path": "site/series/genai-shikumi/02-prompt/index.html",
+      "page_type": "series-entry",
+      "title": "生成AIのしくみ 02｜プロンプトは命令なのか、環境なのか｜GENAI-RON",
+      "meta_description": "プロンプトはAIへの命令であると同時に、AIが応答を作るための環境でもある。ChatGPTが指示通りに動かない理由を文脈設計から考えます。",
+      "canonical_present": false,
+      "canonical_value": null,
+      "body_class": "series-page",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/series/genai-shikumi/02-prompt.md",
+      "metadata_locations": {
+        "created_at": [
+          "absent"
+        ],
+        "updated_at": [
+          "absent"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
         "created_at": null,
         "updated_at": null,
         "manuscript_created_at": null,
