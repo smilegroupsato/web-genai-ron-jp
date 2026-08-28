@@ -1,6 +1,6 @@
 # GENAI-RON MEMBRANE academic theme
 # ページ作成日時：2026-08-26 13:40 JST
-# 最終更新日時：2026-08-26 13:40 JST
+# 最終更新日時：2026-08-26 18:56 JST
 
 theme_id: membrane-academic
 collection_id: membrane
@@ -25,3 +25,5 @@ hero:
 
 stylesheets:
   - /publishing/themes/membrane.css
+  - /publishing/themes/membrane-refinement-v0.1.css
+  - /publishing/themes/membrane-background-v0.1.css

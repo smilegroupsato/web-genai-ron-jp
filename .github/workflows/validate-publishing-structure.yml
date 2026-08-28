@@ -1,4 +1,4 @@
-# 最終更新日時：2026-08-11 12:11 JST
+# 最終更新日時：2026-08-28 15:43 JST
 
 name: Validate Publishing Structure
 
@@ -167,8 +167,9 @@ jobs:
 
           grep -Fq '<link rel="stylesheet" href="/publishing/themes/membrane.css">' "$membrane"
           grep -Fq '<span class="series-brand-main">GENAI-RON</span>' "$membrane"
-          grep -Fq '<span class="series-brand-sub">膜 | MEMBRANE</span>' "$membrane"
-          grep -Fq '<a href="/membrane/">MEMBRANEトップ</a>' "$membrane"
+          grep -Fq '<span class="membrane-masthead-caption">Research Archive of Generative AI</span>' "$membrane"
+          grep -Fq '<span class="membrane-masthead-title">MEMBRANE</span>' "$membrane"
+          grep -Fq '<span class="membrane-masthead-issue">STUDIES / 01</span>' "$membrane"
           if grep -Fq 'aria-label="サイト内ナビゲーション"' "$membrane"; then
             echo "default header leaked into MEMBRANE" >&2
             exit 1
