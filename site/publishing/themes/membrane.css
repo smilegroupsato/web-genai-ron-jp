@@ -1,0 +1,339 @@
+/*
+GENAI-RON MEMBRANE production theme
+ページ作成日時：2026-08-26 13:40 JST
+最終更新日時：2026-08-26 17:24 JST
+*/
+
+html[data-theme-id="membrane-academic"] {
+  --membrane-theme-ready: 1;
+  --membrane-paper: #f7f5ef;
+  --membrane-paper-deep: #eeece5;
+  --membrane-ink: #202522;
+  --membrane-muted: #66706b;
+  --membrane-rule: rgba(71, 86, 79, 0.24);
+  --membrane-milk: rgba(255, 255, 252, 0.58);
+  --membrane-blue: rgba(196, 210, 211, 0.24);
+  --membrane-green: rgba(199, 213, 201, 0.20);
+}
+
+html[data-theme-id="membrane-academic"],
+html[data-theme-id="membrane-academic"] body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html[data-theme-id="membrane-academic"] body.series-page {
+  background-color: var(--membrane-paper);
+  color: var(--membrane-ink);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif;
+}
+
+html[data-theme-id="membrane-academic"] .series-header,
+html[data-theme-id="membrane-academic"] .reading-preferences,
+html[data-theme-id="membrane-academic"] .series-footer {
+  border-color: var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .series-header {
+  background: rgba(247, 245, 239, 0.94);
+}
+
+html[data-theme-id="membrane-academic"] .series-header-inner {
+  max-width: none;
+  min-height: 4.2rem;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+html[data-theme-id="membrane-academic"] .series-brand {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  text-decoration: none;
+}
+
+html[data-theme-id="membrane-academic"] .series-brand-main {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+html[data-theme-id="membrane-academic"] .series-brand-sub {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  letter-spacing: 0.06em;
+}
+
+html[data-theme-id="membrane-academic"] .series-nav {
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(31rem, 48vw, 35rem);
+  padding-block: clamp(3.4rem, 7vw, 5.8rem);
+  border-top: 1px solid var(--membrane-rule);
+  border-bottom: 1px solid var(--membrane-rule);
+  background-color: var(--membrane-paper);
+  background-image: radial-gradient(rgba(80, 95, 88, 0.10) 0.55px, transparent 0.55px);
+  background-size: 8px 8px;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::before,
+html[data-theme-id="membrane-academic"] .series-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(90, 112, 104, 0.25);
+  filter: saturate(0.72);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::before {
+  inset: -18% -10% 33% 17%;
+  background: linear-gradient(165deg, rgba(210, 221, 220, 0.50), rgba(236, 239, 234, 0.26));
+  border-radius: 44% 18% 48% 22% / 35% 24% 46% 30%;
+  transform: rotate(-4deg);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero::after {
+  inset: 58% 10% -48% -15%;
+  background: linear-gradient(25deg, rgba(213, 224, 216, 0.43), rgba(238, 239, 232, 0.20));
+  border-radius: 24% 52% 20% 48% / 32% 44% 22% 52%;
+  transform: rotate(4deg);
+}
+
+html[data-theme-id="membrane-academic"] .series-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+html[data-theme-id="membrane-academic"] .series-kicker {
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero h1 {
+  max-width: none;
+  margin-block: 0.2rem 0.7rem;
+  font-size: clamp(4rem, 8.7vw, 8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+html[data-theme-id="membrane-academic"] .series-hero h1::first-line {
+  font-size: 1em;
+}
+
+html[data-theme-id="membrane-academic"] .series-subtitle {
+  max-width: 34rem;
+  color: var(--membrane-muted);
+  letter-spacing: 0.04em;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-main > article.membrane-index-layout {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  background: transparent;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-hero {
+  padding-inline: clamp(2rem, 7vw, 6.5rem);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-hero::marker { content: ""; }
+
+html[data-theme-id="membrane-academic"] .membrane-index-title h1 {
+  white-space: pre-line;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-title h1 {
+  font-size: 0;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-title h1::before {
+  content: "膜\A MEMBRANE";
+  white-space: pre;
+  font-size: clamp(4rem, 8.7vw, 8rem);
+  line-height: 0.88;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-introduction {
+  max-width: 38rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+html[data-theme-id="membrane-academic"] article.note-box blockquote {
+  position: relative;
+  margin-block: 1.7rem;
+  padding: 1.25rem clamp(1.2rem, 3vw, 2rem);
+  border: 0;
+  border-left: 1px solid rgba(96, 120, 111, 0.30);
+  background: rgba(250, 249, 245, 0.68);
+  box-shadow: 0.28rem 0.28rem 0 rgba(196, 210, 211, 0.20);
+}
+
+html[data-theme-id="membrane-academic"] article.note-box blockquote::before {
+  content: "";
+  position: absolute;
+  inset: -0.25rem 16% auto -0.25rem;
+  border-top: 1px solid rgba(96, 120, 111, 0.16);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 46rem;
+  margin-top: clamp(1.6rem, 4vw, 3rem);
+  border-top: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav span {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 0.9rem;
+  border-right: 1px solid var(--membrane-rule);
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  letter-spacing: 0.05em;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav b,
+html[data-theme-id="membrane-academic"] .membrane-index-primary-nav small {
+  font-size: 0.68rem;
+  font-weight: 400;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-information {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.23fr) 1fr;
+  gap: 1rem;
+  padding: 0.72rem clamp(1.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--membrane-rule);
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.72rem;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 0.95fr 1.25fr;
+  margin-inline: clamp(1rem, 2vw, 2rem);
+  border-inline: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid > section {
+  min-width: 0;
+  padding: clamp(1.15rem, 2.4vw, 2rem);
+  border-right: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-grid > section:last-child { border-right: 0; }
+html[data-theme-id="membrane-academic"] .membrane-index-grid h2,
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography h2,
+html[data-theme-id="membrane-academic"] .membrane-index-about h2 { margin-top: 0; }
+
+html[data-theme-id="membrane-academic"] .membrane-index-thoughts ul,
+html[data-theme-id="membrane-academic"] .membrane-index-research-map ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.4rem 0 0;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-thoughts li {
+  position: relative;
+  padding: 0.65rem 1.75rem 0.65rem 0;
+  border-top: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-thoughts li::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-research-map li {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.35rem 0 1.1rem;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-research-map li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.15rem;
+  height: 0.65rem;
+  border-left: 1px solid var(--membrane-rule);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-reading table { width: 100%; table-layout: auto; }
+html[data-theme-id="membrane-academic"] .membrane-index-reading th:first-child,
+html[data-theme-id="membrane-academic"] .membrane-index-reading td:first-child { width: 4.5rem; white-space: nowrap; }
+
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.35fr) 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 clamp(1rem, 2vw, 2rem);
+  padding: 0.72rem clamp(1.15rem, 2.4vw, 2rem);
+  border: 1px solid var(--membrane-rule);
+  background: rgba(196, 210, 211, 0.19);
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography h2,
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography p { margin-block: 0; }
+
+html[data-theme-id="membrane-academic"] .membrane-index-about {
+  max-width: 52rem;
+  margin-inline: auto;
+  padding: clamp(2.1rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+}
+
+html[data-theme-id="membrane-academic"] .series-footer {
+  padding-block: 0.65rem;
+  color: var(--membrane-muted);
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .series-header-inner,
+  html[data-theme-id="membrane-academic"] .series-brand { grid-template-columns: 1fr; }
+  html[data-theme-id="membrane-academic"] .series-brand { gap: 0.1rem; }
+  html[data-theme-id="membrane-academic"] .series-hero { min-height: 0; padding-block: 3.4rem; }
+  html[data-theme-id="membrane-academic"] .series-hero::before { inset: 8% -55% 28% 28%; opacity: 0.70; }
+  html[data-theme-id="membrane-academic"] .series-hero::after { display: none; }
+  html[data-theme-id="membrane-academic"] .membrane-index-title h1::before { font-size: clamp(3rem, 17vw, 5rem); }
+  html[data-theme-id="membrane-academic"] .membrane-index-primary-nav,
+  html[data-theme-id="membrane-academic"] .membrane-index-grid,
+  html[data-theme-id="membrane-academic"] .membrane-index-information,
+  html[data-theme-id="membrane-academic"] .membrane-index-bibliography { grid-template-columns: 1fr; }
+  html[data-theme-id="membrane-academic"] .membrane-index-primary-nav span,
+  html[data-theme-id="membrane-academic"] .membrane-index-grid > section { border-right: 0; border-bottom: 1px solid var(--membrane-rule); }
+  html[data-theme-id="membrane-academic"] .membrane-index-information { gap: 0.35rem; }
+  html[data-theme-id="membrane-academic"] .membrane-index-bibliography { gap: 0.35rem; }
+  html[data-theme-id="membrane-academic"] article.note-box blockquote { margin-inline: 0; padding: 1rem; box-shadow: 0.2rem 0.2rem 0 rgba(196, 210, 211, 0.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-id="membrane-academic"] *,
+  html[data-theme-id="membrane-academic"] *::before,
+  html[data-theme-id="membrane-academic"] *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

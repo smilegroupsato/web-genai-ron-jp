@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "source_root": "site",
-  "page_count": 102,
+  "page_count": 103,
   "pages": [
     {
       "route": "/article/bibliography.html",
@@ -3852,6 +3852,70 @@
         "/downloads/genai-ron_01_state-change_2026-05-20.pdf",
         "/downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf"
       ],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
+      "route": "/membrane/",
+      "source_html_path": "site/membrane/index.html",
+      "page_type": "membrane-index",
+      "title": "MEMBRANE STUDIES 01｜GENAI-RON",
+      "meta_description": "生命、自己、世界、AIのあいだにある『膜』を、既存研究と作業仮説を分けながら考える公開研究ノート。",
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/membrane/",
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css",
+        "/publishing/themes/membrane.css",
+        "/publishing/themes/membrane-refinement-v0.1.css",
+        "/publishing/themes/membrane-background-v0.1.css",
+        "/publishing/themes/membrane-mobile-reading-v0.1.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/membrane/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "html_comment"
+        ],
+        "updated_at": [
+          "html_comment"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": "2026-08-26 13:23 JST",
+        "updated_at": "2026-08-26 17:24 JST",
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": true,
+      "updated_at_known": true,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/"
+      ],
+      "download_links": [],
       "preserve_route": true,
       "salvage_status": "needs_parity_check"
     },

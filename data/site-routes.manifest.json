@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "source_root": "site",
-  "route_count": 102,
+  "route_count": 103,
   "routes": [
     {
       "route": "/article/bibliography.html",
@@ -343,6 +343,12 @@
       "route": "/",
       "source_html_path": "site/index.html",
       "page_type": "home",
+      "preserve_route": true
+    },
+    {
+      "route": "/membrane/",
+      "source_html_path": "site/membrane/index.html",
+      "page_type": "membrane-index",
       "preserve_route": true
     },
     {
