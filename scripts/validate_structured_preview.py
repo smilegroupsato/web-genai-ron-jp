@@ -58,7 +58,6 @@ class ArticleSnapshotParser(HTMLParser):
                 "membrane-index-title",
                 "membrane-index-primary-nav",
                 "membrane-index-information",
-                "membrane-index-regions",
             }
         ):
             self.excluded_depth += 1
