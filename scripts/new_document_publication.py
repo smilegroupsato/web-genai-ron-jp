@@ -2,7 +2,7 @@
 """Prepare, verify, promote, and validate one new content-first document.
 
 ページ作成日時：2026-08-11 15:35 JST
-最終更新日時：2026-08-11 16:12 JST
+最終更新日時：2026-08-28 15:24 JST
 """
 
 from __future__ import annotations
@@ -452,7 +452,13 @@ def validate_pr(base_ref: str, registry_path: Path) -> None:
     if not changed_targets:
         if site_changes:
             raise BuildError("new-document gate-only change must not modify site/")
-        unexpected = sorted(set(files) - INFRA_ALLOWLIST)
+        registered_gate_paths = {
+            path
+            for entry in production
+            for path in (str(entry["source"]), str(entry["index_source"]))
+        }
+        allowed = INFRA_ALLOWLIST | registered_gate_paths
+        unexpected = sorted(set(files) - allowed)
         if unexpected:
             raise BuildError(
                 "new-document gate-only PR has unrelated changes:\n"
