@@ -412,6 +412,11 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
     max-width: 100%;
   }
 
+  html[data-theme-id="membrane-academic"] .membrane-index-reading {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+
   html[data-theme-id="membrane-academic"] .membrane-index-reading table {
     width: 100%;
     table-layout: fixed;
@@ -433,6 +438,6 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
 
 /*
 更新履歴
-- 2026-08-28 16:53 JST：mobile visual QAの横方向overflowを抑制。
+- 2026-08-28 16:53 JST：mobile visual QAの横方向overflowをReading欄内へ封じ込め。
 - 2026-08-26 17:20 JST：Visual Target v0.1に合わせたrefinementを作成。
 */
