@@ -1,4 +1,4 @@
-# 最終更新日時：2026-08-28 15:43 JST
+# 最終更新日時：2026-08-29 00:20 JST
 
 name: Validate Publishing Structure
 
@@ -293,7 +293,7 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/membrane/**' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
           if [ -n "$disallowed" ]; then
             echo "unexpected public site file changes:" >&2
             echo "$disallowed" >&2
@@ -350,3 +350,6 @@ jobs:
             _appearance_visual_qa/
           if-no-files-found: error
           retention-days: 7
+
+# 更新履歴
+# - 2026-08-29 00:20 JST：正式MEMBRANE publication targetを専用publication validatorへ委譲。
