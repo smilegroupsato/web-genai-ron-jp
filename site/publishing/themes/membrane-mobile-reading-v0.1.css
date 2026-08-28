@@ -1,24 +1,130 @@
 /*
-MEMBRANE mobile Reading refinement v0.1
+MEMBRANE mobile Reading refinement v0.2
 ページ作成日時：2026-08-28 17:19 JST
-最終更新日時：2026-08-28 17:19 JST
+最終更新日時：2026-08-29 00:35 JST
 */
 
 @media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .membrane-masthead-inner {
+    padding-inline: 0.45rem;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-masthead-brand,
+  html[data-theme-id="membrane-academic"] .membrane-masthead-publication {
+    padding: 0.72rem 0.8rem;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-masthead-nav > span {
+    gap: 0.1rem;
+    padding: 0.58rem 0.62rem;
+    font-size: 0.66rem;
+    line-height: 1.15;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-masthead-nav small {
+    font-size: 0.53rem;
+    line-height: 1.2;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences-inner {
+    width: calc(100% - 20px);
+    min-height: 0;
+    padding: 5px 0;
+    justify-content: flex-start;
+    gap: 4px;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences-label {
+    display: none;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences-slot {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences-slot::-webkit-scrollbar {
+    display: none;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences .appearance-switcher,
+  html[data-theme-id="membrane-academic"] .reading-preferences .article-text-size-control {
+    flex: 0 0 auto;
+    gap: 3px;
+    min-height: 30px;
+    padding: 2px 4px;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences .appearance-switcher::before,
+  html[data-theme-id="membrane-academic"] .reading-preferences .article-text-size-label {
+    font-size: 9px;
+  }
+
+  html[data-theme-id="membrane-academic"] .reading-preferences .appearance-switcher button,
+  html[data-theme-id="membrane-academic"] .reading-preferences .article-text-size-button {
+    min-height: 25px;
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-grid > section,
+  html[data-theme-id="membrane-academic"] .membrane-index-about,
+  html[data-theme-id="membrane-academic"] .membrane-index-bibliography {
+    padding: 1.65rem 1.4rem;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-grid h2,
+  html[data-theme-id="membrane-academic"] .membrane-index-about h2,
+  html[data-theme-id="membrane-academic"] .membrane-index-bibliography h2 {
+    font-size: clamp(1.42rem, 7.2vw, 1.82rem);
+    line-height: 1.16;
+    letter-spacing: -0.015em;
+    overflow-wrap: normal;
+    word-break: keep-all;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading {
+    overflow-x: hidden;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading table {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: fixed;
+    font-size: 0.82rem;
+  }
+
   html[data-theme-id="membrane-academic"] .membrane-index-reading th,
   html[data-theme-id="membrane-academic"] .membrane-index-reading td {
-    overflow-wrap: break-word;
+    min-width: 0 !important;
+    padding: 0.58rem 0.45rem;
+    overflow-wrap: anywhere;
     word-break: normal;
+    line-height: 1.45;
   }
 
   html[data-theme-id="membrane-academic"] .membrane-index-reading th:first-child,
   html[data-theme-id="membrane-academic"] .membrane-index-reading td:first-child {
-    width: 4.2rem;
+    width: 3.65rem;
     white-space: nowrap;
+    overflow-wrap: normal;
+    font-variant-numeric: tabular-nums;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading th:nth-child(2),
+  html[data-theme-id="membrane-academic"] .membrane-index-reading td:nth-child(2) {
+    width: auto;
   }
 }
 
 /*
 更新履歴
+- 2026-08-29 00:35 JST：実機iPhone確認を基準に、上部nav、表示設定、section見出し、Reading表のmobile表示を調整。
 - 2026-08-28 17:19 JST：mobile Reading表のYear列が1桁ずつ折り返される表示を修正。
 */
