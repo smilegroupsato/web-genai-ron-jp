@@ -2,16 +2,19 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-08-28 17:12 JST
+最終更新日時：2026-08-28 18:22 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
 promotion PR; their exact bytes are already pinned by the publication receipt.
+Referenced /publishing/** assets are allowed only when required by the promoted
+page and byte-identical to their source-of-truth files under publishing/.
 """
 
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -26,10 +29,14 @@ from new_document_publication import (
     target_for_route,
     validate_receipt,
 )
+from sync_publication_assets import required_assets, validate as validate_publication_assets
 
 AUTOMATION_INFRA_ALLOWLIST = {
     ".github/workflows/new-document-publication-automation.yml",
     "publishing/NEW_DOCUMENT_PUBLICATION.md",
+    "publishing/themes/membrane.yml",
+    "publishing/themes/membrane-mobile-reading-v0.1.css",
+    "scripts/sync_publication_assets.py",
     "scripts/validate_new_document_publication_pr.py",
 }
 
@@ -80,28 +87,48 @@ def validate(base_ref: str, registry_raw: str) -> None:
             "publication PR is missing required generated changes:\n" + "\n".join(missing)
         )
 
-    site_changes = sorted(path for path in files if path.startswith("site/"))
-    if site_changes != [target]:
+    receipt, regenerated = validate_receipt(REPO_ROOT / receipt_path, require_candidate=False)
+    if receipt.get("target") != target:
+        raise BuildError("receipt target does not match changed target")
+    target_path = REPO_ROOT / target
+    if target_path.read_bytes() != regenerated:
+        raise BuildError("public target is not byte-identical to regenerated candidate")
+
+    required_bridge = {
+        f"site/publishing/{relative.as_posix()}" for relative in required_assets(target_path)
+    }
+    changed_bridge = {path for path in files if path.startswith("site/publishing/")}
+    missing_bridge = sorted(required_bridge - changed_bridge)
+    extra_bridge = sorted(changed_bridge - required_bridge)
+    if missing_bridge:
         raise BuildError(
-            "publication PR may add only its registered target under site/:\n"
-            + "\n".join(site_changes)
+            "publication PR is missing required publishing bridge assets:\n"
+            + "\n".join(missing_bridge)
+        )
+    if extra_bridge:
+        raise BuildError(
+            "publication PR contains unreferenced publishing bridge assets:\n"
+            + "\n".join(extra_bridge)
+        )
+    validate_publication_assets(target_path)
+
+    site_changes = {path for path in files if path.startswith("site/")}
+    allowed_site_changes = {target} | required_bridge
+    if site_changes != allowed_site_changes:
+        raise BuildError(
+            "publication PR site/ changes do not match target + required bridge assets:\n"
+            + "\n".join(sorted(site_changes))
         )
 
-    unexpected = sorted(set(files) - required_changed)
+    allowed_changed = required_changed | required_bridge
+    unexpected = sorted(set(files) - allowed_changed)
     if unexpected:
         raise BuildError(
             "publication PR has unrelated changes:\n" + "\n".join(unexpected)
         )
 
-    receipt, regenerated = validate_receipt(REPO_ROOT / receipt_path, require_candidate=False)
-    if receipt.get("target") != target:
-        raise BuildError("receipt target does not match changed target")
-    if (REPO_ROOT / target).read_bytes() != regenerated:
-        raise BuildError("public target is not byte-identical to regenerated candidate")
     if str(entry["route"]) not in existing_routes():
         raise BuildError("published route is missing from site route manifest")
-
-    import subprocess
 
     subprocess.run(
         [sys.executable, "scripts/build_site_manifest.py", "--check"],
@@ -109,6 +136,8 @@ def validate(base_ref: str, registry_raw: str) -> None:
         check=True,
     )
     print(f"two-stage new-document publication target: OK {target}")
+    for path in sorted(required_bridge):
+        print(f"publication bridge asset: OK {path}")
 
 
 def main() -> int:
@@ -123,9 +152,10 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (BuildError, OSError, ValueError) as error:
+    except (BuildError, OSError, ValueError, subprocess.CalledProcessError) as error:
         print(f"ERROR: {error}", file=sys.stderr)
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-08-28 18:22 JST：promoted HTML/CSSが参照するpublishing bridge assetだけを許可し、原本とのbyte identityを検証。
 # - 2026-08-28 17:12 JST：gate-only登録済みsource/index/registryをreceipt hashで固定する二段階PR検証を追加。
