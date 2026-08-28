@@ -1,7 +1,7 @@
 /*
 MEMBRANE Visual Target refinement v0.1
 ページ作成日時：2026-08-26 17:20 JST
-最終更新日時：2026-08-26 17:20 JST
+最終更新日時：2026-08-28 16:53 JST
 
 Visual Target:
 research/membrane-theory/60_web_publication/design/2026.08.26_01_membrane_web_visual_target_v0.1.png
@@ -401,5 +401,38 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
   html[data-theme-id="membrane-academic"] .membrane-index-grid {
     grid-template-columns: 1fr;
     margin-inline: 0.8rem;
+    min-width: 0;
+    max-width: calc(100% - 1.6rem);
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-grid > section,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading table {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading th,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading td {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading th:first-child,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading td:first-child {
+    width: 3.2rem;
+    white-space: normal;
   }
 }
+
+/*
+更新履歴
+- 2026-08-28 16:53 JST：mobile visual QAの横方向overflowを抑制。
+- 2026-08-26 17:20 JST：Visual Target v0.1に合わせたrefinementを作成。
+*/
