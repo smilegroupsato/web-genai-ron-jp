@@ -1,0 +1,241 @@
+# ページ作成日時：2026-08-29 00:43 JST
+# 最終更新日時：2026-08-29 00:43 JST
+
+name: Existing Publication Revision
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/existing-publication-revision.yml"
+      - "scripts/revise_existing_publication.py"
+      - "scripts/validate_existing_publication_revision_pr.py"
+      - "publishing/revisions/**"
+      - "publishing/releases/**"
+      - "site/membrane/**"
+      - "site/publishing/**"
+      - "data/site-routes.manifest.json"
+      - "data/site-content-salvage.manifest.json"
+  push:
+    branches:
+      - "publication-revise/**"
+    paths:
+      - "publishing/requests/**"
+
+jobs:
+  validate-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install publishing dependencies
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Compile revision lane
+        run: |
+          python -m py_compile \
+            scripts/revise_existing_publication.py \
+            scripts/validate_existing_publication_revision_pr.py
+
+      - name: Validate existing publication revision PR
+        run: python scripts/validate_existing_publication_revision_pr.py --base-ref origin/main
+
+  revise:
+    if: github.event_name == 'push' && startsWith(github.ref_name, 'publication-revise/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout revision branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Discover revision request
+        id: request
+        shell: bash
+        run: |
+          mapfile -t requests < <(find publishing/requests -maxdepth 1 -type f -name '*.revise.json' 2>/dev/null | sort)
+          if [ "${#requests[@]}" -eq 0 ]; then
+            echo "active=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "${#requests[@]}" -ne 1 ]; then
+            echo "expected exactly one revision request" >&2
+            exit 1
+          fi
+          echo "active=true" >> "$GITHUB_OUTPUT"
+          echo "file=${requests[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        if: steps.request.outputs.active == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install publishing dependencies
+        if: steps.request.outputs.active == 'true'
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Parse and validate revision request
+        if: steps.request.outputs.active == 'true'
+        id: parsed
+        env:
+          REQUEST_FILE: ${{ steps.request.outputs.file }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, re
+          from pathlib import Path
+          path = Path(os.environ["REQUEST_FILE"])
+          value = json.loads(path.read_text(encoding="utf-8"))
+          required = {"request_version", "id", "expected_candidate_sha256", "requested_at"}
+          if set(value) != required:
+              raise SystemExit("revision request has unexpected fields")
+          if value["request_version"] != "0.1":
+              raise SystemExit("unsupported request_version")
+          if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", str(value["id"])):
+              raise SystemExit("invalid document id")
+          if not re.fullmatch(r"[0-9a-f]{64}", str(value["expected_candidate_sha256"])):
+              raise SystemExit("invalid expected candidate SHA-256")
+          if not re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2} JST", str(value["requested_at"])):
+              raise SystemExit("requested_at must use YYYY-MM-DD HH:MM JST")
+          print(f"id={value['id']}")
+          print(f"expected_sha={value['expected_candidate_sha256']}")
+          print(f"requested_at={value['requested_at']}")
+          PY
+
+      - name: Regenerate reviewed existing candidate
+        if: steps.request.outputs.active == 'true'
+        id: candidate
+        env:
+          DOCUMENT_ID: ${{ steps.parsed.outputs.id }}
+          EXPECTED_SHA: ${{ steps.parsed.outputs.expected_sha }}
+        run: |
+          rm -rf _new_document_candidate _new_document_visual_qa
+          python scripts/revise_existing_publication.py prepare \
+            --id "$DOCUMENT_ID" \
+            --candidate-root _new_document_candidate \
+            --receipt "publishing/releases/${DOCUMENT_ID}.json"
+          python scripts/new_document_publication.py verify-receipt \
+            --receipt "publishing/releases/${DOCUMENT_ID}.json"
+          actual_sha=$(python -c "import json; print(json.load(open('publishing/releases/${DOCUMENT_ID}.json'))['candidate_sha256'])")
+          test "$actual_sha" = "$EXPECTED_SHA"
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          from pathlib import Path
+          document_id = os.environ["DOCUMENT_ID"]
+          receipt = json.loads(Path(f"publishing/releases/{document_id}.json").read_text(encoding="utf-8"))
+          candidate = str(receipt["candidate"])
+          print(f"preview_route=/{candidate.removesuffix('index.html')}")
+          print(f"target={receipt['target']}")
+          PY
+
+      - name: Set up Node
+        if: steps.request.outputs.active == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install visual QA dependency
+        if: steps.request.outputs.active == 'true'
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start reviewed candidate server
+        if: steps.request.outputs.active == 'true'
+        env:
+          PREVIEW_ROUTE: ${{ steps.candidate.outputs.preview_route }}
+        run: |
+          [ -e assets ] || ln -s site/assets assets
+          python -m http.server 8765 --bind 127.0.0.1 > /tmp/existing-publication-preview-http.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent "http://127.0.0.1:8765${PREVIEW_ROUTE}" > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/existing-publication-preview-http.log >&2
+          exit 1
+
+      - name: Re-run desktop and mobile QA
+        if: steps.request.outputs.active == 'true'
+        env:
+          NEW_DOCUMENT_PREVIEW_BASE_URL: http://127.0.0.1:8765
+          NEW_DOCUMENT_PREVIEW_ROUTE: ${{ steps.candidate.outputs.preview_route }}
+          NEW_DOCUMENT_VISUAL_QA_OUTPUT: _new_document_visual_qa
+        run: node scripts/validate_new_document_visual.js
+
+      - name: Promote reviewed revision and sync assets
+        if: steps.request.outputs.active == 'true'
+        env:
+          DOCUMENT_ID: ${{ steps.parsed.outputs.id }}
+          EXPECTED_SHA: ${{ steps.parsed.outputs.expected_sha }}
+          REQUESTED_AT: ${{ steps.parsed.outputs.requested_at }}
+          REQUEST_FILE: ${{ steps.request.outputs.file }}
+          TARGET: ${{ steps.candidate.outputs.target }}
+        run: |
+          python scripts/revise_existing_publication.py promote \
+            --receipt "publishing/releases/${DOCUMENT_ID}.json" \
+            --expected-sha "$EXPECTED_SHA" \
+            --write-site
+
+          python scripts/sync_publication_assets.py sync --html "$TARGET"
+          python scripts/sync_publication_assets.py validate --html "$TARGET"
+          python scripts/build_site_manifest.py
+
+          mkdir -p publishing/revisions
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          value = {
+              "revision_version": "0.1",
+              "id": os.environ["DOCUMENT_ID"],
+              "reviewed_candidate_sha256": os.environ["EXPECTED_SHA"],
+              "target": os.environ["TARGET"],
+              "page_created_at": os.environ["REQUESTED_AT"],
+              "last_updated_at": os.environ["REQUESTED_AT"],
+          }
+          Path(f"publishing/revisions/{os.environ['DOCUMENT_ID']}.json").write_text(
+              json.dumps(value, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+          rm "$REQUEST_FILE"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- \
+            "publishing/releases/${DOCUMENT_ID}.json" \
+            "publishing/revisions/${DOCUMENT_ID}.json" \
+            "$TARGET" \
+            data/site-routes.manifest.json \
+            data/site-content-salvage.manifest.json \
+            site/publishing
+          git add -u -- "$REQUEST_FILE"
+          git diff --cached --quiet && { echo "revision produced no committed changes" >&2; exit 1; }
+          git commit -m "Revise ${DOCUMENT_ID} publication"
+
+          python scripts/validate_existing_publication_revision_pr.py --base-ref origin/main
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Revision branch summary
+        if: steps.request.outputs.active == 'true'
+        run: |
+          echo "### Existing publication revision prepared" >> "$GITHUB_STEP_SUMMARY"
+          echo "- id: \`${{ steps.parsed.outputs.id }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- reviewed SHA-256: \`${{ steps.parsed.outputs.expected_sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- branch: \`${GITHUB_REF_NAME}\`" >> "$GITHUB_STEP_SUMMARY"
+
+# 更新履歴
+# - 2026-08-29 00:43 JST：既存routeを対象にSHA固定candidate再生成・desktop/mobile QA・asset同期・revision record生成・最終PR検証を行う再版laneを追加。
