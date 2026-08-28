@@ -1,0 +1,17 @@
+{
+  "receipt_version": "0.1",
+  "id": "membrane-index",
+  "source": "content/membrane/index.md",
+  "source_sha256": "e37e5ada548cc9b28e941afed4698d2089ed23bd05c7ef8ac5839c748fb9dac0",
+  "route": "/membrane/",
+  "target": "site/membrane/index.html",
+  "index_source": "content/index.md",
+  "index_source_sha256": "2a10c2e15ab9217c84d990ae14eb4b622ad4530f4ab0f2c2f16d2e880a3189d8",
+  "index_html": "site/index.html",
+  "index_sha256": "b126e36905099cc6cb04412c65db937fa173367d08cf9a7307a4623374d49368",
+  "registry": "data/new-document-routes.json",
+  "registry_sha256": "0e54c6968fd864f2f130ac0ee0f42456522a14c12c6d7e2f40ef50ea142fa346",
+  "candidate": "_new_document_candidate/membrane/index.html",
+  "candidate_sha256": "e4d6ed35b372854518e6a762615ad78c1867ae75e2cd8f14e49d631a14ca3848",
+  "test_only": false
+}

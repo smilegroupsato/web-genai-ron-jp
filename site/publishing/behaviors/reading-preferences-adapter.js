@@ -1,6 +1,6 @@
 (() => {
   /**
-   * Transitional adapter for structured publishing pages.
+   * Transitional adapter for the structured publishing preview.
    *
    * The current public theme.js creates the appearance controls globally, but
    * only creates article text-size controls for some series. Structured pages
