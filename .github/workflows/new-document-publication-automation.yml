@@ -1,5 +1,5 @@
 # ページ作成日時：2026-08-28 17:12 JST
-# 最終更新日時：2026-08-28 17:12 JST
+# 最終更新日時：2026-08-28 18:28 JST
 
 name: New Document Publication Automation
 
@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/new-document-publication-automation.yml"
+      - "scripts/sync_publication_assets.py"
       - "scripts/validate_new_document_publication_pr.py"
       - "publishing/NEW_DOCUMENT_PUBLICATION.md"
       - "publishing/releases/**"
@@ -44,6 +45,7 @@ jobs:
         run: |
           python -m py_compile \
             scripts/new_document_publication.py \
+            scripts/sync_publication_assets.py \
             scripts/validate_new_document_publication_pr.py
 
       - name: Validate two-stage publication PR
@@ -323,11 +325,23 @@ jobs:
             --receipt "publishing/releases/${DOCUMENT_ID}.json" \
             --expected-sha "$EXPECTED_SHA" \
             --write-site
+
+          target=$(python -c "import json; print(json.load(open('publishing/releases/${DOCUMENT_ID}.json'))['target'])")
+          test -f "$target"
+          python scripts/sync_publication_assets.py sync --html "$target"
+          python scripts/sync_publication_assets.py validate --html "$target"
+          python scripts/build_site_manifest.py
           rm "$REQUEST_FILE"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add -- \
+            "publishing/releases/${DOCUMENT_ID}.json" \
+            "$target" \
+            data/site-routes.manifest.json \
+            data/site-content-salvage.manifest.json \
+            site/publishing
+          git add -u -- "$REQUEST_FILE"
           git commit -m "Promote ${DOCUMENT_ID} publication candidate"
 
           python scripts/validate_new_document_publication_pr.py --base-ref origin/main
@@ -342,4 +356,5 @@ jobs:
           echo "- branch: \`${GITHUB_REF_NAME}\`" >> "$GITHUB_STEP_SUMMARY"
 
 # 更新履歴
+# - 2026-08-28 18:28 JST：promotion時に参照publishing assetをsiteへbyte-identical同期し、明示パスだけをstageするよう更新。
 # - 2026-08-28 17:12 JST：request commitを起点とするprepare / SHA固定promotion / final PR validationを追加。
