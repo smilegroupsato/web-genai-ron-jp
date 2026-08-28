@@ -1,7 +1,7 @@
 /*
 MEMBRANE Visual Target refinement v0.1
 ページ作成日時：2026-08-26 17:20 JST
-最終更新日時：2026-08-28 16:53 JST
+最終更新日時：2026-08-28 17:06 JST
 
 Visual Target:
 research/membrane-theory/60_web_publication/design/2026.08.26_01_membrane_web_visual_target_v0.1.png
@@ -346,7 +346,7 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
   }
 
   html[data-theme-id="membrane-academic"] .membrane-index-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: 0;
     padding: 3rem 1.4rem 0;
   }
@@ -355,6 +355,9 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
   html[data-theme-id="membrane-academic"] .membrane-index-introduction,
   html[data-theme-id="membrane-academic"] .membrane-index-primary-nav {
     grid-column: 1;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   html[data-theme-id="membrane-academic"] .membrane-index-regions {
@@ -384,6 +387,10 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
 
   html[data-theme-id="membrane-academic"] .membrane-masthead-nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-title h1::before {
+    font-size: clamp(2.4rem, 12vw, 3.2rem);
   }
 
   html[data-theme-id="membrane-academic"] .membrane-title-ja {
@@ -438,6 +445,7 @@ html[data-theme-id="membrane-academic"] .membrane-index-about {
 
 /*
 更新履歴
+- 2026-08-28 17:06 JST：mobileでH1のintrinsic widthがGrid列を押し広げるoverflowを修正。
 - 2026-08-28 16:53 JST：mobile visual QAの横方向overflowをReading欄内へ封じ込め。
 - 2026-08-26 17:20 JST：Visual Target v0.1に合わせたrefinementを作成。
 */
