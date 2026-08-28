@@ -12,7 +12,7 @@ description: "生命、自己、世界、AIのあいだにある『膜』を、�
 theme_id: "membrane-academic"
 status: "publication-candidate"
 page_created_at: "2026-08-26 13:23 JST"
-last_updated_at: "2026-08-26 17:24 JST"
+last_updated_at: "2026-08-28 14:57 JST"
 page_variant: "membrane-index"
 ---
 
@@ -53,8 +53,9 @@ page_variant: "membrane-index"
 
 | Year | Reading |
 | --- | --- |
-| 1925 | Gorter & Grendel — *On Bimolecular Layers of Lipoids on the Chromocytes of the Blood* |
-| 1972 | Singer & Nicolson — *The Fluid Mosaic Model of the Structure of Cell Membranes* |
+| 1925 | [Gorter & Grendel — *On Bimolecular Layers of Lipoids on the Chromocytes of the Blood*](/membrane/reading/gorter-grendel-1925/) |
+| 1972 | [Singer & Nicolson — *The Fluid Mosaic Model of the Structure of Cell Membranes*](/membrane/reading/singer-nicolson-1972/) |
+| 2014 | [Nicolson — *The Fluid-Mosaic Model of Membrane Structure: Still Relevant...*](/membrane/reading/nicolson-2014/) |
 | 1980 | Maturana & Varela — *Autopoiesis and Cognition* |
 | 1987 | McHale — *Postmodernist Fiction* |
 | 1991 | Varela, Thompson & Rosch — *The Embodied Mind* |
