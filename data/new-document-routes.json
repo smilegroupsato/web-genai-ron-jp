@@ -8,34 +8,6 @@
       "index_source": "publishing/fixtures/new-document-index.md",
       "index_html": "publishing/fixtures/new-document-index.html",
       "test_only": true
-    },
-    {
-      "id": "membrane-index",
-      "source": "content/membrane/index.md",
-      "route": "/membrane/",
-      "index_source": "content/index.md",
-      "index_html": "site/index.html"
-    },
-    {
-      "id": "membrane-reading-gorter-grendel-1925",
-      "source": "content/membrane/reading/gorter-grendel-1925.md",
-      "route": "/membrane/reading/gorter-grendel-1925/",
-      "index_source": "content/membrane/index.md",
-      "index_html": "site/membrane/index.html"
-    },
-    {
-      "id": "membrane-reading-singer-nicolson-1972",
-      "source": "content/membrane/reading/singer-nicolson-1972.md",
-      "route": "/membrane/reading/singer-nicolson-1972/",
-      "index_source": "content/membrane/index.md",
-      "index_html": "site/membrane/index.html"
-    },
-    {
-      "id": "membrane-reading-nicolson-2014",
-      "source": "content/membrane/reading/nicolson-2014.md",
-      "route": "/membrane/reading/nicolson-2014/",
-      "index_source": "content/membrane/index.md",
-      "index_html": "site/membrane/index.html"
     }
   ]
 }
