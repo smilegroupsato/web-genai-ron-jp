@@ -1,0 +1,72 @@
+/*
+MEMBRANE background refinement v0.1
+ページ作成日時：2026-08-26 18:56 JST
+最終更新日時：2026-08-26 18:56 JST
+
+Visual Target:
+research/membrane-theory/60_web_publication/design/2026.08.26_01_membrane_web_visual_target_v0.1.png
+*/
+
+html[data-theme-id="membrane-academic"] .membrane-index-hero {
+  background-color: var(--membrane-paper);
+  background-image:
+    linear-gradient(rgba(247, 245, 239, 0.08), rgba(247, 245, 239, 0.08)),
+    url("/publishing/themes/assets/membrane-hero-texture-v01.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Existing CSS membrane planes become secondary translucent layers over the textured asset. */
+html[data-theme-id="membrane-academic"] .membrane-index-hero::before,
+html[data-theme-id="membrane-academic"] .membrane-index-hero::after {
+  opacity: 0.18;
+  border-color: rgba(83, 105, 97, 0.13);
+  box-shadow: none;
+}
+
+html[data-theme-id="membrane-academic"] .membrane-index-introduction blockquote {
+  background: rgba(250, 249, 245, 0.64);
+  backdrop-filter: blur(0.5px);
+}
+
+/* Keep lower paper areas quiet while carrying a trace of the same physical surface. */
+html[data-theme-id="membrane-academic"] .membrane-index-information,
+html[data-theme-id="membrane-academic"] .membrane-index-bibliography {
+  background-color: rgba(247, 245, 239, 0.80);
+  background-image:
+    linear-gradient(rgba(247, 245, 239, 0.72), rgba(247, 245, 239, 0.72)),
+    url("/publishing/themes/assets/membrane-hero-texture-v01.svg");
+  background-size: 145% auto;
+  background-position: center 62%;
+}
+
+/* MEMBRANE no longer uses the old GENAI-RON emoji footer treatment. */
+html[data-theme-id="membrane-academic"] .series-footer p {
+  font-size: 0;
+}
+
+html[data-theme-id="membrane-academic"] .series-footer p::after {
+  content: "GENAI-RON | MEMBRANE STUDIES";
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--membrane-muted);
+}
+
+@media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .membrane-index-hero {
+    background-position: 47% center;
+    background-size: auto 100%;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-hero::before,
+  html[data-theme-id="membrane-academic"] .membrane-index-hero::after {
+    opacity: 0.08;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-information,
+  html[data-theme-id="membrane-academic"] .membrane-index-bibliography {
+    background-image: none;
+  }
+}

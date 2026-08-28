@@ -1,0 +1,24 @@
+/*
+MEMBRANE mobile Reading refinement v0.1
+ページ作成日時：2026-08-28 17:19 JST
+最終更新日時：2026-08-28 17:19 JST
+*/
+
+@media (max-width: 640px) {
+  html[data-theme-id="membrane-academic"] .membrane-index-reading th,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading td {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  html[data-theme-id="membrane-academic"] .membrane-index-reading th:first-child,
+  html[data-theme-id="membrane-academic"] .membrane-index-reading td:first-child {
+    width: 4.2rem;
+    white-space: nowrap;
+  }
+}
+
+/*
+更新履歴
+- 2026-08-28 17:19 JST：mobile Reading表のYear列が1桁ずつ折り返される表示を修正。
+*/
