@@ -404,6 +404,11 @@ async function main() {
       `${entry.case.id}: theme=${entry.metrics.themeId} width=${entry.metrics.clientWidth}/${entry.metrics.scrollWidth} appearance=${entry.metrics.appearanceButtonCount} textSize=${entry.metrics.textSizeButtonCount} sizeOrder=${entry.metrics.readingSizeTest.sizeOrderOk} errors=${entry.errors.length}`
     );
     for (const error of entry.errors) console.error(`  ERROR: ${error}`);
+    if (entry.metrics.overflow.length > 0) {
+      for (const overflow of entry.metrics.overflow) {
+        console.error(`  OVERFLOW: ${JSON.stringify(overflow)}`);
+      }
+    }
   }
 
   if (failed) process.exit(1);
