@@ -2,7 +2,7 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-08-29 00:16 JST
+最終更新日時：2026-08-29 00:48 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
@@ -13,6 +13,11 @@ page and byte-identical to their source-of-truth files under publishing/.
 Final promotion validation intentionally evaluates only committed diff against
 base_ref. Ephemeral QA worktree files such as node_modules/ or the preview assets
 symlink are not part of the publication PR and must not affect this validator.
+
+Existing-publication revision PRs are delegated to
+validate_existing_publication_revision_pr.py when they contain exactly one
+publishing/revisions/*.json record. The dedicated revision workflow is required
+to validate those PRs.
 """
 
 from __future__ import annotations
@@ -60,6 +65,21 @@ def validate(base_ref: str, registry_raw: str) -> None:
     files = committed_changed_files(base_ref)
     if not files:
         raise BuildError("no changed files detected")
+
+    revision_records = [
+        path
+        for path in files
+        if path.startswith("publishing/revisions/") and path.endswith(".json")
+    ]
+    if revision_records:
+        if len(revision_records) != 1:
+            raise BuildError("revision PR must contain exactly one revision record")
+        print(
+            "existing-publication revision detected; "
+            "delegated to validate_existing_publication_revision_pr.py"
+        )
+        print(f"revision record: {revision_records[0]}")
+        return
 
     entries = load_registry(registry_path)
     production = [entry for entry in entries.values() if not entry.get("test_only")]
@@ -171,6 +191,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-08-29 00:48 JST：revision recordを持つ既存公開物PRを専用revision validatorへ委譲。
 # - 2026-08-29 00:16 JST：final promotion validatorをcommitted diff限定にし、QA用未追跡worktree fileを判定対象外化。
 # - 2026-08-28 18:22 JST：promoted HTML/CSSが参照するpublishing bridge assetだけを許可し、原本とのbyte identityを検証。
 # - 2026-08-28 17:12 JST：gate-only登録済みsource/index/registryをreceipt hashで固定する二段階PR検証を追加。
