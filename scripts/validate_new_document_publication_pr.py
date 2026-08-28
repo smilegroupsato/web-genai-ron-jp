@@ -2,13 +2,17 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-08-28 18:22 JST
+最終更新日時：2026-08-29 00:16 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
 promotion PR; their exact bytes are already pinned by the publication receipt.
 Referenced /publishing/** assets are allowed only when required by the promoted
 page and byte-identical to their source-of-truth files under publishing/.
+
+Final promotion validation intentionally evaluates only committed diff against
+base_ref. Ephemeral QA worktree files such as node_modules/ or the preview assets
+symlink are not part of the publication PR and must not affect this validator.
 """
 
 from __future__ import annotations
@@ -21,7 +25,6 @@ from pathlib import Path
 from build_content_pages import BuildError
 from new_document_publication import (
     REPO_ROOT,
-    changed_files,
     existing_routes,
     load_registry,
     path_exists_in_base,
@@ -41,9 +44,20 @@ AUTOMATION_INFRA_ALLOWLIST = {
 }
 
 
+def committed_changed_files(base_ref: str) -> list[str]:
+    result = subprocess.run(
+        ["git", "diff", "--name-only", f"{base_ref}...HEAD"],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    )
+    return sorted({line for line in result.stdout.splitlines() if line})
+
+
 def validate(base_ref: str, registry_raw: str) -> None:
     registry_path = repo_path(registry_raw, "registry")
-    files = changed_files(base_ref)
+    files = committed_changed_files(base_ref)
     if not files:
         raise BuildError("no changed files detected")
 
@@ -157,5 +171,6 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-08-29 00:16 JST：final promotion validatorをcommitted diff限定にし、QA用未追跡worktree fileを判定対象外化。
 # - 2026-08-28 18:22 JST：promoted HTML/CSSが参照するpublishing bridge assetだけを許可し、原本とのbyte identityを検証。
 # - 2026-08-28 17:12 JST：gate-only登録済みsource/index/registryをreceipt hashで固定する二段階PR検証を追加。
