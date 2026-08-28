@@ -10,10 +10,15 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
 3. Is a non-controlled-write PR where no supported public article HTML file is
    changed, in which case the controlled-write gate is skipped.
 
+The dedicated new-document publication validator owns registered publication
+routes and their site/publishing bridge assets. This generic controlled-write
+gate therefore permits the MEMBRANE publication target and site/publishing/**
+changes without trying to re-validate that separate lane.
+
 It does not write to site/.
 
 ページ作成日時：2026-07-23 12:08 JST
-最終更新日時：2026-08-11 12:02 JST
+最終更新日時：2026-08-29 00:20 JST
 """
 
 from __future__ import annotations
@@ -32,6 +37,7 @@ NOTES_PUBLISH_SITE_RE = re.compile(
     r"^site/notes/(?:index|themes|[a-z0-9][a-z0-9-]*/(?:index|timeline))\.html$"
 )
 RELATED_THEMES_CROSS_REFERENCE = "site/article/state-change/bibliography.html"
+MEMBRANE_PUBLICATION_TARGET = "site/membrane/index.html"
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
     "scripts/validate_controlled_write.py",
@@ -97,18 +103,32 @@ def validate_scope(files: list[str]) -> str | None:
 
     series_publish_site_changes = [path for path in site_changes if SERIES_PUBLISH_SITE_RE.match(path)]
     notes_publish_site_changes = [path for path in site_changes if NOTES_PUBLISH_SITE_RE.match(path)]
+    publication_bridge_changes = [path for path in site_changes if path.startswith("site/publishing/")]
     related_themes_cross_reference = (
         {RELATED_THEMES_CROSS_REFERENCE}
         if "site/notes/themes.html" in notes_publish_site_changes
         else set()
     )
-    unexpected_site = sorted(set(site_changes) - set(site_targets) - set(series_publish_site_changes) - set(notes_publish_site_changes) - related_themes_cross_reference - {"site/publishing/design/components.css", "site/publishing/design/tokens.css", "site/publishing/behaviors/reading-preferences-adapter.js"})
+    delegated_publication_changes = set(publication_bridge_changes)
+    if MEMBRANE_PUBLICATION_TARGET in site_changes:
+        delegated_publication_changes.add(MEMBRANE_PUBLICATION_TARGET)
+
+    unexpected_site = sorted(
+        set(site_changes)
+        - set(site_targets)
+        - set(series_publish_site_changes)
+        - set(notes_publish_site_changes)
+        - related_themes_cross_reference
+        - delegated_publication_changes
+    )
     if unexpected_site:
         raise RuntimeError("unexpected site/ changes:\n" + "\n".join(unexpected_site))
 
     if not site_targets:
         if set(files) <= GATE_ONLY_ALLOWLIST:
             print("controlled-write gate-only change: OK")
+        elif delegated_publication_changes:
+            print("dedicated publication target/bridge present: delegated")
         else:
             print("controlled-write target not present: skipped")
         return None
@@ -204,3 +224,6 @@ if __name__ == "__main__":
     except Exception as error:
         print(f"ERROR: {error}", file=sys.stderr)
         raise SystemExit(1)
+
+# 更新履歴
+# - 2026-08-29 00:20 JST：MEMBRANE正式publication targetとsite/publishing bridgeを専用publication validatorへ委譲。
