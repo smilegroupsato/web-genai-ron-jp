@@ -167,6 +167,12 @@ Research Note / 2026 / Literature Review, State Change
 
 Research Note / 2026 / Tool Discovery, Instruction Conflict
 
+### [AIと話していたら、いつの間にかOSができていた](notes/sgos-collaboration-history/)
+
+ChatGPTの会話履歴を一次資料として、長期的な人間・AI協働の中から、記憶、引継ぎ、正本、通信、運転席、統治がどのように必要になったかをたどる事例研究。
+
+Research Note / 2026 / Long-term Collaboration, Context, Memory, Governance
+
 <a id="essays"></a>
 
 Essays
