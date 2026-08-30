@@ -15,6 +15,13 @@
       "route": "/membrane/",
       "index_source": "content/index.md",
       "index_html": "site/index.html"
+    },
+    {
+      "id": "sgos-collaboration-history",
+      "source": "content/notes/sgos-collaboration-history/index.md",
+      "route": "/notes/sgos-collaboration-history/",
+      "index_source": "content/notes/index.md",
+      "index_html": "site/notes/index.html"
     }
   ]
 }
