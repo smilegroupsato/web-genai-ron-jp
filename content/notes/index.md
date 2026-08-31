@@ -41,8 +41,6 @@ NOTES
 
 [ツール発見レイヤーとユーザー指示](/notes/tool-discovery-layer/)
 
-[AIと話していたら、いつの間にかOSができていた](/notes/sgos-collaboration-history/)
-
 ## 公開中の研究ノート
 
 01
