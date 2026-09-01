@@ -12,6 +12,6 @@
   "registry": "data/new-document-routes.json",
   "registry_sha256": "25363698c15288b41a26b3dc532c809aca47c30df027fe5ba44ab1fb434219fb",
   "candidate": "_new_document_candidate/notes/sgos-collaboration-history/index.html",
-  "candidate_sha256": "0096a65d176b3a590b643e3ddce27b4041e9086d9f982d24b52e37d37bf503ce",
+  "candidate_sha256": "5703bc29aa881b780837a1a2816b156b84695500036c49487293dff6bc10576e",
   "test_only": false
 }
