@@ -1,0 +1,112 @@
+# ページ作成日時：2026-09-02 18:14 JST
+# 最終更新日時：2026-09-02 18:14 JST
+name: Verify SGOS editorial candidate
+
+on:
+  push:
+    branches:
+      - "verify-revision/sgos-editorial-candidate-20260902"
+    paths:
+      - ".github/workflows/verify-sgos-editorial-candidate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install publishing dependencies
+        run: python -m pip install -r requirements-publishing.txt
+
+      - name: Generate fixed revision candidate
+        id: candidate
+        run: |
+          rm -rf _new_document_candidate _new_document_visual_qa
+          python scripts/revise_existing_publication.py prepare \
+            --id sgos-collaboration-history \
+            --candidate-root _new_document_candidate \
+            --receipt publishing/releases/sgos-collaboration-history.json
+          python scripts/new_document_publication.py verify-receipt \
+            --receipt publishing/releases/sgos-collaboration-history.json
+          sha=$(python -c "import json; print(json.load(open('publishing/releases/sgos-collaboration-history.json'))['candidate_sha256'])")
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "### SGOS editorial candidate" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SHA-256: \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
+          page=_new_document_candidate/article/sgos-collaboration-history/index.html
+          grep -Fq 'data-theme-id="editorial-article"' "$page"
+          grep -Fq '/publishing/design/editorial-article.css' "$page"
+          grep -Fq '>論考一覧<' "$page"
+          ! grep -Fq '>超詳解トップ<' "$page"
+          ! grep -Fq '>一般向け版<' "$page"
+          ! grep -Fq '>詳解版<' "$page"
+          ! grep -Fq '<h2>更新履歴</h2>' "$page"
+          ! grep -Fq 'Smile Group OS' "$page"
+          grep -Fq 'SGOS' "$page"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start candidate server
+        run: |
+          [ -e assets ] || ln -s site/assets assets
+          python -m http.server 8765 --bind 127.0.0.1 >/tmp/sgos-editorial-http.log 2>&1 &
+          for attempt in {1..30}; do
+            curl --fail --silent http://127.0.0.1:8765/_new_document_candidate/article/sgos-collaboration-history/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/sgos-editorial-http.log >&2
+          exit 1
+
+      - name: Run standard visual QA
+        env:
+          NEW_DOCUMENT_PREVIEW_BASE_URL: http://127.0.0.1:8765
+          NEW_DOCUMENT_PREVIEW_ROUTE: /_new_document_candidate/article/sgos-collaboration-history/
+          NEW_DOCUMENT_VISUAL_QA_OUTPUT: _new_document_visual_qa
+        run: node scripts/validate_new_document_visual.js
+
+      - name: Capture full-page editorial screenshots
+        run: |
+          cat > /tmp/capture.js <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            for (const [name, width, height] of [['desktop',1440,1000],['mobile',390,844]]) {
+              const page = await browser.newPage({viewport:{width,height}});
+              await page.goto('http://127.0.0.1:8765/_new_document_candidate/article/sgos-collaboration-history/', {waitUntil:'networkidle'});
+              await page.screenshot({path:`_new_document_visual_qa/sgos-editorial-${name}-full.png`, fullPage:true});
+              await page.screenshot({path:`_new_document_visual_qa/sgos-editorial-${name}-fold.png`, fullPage:false});
+              const info = await page.evaluate(() => ({
+                title: document.querySelector('h1')?.textContent?.trim(),
+                bodyWidth: document.querySelector('.series-main > article.note-box')?.getBoundingClientRect().width,
+                scrollWidth: document.documentElement.scrollWidth,
+                clientWidth: document.documentElement.clientWidth,
+                header: document.querySelector('.series-nav')?.textContent?.replace(/\s+/g,' ').trim(),
+              }));
+              console.log(name, JSON.stringify(info));
+            }
+            await browser.close();
+          })();
+          JS
+          node /tmp/capture.js
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgos-editorial-candidate-visuals
+          path: |
+            _new_document_candidate/article/sgos-collaboration-history/index.html
+            publishing/releases/sgos-collaboration-history.json
+            _new_document_visual_qa/
+          retention-days: 7
