@@ -1,0 +1,86 @@
+name: Apply public body exclusion renderer fix
+
+on:
+  push:
+    branches:
+      - "fix/honor-public-body-exclusions"
+    paths:
+      - ".github/workflows/temp-apply-public-body-exclusion-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/honor-public-body-exclusions
+          fetch-depth: 0
+
+      - name: Patch builders and regression test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              if text.count(old) != 1:
+                  raise SystemExit(f"expected exactly one patch point in {path}: {text.count(old)}")
+              p.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          replace_once(
+              "scripts/build_content_pages.py",
+              "\ndef render_inline(text: str) -> str:\n",
+              '''\ndef filter_public_body(meta: Dict[str, object], markdown: str) -> str:\n    raw = meta.get("exclude_from_public_body", [])\n    if raw in (None, ""):\n        return markdown\n    if not isinstance(raw, list):\n        raise BuildError("exclude_from_public_body must be a list of H2 headings")\n\n    excluded = {str(value).strip() for value in raw if str(value).strip()}\n    if not excluded:\n        return markdown\n\n    output: List[str] = []\n    skipping = False\n    for line in markdown.splitlines(keepends=True):\n        match = re.match(r"^##\\s+(.+?)\\s*$", line.rstrip("\\r\\n"))\n        if match:\n            skipping = match.group(1).strip() in excluded\n        if not skipping:\n            output.append(line)\n    return "".join(output)\n\n\ndef render_inline(text: str) -> str:\n''',
+          )
+          replace_once(
+              "scripts/build_content_pages.py",
+              "    body_html = render_markdown_body(body)\n    page = build_article_html(meta, body_html)\n",
+              "    public_body = filter_public_body(meta, body)\n    body_html = render_markdown_body(public_body)\n    page = build_article_html(meta, body_html)\n",
+          )
+
+          replace_once(
+              "scripts/build_structured_preview.py",
+              "    parse_front_matter,\n    render_article_nav,\n    render_markdown_body,\n",
+              "    filter_public_body,\n    parse_front_matter,\n    render_article_nav,\n    render_markdown_body,\n",
+          )
+          replace_once(
+              "scripts/build_structured_preview.py",
+              "    body_html = render_markdown_body(body)\n    page = build_article(meta, body, body_html, theme_id)\n",
+              "    public_body = filter_public_body(meta, body)\n    body_html = render_markdown_body(public_body)\n    page = build_article(meta, public_body, body_html, theme_id)\n",
+          )
+
+          workflow = Path(".github/workflows/validate-publishing-structure.yml")
+          text = workflow.read_text(encoding="utf-8")
+          text = text.replace(
+              "# 最終更新日時：2026-09-02 12:20 JST",
+              "# 最終更新日時：2026-09-02 12:35 JST",
+              1,
+          )
+          marker = "      - name: Confirm structured builder cannot write to site\n"
+          test_step = '''      - name: Validate public body exclusion metadata\n        run: |\n          python - <<'PYTEST'\n          import sys\n          sys.path.insert(0, "scripts")\n          from build_content_pages import filter_public_body, render_markdown_body\n\n          markdown = "Visible intro.\\n\\n## 更新履歴\\ninternal history\\n\\n## 公開節\\nvisible ending\\n"\n          filtered = filter_public_body({"exclude_from_public_body": ["更新履歴"]}, markdown)\n          assert "Visible intro." in filtered\n          assert "更新履歴" not in filtered\n          assert "internal history" not in filtered\n          assert "## 公開節" in filtered\n          assert "visible ending" in filtered\n          rendered = render_markdown_body(filtered)\n          assert "<h2>更新履歴</h2>" not in rendered\n          assert "<h2>公開節</h2>" in rendered\n          print("public body exclusion metadata: OK")\n          PYTEST\n\n'''
+          if text.count(marker) != 1:
+              raise SystemExit("publishing structure test insertion point missing")
+          text = text.replace(marker, test_step + marker, 1)
+          history = "# 更新履歴\n"
+          if history not in text:
+              text += "\n# 更新履歴\n"
+          text = text.replace(
+              history,
+              history + "# - 2026-09-02 12:35 JST：exclude_from_public_body metadataを両builderで適用する回帰検証を追加。\n",
+              1,
+          )
+          workflow.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Remove temporary patch workflow and commit
+        run: |
+          git rm .github/workflows/temp-apply-public-body-exclusion-fix.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/build_content_pages.py scripts/build_structured_preview.py .github/workflows/validate-publishing-structure.yml
+          git commit -m "Honor exclude_from_public_body in publication builders"
+          git push origin HEAD:fix/honor-public-body-exclusions
