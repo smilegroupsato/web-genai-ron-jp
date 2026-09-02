@@ -1,0 +1,105 @@
+# ページ作成日時：2026-09-02 18:24 JST
+# 最終更新日時：2026-09-02 18:24 JST
+name: Verify SGOS editorial production
+
+on:
+  push:
+    branches:
+      - "verify-production/sgos-editorial-20260902"
+    paths:
+      - ".github/workflows/verify-sgos-editorial-production.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Verify live bytes and public contract
+        run: |
+          set -euo pipefail
+          expected='942885a91ab113be35ce6c52c7f1e9b03de62d2310237a3ce33832630ac06e3e'
+          article='https://genai-ron.jp/article/sgos-collaboration-history/?cb=202609021824'
+          css='https://genai-ron.jp/publishing/design/editorial-article.css?cb=202609021824'
+          home='https://genai-ron.jp/?cb=202609021824'
+
+          article_code=$(curl -4 -LsS --retry 5 --retry-delay 2 -o /tmp/live-article.html -w '%{http_code}' "$article")
+          css_code=$(curl -4 -LsS --retry 5 --retry-delay 2 -o /tmp/live-editorial.css -w '%{http_code}' "$css")
+          home_code=$(curl -4 -LsS --retry 5 --retry-delay 2 -o /tmp/live-home.html -w '%{http_code}' "$home")
+          test "$article_code" = 200
+          test "$css_code" = 200
+          test "$home_code" = 200
+
+          live_sha=$(sha256sum /tmp/live-article.html | awk '{print $1}')
+          repo_sha=$(sha256sum site/article/sgos-collaboration-history/index.html | awk '{print $1}')
+          test "$live_sha" = "$expected"
+          test "$repo_sha" = "$expected"
+
+          grep -Fq 'data-theme-id="editorial-article"' /tmp/live-article.html
+          grep -Fq '/publishing/design/editorial-article.css' /tmp/live-article.html
+          grep -Fq '>論考一覧<' /tmp/live-article.html
+          ! grep -Fq '>超詳解トップ<' /tmp/live-article.html
+          ! grep -Fq '>一般向け版<' /tmp/live-article.html
+          ! grep -Fq '>詳解版<' /tmp/live-article.html
+          ! grep -Fq '<h2>更新履歴</h2>' /tmp/live-article.html
+          ! grep -Fq 'Smile Group OS' /tmp/live-article.html
+          grep -Fq 'SGOS' /tmp/live-article.html
+          grep -Fq 'href="/article/sgos-collaboration-history/"' /tmp/live-home.html
+          echo "live SHA-256: $live_sha"
+          echo "article/css/home HTTP: $article_code/$css_code/$home_code"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture and inspect live desktop/mobile
+        run: |
+          mkdir -p live-screenshots
+          cat > capture-live-sgos-editorial.js <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const url = 'https://genai-ron.jp/article/sgos-collaboration-history/?cb=202609021824';
+            for (const [name, width, height] of [['desktop',1440,1000],['mobile',390,844]]) {
+              const page = await browser.newPage({viewport:{width,height}});
+              const response = await page.goto(url, {waitUntil:'networkidle'});
+              if (!response || response.status() !== 200) throw new Error(`${name} HTTP ${response && response.status()}`);
+              const info = await page.evaluate(() => ({
+                title: document.querySelector('h1')?.textContent?.trim(),
+                theme: document.documentElement.dataset.themeId,
+                bodyWidth: document.querySelector('.series-main > article.note-box')?.getBoundingClientRect().width,
+                scrollWidth: document.documentElement.scrollWidth,
+                clientWidth: document.documentElement.clientWidth,
+                header: document.querySelector('.series-nav')?.textContent?.replace(/\s+/g,' ').trim(),
+                oldNav: ['超詳解トップ','一般向け版','詳解版'].some(x => document.body.innerText.includes(x)),
+                updateHistory: document.body.innerText.includes('更新履歴'),
+                forbiddenName: document.body.innerText.includes('Smile Group OS'),
+              }));
+              if (info.theme !== 'editorial-article') throw new Error(`${name}: wrong theme ${info.theme}`);
+              if (!info.title?.includes('AIと話していたら')) throw new Error(`${name}: title missing`);
+              if (info.scrollWidth !== info.clientWidth) throw new Error(`${name}: horizontal overflow ${info.scrollWidth}/${info.clientWidth}`);
+              if (info.oldNav || info.updateHistory || info.forbiddenName) throw new Error(`${name}: public contract violation`);
+              console.log(name, JSON.stringify(info));
+              await page.screenshot({path:`live-screenshots/${name}-fold.png`, fullPage:false});
+              await page.screenshot({path:`live-screenshots/${name}-full.png`, fullPage:true});
+            }
+            await browser.close();
+          })();
+          JS
+          node capture-live-sgos-editorial.js
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgos-editorial-live-production
+          path: live-screenshots/
+          retention-days: 7
