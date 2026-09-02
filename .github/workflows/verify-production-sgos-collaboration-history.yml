@@ -1,6 +1,6 @@
 # production verification only; does not deploy or modify site/
 # ページ作成日時：2026-09-02 12:32 JST
-# 最終更新日時：2026-09-02 15:07 JST
+# 最終更新日時：2026-09-02 15:47 JST
 
 name: Verify SGOS collaboration history production
 
@@ -126,4 +126,5 @@ jobs:
           JS
 
 # 更新履歴
+# - 2026-09-02 15:47 JST：PR #99 merge・production deploy後の最終検証を再実行。
 # - 2026-09-02 15:07 JST：revision後の固定SHA、公開契約、live desktop/mobile表示検証へ更新。
