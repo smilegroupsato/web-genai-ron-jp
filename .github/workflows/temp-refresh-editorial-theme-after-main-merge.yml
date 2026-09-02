@@ -1,0 +1,32 @@
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+name: Refresh editorial theme after main merge
+
+on:
+  push:
+    branches:
+      - "fix/sgos-article-editorial-theme"
+    paths:
+      - ".github/workflows/temp-refresh-editorial-theme-after-main-merge.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/sgos-article-editorial-theme
+          fetch-depth: 0
+      - name: Refresh manifests
+        run: |
+          python scripts/build_site_manifest.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/site-routes.manifest.json data/site-content-salvage.manifest.json
+          git diff --cached --check
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh manifests after editorial theme merge"
+          git push origin HEAD:fix/sgos-article-editorial-theme
