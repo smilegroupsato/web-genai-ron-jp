@@ -28,6 +28,7 @@ except ModuleNotFoundError:  # pragma: no cover - exercised by operator setup
 
 from build_content_pages import (
     BuildError,
+    filter_public_body,
     parse_front_matter,
     render_article_nav,
     render_markdown_body,
@@ -420,8 +421,9 @@ def build_one(path: Path, preview_root: Path, cli_theme_id: str | None) -> Path:
     if not theme_id:
         theme_id = default_theme_id
 
-    body_html = render_markdown_body(body)
-    page = build_article(meta, body, body_html, theme_id)
+    public_body = filter_public_body(meta, body)
+    body_html = render_markdown_body(public_body)
+    page = build_article(meta, public_body, body_html, theme_id)
     out_path = output_path_for(meta, preview_root)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(page, encoding="utf-8")
