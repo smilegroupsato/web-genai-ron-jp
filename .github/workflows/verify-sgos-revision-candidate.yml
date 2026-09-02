@@ -1,0 +1,44 @@
+name: Verify SGOS revision candidate
+
+on:
+  push:
+    branches:
+      - "verify-revision/sgos-collaboration-history-candidate"
+    paths:
+      - ".github/workflows/verify-sgos-revision-candidate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements-publishing.txt
+      - name: Generate candidate and receipt
+        run: |
+          rm -rf _new_document_candidate
+          python scripts/revise_existing_publication.py prepare \
+            --id sgos-collaboration-history \
+            --candidate-root _new_document_candidate \
+            --receipt publishing/releases/sgos-collaboration-history.json
+          python scripts/new_document_publication.py verify-receipt \
+            --receipt publishing/releases/sgos-collaboration-history.json
+          sha=$(python -c "import json; print(json.load(open('publishing/releases/sgos-collaboration-history.json'))['candidate_sha256'])")
+          echo "candidate SHA-256: $sha"
+          echo "### SGOS revision candidate" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SHA-256: \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
+          ! grep -Fq '<h2>更新履歴</h2>' _new_document_candidate/article/sgos-collaboration-history/index.html
+          ! grep -Fq 'Smile Group OS' _new_document_candidate/article/sgos-collaboration-history/index.html
+          grep -Fq 'SGOS' _new_document_candidate/article/sgos-collaboration-history/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgos-collaboration-history-revision-candidate
+          path: |
+            _new_document_candidate/article/sgos-collaboration-history/index.html
+            publishing/releases/sgos-collaboration-history.json
+          retention-days: 7
