@@ -2,7 +2,7 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-09-02 10:48 JST
+最終更新日時：2026-09-02 10:57 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
@@ -166,13 +166,7 @@ def validate(base_ref: str, registry_raw: str) -> None:
         f"site/publishing/{relative.as_posix()}" for relative in required_assets(target_path)
     }
     changed_bridge = {path for path in files if path.startswith("site/publishing/")}
-    missing_bridge = sorted(required_bridge - changed_bridge)
     extra_bridge = sorted(changed_bridge - required_bridge)
-    if missing_bridge:
-        raise BuildError(
-            "publication PR is missing required publishing bridge assets:\n"
-            + "\n".join(missing_bridge)
-        )
     if extra_bridge:
         raise BuildError(
             "publication PR contains unreferenced publishing bridge assets:\n"
@@ -181,14 +175,14 @@ def validate(base_ref: str, registry_raw: str) -> None:
     validate_publication_assets(target_path)
 
     site_changes = {path for path in files if path.startswith("site/")}
-    allowed_site_changes = {target} | required_bridge
+    allowed_site_changes = {target} | changed_bridge
     if site_changes != allowed_site_changes:
         raise BuildError(
             "publication PR site/ changes do not match target + required bridge assets:\n"
             + "\n".join(sorted(site_changes))
         )
 
-    allowed_changed = required_changed | required_bridge
+    allowed_changed = required_changed | changed_bridge
     unexpected = sorted(set(files) - allowed_changed)
     if unexpected:
         raise BuildError(
@@ -225,6 +219,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 10:57 JST：既存main上で原本とbyte-identicalな共通publishing bridge assetは再変更を要求せず、参照整合性だけを検証。
 # - 2026-09-02 10:48 JST：public target未生成のgate-only PRを正本new_document_publication.py validate-prへ委譲。
 # - 2026-09-02 10:42 JST：新規論考のindex先行入口PR（Markdown正本＋公開HTML）をpublication prerequisiteとして許可。
 # - 2026-08-29 00:48 JST：revision recordを持つ既存公開物PRを専用revision validatorへ委譲。
