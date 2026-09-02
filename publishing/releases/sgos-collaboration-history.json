@@ -2,7 +2,7 @@
   "receipt_version": "0.1",
   "id": "sgos-collaboration-history",
   "source": "content/article/sgos-collaboration-history/index.md",
-  "source_sha256": "cd340301a19ff411b44da1d5799268be64fad47335e30b8ac6fc6af48573c19c",
+  "source_sha256": "97714601f460fe3fe2ca4768a0f24c6c116fc4a0565d63ce6db090ca03bcc274",
   "route": "/article/sgos-collaboration-history/",
   "target": "site/article/sgos-collaboration-history/index.html",
   "index_source": "content/article/index.md",
@@ -12,6 +12,6 @@
   "registry": "data/new-document-routes.json",
   "registry_sha256": "fddb36b1f38b5c685cb79da81db874f3f4e09697b547168facbab7d8af00ea4c",
   "candidate": "_new_document_candidate/article/sgos-collaboration-history/index.html",
-  "candidate_sha256": "5a67f51d9d2f02794e52ffa95a6e252c8038a417ef332a26d0614c15f922539f",
+  "candidate_sha256": "942885a91ab113be35ce6c52c7f1e9b03de62d2310237a3ce33832630ac06e3e",
   "test_only": false
 }
