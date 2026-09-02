@@ -11,14 +11,14 @@ This script is intended for PR CI. It verifies that a controlled-write PR either
    changed, in which case the controlled-write gate is skipped.
 
 The dedicated new-document publication validator owns registered publication
-routes and their site/publishing bridge assets. This generic controlled-write
-gate therefore permits the MEMBRANE publication target and site/publishing/**
-changes without trying to re-validate that separate lane.
+routes and their site/publishing bridge assets. A PR carrying a production
+publication receipt is therefore delegated to that validator instead of being
+classified by this legacy controlled-write gate.
 
 It does not write to site/.
 
 ページ作成日時：2026-07-23 12:08 JST
-最終更新日時：2026-08-29 00:20 JST
+最終更新日時：2026-09-02 12:20 JST
 """
 
 from __future__ import annotations
@@ -37,7 +37,6 @@ NOTES_PUBLISH_SITE_RE = re.compile(
     r"^site/notes/(?:index|themes|[a-z0-9][a-z0-9-]*/(?:index|timeline))\.html$"
 )
 RELATED_THEMES_CROSS_REFERENCE = "site/article/state-change/bibliography.html"
-MEMBRANE_PUBLICATION_TARGET = "site/membrane/index.html"
 GATE_ONLY_ALLOWLIST = {
     ".github/workflows/validate-controlled-write.yml",
     "scripts/validate_controlled_write.py",
@@ -94,7 +93,23 @@ def fixture_candidate_path(target: str, fixture_root: Path) -> Path:
     return fixture_root / relative / "candidate.html"
 
 
-def validate_scope(files: list[str]) -> str | None:
+def validate_scope(files: list[str], base_ref: str) -> str | None:
+    publication_receipts = [
+        path for path in files
+        if path.startswith("publishing/releases/") and path.endswith(".json")
+    ]
+    if publication_receipts:
+        if len(publication_receipts) != 1:
+            raise RuntimeError("new-document promotion PR must contain exactly one publication receipt")
+        run([
+            sys.executable,
+            "scripts/validate_new_document_publication_pr.py",
+            "--base-ref",
+            base_ref,
+        ])
+        print("new-document promotion PR: delegated from controlled-write validator")
+        return None
+
     site_targets = [path for path in files if TARGET_RE.match(path)]
     site_changes = [path for path in files if path.startswith("site/")]
 
@@ -110,8 +125,6 @@ def validate_scope(files: list[str]) -> str | None:
         else set()
     )
     delegated_publication_changes = set(publication_bridge_changes)
-    if MEMBRANE_PUBLICATION_TARGET in site_changes:
-        delegated_publication_changes.add(MEMBRANE_PUBLICATION_TARGET)
 
     unexpected_site = sorted(
         set(site_changes)
@@ -128,7 +141,7 @@ def validate_scope(files: list[str]) -> str | None:
         if set(files) <= GATE_ONLY_ALLOWLIST:
             print("controlled-write gate-only change: OK")
         elif delegated_publication_changes:
-            print("dedicated publication target/bridge present: delegated")
+            print("dedicated publication bridge present: delegated")
         else:
             print("controlled-write target not present: skipped")
         return None
@@ -205,7 +218,7 @@ def main() -> int:
     for path in files:
         print(f"- {path}")
 
-    target = validate_scope(files)
+    target = validate_scope(files, args.base_ref)
     if target is None:
         return 0
 
@@ -226,4 +239,5 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRを正本final validatorへ委譲。
 # - 2026-08-29 00:20 JST：MEMBRANE正式publication targetとsite/publishing bridgeを専用publication validatorへ委譲。
