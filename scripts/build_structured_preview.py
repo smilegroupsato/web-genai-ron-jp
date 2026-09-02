@@ -42,6 +42,7 @@ SITE_REGISTRY = PUBLISHING_ROOT / "site.yml"
 ARTICLE_TEMPLATE = PUBLISHING_ROOT / "templates" / "article.html"
 SITE_HEADER = PUBLISHING_ROOT / "components" / "site-header.html"
 MEMBRANE_HEADER = PUBLISHING_ROOT / "components" / "membrane-header.html"
+EDITORIAL_ARTICLE_HEADER = PUBLISHING_ROOT / "components" / "editorial-article-header.html"
 SITE_FOOTER = PUBLISHING_ROOT / "components" / "site-footer.html"
 READING_PREFERENCES = PUBLISHING_ROOT / "components" / "reading-preferences.html"
 MEMBRANE_INDEX = PUBLISHING_ROOT / "components" / "membrane-index.html"
@@ -234,6 +235,8 @@ def series_slug_from_meta(meta: Dict[str, object]) -> str:
 def render_site_header(series_slug: str, theme: Dict[str, str]) -> str:
     if theme["theme_id"] == "membrane-academic" or theme["theme_collection"] == "membrane":
         return read_required(MEMBRANE_HEADER)
+    if theme["theme_id"] == "editorial-article" or theme["theme_collection"] == "editorial-article":
+        return read_required(EDITORIAL_ARTICLE_HEADER)
     if series_slug == "ai-dialogue-intro":
         return """<header class="series-header">
   <div class="series-header-inner">
