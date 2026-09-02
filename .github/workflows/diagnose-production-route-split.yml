@@ -1,6 +1,8 @@
 # ページ作成日時：2026-09-02 16:59 JST
-# 最終更新日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 17:02 JST
 # production read-only diagnostics; does not deploy or modify site/
+# 更新履歴
+# - 2026-09-02 17:02 JST：article一覧・no-cache・cache-busting経路の診断を追加。
 
 name: Diagnose production route split
 
@@ -62,6 +64,34 @@ jobs:
               fi
             done
           done
+
+      - name: Article index and cache variants
+        run: |
+          set -u
+          route='https://genai-ron.jp/article/sgos-collaboration-history/'
+          index='https://genai-ron.jp/article/'
+          stamp='202609021702'
+
+          echo '=== live article index ==='
+          curl -4 -sSL --connect-timeout 10 --max-time 25 -D /tmp/index.headers -o /tmp/index.html "$index"
+          cat /tmp/index.headers
+          grep -F 'href="/article/sgos-collaboration-history/"' /tmp/index.html || echo 'ARTICLE LINK NOT FOUND IN INDEX'
+          grep -F 'AIと話していたら、いつの間にかOSができていた' /tmp/index.html || true
+
+          echo '=== article default ==='
+          curl -4 -sSL --connect-timeout 10 --max-time 25 -D /tmp/article-default.headers -o /tmp/article-default.html "$route"
+          cat /tmp/article-default.headers
+          sha256sum /tmp/article-default.html
+
+          echo '=== article Cache-Control:no-cache ==='
+          curl -4 -sSL --connect-timeout 10 --max-time 25 -H 'Cache-Control: no-cache' -D /tmp/article-nocache.headers -o /tmp/article-nocache.html "$route"
+          cat /tmp/article-nocache.headers
+          sha256sum /tmp/article-nocache.html
+
+          echo '=== article cache-busting query ==='
+          curl -4 -sSL --connect-timeout 10 --max-time 25 -D /tmp/article-cb.headers -o /tmp/article-cb.html "${route}?cb=${stamp}"
+          cat /tmp/article-cb.headers
+          sha256sum /tmp/article-cb.html
 
       - name: Response headers and TLS
         run: |
