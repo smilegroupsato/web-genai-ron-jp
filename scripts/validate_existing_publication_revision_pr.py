@@ -2,7 +2,7 @@
 """Validate a final PR that revises an already-published registered document.
 
 ページ作成日時：2026-08-29 00:43 JST
-最終更新日時：2026-09-02 10:48 JST
+最終更新日時：2026-09-02 12:20 JST
 """
 
 from __future__ import annotations
@@ -74,6 +74,28 @@ def validate(base_ref: str, registry_raw: str) -> None:
         if path.startswith("publishing/revisions/") and path.endswith(".json")
     ]
     if not revision_files:
+        publication_receipts = [
+            path for path in files
+            if path.startswith("publishing/releases/") and path.endswith(".json")
+        ]
+        if publication_receipts:
+            if len(publication_receipts) != 1:
+                raise BuildError("new-document promotion PR must contain exactly one publication receipt")
+            subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/validate_new_document_publication_pr.py",
+                    "--base-ref",
+                    base_ref,
+                    "--registry",
+                    registry_raw,
+                ],
+                cwd=REPO_ROOT,
+                check=True,
+            )
+            print("new-document promotion PR: delegated from revision validator")
+            return
+
         gate_hint = (
             "data/new-document-routes.json" in files
             or any(path.startswith("content/") for path in files)
@@ -190,5 +212,6 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRを正本final validatorへ委譲。
 # - 2026-09-02 10:48 JST：新規文書gate-only PRを正本new-document gate validatorへ委譲。
 # - 2026-08-29 00:43 JST：revision recordで対象文書を固定し、reviewed SHA・target byte identity・参照assetだけを検証するvalidatorを追加。
