@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "source_root": "site",
-  "route_count": 103,
+  "route_count": 104,
   "routes": [
     {
       "route": "/article/bibliography.html",
@@ -109,6 +109,12 @@
       "route": "/article/",
       "source_html_path": "site/article/index.html",
       "page_type": "collection-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/article/sgos-collaboration-history/",
+      "source_html_path": "site/article/sgos-collaboration-history/index.html",
+      "page_type": "article-alias",
       "preserve_route": true
     },
     {
