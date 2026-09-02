@@ -2,7 +2,7 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-09-02 10:57 JST
+最終更新日時：2026-09-02 16:59 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
@@ -103,6 +103,14 @@ def validate(base_ref: str, registry_raw: str) -> None:
         }
         if set(files) == article_index_entry:
             print("article index publication prerequisite: OK")
+            return
+
+        home_index_entry = {
+            "content/index.md",
+            "site/index.html",
+        }
+        if set(files) == home_index_entry:
+            print("home index update detected; outside new-document publication lane")
             return
 
         gate_hint = (
@@ -219,6 +227,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 16:59 JST：`content/index.md`＋`site/index.html` のトップページ更新をnew-document gateのscope外として委譲。
 # - 2026-09-02 10:57 JST：既存main上で原本とbyte-identicalな共通publishing bridge assetは再変更を要求せず、参照整合性だけを検証。
 # - 2026-09-02 10:48 JST：public target未生成のgate-only PRを正本new_document_publication.py validate-prへ委譲。
 # - 2026-09-02 10:42 JST：新規論考のindex先行入口PR（Markdown正本＋公開HTML）をpublication prerequisiteとして許可。
