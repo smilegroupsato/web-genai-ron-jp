@@ -1,0 +1,75 @@
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+# production read-only diagnostics; does not deploy or modify site/
+
+name: Diagnose production route split
+
+on:
+  push:
+    branches:
+      - "diagnose/production-route-split-20260902"
+    paths:
+      - ".github/workflows/diagnose-production-route-split.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS records
+        run: |
+          set -u
+          echo '=== system resolver ==='
+          getent ahosts genai-ron.jp || true
+          getent ahosts www.genai-ron.jp || true
+          echo '=== authoritative/public A/AAAA/CNAME ==='
+          for resolver in '' '@1.1.1.1' '@8.8.8.8'; do
+            echo "--- resolver: ${resolver:-system} ---"
+            dig +short $resolver A genai-ron.jp || true
+            dig +short $resolver AAAA genai-ron.jp || true
+            dig +short $resolver A www.genai-ron.jp || true
+            dig +short $resolver AAAA www.genai-ron.jp || true
+            dig +short $resolver CNAME www.genai-ron.jp || true
+          done
+
+      - name: HTTPS route matrix
+        run: |
+          set -u
+          expected='5a67f51d9d2f02794e52ffa95a6e252c8038a417ef332a26d0614c15f922539f'
+          urls=(
+            'https://genai-ron.jp/article/sgos-collaboration-history/'
+            'https://genai-ron.jp/article/sgos-collaboration-history/index.html'
+            'https://www.genai-ron.jp/article/sgos-collaboration-history/'
+            'https://www.genai-ron.jp/article/sgos-collaboration-history/index.html'
+          )
+          for family in 4 6; do
+            echo "=== IPv${family} ==="
+            for url in "${urls[@]}"; do
+              echo "--- $url ---"
+              out="/tmp/body-${family}-$(echo "$url" | tr '/:.' '_')"
+              if curl -${family} --location --silent --show-error --connect-timeout 10 --max-time 25 \
+                    -o "$out" -w 'code=%{http_code} remote_ip=%{remote_ip} url_effective=%{url_effective} content_type=%{content_type}\n' "$url"; then
+                if [ -f "$out" ]; then
+                  sha=$(sha256sum "$out" | awk '{print $1}')
+                  bytes=$(wc -c < "$out")
+                  echo "sha256=$sha bytes=$bytes expected_match=$([ "$sha" = "$expected" ] && echo yes || echo no)"
+                  grep -F 'AIと話していたら、いつの間にかOSができていた' "$out" | head -1 || true
+                fi
+              else
+                echo 'curl failed'
+              fi
+            done
+          done
+
+      - name: Response headers and TLS
+        run: |
+          set -u
+          for host in genai-ron.jp www.genai-ron.jp; do
+            echo "=== HEAD $host ==="
+            curl -4 -sSIL --connect-timeout 10 --max-time 20 "https://${host}/article/sgos-collaboration-history/" || true
+            echo "=== TLS $host ==="
+            timeout 15 openssl s_client -connect "${host}:443" -servername "$host" </dev/null 2>/dev/null \
+              | openssl x509 -noout -subject -issuer -dates -ext subjectAltName || true
+          done
