@@ -2,7 +2,7 @@
 """Prepare, verify, promote, and validate one new content-first document.
 
 ページ作成日時：2026-08-11 15:35 JST
-最終更新日時：2026-08-28 15:24 JST
+最終更新日時：2026-09-01 09:22 JST
 """
 
 from __future__ import annotations
@@ -282,6 +282,21 @@ def candidate_for(entry: dict[str, Any], source: Path, candidate_root: Path) -> 
         + provenance_marker
     )
     text = text.replace(provenance_marker, publication_provenance, 1)
+    excluded = metadata.get("exclude_from_public_body", [])
+    if excluded:
+        if not isinstance(excluded, list) or not all(isinstance(item, str) and item.strip() for item in excluded):
+            raise BuildError("exclude_from_public_body must be a list of non-empty headings")
+        for heading in excluded:
+            marker = chr(10) + "<h2>" + escape(heading.strip()) + "</h2>"
+            start = text.find(marker)
+            if start < 0:
+                continue
+            next_h2 = text.find(chr(10) + "<h2>", start + len(marker))
+            article_end = text.find("</article>", start + len(marker))
+            candidates = [pos for pos in (next_h2, article_end) if pos >= 0]
+            if not candidates:
+                raise BuildError(f"cannot find end of excluded section: {heading}")
+            text = text[:start] + text[min(candidates):]
     candidate.write_text(text, encoding="utf-8")
     if 'data-theme-production-enabled="true"' not in text:
         raise BuildError("candidate theme is not enabled for production")
