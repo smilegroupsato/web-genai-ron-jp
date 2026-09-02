@@ -1,6 +1,6 @@
 # production verification only; does not deploy or modify site/
 # ページ作成日時：2026-09-02 12:32 JST
-# 最終更新日時：2026-09-02 12:32 JST
+# 最終更新日時：2026-09-02 15:07 JST
 
 name: Verify SGOS collaboration history production
 
@@ -18,8 +18,10 @@ jobs:
   verify-production:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout publication source
+      - name: Checkout latest production source
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Fetch live production pages
         run: |
@@ -38,7 +40,7 @@ jobs:
       - name: Verify fixed candidate byte identity
         run: |
           set -euo pipefail
-          expected="510ba972bae7fbcc1c27f32f81c3133a9f45a4464c67b4ebf2d0208005b59266"
+          expected="5a67f51d9d2f02794e52ffa95a6e252c8038a417ef332a26d0614c15f922539f"
           repo_sha=$(sha256sum site/article/sgos-collaboration-history/index.html | awk '{print $1}')
           live_sha=$(sha256sum /tmp/live-article.html | awk '{print $1}')
           test "$repo_sha" = "$expected"
@@ -53,6 +55,7 @@ jobs:
           grep -Fq 'AIと話していたら、いつの間にかOSができていた' "$page"
           grep -Fq 'ある長期対話が、書記局と運転席と統治を必要とするまで' "$page"
           grep -Fq 'SGOS' "$page"
+          grep -Fq 'AIと話し続けていたら、会話のほうが、自分を続けるための仕組みを要求してきた。' "$page"
           if grep -Fq 'Smile Group OS' "$page"; then
             echo 'forbidden public name leaked: Smile Group OS' >&2
             exit 1
@@ -71,8 +74,56 @@ jobs:
       - name: Verify essential public assets
         run: |
           set -euo pipefail
-          for path in /assets/theme.css /assets/theme.js; do
+          for path in /assets/theme.css /assets/theme.js /publishing/behaviors/reading-preferences-adapter.js; do
             code=$(curl --location --silent --show-error --retry 5 --retry-delay 2 --output /dev/null --write-out '%{http_code}' "https://genai-ron.jp${path}")
             test "$code" = "200"
             echo "$path HTTP: $code"
           done
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install live visual verification dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Verify desktop and mobile live rendering
+        run: |
+          node - <<'JS'
+          const { chromium } = require('playwright');
+
+          async function verify(name, viewport) {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewportSize: viewport });
+            const response = await page.goto('https://genai-ron.jp/article/sgos-collaboration-history/', { waitUntil: 'networkidle' });
+            if (!response || response.status() !== 200) throw new Error(`${name}: HTTP ${response && response.status()}`);
+            await page.locator('h1').filter({ hasText: 'AIと話していたら、いつの間にかOSができていた' }).waitFor({ state: 'visible' });
+            const bodyText = await page.locator('body').innerText();
+            if (!bodyText.includes('SGOS')) throw new Error(`${name}: SGOS missing`);
+            if (bodyText.includes('Smile Group OS')) throw new Error(`${name}: forbidden public name visible`);
+            if (bodyText.includes('更新履歴')) throw new Error(`${name}: update history visible`);
+            const dimensions = await page.evaluate(() => ({
+              scrollWidth: document.documentElement.scrollWidth,
+              clientWidth: document.documentElement.clientWidth,
+            }));
+            if (dimensions.scrollWidth > dimensions.clientWidth + 2) {
+              throw new Error(`${name}: horizontal overflow ${dimensions.scrollWidth} > ${dimensions.clientWidth}`);
+            }
+            console.log(`${name}: OK ${viewport.width}x${viewport.height}`);
+            await browser.close();
+          }
+
+          (async () => {
+            await verify('desktop', { width: 1440, height: 1000 });
+            await verify('mobile', { width: 390, height: 844 });
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          JS
+
+# 更新履歴
+# - 2026-09-02 15:07 JST：revision後の固定SHA、公開契約、live desktop/mobile表示検証へ更新。
