@@ -35,6 +35,7 @@ from build_content_pages import BuildError
 from new_document_publication import (
     REPO_ROOT,
     existing_routes,
+    is_publication_theme_infra,
     load_registry,
     path_exists_in_base,
     repo_path,
@@ -132,7 +133,7 @@ def validate(base_ref: str, registry_raw: str) -> None:
             print("new-document gate-only PR: delegated to canonical gate validator")
             return
 
-        unexpected = sorted(set(files) - AUTOMATION_INFRA_ALLOWLIST)
+        unexpected = sorted(path for path in files if path not in AUTOMATION_INFRA_ALLOWLIST and not is_publication_theme_infra(path))
         if unexpected:
             raise BuildError(
                 "publication automation PR has no public target and contains unrelated changes:\n"
@@ -227,6 +228,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 16:59 JST：theme infrastructure判定を正本helperへ統一し、新theme追加PRをpublication target PRと誤認しないよう修正。
 # - 2026-09-02 16:59 JST：`content/index.md`＋`site/index.html` のトップページ更新をnew-document gateのscope外として委譲。
 # - 2026-09-02 10:57 JST：既存main上で原本とbyte-identicalな共通publishing bridge assetは再変更を要求せず、参照整合性だけを検証。
 # - 2026-09-02 10:48 JST：public target未生成のgate-only PRを正本new_document_publication.py validate-prへ委譲。

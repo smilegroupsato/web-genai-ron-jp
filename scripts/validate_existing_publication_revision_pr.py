@@ -2,7 +2,7 @@
 """Validate a final PR that revises an already-published registered document.
 
 ページ作成日時：2026-08-29 00:43 JST
-最終更新日時：2026-09-02 12:24 JST
+最終更新日時：2026-09-02 16:59 JST
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from build_content_pages import BuildError
 from new_document_publication import (
     REPO_ROOT,
     existing_routes,
+    is_publication_theme_infra,
     load_registry,
     repo_path,
     target_for_route,
@@ -117,7 +118,7 @@ def validate(base_ref: str, registry_raw: str) -> None:
             print("new-document gate-only PR: delegated from revision validator")
             return
 
-        unexpected = sorted(set(files) - INFRA_ALLOWLIST)
+        unexpected = sorted(path for path in files if path not in INFRA_ALLOWLIST and not is_publication_theme_infra(path))
         if unexpected:
             raise BuildError(
                 "existing-publication revision infra PR contains unrelated changes:\n"
@@ -214,6 +215,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 16:59 JST：theme infrastructure判定を正本helperへ統一し、revision laneのscope外theme追加を正常委譲。
 # - 2026-09-02 12:24 JST：publication validator群を同一infra PRで整合させるため、相互に必要なworkflow/scriptだけallowlistへ追加。
 # - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRを正本final validatorへ委譲。
 # - 2026-09-02 10:48 JST：新規文書gate-only PRを正本new-document gate validatorへ委譲。
