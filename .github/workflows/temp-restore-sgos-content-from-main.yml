@@ -1,0 +1,31 @@
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+name: Restore SGOS content metadata from main
+
+on:
+  push:
+    branches:
+      - "fix/sgos-article-editorial-theme"
+    paths:
+      - ".github/workflows/temp-restore-sgos-content-from-main.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/sgos-article-editorial-theme
+          fetch-depth: 0
+      - name: Restore article source from main
+        run: |
+          git checkout origin/main -- content/article/sgos-collaboration-history/index.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/article/sgos-collaboration-history/index.md
+          git diff --cached --check
+          git commit -m "Keep editorial theme infrastructure separate from article revision"
+          git push origin HEAD:fix/sgos-article-editorial-theme
