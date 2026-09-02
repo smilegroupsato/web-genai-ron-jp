@@ -50,6 +50,7 @@ AUTOMATION_INFRA_ALLOWLIST = {
     "publishing/themes/membrane.yml",
     "publishing/themes/membrane-mobile-reading-v0.1.css",
     "scripts/sync_publication_assets.py",
+    "scripts/new_document_publication.py",
     "scripts/validate_new_document_publication_pr.py",
     "scripts/validate_existing_publication_revision_pr.py",
 }

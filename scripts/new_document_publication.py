@@ -68,6 +68,8 @@ INFRA_ALLOWLIST = {
     "scripts/build_structured_preview.py",
     "scripts/capture_structured_preview.js",
     "scripts/new_document_publication.py",
+    "scripts/validate_new_document_publication_pr.py",
+    "scripts/validate_existing_publication_revision_pr.py",
     "scripts/validate_new_document_visual.js",
     "scripts/validate_structured_preview.py",
     "scripts/validate_site_manifest_routing.py",

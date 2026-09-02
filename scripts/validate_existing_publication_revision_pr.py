@@ -30,6 +30,7 @@ INFRA_ALLOWLIST = {
     ".github/workflows/existing-publication-revision.yml",
     ".github/workflows/validate-publishing-structure.yml",
     "scripts/revise_existing_publication.py",
+    "scripts/new_document_publication.py",
     "scripts/validate_controlled_write.py",
     "scripts/validate_existing_publication_revision_pr.py",
     "scripts/validate_new_document_publication_pr.py",
