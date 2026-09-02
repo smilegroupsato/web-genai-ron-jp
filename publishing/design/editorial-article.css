@@ -1,0 +1,305 @@
+/*
+GENAI-RON editorial article styles
+ページ作成日時：2026-09-02 16:59 JST
+最終更新日時：2026-09-02 16:59 JST
+*/
+
+html[data-theme-id="editorial-article"] {
+  --editorial-paper: #f7f3ea;
+  --editorial-ink: #22211f;
+  --editorial-muted: #716b61;
+  --editorial-line: rgba(89, 78, 62, .24);
+  --editorial-accent: #315a57;
+  --editorial-accent-soft: #e8efeb;
+  --editorial-reader: 46rem;
+}
+
+html[data-theme-id="editorial-article"] body.series-page {
+  background: var(--theme-bg, var(--editorial-paper));
+  color: var(--theme-text, var(--editorial-ink));
+  font-family: var(--gr-font-body, "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif);
+  letter-spacing: .018em;
+  line-height: 2;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--theme-line, var(--editorial-line));
+  background: color-mix(in srgb, var(--theme-bg, var(--editorial-paper)) 94%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-header-inner {
+  width: min(1120px, calc(100% - 40px));
+  min-height: 68px;
+  margin: 0 auto;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-brand {
+  display: grid;
+  gap: 2px;
+  color: inherit;
+  text-decoration: none;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-brand-main {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-brand-sub {
+  color: var(--theme-muted, var(--editorial-muted));
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 12px;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-nav a {
+  color: var(--theme-muted, var(--editorial-muted));
+  text-decoration: none;
+}
+
+html[data-theme-id="editorial-article"] .editorial-article-header .series-nav a:hover {
+  color: var(--theme-text, var(--editorial-ink));
+}
+
+html[data-theme-id="editorial-article"] .reading-preferences-inner {
+  width: min(1120px, calc(100% - 40px));
+}
+
+html[data-theme-id="editorial-article"] .series-hero {
+  width: min(960px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 80px 0 48px;
+  border-bottom: 1px solid var(--theme-line, var(--editorial-line));
+}
+
+html[data-theme-id="editorial-article"] .series-kicker {
+  margin: 0 0 18px;
+  color: var(--theme-accent, var(--editorial-accent));
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+html[data-theme-id="editorial-article"] .series-hero h1 {
+  max-width: 900px;
+  margin: 0;
+  color: var(--theme-text, var(--editorial-ink));
+  font-family: var(--gr-font-body, "Hiragino Mincho ProN", "Yu Mincho", serif);
+  font-size: clamp(42px, 5.5vw, 68px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+html[data-theme-id="editorial-article"] .series-subtitle {
+  max-width: 760px;
+  margin: 26px 0 0;
+  color: var(--theme-muted, var(--editorial-muted));
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.7;
+  letter-spacing: .015em;
+}
+
+html[data-theme-id="editorial-article"] .series-main {
+  width: min(960px, calc(100% - 40px));
+  margin: 0 auto 110px;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box {
+  width: min(var(--editorial-reader), 100%);
+  max-width: none;
+  margin: 0 auto;
+  padding: 56px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--theme-text, var(--editorial-ink));
+  font-size: 17.5px;
+  line-height: 2.05;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box p {
+  margin: 0 0 1.45em;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box > p:first-child {
+  margin-bottom: 1.6em;
+  color: var(--theme-text, var(--editorial-ink));
+  font-size: 21px;
+  line-height: 1.95;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box h2 {
+  margin: 76px 0 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--theme-line, var(--editorial-line));
+  color: var(--theme-text, var(--editorial-ink));
+  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -.025em;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box h3 {
+  margin: 52px 0 18px;
+  color: var(--theme-text, var(--editorial-ink));
+  font-size: 22px;
+  line-height: 1.55;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box strong {
+  color: color-mix(in srgb, var(--theme-accent, var(--editorial-accent)) 82%, var(--theme-text, var(--editorial-ink)) 18%);
+  font-weight: 700;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box blockquote {
+  margin: 38px 0;
+  padding: 24px 28px;
+  border: 0;
+  border-left: 3px solid var(--theme-accent, var(--editorial-accent));
+  background: color-mix(in srgb, var(--theme-soft, var(--editorial-accent-soft)) 76%, transparent);
+  color: var(--theme-text, var(--editorial-ink));
+  font-size: 19px;
+  line-height: 1.9;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box ul,
+html[data-theme-id="editorial-article"] .series-main > article.note-box ol {
+  margin: 0 0 1.6em;
+  padding-left: 1.4em;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box li {
+  margin: .55em 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.9;
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box hr {
+  margin: 60px 0;
+  border: 0;
+  border-top: 1px solid var(--theme-line, var(--editorial-line));
+}
+
+html[data-theme-id="editorial-article"] .series-main > article.note-box .article-link {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1px solid var(--theme-line, var(--editorial-line));
+  font-family: var(--gr-font-ui, system-ui, sans-serif);
+  font-size: 13px;
+}
+
+html[data-theme-id="editorial-article"] .series-footer {
+  width: min(960px, calc(100% - 40px));
+  margin: 0 auto;
+  border-top: 1px solid var(--theme-line, var(--editorial-line));
+  color: var(--theme-muted, var(--editorial-muted));
+}
+
+html[data-theme-id="editorial-article"][data-appearance="reading"] {
+  --theme-bg: #111512;
+  --theme-surface: #151a16;
+  --theme-card: #151a16;
+  --theme-text: #f0ece3;
+  --theme-muted: #c9c0b4;
+  --theme-line: rgba(226, 216, 198, .24);
+  --theme-soft: #202721;
+  --theme-accent: #8fbbaa;
+}
+
+html[data-theme-id="editorial-article"][data-appearance="archive"] {
+  --theme-bg: #e8dcc2;
+  --theme-surface: #eee3ca;
+  --theme-card: #eee3ca;
+  --theme-text: #30291f;
+  --theme-muted: #746653;
+  --theme-line: rgba(87, 70, 47, .3);
+  --theme-soft: #e1d2b4;
+  --theme-accent: #705943;
+}
+
+@media (max-width: 760px) {
+  html[data-theme-id="editorial-article"] .editorial-article-header .series-header-inner {
+    min-height: 0;
+    align-items: flex-start;
+    padding: 12px 0;
+  }
+
+  html[data-theme-id="editorial-article"] .editorial-article-header .series-brand-sub {
+    display: none;
+  }
+
+  html[data-theme-id="editorial-article"] .editorial-article-header .series-nav {
+    gap: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  html[data-theme-id="editorial-article"] .editorial-article-header .series-nav a:nth-child(3),
+  html[data-theme-id="editorial-article"] .editorial-article-header .series-nav a:nth-child(4) {
+    display: none;
+  }
+
+  html[data-theme-id="editorial-article"] .series-hero {
+    width: min(100% - 32px, 960px);
+    padding: 48px 0 34px;
+  }
+
+  html[data-theme-id="editorial-article"] .series-hero h1 {
+    font-size: clamp(34px, 10.5vw, 48px);
+    line-height: 1.2;
+  }
+
+  html[data-theme-id="editorial-article"] .series-subtitle {
+    margin-top: 20px;
+    font-size: 17px;
+  }
+
+  html[data-theme-id="editorial-article"] .series-main {
+    width: min(100% - 32px, 960px);
+    margin-bottom: 80px;
+  }
+
+  html[data-theme-id="editorial-article"] .series-main > article.note-box {
+    padding-top: 38px;
+    font-size: 16.5px;
+    line-height: 1.95;
+  }
+
+  html[data-theme-id="editorial-article"] .series-main > article.note-box > p:first-child {
+    font-size: 18px;
+  }
+
+  html[data-theme-id="editorial-article"] .series-main > article.note-box h2 {
+    margin-top: 58px;
+    padding-top: 22px;
+    font-size: 26px;
+  }
+}
