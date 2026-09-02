@@ -1,0 +1,27 @@
+# GENAI-RON editorial article theme
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+
+theme_id: editorial-article
+collection_id: editorial-article
+base_theme: default-academic
+status: active-reference
+production_enabled: true
+
+visual_intent:
+  description: Long-form essay / journal article向けの静かなeditorial theme
+  keywords:
+    - longform
+    - editorial
+    - journal
+    - reading-first
+    - serif
+
+hero:
+  variant: text-only
+  asset_role: none
+  text_contrast: dark
+  image_required: false
+
+stylesheets:
+  - /publishing/design/editorial-article.css
