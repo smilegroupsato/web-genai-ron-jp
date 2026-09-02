@@ -1,4 +1,4 @@
-# 最終更新日時：2026-08-29 00:20 JST
+# 最終更新日時：2026-09-02 12:20 JST
 
 name: Validate Publishing Structure
 
@@ -293,11 +293,16 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/membrane/**' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/index.html' ':!site/article/state-change/bibliography.html')
-          if [ -n "$disallowed" ]; then
-            echo "unexpected public site file changes:" >&2
-            echo "$disallowed" >&2
-            exit 1
+          if git diff --name-only origin/main...HEAD | grep -Eq '^publishing/releases/[^/]+\.json$'; then
+            python scripts/validate_new_document_publication_pr.py --base-ref origin/main
+            echo "new-document promotion PR: delegated from publishing-structure site-scope check"
+          else
+            disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/membrane/**' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/index.html' ':!site/article/state-change/bibliography.html')
+            if [ -n "$disallowed" ]; then
+              echo "unexpected public site file changes:" >&2
+              echo "$disallowed" >&2
+              exit 1
+            fi
           fi
 
       - name: Set up Node
@@ -352,6 +357,6 @@ jobs:
           retention-days: 7
 
 # 更新履歴
-# - 2026-08-29 00:20 JST：正式MEMBRANE publication targetを専用publication validatorへ委譲。
-
+# - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRのsite scope判定を正本final validatorへ委譲。
 # - 2026-09-02 10:42 JST：新規論考のindex先行入口更新としてsite/article/index.htmlを許可。
+# - 2026-08-29 00:20 JST：正式MEMBRANE publication targetを専用publication validatorへ委譲。
