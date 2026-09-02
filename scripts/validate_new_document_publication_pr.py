@@ -2,7 +2,7 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-09-02 10:42 JST
+最終更新日時：2026-09-02 10:48 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
@@ -18,6 +18,10 @@ Existing-publication revision PRs are delegated to
 validate_existing_publication_revision_pr.py when they contain exactly one
 publishing/revisions/*.json record. The dedicated revision workflow is required
 to validate those PRs.
+
+Gate-only registration PRs are delegated to the canonical
+new_document_publication.py validate-pr gate instead of being mistaken for a
+final promotion PR.
 """
 
 from __future__ import annotations
@@ -46,6 +50,7 @@ AUTOMATION_INFRA_ALLOWLIST = {
     "publishing/themes/membrane-mobile-reading-v0.1.css",
     "scripts/sync_publication_assets.py",
     "scripts/validate_new_document_publication_pr.py",
+    "scripts/validate_existing_publication_revision_pr.py",
 }
 
 
@@ -90,10 +95,35 @@ def validate(base_ref: str, registry_raw: str) -> None:
     changed_targets = [target for target in by_target if target in files]
 
     if not changed_targets:
-        article_index_entry = {"content/article/index.md", "site/article/index.html", "scripts/validate_new_document_publication_pr.py", ".github/workflows/validate-publishing-structure.yml"}
+        article_index_entry = {
+            "content/article/index.md",
+            "site/article/index.html",
+            "scripts/validate_new_document_publication_pr.py",
+            ".github/workflows/validate-publishing-structure.yml",
+        }
         if set(files) == article_index_entry:
             print("article index publication prerequisite: OK")
             return
+
+        gate_hint = (
+            "data/new-document-routes.json" in files
+            or any(path.startswith("content/") for path in files)
+        )
+        if gate_hint:
+            subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/new_document_publication.py",
+                    "validate-pr",
+                    "--base-ref",
+                    base_ref,
+                ],
+                cwd=REPO_ROOT,
+                check=True,
+            )
+            print("new-document gate-only PR: delegated to canonical gate validator")
+            return
+
         unexpected = sorted(set(files) - AUTOMATION_INFRA_ALLOWLIST)
         if unexpected:
             raise BuildError(
@@ -195,9 +225,9 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 10:48 JST：public target未生成のgate-only PRを正本new_document_publication.py validate-prへ委譲。
+# - 2026-09-02 10:42 JST：新規論考のindex先行入口PR（Markdown正本＋公開HTML）をpublication prerequisiteとして許可。
 # - 2026-08-29 00:48 JST：revision recordを持つ既存公開物PRを専用revision validatorへ委譲。
 # - 2026-08-29 00:16 JST：final promotion validatorをcommitted diff限定にし、QA用未追跡worktree fileを判定対象外化。
 # - 2026-08-28 18:22 JST：promoted HTML/CSSが参照するpublishing bridge assetだけを許可し、原本とのbyte identityを検証。
 # - 2026-08-28 17:12 JST：gate-only登録済みsource/index/registryをreceipt hashで固定する二段階PR検証を追加。
-
-# - 2026-09-02 10:42 JST：新規論考のindex先行入口PR（Markdown正本＋公開HTML）をpublication prerequisiteとして許可。
