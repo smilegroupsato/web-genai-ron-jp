@@ -293,7 +293,7 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/membrane/**' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/state-change/bibliography.html')
+          disallowed=$(git diff --name-only origin/main...HEAD -- site/ ':!site/index.html' ':!site/membrane/**' ':!site/publishing/**' ':!site/series/ai-dialogue-intro/**' ':!site/notes/**' ':!site/article/index.html' ':!site/article/state-change/bibliography.html')
           if [ -n "$disallowed" ]; then
             echo "unexpected public site file changes:" >&2
             echo "$disallowed" >&2
@@ -353,3 +353,5 @@ jobs:
 
 # 更新履歴
 # - 2026-08-29 00:20 JST：正式MEMBRANE publication targetを専用publication validatorへ委譲。
+
+# - 2026-09-02 10:42 JST：新規論考のindex先行入口更新としてsite/article/index.htmlを許可。
