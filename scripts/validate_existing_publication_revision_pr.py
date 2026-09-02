@@ -2,7 +2,7 @@
 """Validate a final PR that revises an already-published registered document.
 
 ページ作成日時：2026-08-29 00:43 JST
-最終更新日時：2026-09-02 10:48 JST
+最終更新日時：2026-09-02 12:24 JST
 """
 
 from __future__ import annotations
@@ -27,7 +27,9 @@ from sync_publication_assets import required_assets, validate as validate_public
 REVISION_VERSION = "0.1"
 INFRA_ALLOWLIST = {
     ".github/workflows/existing-publication-revision.yml",
+    ".github/workflows/validate-publishing-structure.yml",
     "scripts/revise_existing_publication.py",
+    "scripts/validate_controlled_write.py",
     "scripts/validate_existing_publication_revision_pr.py",
     "scripts/validate_new_document_publication_pr.py",
 }
@@ -74,6 +76,28 @@ def validate(base_ref: str, registry_raw: str) -> None:
         if path.startswith("publishing/revisions/") and path.endswith(".json")
     ]
     if not revision_files:
+        publication_receipts = [
+            path for path in files
+            if path.startswith("publishing/releases/") and path.endswith(".json")
+        ]
+        if publication_receipts:
+            if len(publication_receipts) != 1:
+                raise BuildError("new-document promotion PR must contain exactly one publication receipt")
+            subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/validate_new_document_publication_pr.py",
+                    "--base-ref",
+                    base_ref,
+                    "--registry",
+                    registry_raw,
+                ],
+                cwd=REPO_ROOT,
+                check=True,
+            )
+            print("new-document promotion PR: delegated from revision validator")
+            return
+
         gate_hint = (
             "data/new-document-routes.json" in files
             or any(path.startswith("content/") for path in files)
@@ -190,5 +214,7 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
 # 更新履歴
+# - 2026-09-02 12:24 JST：publication validator群を同一infra PRで整合させるため、相互に必要なworkflow/scriptだけallowlistへ追加。
+# - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRを正本final validatorへ委譲。
 # - 2026-09-02 10:48 JST：新規文書gate-only PRを正本new-document gate validatorへ委譲。
 # - 2026-08-29 00:43 JST：revision recordで対象文書を固定し、reviewed SHA・target byte identity・参照assetだけを検証するvalidatorを追加。
