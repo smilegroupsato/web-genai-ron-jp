@@ -1,6 +1,6 @@
 # GENAI-RON publishing registry
 # ページ作成日時：2026-07-22 22:50 JST
-# 最終更新日時：2026-07-23 08:43 JST
+# 最終更新日時：2026-09-02 16:59 JST
 
 version: "0.1"
 status: experimental
@@ -50,6 +50,8 @@ themes:
     manifest: publishing/themes/default.yml
   membrane-academic:
     manifest: publishing/themes/membrane.yml
+  editorial-article:
+    manifest: publishing/themes/editorial-article.yml
   library-series:
     manifest: publishing/themes/library-series.yml
 
@@ -69,4 +71,5 @@ compatibility:
     - site/assets/theme.js
 
 update_history:
+  - 2026-09-02 16:59 JST: 長篇論考向け editorial-article theme を登録。
   - 2026-07-23 08:43 JST: 表示設定をheader・本文・footerから独立させるreading-preferences component、component CSS、legacy runtime adapterを登録。
