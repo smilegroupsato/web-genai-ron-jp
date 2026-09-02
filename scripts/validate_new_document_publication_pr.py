@@ -2,7 +2,7 @@
 """Validate the final PR produced by the two-stage new-document publication lane.
 
 ページ作成日時：2026-08-28 17:12 JST
-最終更新日時：2026-08-29 00:48 JST
+最終更新日時：2026-09-02 10:42 JST
 
 The gate-only stage may register source/route/index before publication. Therefore
 source, registry, and index files do not need to change again in the final
@@ -90,6 +90,10 @@ def validate(base_ref: str, registry_raw: str) -> None:
     changed_targets = [target for target in by_target if target in files]
 
     if not changed_targets:
+        article_index_entry = {"content/article/index.md", "site/article/index.html", "scripts/validate_new_document_publication_pr.py", ".github/workflows/validate-publishing-structure.yml"}
+        if set(files) == article_index_entry:
+            print("article index publication prerequisite: OK")
+            return
         unexpected = sorted(set(files) - AUTOMATION_INFRA_ALLOWLIST)
         if unexpected:
             raise BuildError(
@@ -195,3 +199,5 @@ if __name__ == "__main__":
 # - 2026-08-29 00:16 JST：final promotion validatorをcommitted diff限定にし、QA用未追跡worktree fileを判定対象外化。
 # - 2026-08-28 18:22 JST：promoted HTML/CSSが参照するpublishing bridge assetだけを許可し、原本とのbyte identityを検証。
 # - 2026-08-28 17:12 JST：gate-only登録済みsource/index/registryをreceipt hashで固定する二段階PR検証を追加。
+
+# - 2026-09-02 10:42 JST：新規論考のindex先行入口PR（Markdown正本＋公開HTML）をpublication prerequisiteとして許可。
