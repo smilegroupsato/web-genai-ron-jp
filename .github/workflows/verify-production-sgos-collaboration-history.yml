@@ -1,0 +1,78 @@
+# production verification only; does not deploy or modify site/
+# ページ作成日時：2026-09-02 12:32 JST
+# 最終更新日時：2026-09-02 12:32 JST
+
+name: Verify SGOS collaboration history production
+
+on:
+  push:
+    branches:
+      - "verify-production/sgos-collaboration-history-20260902"
+    paths:
+      - ".github/workflows/verify-production-sgos-collaboration-history.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout publication source
+        uses: actions/checkout@v4
+
+      - name: Fetch live production pages
+        run: |
+          set -euo pipefail
+          article_url="https://genai-ron.jp/article/sgos-collaboration-history/"
+          index_url="https://genai-ron.jp/article/"
+
+          article_code=$(curl --location --silent --show-error --retry 5 --retry-delay 2 --output /tmp/live-article.html --write-out '%{http_code}' "$article_url")
+          index_code=$(curl --location --silent --show-error --retry 5 --retry-delay 2 --output /tmp/live-index.html --write-out '%{http_code}' "$index_url")
+
+          test "$article_code" = "200"
+          test "$index_code" = "200"
+          echo "article HTTP: $article_code"
+          echo "index HTTP: $index_code"
+
+      - name: Verify fixed candidate byte identity
+        run: |
+          set -euo pipefail
+          expected="510ba972bae7fbcc1c27f32f81c3133a9f45a4464c67b4ebf2d0208005b59266"
+          repo_sha=$(sha256sum site/article/sgos-collaboration-history/index.html | awk '{print $1}')
+          live_sha=$(sha256sum /tmp/live-article.html | awk '{print $1}')
+          test "$repo_sha" = "$expected"
+          test "$live_sha" = "$expected"
+          echo "repo SHA-256: $repo_sha"
+          echo "live SHA-256: $live_sha"
+
+      - name: Verify public content contract
+        run: |
+          set -euo pipefail
+          page=/tmp/live-article.html
+          grep -Fq 'AIと話していたら、いつの間にかOSができていた' "$page"
+          grep -Fq 'ある長期対話が、書記局と運転席と統治を必要とするまで' "$page"
+          grep -Fq 'SGOS' "$page"
+          if grep -Fq 'Smile Group OS' "$page"; then
+            echo 'forbidden public name leaked: Smile Group OS' >&2
+            exit 1
+          fi
+          if grep -Fq '更新履歴' "$page"; then
+            echo 'internal update history leaked' >&2
+            exit 1
+          fi
+          if grep -Eqi '(localhost|127\.0\.0\.1|private-user-images|api\.github\.com|raw\.githubusercontent\.com|chatgpt\.com/c/|file://|/srv/|token=|api[_-]?key=|password=)' "$page"; then
+            echo 'private/local/credential-like URL or parameter pattern detected' >&2
+            exit 1
+          fi
+          grep -Fq 'href="/article/sgos-collaboration-history/"' /tmp/live-index.html
+          echo 'public content contract: OK'
+
+      - name: Verify essential public assets
+        run: |
+          set -euo pipefail
+          for path in /assets/theme.css /assets/theme.js; do
+            code=$(curl --location --silent --show-error --retry 5 --retry-delay 2 --output /dev/null --write-out '%{http_code}' "https://genai-ron.jp${path}")
+            test "$code" = "200"
+            echo "$path HTTP: $code"
+          done
