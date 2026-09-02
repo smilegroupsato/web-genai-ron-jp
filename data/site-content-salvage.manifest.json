@@ -992,7 +992,7 @@
       "route": "/article/sgos-collaboration-history/",
       "source_html_path": "site/article/sgos-collaboration-history/index.html",
       "page_type": "article-alias",
-      "title": "GENAI-RON Article｜GENAI-RON",
+      "title": "GENAI-RON Article 03｜GENAI-RON",
       "meta_description": "ChatGPTの会話履歴を一次資料として、仕事・生活・研究・創作が混ざる長期対話から、記録、引継ぎ、正本、Repository Context、運転席、統治が生まれていった過程をたどる私的な事例研究。",
       "canonical_present": true,
       "canonical_value": "https://genai-ron.jp/article/sgos-collaboration-history/",
@@ -1001,7 +1001,8 @@
         "/assets/style-genai-shikumi.css",
         "/assets/theme.css",
         "/publishing/design/tokens.css",
-        "/publishing/design/components.css"
+        "/publishing/design/components.css",
+        "/publishing/design/editorial-article.css"
       ],
       "loaded_js": [
         "/assets/theme.js",
@@ -1028,7 +1029,7 @@
       },
       "metadata_values": {
         "created_at": "2026-08-30 22:59 JST",
-        "updated_at": "2026-09-02 10:45 JST",
+        "updated_at": "2026-09-02 18:11 JST",
         "manuscript_created_at": null,
         "manuscript_updated_at": null,
         "web_migrated_at": null
@@ -1043,10 +1044,9 @@
       ],
       "internal_links": [
         "/",
-        "/series/genai-shikumi-deep-dive/",
-        "/series/genai-shikumi/",
-        "/series/genai-shikumi-technical/",
-        "/article/"
+        "/article/",
+        "/notes/",
+        "/membrane/"
       ],
       "download_links": [],
       "preserve_route": true,
