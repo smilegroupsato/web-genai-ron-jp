@@ -2,7 +2,7 @@
 title: "GENAI-RON｜生成AI論"
 route: "/"
 source_html_path: "site/index.html"
-source_html_sha256: "8f81c99a0bf71e2e0cbec083cddb2d0e043c4d955bc38cae0e65151c8a0e97b1"
+source_html_sha256: "5e7ec5aa29c3ca1508885bb86403cc3579e23ef46ab4c909c320068d742c2657"
 page_type: "home"
 series_or_article: "home"
 order: null
@@ -142,6 +142,12 @@ AIとの対話によって速く生じた理解が、なぜそのまま行動や
 Article / 長篇論考 / 2026 / Understanding, Defense, Action
 
 - [PDF](downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf)
+
+### [AIと話していたら、いつの間にかOSができていた](/article/sgos-collaboration-history/)
+
+ChatGPTエクスポートを一次資料として、仕事・生活・研究・創作が混ざる長期対話からSGOSという協働系が生まれた過程をたどる。
+
+Article / 論考 / 2026 / SGOS, Human-AI Collaboration, History
 
 <a id="notes"></a>
 
