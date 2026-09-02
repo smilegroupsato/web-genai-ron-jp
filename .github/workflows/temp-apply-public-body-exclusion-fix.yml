@@ -74,15 +74,15 @@ jobs:
           assert "<h2>公開節</h2>" in rendered
           print("public body exclusion metadata: OK")
           PY
-          rm -rf /tmp/sgos-public-preview
+          rm -rf _sgos_public_preview_tmp
           python scripts/build_structured_preview.py \
             --source content/article/sgos-collaboration-history/index.md \
-            --preview-root /tmp/sgos-public-preview
-          test -f /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
-          ! grep -Fq '<h2>更新履歴</h2>' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
-          ! grep -Fq 'Smile Group OS' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
-          grep -Fq 'AIと話していたら、いつの間かOSができていた' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html || \
-          grep -Fq 'AIと話していたら、いつの間にかOSができていた' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
+            --preview-root _sgos_public_preview_tmp
+          test -f _sgos_public_preview_tmp/article/sgos-collaboration-history/index.html
+          ! grep -Fq '<h2>更新履歴</h2>' _sgos_public_preview_tmp/article/sgos-collaboration-history/index.html
+          ! grep -Fq 'Smile Group OS' _sgos_public_preview_tmp/article/sgos-collaboration-history/index.html
+          grep -Fq 'AIと話していたら、いつの間にかOSができていた' _sgos_public_preview_tmp/article/sgos-collaboration-history/index.html
+          rm -rf _sgos_public_preview_tmp
 
       - name: Commit builder changes only
         run: |
