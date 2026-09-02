@@ -2,7 +2,7 @@
 """Prepare, verify, promote, and validate one new content-first document.
 
 ページ作成日時：2026-08-11 15:35 JST
-最終更新日時：2026-08-28 15:24 JST
+最終更新日時：2026-09-02 16:59 JST
 """
 
 from __future__ import annotations
@@ -68,10 +68,28 @@ INFRA_ALLOWLIST = {
     "scripts/build_structured_preview.py",
     "scripts/capture_structured_preview.js",
     "scripts/new_document_publication.py",
+    "scripts/validate_new_document_publication_pr.py",
+    "scripts/validate_existing_publication_revision_pr.py",
     "scripts/validate_new_document_visual.js",
     "scripts/validate_structured_preview.py",
     "scripts/validate_site_manifest_routing.py",
 }
+
+
+THEME_INFRA_PREFIXES = (
+    "publishing/themes/",
+    "publishing/design/",
+    "publishing/components/",
+)
+THEME_INFRA_FILES = {
+    "publishing/site.yml",
+    "scripts/build_structured_preview.py",
+    "data/site-content-salvage.manifest.json",
+}
+
+
+def is_publication_theme_infra(path: str) -> bool:
+    return path in THEME_INFRA_FILES or path.startswith(THEME_INFRA_PREFIXES)
 
 
 def sha256(path: Path) -> str:
@@ -458,7 +476,7 @@ def validate_pr(base_ref: str, registry_path: Path) -> None:
             for path in (str(entry["source"]), str(entry["index_source"]))
         }
         allowed = INFRA_ALLOWLIST | registered_gate_paths
-        unexpected = sorted(set(files) - allowed)
+        unexpected = sorted(path for path in files if path not in allowed and not is_publication_theme_infra(path))
         if unexpected:
             raise BuildError(
                 "new-document gate-only PR has unrelated changes:\n"
@@ -546,3 +564,6 @@ if __name__ == "__main__":
     except (BuildError, OSError, ValueError, subprocess.CalledProcessError) as error:
         print(f"ERROR: {error}", file=sys.stderr)
         raise SystemExit(1)
+
+# 更新履歴
+# - 2026-09-02 16:59 JST：publication themeのmanifest/design/componentとtheme登録・builder・salvage manifestを共通infraとして認識。
