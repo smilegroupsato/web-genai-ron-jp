@@ -1,0 +1,138 @@
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+name: Recognize publication theme infrastructure
+
+on:
+  push:
+    branches:
+      - "fix/recognize-publication-theme-infrastructure"
+    paths:
+      - ".github/workflows/temp-recognize-theme-infrastructure.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/recognize-publication-theme-infrastructure
+          fetch-depth: 0
+
+      - name: Patch publication validators
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              if text.count(old) != 1:
+                  raise SystemExit(f"expected one patch point in {path}: {text.count(old)}")
+              p.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          # Canonical helper in new_document_publication.py.
+          replace_once(
+              "scripts/new_document_publication.py",
+              "最終更新日時：2026-08-28 15:24 JST",
+              "最終更新日時：2026-09-02 16:59 JST",
+          )
+          replace_once(
+              "scripts/new_document_publication.py",
+              "}\n\n\ndef sha256(path: Path) -> str:\n",
+              '''}\n\n\nTHEME_INFRA_PREFIXES = (\n    "publishing/themes/",\n    "publishing/design/",\n    "publishing/components/",\n)\nTHEME_INFRA_FILES = {\n    "publishing/site.yml",\n    "scripts/build_structured_preview.py",\n    "data/site-content-salvage.manifest.json",\n}\n\n\ndef is_publication_theme_infra(path: str) -> bool:\n    return path in THEME_INFRA_FILES or path.startswith(THEME_INFRA_PREFIXES)\n\n\ndef sha256(path: Path) -> str:\n''',
+          )
+          replace_once(
+              "scripts/new_document_publication.py",
+              "        unexpected = sorted(set(files) - allowed)\n",
+              "        unexpected = sorted(path for path in files if path not in allowed and not is_publication_theme_infra(path))\n",
+          )
+          with Path("scripts/new_document_publication.py").open("a", encoding="utf-8") as f:
+              f.write("\n# 更新履歴\n# - 2026-09-02 16:59 JST：publication themeのmanifest/design/componentとtheme登録・builder・salvage manifestを共通infraとして認識。\n")
+
+          # Final new-document validator uses canonical helper.
+          replace_once(
+              "scripts/validate_new_document_publication_pr.py",
+              "最終更新日時：2026-09-02 16:59 JST",
+              "最終更新日時：2026-09-02 16:59 JST",
+          )
+          replace_once(
+              "scripts/validate_new_document_publication_pr.py",
+              "    existing_routes,\n",
+              "    existing_routes,\n    is_publication_theme_infra,\n",
+          )
+          replace_once(
+              "scripts/validate_new_document_publication_pr.py",
+              "        unexpected = sorted(set(files) - AUTOMATION_INFRA_ALLOWLIST)\n",
+              "        unexpected = sorted(path for path in files if path not in AUTOMATION_INFRA_ALLOWLIST and not is_publication_theme_infra(path))\n",
+          )
+          replace_once(
+              "scripts/validate_new_document_publication_pr.py",
+              "# 更新履歴\n",
+              "# 更新履歴\n# - 2026-09-02 16:59 JST：theme infrastructure判定を正本helperへ統一し、新theme追加PRをpublication target PRと誤認しないよう修正。\n",
+          )
+
+          # Revision validator uses same helper.
+          replace_once(
+              "scripts/validate_existing_publication_revision_pr.py",
+              "最終更新日時：2026-09-02 12:24 JST",
+              "最終更新日時：2026-09-02 16:59 JST",
+          )
+          replace_once(
+              "scripts/validate_existing_publication_revision_pr.py",
+              "    existing_routes,\n",
+              "    existing_routes,\n    is_publication_theme_infra,\n",
+          )
+          replace_once(
+              "scripts/validate_existing_publication_revision_pr.py",
+              "        unexpected = sorted(set(files) - INFRA_ALLOWLIST)\n",
+              "        unexpected = sorted(path for path in files if path not in INFRA_ALLOWLIST and not is_publication_theme_infra(path))\n",
+          )
+          text = Path("scripts/validate_existing_publication_revision_pr.py").read_text(encoding="utf-8")
+          if "# 更新履歴\n" in text:
+              text = text.replace(
+                  "# 更新履歴\n",
+                  "# 更新履歴\n# - 2026-09-02 16:59 JST：theme infrastructure判定を正本helperへ統一し、revision laneのscope外theme追加を正常委譲。\n",
+                  1,
+              )
+          else:
+              text += "\n# 更新履歴\n# - 2026-09-02 16:59 JST：theme infrastructure判定を正本helperへ統一し、revision laneのscope外theme追加を正常委譲。\n"
+          Path("scripts/validate_existing_publication_revision_pr.py").write_text(text, encoding="utf-8")
+          PY
+
+          python -m py_compile \
+            scripts/new_document_publication.py \
+            scripts/validate_new_document_publication_pr.py \
+            scripts/validate_existing_publication_revision_pr.py
+
+      - name: Verify theme infra classification
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          from new_document_publication import is_publication_theme_infra
+          expected = [
+              "publishing/themes/editorial-article.yml",
+              "publishing/design/editorial-article.css",
+              "publishing/components/editorial-article-header.html",
+              "publishing/site.yml",
+              "scripts/build_structured_preview.py",
+              "data/site-content-salvage.manifest.json",
+          ]
+          for path in expected:
+              assert is_publication_theme_infra(path), path
+          for path in ["site/index.html", "content/article/example.md", "publishing/releases/example.json"]:
+              assert not is_publication_theme_infra(path), path
+          print("theme infrastructure classification: OK")
+          PY
+
+      - name: Commit validator changes only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/new_document_publication.py scripts/validate_new_document_publication_pr.py scripts/validate_existing_publication_revision_pr.py
+          git diff --cached --check
+          git commit -m "Recognize publication theme infrastructure"
+          git push origin HEAD:fix/recognize-publication-theme-infrastructure
