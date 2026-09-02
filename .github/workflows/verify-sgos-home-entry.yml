@@ -1,0 +1,35 @@
+# ページ作成日時：2026-09-02 17:36 JST
+# 最終更新日時：2026-09-02 17:36 JST
+# Read-only production verification; does not deploy or modify site/.
+
+name: Verify SGOS home entry
+
+on:
+  push:
+    branches:
+      - "diagnose/production-route-split-20260902"
+    paths:
+      - ".github/workflows/verify-sgos-home-entry.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production home link and target
+        run: |
+          set -euo pipefail
+          home='https://genai-ron.jp/?cb=202609021736'
+          article='https://genai-ron.jp/article/sgos-collaboration-history/?cb=202609021736'
+          home_code=$(curl -4 -sSL --connect-timeout 10 --max-time 25 -o /tmp/home.html -w '%{http_code}' "$home")
+          article_code=$(curl -4 -sSL --connect-timeout 10 --max-time 25 -o /tmp/article.html -w '%{http_code}' "$article")
+          test "$home_code" = '200'
+          test "$article_code" = '200'
+          grep -Fq 'href="/article/sgos-collaboration-history/"' /tmp/home.html
+          grep -Fq 'AIと話していたら、いつの間にかOSができていた' /tmp/home.html
+          grep -Fq '<h1>AIと話していたら、いつの間にかOSができていた</h1>' /tmp/article.html
+          echo "home HTTP: $home_code"
+          echo "article HTTP: $article_code"
+          echo 'production home entry: OK'
