@@ -77,6 +77,28 @@ def parse_front_matter(text: str) -> Tuple[Dict[str, object], str]:
     return meta, body
 
 
+def filter_public_body(meta: Dict[str, object], markdown: str) -> str:
+    raw = meta.get("exclude_from_public_body", [])
+    if raw in (None, ""):
+        return markdown
+    if not isinstance(raw, list):
+        raise BuildError("exclude_from_public_body must be a list of H2 headings")
+
+    excluded = {str(value).strip() for value in raw if str(value).strip()}
+    if not excluded:
+        return markdown
+
+    output: List[str] = []
+    skipping = False
+    for line in markdown.splitlines(keepends=True):
+        match = re.match(r"^##\s+(.+?)\s*$", line.rstrip("\r\n"))
+        if match:
+            skipping = match.group(1).strip() in excluded
+        if not skipping:
+            output.append(line)
+    return "".join(output)
+
+
 def render_inline(text: str) -> str:
     tokens: List[str] = []
 
@@ -335,7 +357,8 @@ def output_path_for(meta: Dict[str, object], preview_root: Path, write_site: boo
 def build_one(path: Path, preview_root: Path, write_site: bool) -> Path:
     text = path.read_text(encoding="utf-8")
     meta, body = parse_front_matter(text)
-    body_html = render_markdown_body(body)
+    public_body = filter_public_body(meta, body)
+    body_html = render_markdown_body(public_body)
     page = build_article_html(meta, body_html)
     out_path = output_path_for(meta, preview_root, write_site)
     out_path.parent.mkdir(parents=True, exist_ok=True)
