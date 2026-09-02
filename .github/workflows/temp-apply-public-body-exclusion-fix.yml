@@ -19,7 +19,7 @@ jobs:
           ref: fix/honor-public-body-exclusions
           fetch-depth: 0
 
-      - name: Patch builders and regression test
+      - name: Patch publication builders
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -52,35 +52,42 @@ jobs:
               "    body_html = render_markdown_body(body)\n    page = build_article(meta, body, body_html, theme_id)\n",
               "    public_body = filter_public_body(meta, body)\n    body_html = render_markdown_body(public_body)\n    page = build_article(meta, public_body, body_html, theme_id)\n",
           )
-
-          workflow = Path(".github/workflows/validate-publishing-structure.yml")
-          text = workflow.read_text(encoding="utf-8")
-          text = text.replace(
-              "# 最終更新日時：2026-09-02 12:20 JST",
-              "# 最終更新日時：2026-09-02 12:35 JST",
-              1,
-          )
-          marker = "      - name: Confirm structured builder cannot write to site\n"
-          test_step = '''      - name: Validate public body exclusion metadata\n        run: |\n          python - <<'PYTEST'\n          import sys\n          sys.path.insert(0, "scripts")\n          from build_content_pages import filter_public_body, render_markdown_body\n\n          markdown = "Visible intro.\\n\\n## 更新履歴\\ninternal history\\n\\n## 公開節\\nvisible ending\\n"\n          filtered = filter_public_body({"exclude_from_public_body": ["更新履歴"]}, markdown)\n          assert "Visible intro." in filtered\n          assert "更新履歴" not in filtered\n          assert "internal history" not in filtered\n          assert "## 公開節" in filtered\n          assert "visible ending" in filtered\n          rendered = render_markdown_body(filtered)\n          assert "<h2>更新履歴</h2>" not in rendered\n          assert "<h2>公開節</h2>" in rendered\n          print("public body exclusion metadata: OK")\n          PYTEST\n\n'''
-          if text.count(marker) != 1:
-              raise SystemExit("publishing structure test insertion point missing")
-          text = text.replace(marker, test_step + marker, 1)
-          history = "# 更新履歴\n"
-          if history not in text:
-              text += "\n# 更新履歴\n"
-          text = text.replace(
-              history,
-              history + "# - 2026-09-02 12:35 JST：exclude_from_public_body metadataを両builderで適用する回帰検証を追加。\n",
-              1,
-          )
-          workflow.write_text(text, encoding="utf-8")
           PY
 
-      - name: Remove temporary patch workflow and commit
+      - name: Verify exclusion behavior before commit
         run: |
-          git rm .github/workflows/temp-apply-public-body-exclusion-fix.yml
+          python -m py_compile scripts/build_content_pages.py scripts/build_structured_preview.py
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          from build_content_pages import filter_public_body, render_markdown_body
+
+          markdown = "Visible intro.\n\n## 更新履歴\ninternal history\n\n## 公開節\nvisible ending\n"
+          filtered = filter_public_body({"exclude_from_public_body": ["更新履歴"]}, markdown)
+          assert "Visible intro." in filtered
+          assert "更新履歴" not in filtered
+          assert "internal history" not in filtered
+          assert "## 公開節" in filtered
+          assert "visible ending" in filtered
+          rendered = render_markdown_body(filtered)
+          assert "<h2>更新履歴</h2>" not in rendered
+          assert "<h2>公開節</h2>" in rendered
+          print("public body exclusion metadata: OK")
+          PY
+          rm -rf /tmp/sgos-public-preview
+          python scripts/build_structured_preview.py \
+            --source content/article/sgos-collaboration-history/index.md \
+            --preview-root /tmp/sgos-public-preview
+          test -f /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
+          ! grep -Fq '<h2>更新履歴</h2>' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
+          ! grep -Fq 'Smile Group OS' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
+          grep -Fq 'AIと話していたら、いつの間かOSができていた' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html || \
+          grep -Fq 'AIと話していたら、いつの間にかOSができていた' /tmp/sgos-public-preview/article/sgos-collaboration-history/index.html
+
+      - name: Commit builder changes only
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/build_content_pages.py scripts/build_structured_preview.py .github/workflows/validate-publishing-structure.yml
+          git add scripts/build_content_pages.py scripts/build_structured_preview.py
           git commit -m "Honor exclude_from_public_body in publication builders"
           git push origin HEAD:fix/honor-public-body-exclusions
