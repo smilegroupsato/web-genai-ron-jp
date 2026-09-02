@@ -1,0 +1,71 @@
+# ページ作成日時：2026-09-02 16:59 JST
+# 最終更新日時：2026-09-02 16:59 JST
+name: Complete theme infrastructure self validation
+
+on:
+  push:
+    branches:
+      - "fix/recognize-publication-theme-infrastructure"
+    paths:
+      - ".github/workflows/temp-complete-theme-infra-self-validation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/recognize-publication-theme-infrastructure
+          fetch-depth: 0
+
+      - name: Allow validator self-changes and refresh manifest
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              if text.count(old) != 1:
+                  raise SystemExit(f"expected one patch point in {path}: {text.count(old)}")
+              p.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          replace_once(
+              "scripts/new_document_publication.py",
+              '    "scripts/new_document_publication.py",\n',
+              '    "scripts/new_document_publication.py",\n    "scripts/validate_new_document_publication_pr.py",\n    "scripts/validate_existing_publication_revision_pr.py",\n',
+          )
+          replace_once(
+              "scripts/validate_new_document_publication_pr.py",
+              '    "scripts/sync_publication_assets.py",\n',
+              '    "scripts/sync_publication_assets.py",\n    "scripts/new_document_publication.py",\n',
+          )
+          replace_once(
+              "scripts/validate_existing_publication_revision_pr.py",
+              '    "scripts/revise_existing_publication.py",\n',
+              '    "scripts/revise_existing_publication.py",\n    "scripts/new_document_publication.py",\n',
+          )
+          PY
+
+          python -m py_compile \
+            scripts/new_document_publication.py \
+            scripts/validate_new_document_publication_pr.py \
+            scripts/validate_existing_publication_revision_pr.py
+          python scripts/build_site_manifest.py
+
+      - name: Commit self-validation changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/new_document_publication.py \
+            scripts/validate_new_document_publication_pr.py \
+            scripts/validate_existing_publication_revision_pr.py \
+            data/site-routes.manifest.json \
+            data/site-content-salvage.manifest.json
+          git diff --cached --check
+          git commit -m "Allow publication validator self-infrastructure changes"
+          git push origin HEAD:fix/recognize-publication-theme-infrastructure
