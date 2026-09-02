@@ -1,5 +1,5 @@
 # ページ作成日時：2026-09-02 18:14 JST
-# 最終更新日時：2026-09-02 18:14 JST
+# 最終更新日時：2026-09-02 18:16 JST
 name: Verify SGOS editorial candidate
 
 on:
@@ -79,7 +79,7 @@ jobs:
 
       - name: Capture full-page editorial screenshots
         run: |
-          cat > /tmp/capture.js <<'JS'
+          cat > capture-sgos-editorial.js <<'JS'
           const { chromium } = require('playwright');
           (async () => {
             const browser = await chromium.launch({headless:true});
@@ -100,7 +100,7 @@ jobs:
             await browser.close();
           })();
           JS
-          node /tmp/capture.js
+          node capture-sgos-editorial.js
 
       - uses: actions/upload-artifact@v4
         with:
