@@ -18,10 +18,10 @@
     },
     {
       "id": "sgos-collaboration-history",
-      "source": "content/notes/sgos-collaboration-history/index.md",
-      "route": "/notes/sgos-collaboration-history/",
-      "index_source": "content/notes/index.md",
-      "index_html": "site/notes/index.html"
+      "source": "content/article/sgos-collaboration-history/index.md",
+      "route": "/article/sgos-collaboration-history/",
+      "index_source": "content/article/index.md",
+      "index_html": "site/article/index.html"
     }
   ]
 }

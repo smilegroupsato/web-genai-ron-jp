@@ -143,6 +143,12 @@ Article / 長篇論考 / 2026 / Understanding, Defense, Action
 
 - [PDF](downloads/genai-ron_02_understanding-defense-action_2026-05-20.pdf)
 
+### [AIと話していたら、いつの間にかOSができていた](article/sgos-collaboration-history/)
+
+ChatGPTエクスポートを一次資料として、仕事・生活・研究・創作が混ざる長期対話からSGOSという協働系が生まれた過程をたどる。
+
+Article / 2026 / Human-AI Collaboration, Context, Governance
+
 <a id="notes"></a>
 
 Research Notes
@@ -167,11 +173,6 @@ Research Note / 2026 / Literature Review, State Change
 
 Research Note / 2026 / Tool Discovery, Instruction Conflict
 
-### [AIと話していたら、いつの間にかOSができていた](notes/sgos-collaboration-history/)
-
-ChatGPTの会話履歴を一次資料として、長期的な人間・AI協働の中から、記憶、引継ぎ、正本、通信、運転席、統治がどのように必要になったかをたどる事例研究。
-
-Research Note / 2026 / Long-term Collaboration, Context, Memory, Governance
 
 <a id="essays"></a>
 

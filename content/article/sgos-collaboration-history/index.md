@@ -3,16 +3,16 @@ id: "sgos-collaboration-history"
 title: "AIと話していたら、いつの間にかOSができていた"
 subtitle: "ある長期対話が、書記局と運転席と統治を必要とするまで"
 series: "standalone-publication"
-series_label: "GENAI-RON Research Note"
+series_label: "GENAI-RON Article"
 series_order: ""
 order_display: ""
-slug: "/notes/sgos-collaboration-history/"
-canonical_url: "https://genai-ron.jp/notes/sgos-collaboration-history/"
+slug: "/article/sgos-collaboration-history/"
+canonical_url: "https://genai-ron.jp/article/sgos-collaboration-history/"
 description: "ChatGPTの会話履歴を一次資料として、仕事・生活・研究・創作が混ざる長期対話から、記録、引継ぎ、正本、Repository Context、運転席、統治が生まれていった過程をたどる私的な事例研究。"
 theme_id: "default-academic"
 status: "publication-candidate"
 page_created_at: "2026-08-30 22:59 JST"
-last_updated_at: "2026-09-01 08:54 JST"
+last_updated_at: "2026-09-02 10:31 JST"
 exclude_from_public_body:
   - "更新履歴"
   - "内部注記"
@@ -344,7 +344,7 @@ AIにできることが増えるたびに、「それは勝手にやるな」が
 
 私はこの仕組みをOSと呼ぶようになった。
 
-Smile Group OS。後には短くSGOS。
+私はこの仕組みを、やがて「SGOS」と呼ぶようになった。
 
 名前としては分かりやすかった。
 
