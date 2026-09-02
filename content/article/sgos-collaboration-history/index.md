@@ -4,15 +4,15 @@ title: "AIと話していたら、いつの間にかOSができていた"
 subtitle: "ある長期対話が、書記局と運転席と統治を必要とするまで"
 series: "standalone-publication"
 series_label: "GENAI-RON Article"
-series_order: ""
-order_display: ""
+series_order: "03"
+order_display: "03"
 slug: "/article/sgos-collaboration-history/"
 canonical_url: "https://genai-ron.jp/article/sgos-collaboration-history/"
 description: "ChatGPTの会話履歴を一次資料として、仕事・生活・研究・創作が混ざる長期対話から、記録、引継ぎ、正本、Repository Context、運転席、統治が生まれていった過程をたどる私的な事例研究。"
-theme_id: "default-academic"
+theme_id: "editorial-article"
 status: "publication-candidate"
 page_created_at: "2026-08-30 22:59 JST"
-last_updated_at: "2026-09-02 10:45 JST"
+last_updated_at: "2026-09-02 18:11 JST"
 exclude_from_public_body:
   - "更新履歴"
   - "内部注記"
@@ -431,6 +431,8 @@ AIと話し続けていたら、会話のほうが、自分を続けるための
 ここで扱っているのは、ある一人の利用者が生成AIを長期的に使い続けたとき、どのような摩擦が現れ、それへの対処がどのように制度めいた形へ育ったか、という一事例である。
 
 ## 更新履歴
+
+- 2026-09-02 18:11 JST：公開本文は変更せず、論考③を長篇論考用 `editorial-article` theme / Article 03 表示へ切替。
 
 - 2026-09-02 10:45 JST：公開カテゴリを論考として確定し、研究対象名はSGOSのみを使用して正式名称を非公開とする方針を反映。
 
