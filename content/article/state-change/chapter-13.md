@@ -8,16 +8,18 @@ series_or_article: "state-change"
 order: 13
 chapter: 13
 meta_description: "AI側モード：状態変化を支える外部構造"
-canonical: null
+author: "Taku"
+canonical: "https://genai-ron.jp/article/state-change/chapter-13.html"
 created_at: null
 updated_at: null
 manuscript_created_at: null
 manuscript_updated_at: null
 web_migrated_at: null
 metadata_provenance:
+  author: "article_index_visible_author"
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "public_url_verified_2026-11-08"
   created_at: "absent"
   updated_at: "absent"
   manuscript_created_at: "absent"

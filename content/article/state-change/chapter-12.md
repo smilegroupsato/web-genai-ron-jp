@@ -8,16 +8,18 @@ series_or_article: "state-change"
 order: 12
 chapter: 12
 meta_description: "ケースD：業務判断を外部化し、判断資産化した対話"
-canonical: null
+author: "Taku"
+canonical: "https://genai-ron.jp/article/state-change/chapter-12.html"
 created_at: null
 updated_at: null
 manuscript_created_at: null
 manuscript_updated_at: null
 web_migrated_at: null
 metadata_provenance:
+  author: "article_index_visible_author"
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "public_url_verified_2026-11-08"
   created_at: "absent"
   updated_at: "absent"
   manuscript_created_at: "absent"

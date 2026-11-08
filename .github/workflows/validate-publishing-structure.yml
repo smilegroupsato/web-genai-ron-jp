@@ -1,4 +1,4 @@
-# 最終更新日時：2026-09-02 12:20 JST
+# 最終更新日時：2026-11-08 14:25 JST
 
 name: Validate Publishing Structure
 
@@ -16,6 +16,9 @@ on:
       - "scripts/build_promotion_fixture.py"
       - "scripts/validate_structured_preview.py"
       - "scripts/capture_structured_preview.js"
+      - "scripts/maintain_state_change_metadata.py"
+      - "scripts/test_state_change_maintenance.py"
+      - "scripts/validate_state_change_visual.js"
       - "scripts/validate_appearance_modes.js"
       - ".github/workflows/validate-publishing-structure.yml"
   workflow_dispatch:
@@ -293,7 +296,10 @@ jobs:
 
       - name: Confirm only publishing bridge assets may change under site
         run: |
-          if git diff --name-only origin/main...HEAD | grep -Eq '^publishing/releases/[^/]+\.json$'; then
+          if git diff --name-only origin/main...HEAD | grep -Eq '^site/article/state-change/'; then
+            python scripts/validate_new_document_publication_pr.py --base-ref origin/main
+            python scripts/test_state_change_maintenance.py
+          elif git diff --name-only origin/main...HEAD | grep -Eq '^publishing/releases/[^/]+\.json$'; then
             python scripts/validate_new_document_publication_pr.py --base-ref origin/main
             echo "new-document promotion PR: delegated from publishing-structure site-scope check"
           else
@@ -335,6 +341,12 @@ jobs:
           VISUAL_QA_OUTPUT: _structured_visual_qa
         run: node scripts/capture_structured_preview.js
 
+      - name: Validate state-change reference maintenance in desktop and mobile
+        run: |
+          if git diff --name-only origin/main...HEAD | grep -Eq '^site/article/state-change/'; then
+            node scripts/validate_state_change_visual.js
+          fi
+
       - name: Validate Paper / Reading / Archive appearance modes
         env:
           PREVIEW_BASE_URL: http://127.0.0.1:8765
@@ -353,10 +365,12 @@ jobs:
             _promotion_fixture/
             _structured_visual_qa/
             _appearance_visual_qa/
+            _state_change_visual_qa/
           if-no-files-found: error
           retention-days: 7
 
 # 更新履歴
+# - 2026-11-08 14:25 JST：状態変化論考の限定保守を差分一致gateで検証し、18ページのdesktop/mobile検証を追加。
 # - 2026-09-02 12:20 JST：publication receiptを持つ正式new-document promotion PRのsite scope判定を正本final validatorへ委譲。
 # - 2026-09-02 10:42 JST：新規論考のindex先行入口更新としてsite/article/index.htmlを許可。
 # - 2026-08-29 00:20 JST：正式MEMBRANE publication targetを専用publication validatorへ委譲。
