@@ -1,0 +1,17 @@
+{
+  "receipt_version": "0.1",
+  "id": "ai-hack-surfaces",
+  "source": "content/notes/ai-hack-surfaces/index.md",
+  "source_sha256": "8117d41941f788607970ecc0c081a07eeb7ae99b4b54ea7123d580648c560d39",
+  "route": "/notes/ai-hack-surfaces/",
+  "target": "site/notes/ai-hack-surfaces/index.html",
+  "index_source": "content/notes/index.md",
+  "index_source_sha256": "d509482beba7cdc8fb75ac1b8dbbd5b6d478d49be7aad858ad6363b60114cdd9",
+  "index_html": "site/notes/index.html",
+  "index_sha256": "1b220b4441781b5cec88241bc62f8ab575f3a758545a546df29cbfcc7556ee18",
+  "registry": "data/new-document-routes.json",
+  "registry_sha256": "3f6b58ddc882b5cff09bab6798c8807fd4c3a100f17028f45db437f5a04befed",
+  "candidate": "_new_document_candidate/notes/ai-hack-surfaces/index.html",
+  "candidate_sha256": "fb8ff9705f2092215e88874cc263db2f7f2a35e3148429261f99b7e487b58791",
+  "test_only": false
+}

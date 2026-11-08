@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "source_root": "site",
-  "route_count": 104,
+  "route_count": 105,
   "routes": [
     {
       "route": "/article/bibliography.html",
@@ -355,6 +355,12 @@
       "route": "/membrane/",
       "source_html_path": "site/membrane/index.html",
       "page_type": "membrane-index",
+      "preserve_route": true
+    },
+    {
+      "route": "/notes/ai-hack-surfaces/",
+      "source_html_path": "site/notes/ai-hack-surfaces/index.html",
+      "page_type": "note",
       "preserve_route": true
     },
     {
