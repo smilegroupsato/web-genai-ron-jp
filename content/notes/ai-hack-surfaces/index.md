@@ -6,11 +6,11 @@ series_label: "生成AIへのハックは何を書き換えるのか"
 top_href: "/notes/"
 top_label: "研究ノート一覧"
 page_created_at: "2026-11-08 14:53 JST"
-last_updated_at: "2026-11-08 15:36 JST"
+last_updated_at: "2026-11-08 15:53 JST"
 title: "生成AIへのハックは何を書き換えるのか"
 subtitle: "重み、Transformer、tokenizer、指示階層、アプリケーションの攻撃面を分けて読む"
 ページ作成日時: "2026-11-08 14:53 JST"
-最終更新日時: "2026-11-08 15:36 JST"
+最終更新日時: "2026-11-08 15:53 JST"
 status: "publication-candidate"
 page_type: "note"
 slug: "/notes/ai-hack-surfaces/"
@@ -179,9 +179,9 @@ RAGの検索インデックスに不正な文書を追加すれば、その文�
 
 adapterにも注意が必要だ。たとえばLoRA型の更新は、基底行列 `W` を固定したまま、低ランクの追加行列によって有効な変換を変える。
 
-$$
-W_{\mathrm{effective}} = W + \Delta W
-$$
+```text
+W_effective = W + ΔW
+```
 
 基底モデルのファイルが同じでも、adapterが違えば同じ計算とは限らない。「重みファイルのハッシュが一致する」という確認は、読み込まれるadapterや実行設定まで同一であることを保証しない。[7](https://arxiv.org/abs/2106.09685)
 
@@ -385,6 +385,8 @@ Haiouを「developer instructionのハック」と大まかに呼ぶことはで
 17. Anthropic, 2026-09, [Detecting and countering misuse of AI: September 2026](https://www.anthropic.com/threat-intelligence-report-september-2026). Introduction、Cyber operationsのTrendsとGTG-20006。提供事業者による選別された活動報告であり、全情報漏洩に対するAI利用率や因果寄与の統計ではない。
 
 ## 更新履歴
+
+- 2026-11-08 15:53 JST：公開画面で確認したLoRAの数式表記を整形。
 
 - 2026-11-08 15:36 JST：Downloads経由の指示混入とAIによる情報窃取を導入へ追加。実観測・実証・将来リスクを区別し、指示階層と設定の永続化を再レビュー。
 
