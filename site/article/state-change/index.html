@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="Taku">
   <title>生成AIとの対話における状態変化とその一回性・不可逆性について</title>
-  <meta name="description" content="本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れ">
+  <meta name="description" content="本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れない。">
+  <link rel="canonical" href="https://genai-ron.jp/article/state-change/">
   <link rel="stylesheet" href="../../assets/style_article1.v5-6.css">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="生成AIとの対話における状態変化とその一回性・不可逆性について">
-  <meta property="og:description" content="本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れ">
+  <meta property="og:description" content="本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れない。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="../../assets/og.svg">
   <link rel="stylesheet" href="../../assets/theme.css">
@@ -31,7 +33,7 @@
   <div class="side-toc-inner">
     <p class="side-toc-label">論考① 目次</p>
     <nav class="side-toc-nav">
-      <a class="side-toc-link current" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link current" href="./"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
       <a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
       <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
       <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
@@ -55,7 +57,7 @@
 <details class="mobile-toc">
   <summary>論考① 目次｜目次</summary>
   <nav>
-      <a class="side-toc-link current" href="state-change/"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
+      <a class="side-toc-link current" href="./"><span class="side-toc-num">Top</span><span>論考①トップ</span></a>
       <a class="side-toc-link" href="chapter-01.html"><span class="side-toc-num">1</span><span>先行研究の予備的配置</span></a>
       <a class="side-toc-link" href="chapter-02.html"><span class="side-toc-num">2</span><span>本稿の方法</span></a>
       <a class="side-toc-link" href="chapter-03.html"><span class="side-toc-num">3</span><span>問題設定</span></a>
@@ -86,7 +88,7 @@
     <p>本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れない。一回性と不可逆性を伴うこの過程を、本稿では履歴生成として捉え、プロンプトエンジニアリング中心の理解を乗り越えるための理論的枠組みを提示する。</p>
   </header>
   <div class="article-body">
-    <h2>目次</h2>
+    <h2 id="contents">目次</h2>
     <ol class="toc"><li><a href="chapter-01.html"><span class="no">第1章</span><span>先行研究の予備的配置</span></a></li><li><a href="chapter-02.html"><span class="no">第2章</span><span>本稿の方法</span></a></li><li><a href="chapter-03.html"><span class="no">第3章</span><span>問題設定</span></a></li><li><a href="chapter-04.html"><span class="no">第4章</span><span>プロンプトエンジニアリング的理解の限界</span></a></li><li><a href="chapter-05.html"><span class="no">第5章</span><span>対話は情報交換ではなく状態変化である</span></a></li><li><a href="chapter-06.html"><span class="no">第6章</span><span>一回性：同じ会話が二度と起きない理由</span></a></li><li><a href="chapter-07.html"><span class="no">第7章</span><span>不可逆性：巻き戻せないのはログではなく主体状態である</span></a></li><li><a href="chapter-08.html"><span class="no">第8章</span><span>対話事例記録から見る状態変化</span></a></li><li><a href="chapter-09.html"><span class="no">第9章</span><span>ケースA：関係調整の返信相談から生活運用の再設計へ</span></a></li><li><a href="chapter-10.html"><span class="no">第10章</span><span>ケースB：生成AI理解から自己理解へ反転した対話</span></a></li><li><a href="chapter-11.html"><span class="no">第11章</span><span>ケースC：曖昧な実務要望が外部確認に耐える作業へ変わる</span></a></li><li><a href="chapter-12.html"><span class="no">第12章</span><span>ケースD：業務判断を外部化し、判断資産化した対話</span></a></li><li><a href="chapter-13.html"><span class="no">第13章</span><span>AI側モード：状態変化を支える外部構造</span></a></li><li><a href="chapter-14.html"><span class="no">第14章</span><span>状態変化ログという方法</span></a></li><li><a href="chapter-15.html"><span class="no">第15章</span><span>依存性と倫理：世界への橋か、世界の代替か</span></a></li><li><a href="chapter-16.html"><span class="no">第16章</span><span>結論：生成AIとの対話は不可逆な履歴生成である</span></a></li></ol>
     <div class="cta">
       <a class="button primary" href="chapter-01.html">第1章から読む</a>

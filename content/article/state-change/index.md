@@ -7,17 +7,19 @@ page_type: "article-index"
 series_or_article: "state-change"
 order: 0
 chapter: null
-meta_description: "本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れ"
-canonical: null
+meta_description: "本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れない。"
+author: "Taku"
+canonical: "https://genai-ron.jp/article/state-change/"
 created_at: null
 updated_at: null
 manuscript_created_at: null
 manuscript_updated_at: null
 web_migrated_at: null
 metadata_provenance:
+  author: "article_index_visible_author"
   title: "visible_body"
   meta_description: "html_head"
-  canonical: "absent"
+  canonical: "public_url_verified_2026-11-08"
   created_at: "absent"
   updated_at: "absent"
   manuscript_created_at: "absent"

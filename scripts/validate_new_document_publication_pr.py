@@ -73,6 +73,14 @@ def validate(base_ref: str, registry_raw: str) -> None:
     if not files:
         raise BuildError("no changed files detected")
 
+    if any(path.startswith("site/article/state-change/") for path in files):
+        from maintain_state_change_metadata import validate_revision
+        try:
+            validate_revision(base_ref, files)
+        except ValueError as exc:
+            raise BuildError(str(exc)) from exc
+        return
+
     revision_records = [
         path
         for path in files
