@@ -1058,8 +1058,8 @@
       "page_type": "bibliography",
       "title": "ビブリオグラフィー｜生成AI論",
       "meta_description": "本論考の参考文献一覧。",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/bibliography.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1105,7 +1105,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1123,7 +1123,7 @@
         "/article/state-change/chapter-15.html",
         "/article/state-change/chapter-16.html",
         "/article/state-change/bibliography.html",
-        "/article/notes/themes.html"
+        "/notes/themes.html"
       ],
       "download_links": [],
       "preserve_route": true,
@@ -1135,8 +1135,8 @@
       "page_type": "article-chapter",
       "title": "第1章｜先行研究の予備的配置｜生成AI論",
       "meta_description": "先行研究の予備的配置",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-01.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1182,7 +1182,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1212,8 +1212,8 @@
       "page_type": "article-chapter",
       "title": "第2章｜本稿の方法｜生成AI論",
       "meta_description": "本稿の方法",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-02.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1259,7 +1259,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1288,8 +1288,8 @@
       "page_type": "article-chapter",
       "title": "第3章｜問題設定｜生成AI論",
       "meta_description": "問題設定",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-03.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1335,7 +1335,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1364,8 +1364,8 @@
       "page_type": "article-chapter",
       "title": "第4章｜プロンプトエンジニアリング的理解の限界｜生成AI論",
       "meta_description": "プロンプトエンジニアリング的理解の限界",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-04.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1411,7 +1411,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1440,8 +1440,8 @@
       "page_type": "article-chapter",
       "title": "第5章｜対話は情報交換ではなく状態変化である｜生成AI論",
       "meta_description": "対話は情報交換ではなく状態変化である",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-05.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1487,7 +1487,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1516,8 +1516,8 @@
       "page_type": "article-chapter",
       "title": "第6章｜一回性：同じ会話が二度と起きない理由｜生成AI論",
       "meta_description": "一回性：同じ会話が二度と起きない理由",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-06.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1563,7 +1563,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1592,8 +1592,8 @@
       "page_type": "article-chapter",
       "title": "第7章｜不可逆性：巻き戻せないのはログではなく主体状態である｜生成AI論",
       "meta_description": "不可逆性：巻き戻せないのはログではなく主体状態である",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-07.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1639,7 +1639,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1668,8 +1668,8 @@
       "page_type": "article-chapter",
       "title": "第8章｜対話事例記録から見る状態変化｜生成AI論",
       "meta_description": "対話事例記録から見る状態変化",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-08.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1715,7 +1715,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1744,8 +1744,8 @@
       "page_type": "article-chapter",
       "title": "第9章｜ケースA：関係調整の返信相談から生活運用の再設計へ｜生成AI論",
       "meta_description": "ケースA：関係調整の返信相談から生活運用の再設計へ",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-09.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1791,7 +1791,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1820,8 +1820,8 @@
       "page_type": "article-chapter",
       "title": "第10章｜ケースB：生成AI理解から自己理解へ反転した対話｜生成AI論",
       "meta_description": "ケースB：生成AI理解から自己理解へ反転した対話",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-10.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1867,7 +1867,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1896,8 +1896,8 @@
       "page_type": "article-chapter",
       "title": "第11章｜ケースC：曖昧な実務要望が外部確認に耐える作業へ変わる｜生成AI論",
       "meta_description": "ケースC：曖昧な実務要望が外部確認に耐える作業へ変わる",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-11.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -1943,7 +1943,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -1972,8 +1972,8 @@
       "page_type": "article-chapter",
       "title": "第12章｜ケースD：業務判断を外部化し、判断資産化した対話｜生成AI論",
       "meta_description": "ケースD：業務判断を外部化し、判断資産化した対話",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-12.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2019,7 +2019,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -2048,8 +2048,8 @@
       "page_type": "article-chapter",
       "title": "第13章｜AI側モード：状態変化を支える外部構造｜生成AI論",
       "meta_description": "AI側モード：状態変化を支える外部構造",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-13.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2095,7 +2095,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -2124,8 +2124,8 @@
       "page_type": "article-chapter",
       "title": "第14章｜状態変化ログという方法｜生成AI論",
       "meta_description": "状態変化ログという方法",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-14.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2171,7 +2171,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -2200,8 +2200,8 @@
       "page_type": "article-chapter",
       "title": "第15章｜依存性と倫理：世界への橋か、世界の代替か｜生成AI論",
       "meta_description": "依存性と倫理：世界への橋か、世界の代替か",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-15.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2247,7 +2247,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -2276,8 +2276,8 @@
       "page_type": "article-chapter",
       "title": "第16章｜結論：生成AIとの対話は不可逆な履歴生成である｜生成AI論",
       "meta_description": "結論：生成AIとの対話は不可逆な履歴生成である",
-      "canonical_present": false,
-      "canonical_value": null,
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/chapter-16.html",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2323,7 +2323,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
@@ -2351,9 +2351,9 @@
       "source_html_path": "site/article/state-change/index.html",
       "page_type": "article-index",
       "title": "生成AIとの対話における状態変化とその一回性・不可逆性について",
-      "meta_description": "本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れ",
-      "canonical_present": false,
-      "canonical_value": null,
+      "meta_description": "本稿は、生成AIとの対話を、単なる情報取得や出力生成ではなく、対話者の問い・自己像・評価軸・行動可能性を変化させる出来事として捉える。ここでいう状態変化とは、新しい情報を得ることではなく、何を問題と見なし、どこから問い、次に何を問えるかが変わることである。そのような対話は、反復可能な壁打ちでありながら、同じ会話へは戻れない。",
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/article/state-change/",
       "body_class": null,
       "loaded_css": [
         "/assets/style_article1.v5-6.css",
@@ -2399,7 +2399,7 @@
       "internal_links": [
         "/index.html",
         "/article/index.html",
-        "/article/state-change/state-change/",
+        "/article/state-change/",
         "/article/state-change/chapter-01.html",
         "/article/state-change/chapter-02.html",
         "/article/state-change/chapter-03.html",
