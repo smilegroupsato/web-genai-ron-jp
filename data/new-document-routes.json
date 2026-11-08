@@ -22,6 +22,13 @@
       "route": "/article/sgos-collaboration-history/",
       "index_source": "content/article/index.md",
       "index_html": "site/article/index.html"
+    },
+    {
+      "id": "ai-hack-surfaces",
+      "source": "content/notes/ai-hack-surfaces/index.md",
+      "route": "/notes/ai-hack-surfaces/",
+      "index_source": "content/notes/index.md",
+      "index_html": "site/notes/index.html"
     }
   ]
 }
