@@ -249,24 +249,7 @@ jobs:
           NOTES_PREVIEW_ROUTE: ${{ steps.visual-route.outputs.route }}
           NOTES_VISUAL_QA_OUTPUT: _notes_visual_qa
         run: |
-          if git diff --name-only origin/main...HEAD | grep -Eq '^publishing/releases/[^/]+\.json
-
-      - name: Upload notes preview
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: notes-publication-preview
-          path: |
-            _notes_publish_preview/
-            _notes_source_check_preview/
-            _notes_history_check/
-            _notes_history_timeline_check/
-            _notes_collection_index_check/
-            _notes_themes_check/
-            _notes_visual_qa/
-          if-no-files-found: ignore
-          retention-days: 7
-; then
+          if git diff --name-only origin/main...HEAD | grep -Eq '^publishing/releases/[^/]+\.json$'; then
             NEW_DOCUMENT_PREVIEW_BASE_URL="$NOTES_PREVIEW_BASE_URL" \
             NEW_DOCUMENT_PREVIEW_ROUTE="$NOTES_PREVIEW_ROUTE" \
             NEW_DOCUMENT_VISUAL_QA_OUTPUT="$NOTES_VISUAL_QA_OUTPUT" \
