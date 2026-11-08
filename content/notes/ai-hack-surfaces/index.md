@@ -314,11 +314,17 @@ Haiouを「developer instructionのハック」と大まかに呼ぶことはで
 
 報道や実験を読むときは、次の順で確認すると、対象が明確になる。
 
+
 1. **入口**：攻撃者は何に触れられたか。入力、文書、設定、重み、アプリ、ツールのどれか。
+
 2. **直接の変更**：具体的に何が書き換わったか。入力内容の変化と、プログラムやパラメータの変更を分ける。
+
 3. **通過した境界**：資料が命令として扱われたのか、出力が操作として実行されたのか。
+
 4. **観測された結果**：回答が変わったのか、外部状態まで変わったのか。
+
 5. **持続の場所**：会話、保存情報、設定、モデル、アプリのどこに残るのか。
+
 6. **証拠の範囲**：確認済みの現象と、可能性として述べられた影響を分ける。
 
 この枠組みでHaiouを読むと、直接の変更対象はエージェントの指示・設定であり、その後のモデル入力と応答へ影響する。重みやTransformerの演算を直接変更した事例として扱うべきではない。
@@ -342,23 +348,40 @@ Haiouを「developer instructionのハック」と大まかに呼ぶことはで
 
 参照確認日：2026-11-08。サイト内リンクは技術概念を補う解説、以下は外部の一次資料である。実験結果は各論文の対象・条件に限って読む。
 
+
 1. Check Point Research, 2026-11-03, [Free the Model, Sell the Gateway: Prompt Adware hidden in Jailbreak Bundles](https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/). Haiouの分析対象、変更される指示、広告挿入、帰属に関する留保。一次調査報告であり、本稿による再現実験ではない。
+
 2. Vaswani et al., 2017, [Attention Is All You Need](https://arxiv.org/abs/1706.03762). 特に§3.2のattentionと§3.3のfeed-forward network。原論文のencoder-decoder全体と、現在のdecoder-only LLMは同一構成ではない。
+
 3. Bai et al., 2022, [Constitutional AI: Harmlessness from AI Feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback). 原則を用いた修正とAI評価による学習。
+
 4. OpenAI, 2024-12-20, [Deliberative alignment: reasoning enables safer language models](https://openai.com/index/deliberative-alignment/). 安全仕様とその適用を学習する手法。
+
 5. Anthropic, 2025-08-12, [Building safeguards for Claude](https://www.anthropic.com/news/building-safeguards-for-claude). 学習、指示、分類器、利用制限を含む多層の対策。
+
 6. Qi et al., 2023, [Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!](https://arxiv.org/abs/2310.03693). 追加学習に伴う安全性低下。本文ではabstractに記された実験対象と結論の範囲を用いた。
+
 7. Hu et al., 2021, [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685). 基底の重みを固定した低ランクの適応。
+
 8. Arditi et al., 2024, [Refusal in Language Models Is Mediated by a Single Direction](https://arxiv.org/abs/2406.11717). §2〜4で内部表現への介入と重み編集を区別。拒否の研究を、倫理全体の局在と同一視しない。
+
 9. Hugging Face, [Caching](https://huggingface.co/docs/transformers/cache_explanation). 推論時にkey/valueを再利用する仕組み。
+
 10. Hugging Face, [The tokenization pipeline](https://huggingface.co/docs/tokenizers/pipeline). 正規化、前分割、tokenization model、後処理の区別。
+
 11. Hugging Face, [Chat templates](https://huggingface.co/docs/transformers/chat_templating). roleとcontentからモデル固有の会話形式を構築する処理。
+
 12. Wallace et al., 2024, [The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions](https://arxiv.org/abs/2404.13208). 指示の優先順位を学習する研究。本文はabstractに記された目的・方法の範囲を用いた。
+
 13. Greshake et al., 2023, [Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection](https://arxiv.org/abs/2302.12173). 取得データを経由する間接的な指示混入。本文はabstractに記された概念の範囲を用いた。
+
 14. OpenAI, [Custom instructions with AGENTS.md](https://developers.openai.com/codex/guides/agents-md). 指示ファイルの探索・適用。製品のloader規則とAPI上のroleを区別する。
+
 15. Model Context Protocol, [Tools — specification 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18/server/tools). ツール定義、呼び出し、結果、安全上の考慮事項。版を固定して参照。
 
+
 16. Gal Weizman and Omer Samet / Forever Security, 2026-10-22, [Markdown Is the New Executable: Attackers Are Dropping Agent Instructions Into Your Downloads Folder From the Web](https://forever.security/blog/hijacking-ai-agents-via-downloads-folder). 「It all started with an alert」と「2. Claude」を区別。実端末での発見と研究者の実証、投入経路不明、対象環境の条件を切り分けて参照。
+
 17. Anthropic, 2026-09, [Detecting and countering misuse of AI: September 2026](https://www.anthropic.com/threat-intelligence-report-september-2026). Introduction、Cyber operationsのTrendsとGTG-20006。提供事業者による選別された活動報告であり、全情報漏洩に対するAI利用率や因果寄与の統計ではない。
 
 ## 更新履歴
