@@ -1,7 +1,7 @@
 {
   "manifest_version": 1,
   "source_root": "site",
-  "page_count": 104,
+  "page_count": 105,
   "pages": [
     {
       "route": "/article/bibliography.html",
@@ -3986,6 +3986,82 @@
       "salvage_status": "needs_parity_check"
     },
     {
+      "route": "/notes/ai-hack-surfaces/",
+      "source_html_path": "site/notes/ai-hack-surfaces/index.html",
+      "page_type": "note",
+      "title": "生成AIへのハックは何を書き換えるのか｜GENAI-RON",
+      "meta_description": "生成AIへの攻撃を、直接変更される対象・必要な権限・効果の持続性から分類する技術解説。Haiouの指示改変を起点に、重みとactivation、tokenizerと入力、developer指示と外部資料、tool callと実行権限を区別する。",
+      "canonical_present": true,
+      "canonical_value": "https://genai-ron.jp/notes/ai-hack-surfaces/",
+      "body_class": "series-page series-page-compact",
+      "loaded_css": [
+        "/assets/style-genai-shikumi.css",
+        "/assets/theme.css",
+        "/publishing/design/tokens.css",
+        "/publishing/design/components.css"
+      ],
+      "loaded_js": [
+        "/assets/theme.js",
+        "/publishing/behaviors/reading-preferences-adapter.js"
+      ],
+      "content_source_status": "content_source_exists",
+      "corresponding_content_path": "content/notes/ai-hack-surfaces/index.md",
+      "metadata_locations": {
+        "created_at": [
+          "html_comment",
+          "markdown_frontmatter"
+        ],
+        "updated_at": [
+          "html_comment",
+          "markdown_frontmatter"
+        ],
+        "manuscript_created_at": [
+          "absent"
+        ],
+        "manuscript_updated_at": [
+          "absent"
+        ],
+        "web_migrated_at": [
+          "absent"
+        ]
+      },
+      "metadata_values": {
+        "created_at": "2026-11-08 14:53 JST",
+        "updated_at": "2026-11-08 15:36 JST",
+        "manuscript_created_at": null,
+        "manuscript_updated_at": null,
+        "web_migrated_at": null
+      },
+      "created_at_known": true,
+      "updated_at_known": true,
+      "manuscript_created_at_known": false,
+      "manuscript_updated_at_known": false,
+      "web_migrated_at_known": false,
+      "assets": [
+        "/assets/favicon.svg"
+      ],
+      "internal_links": [
+        "/",
+        "/series/genai-shikumi-deep-dive/",
+        "/series/genai-shikumi/",
+        "/series/genai-shikumi-technical/",
+        "/article/",
+        "/series/genai-shikumi-deep-dive/01-prompt-compilation/",
+        "/series/genai-shikumi-deep-dive/08-architecture/",
+        "/series/genai-shikumi-technical/01-memory/",
+        "/series/genai-shikumi-deep-dive/03-context/",
+        "/series/genai-shikumi-deep-dive/06-memory/",
+        "/series/genai-shikumi-deep-dive/02-instruction-hierarchy/",
+        "/series/genai-shikumi-deep-dive/04-tool-execution-loop/",
+        "/series/genai-shikumi-deep-dive/05-structured-output/",
+        "/series/genai-shikumi-deep-dive/07-agentic-loop/",
+        "/notes/"
+      ],
+      "download_links": [],
+      "preserve_route": true,
+      "salvage_status": "needs_parity_check"
+    },
+    {
       "route": "/notes/history-of-generative-ai/",
       "source_html_path": "site/notes/history-of-generative-ai/index.html",
       "page_type": "note",
@@ -4174,7 +4250,8 @@
         "/series/genai-shikumi/",
         "/notes/history-of-generative-ai/",
         "/notes/state-change-lit-review/",
-        "/notes/tool-discovery-layer/"
+        "/notes/tool-discovery-layer/",
+        "/notes/ai-hack-surfaces/"
       ],
       "download_links": [],
       "preserve_route": true,
