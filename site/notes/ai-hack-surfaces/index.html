@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/publishing/design/components.css">
 </head>
 <body class="series-page series-page-compact">
-  <!-- Generated from content/ + publishing/ structured preview / Theme manifest：publishing/themes/default.yml / ページ作成日時：2026-11-08 14:53 JST / 最終更新日時：2026-11-08 15:36 JST / Notion原稿作成日時： / Notion原稿最終更新日時： / Web移植日時： -->
+  <!-- Generated from content/ + publishing/ structured preview / Theme manifest：publishing/themes/default.yml / ページ作成日時：2026-11-08 14:53 JST / 最終更新日時：2026-11-08 15:53 JST / Notion原稿作成日時： / Notion原稿最終更新日時： / Web移植日時： -->
 <header class="series-header">
   <div class="series-header-inner">
     <a class="series-brand" href="/"><span class="series-brand-main">GENAI-RON</span><span class="series-brand-sub">🧠生成AI論🥦</span></a>
@@ -293,7 +293,8 @@ O = A V
 <p>学習データの汚染では、攻撃者が直接モデルのファイルへ書き込まなくても、学習に採用される例や評価信号へ影響を与えられれば、結果のパラメータへ影響しうる。この場合は、侵入口がデータ、持続する変更先がモデルである。</p>
 <p>追加学習については、Qiらが2023年、当時のGPT-3.5 TurboとLlama 2系モデルを対象に、安全上の振る舞いが追加学習後に弱まる場合を報告している。善意の用途向けデータでも影響が生じた。この結果は、安全性が追加学習を経ても自動的に保存されるとは限らないことを示すが、現在の全モデルに同じ結果が当てはまるという意味ではない。<a href="https://arxiv.org/abs/2310.03693">6</a></p>
 <p>adapterにも注意が必要だ。たとえばLoRA型の更新は、基底行列 <code>W</code> を固定したまま、低ランクの追加行列によって有効な変換を変える。</p>
-<p>$$ W_{\mathrm{effective}} = W + \Delta W $$</p>
+<pre class="article-phrase"><code>W_effective = W + ΔW
+</code></pre>
 <p>基底モデルのファイルが同じでも、adapterが違えば同じ計算とは限らない。「重みファイルのハッシュが一致する」という確認は、読み込まれるadapterや実行設定まで同一であることを保証しない。<a href="https://arxiv.org/abs/2106.09685">7</a></p>
 <p>モデルの変更を調査するなら、入力の履歴だけでなく、checkpointの識別子、adapter、学習履歴、読み込み設定を確認する必要がある。</p>
 <h2>7. Transformerの関数や推論中の状態を変更する攻撃</h2>
